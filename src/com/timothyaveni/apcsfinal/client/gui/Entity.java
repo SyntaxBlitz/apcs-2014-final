@@ -13,13 +13,17 @@ public abstract class Entity {
 		this.height = height;
 		this.width = width;
 	}
+	
 	public String getName(){
 		return name;
 	}
+	
 	public int getHeight(){
 		return height;
 	}
+	
 	public int getWidth(){
 		return width;
 	}
+	
 }
