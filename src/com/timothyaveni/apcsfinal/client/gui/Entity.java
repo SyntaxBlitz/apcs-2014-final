@@ -2,10 +2,10 @@ package com.timothyaveni.apcsfinal.client.gui;
 
 public abstract class Entity {
 
-	public int height;
-	public int width;
-	public String name;
-	public String fileLocation;
+	public int height; //height of the entity in pixels
+	public int width; //width of the entity in pixels
+	public String name; //name of the entity in terms of type (so Tank's name is Tank)
+	public String fileLocation; //stream that represents the files location in the res folder
 	
 	public Entity (String name, String location, int height, int width){
 		this.name = name;
@@ -24,6 +24,10 @@ public abstract class Entity {
 	
 	public int getWidth(){
 		return width;
+	}
+	
+	public String getFileLocation(){
+		return fileLocation;
 	}
 	
 }
