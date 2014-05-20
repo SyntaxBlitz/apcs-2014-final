@@ -60,14 +60,17 @@ public class MapCanvas extends Canvas {
 		
 		//This is what chooses what to display (in this instance, a green field)
 		// [[[[[ WILL BE CHANGED LATER ]]]]]
+		// Also not working currently
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, getWidth(), getHeight()); //this fills the JFrame with the color
+		
+		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
 		g.dispose(); //releases system resources the graphics object is taking up
 		bs.show(); //shows the frame
 	}
 	
-	public void main(String[] args){
+	public static void main(String[] args){
 		MapCanvas m = new MapCanvas(7);
 		m.render();
 	}
