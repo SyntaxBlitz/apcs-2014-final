@@ -1,7 +1,7 @@
 package com.timothyaveni.apcsfinal.client;
 
 public class Client {
-	private final double FPS = 30.0;
+	private static final double FPS = 30.0;
 	/**render environment 
 	 * 
 	 * @param args
@@ -12,7 +12,7 @@ public class Client {
 	}
 	
 	public static void gameLoop (boolean isRunning) {
-		long lastLoopTime = System.nanoTime();
+		long lastLoopTime;
 		
 		while(isRunning){
 			lastLoopTime = System.nanoTime();
@@ -21,7 +21,7 @@ public class Client {
 			//move sprites
 			//render environment
 			
-			try{Thread.sleep((long)(1000000000 / FPS - (System.nanoTime()-lastLoopTime)));
+			try{Thread.sleep((long)(1000000000 / FPS - (System.nanoTime() - lastLoopTime)));
 			
 			} catch(InterruptedException e){}
 			
