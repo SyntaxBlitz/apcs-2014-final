@@ -1,10 +1,7 @@
 package com.timothyaveni.apcsfinal.client.gui;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
@@ -15,16 +12,11 @@ public class MapCanvas extends Canvas {
 	public final int HEIGHT = WIDTH / 4 * 3;
 	public final String NAME = "Saviors of Gundthor";
 
-	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-	private int scale;
 	private JFrame frame;
-	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+	//private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
 	// Constructor :D
-	public MapCanvas(int scale) {
-
-		// sets scale of the frame
-		this.scale = scale;
+	public MapCanvas() {
 
 		// constructs the frame and sets the layout.
 		frame = new JFrame(NAME);
@@ -47,10 +39,12 @@ public class MapCanvas extends Canvas {
 		// field)
 		// [[[[[ WILL BE CHANGED LATER ]]]]]
 
-		g.setColor(Color.GREEN);
-		g.fillRect(0, 0, WIDTH, HEIGHT); // this fills the JFrame with the color
-
-		// g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		//g.setColor(Color.GREEN);
+		//g.fillRect(0, 0, WIDTH, HEIGHT); // this fills the JFrame with the color
+		
+		Map m = new Map("Map.png"); //would normally add JPanel returned by map to Canvas
+		frame.add(m.render());
+		frame.pack();
 		// g.drawImage
 
 		g.dispose(); // releases system resources the graphics object is taking
@@ -63,7 +57,7 @@ public class MapCanvas extends Canvas {
 	}
 
 	public static void main(String[] args) {
-		MapCanvas m = new MapCanvas(1);
+		MapCanvas m = new MapCanvas();
 		// m.render();
 	}
 }
