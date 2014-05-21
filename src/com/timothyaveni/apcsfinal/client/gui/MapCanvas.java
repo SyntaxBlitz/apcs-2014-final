@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 public class MapCanvas extends Canvas {
 	
 	private static final long serialVersionUID = 1L;
-	public final int WIDTH = 128;
+	public final int WIDTH = 1024;
 	public final int HEIGHT = WIDTH/12 * 9;
 	public final String NAME = "Saviors of Gundthor";
 	
@@ -51,16 +51,18 @@ public class MapCanvas extends Canvas {
 	
 	public void render(){
 		BufferStrategy bs = getBufferStrategy(); //Object that allows us to organize things on the canvas
-		if(bs == null){
+		if (bs == null){
 			createBufferStrategy(3); //If bs is null, it will create a bufferStrategy of the value 3 which reduces tearing and cross pixelation.
 			return;
 		}
 		
+
 		Graphics g = bs.getDrawGraphics();
 		
 		//This is what chooses what to display (in this instance, a green field)
 		// [[[[[ WILL BE CHANGED LATER ]]]]]
 		// Also not working currently
+		
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, getWidth(), getHeight()); //this fills the JFrame with the color
 		
@@ -71,7 +73,7 @@ public class MapCanvas extends Canvas {
 	}
 	
 	public static void main(String[] args){
-		MapCanvas m = new MapCanvas(7);
+		MapCanvas m = new MapCanvas(1);
 		m.render();
 	}
 }
