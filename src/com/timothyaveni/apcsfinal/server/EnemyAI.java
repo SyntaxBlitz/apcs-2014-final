@@ -2,10 +2,7 @@ package com.timothyaveni.apcsfinal.server;
 
 import com.timothyaveni.apcsfinal.client.*;
 
-public interface EnemyAI {
-		private Location loc;
-		private Location playerLoc;
-				
+public interface EnemyAI {	
 		
 		public Location trackPlayer();
 		
