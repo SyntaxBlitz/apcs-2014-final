@@ -43,9 +43,10 @@ public class MapCanvas extends Canvas {
 		//g.fillRect(0, 0, WIDTH, HEIGHT); // this fills the JFrame with the color
 		
 		Map m = new Map("E:\\Map.png"); //would normally add JPanel returned by map to Canvas
-		frame.add(m);
+		//frame.add(m);
+		g.drawImage(m.getPic(), 0, 0, 1024, 768, null);
 		frame.pack();
-		// g.drawImage
+		
 
 		//g.dispose(); // releases system resources the graphics object is taking
 						// up
