@@ -13,7 +13,7 @@ public class MapCanvas extends Canvas {
 
 	// Constructor :D
 	public MapCanvas() {
-
+		super();
 	}
 
 	public void render(Graphics g) {

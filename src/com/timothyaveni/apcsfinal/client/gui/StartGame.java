@@ -6,9 +6,8 @@ public class StartGame {
 		GameFrame newGame = new GameFrame("Saviors of Gundthor");
 		MenuPanel menu = new MenuPanel();
 		MapCanvas map = new MapCanvas();
-		newGame.close();
-		newGame.changeFrame(map);
-		newGame.close();
-		newGame.changeFrame(map);
+		newGame.changeFrame(menu);
+		//newGame.close();
+		//newGame.changeFrame(map);
 	}
 }
