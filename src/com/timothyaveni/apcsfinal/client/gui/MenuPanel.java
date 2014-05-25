@@ -13,13 +13,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class MenuPanel extends JPanel implements ActionListener{
-	
+public class MenuPanel extends JPanel implements ActionListener {
+
 	private JButton joinServer, options, exit;
-	private ImageIcon exitIcon, optionsIcon, joinServerIcon, exitHighlighted, optionsHighlighted, joinServerHighlighted;
+	private ImageIcon exitIcon, optionsIcon, joinServerIcon, exitHighlighted, optionsHighlighted,
+			joinServerHighlighted;
 	private BufferedImage menuBackground;
-	
-	public MenuPanel(){
+
+	public MenuPanel() {
 		super();
 		joinServer = new JButton();
 		options = new JButton();
@@ -35,9 +36,9 @@ public class MenuPanel extends JPanel implements ActionListener{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		this.setLayout(new FlowLayout());
-		
+
 		joinServer.setIcon(joinServerIcon);
 		exit.setIcon(exitIcon);
 		options.setIcon(optionsIcon);
@@ -48,9 +49,9 @@ public class MenuPanel extends JPanel implements ActionListener{
 		if (e.getSource() == joinServer)
 			joinServer.setIcon(joinServerHighlighted);
 	}
-	
+
 	@Override
-	protected void paintComponent(Graphics g){
+	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(menuBackground, 0, 0, null);
 	}

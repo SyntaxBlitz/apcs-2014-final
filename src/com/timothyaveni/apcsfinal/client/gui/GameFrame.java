@@ -6,20 +6,19 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
-
 public class GameFrame {
 	public final int WIDTH = 1024;
 	public final int HEIGHT = 768;
-	
+
 	private String name;
 	private JFrame frame;
-	
-	
-	//******When you construct a GameFrame object you must call changeFrame()
-	public GameFrame(String name){
+
+	// ******When you construct a GameFrame object you must call changeFrame()
+	public GameFrame(String name) {
 		this.name = name;
 	}
-	public void changeFrame(Component c){
+
+	public void changeFrame(Component c) {
 
 		frame = new JFrame(name);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,11 +28,12 @@ public class GameFrame {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 	}
-	public void close(){
-		//WindowEvent wev = new WindowEvent(frame, WindowEvent.WINDOW_CLOSED);
-		//Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
+
+	public void close() {
+		// WindowEvent wev = new WindowEvent(frame, WindowEvent.WINDOW_CLOSED);
+		// Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
 		frame.dispose();
 	}
 }

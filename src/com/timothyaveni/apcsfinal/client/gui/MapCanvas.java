@@ -17,12 +17,13 @@ public class MapCanvas extends Canvas {
 	}
 
 	public void render(Graphics g) {
-		
-		//draws map background on Canvas in frame
+
+		// draws map background on Canvas in frame
 		Map m = new Map("E:\\Map.png");
 		g.drawImage(m.getPic(), 0, 0, 1024, 768, null);
-		
-		g.dispose(); // releases system resources the graphics object is taking up
+
+		g.dispose(); // releases system resources the graphics object is taking
+						// up
 	}
 
 	@Override
