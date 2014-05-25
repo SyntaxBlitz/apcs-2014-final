@@ -4,7 +4,7 @@ import com.timothyaveni.apcsfinal.networking.PacketType;
 
 public class AcknowledgePacket extends Packet {
 
-	public AcknowledgePacket(int id) {
+	public AcknowledgePacket(int id, byte[] data) {
 		super(id);
 	}
 

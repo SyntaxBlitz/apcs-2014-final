@@ -21,11 +21,11 @@ public class PacketProcessor {
 
 		switch (type) {
 			case ACKNOWLEDGE:
-				toReturn = new AcknowledgePacket(localPacketId);
+				toReturn = new AcknowledgePacket(localPacketId, data);
 			case PLAYER_LOCATION:
-				toReturn = new PlayerLocationPacket(localPacketId);
+				toReturn = new PlayerLocationPacket(localPacketId, data);
 			case ENEMY_DAMAGE:
-				toReturn = new EnemyDamagePacket(localPacketId);
+				toReturn = new EnemyDamagePacket(localPacketId, data);
 		}
 		return null;
 	}

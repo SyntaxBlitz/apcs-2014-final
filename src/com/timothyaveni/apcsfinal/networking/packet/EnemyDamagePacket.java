@@ -4,7 +4,7 @@ import com.timothyaveni.apcsfinal.networking.PacketType;
 
 public class EnemyDamagePacket extends Packet {
 
-	public EnemyDamagePacket(int id) {
+	public EnemyDamagePacket(int id, byte[] data) {
 		super(id);
 	}
 

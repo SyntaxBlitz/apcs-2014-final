@@ -4,7 +4,7 @@ import com.timothyaveni.apcsfinal.networking.PacketType;
 
 public class PlayerLocationPacket extends Packet {
 
-	public PlayerLocationPacket(int id) {
+	public PlayerLocationPacket(int id, byte[] data) {
 		super(id);
 	}
 
