@@ -1,7 +1,5 @@
-package com.timothyaveni.apcsfinal.networking.server;
+package com.timothyaveni.apcsfinal.networking;
 
-import com.timothyaveni.apcsfinal.networking.PacketType;
-import com.timothyaveni.apcsfinal.networking.PacketTypeID;
 import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EnemyDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
