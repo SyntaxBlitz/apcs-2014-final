@@ -22,25 +22,26 @@ public class Map extends JPanel {
 
 		imageFileName = fileLocation;
 
-		// currently is not working, throws IllegalArgumentException
-		// Normally would assign image to the image at the file location
+		// assigns Image of the map background to the field
 		try {
 			image = ImageIO.read(new File(imageFileName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+		// creates background with JPanel
 		JLabel pic = new JLabel(new ImageIcon(image));
 		add(pic);
 
 	}
 
+	// makes sure image is drawn correctly
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, 1024, 768, null);
 	}
 
-	// returns a JPanel so you can add it to the Map Canvas
+	// correctly returns the preferred size of the JPanel
 	public Dimension getPreferredSize() {
 		if (image == null) {
 			return new Dimension(100, 100);
@@ -49,6 +50,7 @@ public class Map extends JPanel {
 		}
 	}
 
+	// convenient accessor method
 	public BufferedImage getPic() {
 		return image;
 	}

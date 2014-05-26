@@ -19,8 +19,8 @@ public class GameFrame {
 
 	public void changeFrame(Component c) {
 
+		// creates new frame and sets all attributes associated with it
 		frame = new JFrame(name);
-		// frame.setSize(WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		c.setBounds(0, 0, WIDTH, HEIGHT);
 		frame.add(c);
