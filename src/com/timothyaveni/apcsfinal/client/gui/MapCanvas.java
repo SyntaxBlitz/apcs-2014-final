@@ -3,8 +3,6 @@ package com.timothyaveni.apcsfinal.client.gui;
 import java.awt.Canvas;
 import java.awt.Graphics;
 
-import javax.swing.JFrame;
-
 public class MapCanvas extends Canvas {
 
 	private static final long serialVersionUID = 1L;
@@ -17,12 +15,13 @@ public class MapCanvas extends Canvas {
 	}
 
 	public void render(Graphics g) {
-		
-		//draws map background on Canvas in frame
+
+		// draws map background on Canvas in frame
 		Map m = new Map("E:\\Map.png");
 		g.drawImage(m.getPic(), 0, 0, 1024, 768, null);
-		
-		g.dispose(); // releases system resources the graphics object is taking up
+
+		g.dispose(); // releases system resources the graphics object is taking
+						// up
 	}
 
 	@Override
