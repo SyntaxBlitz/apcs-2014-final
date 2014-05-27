@@ -2,6 +2,8 @@ EVERYTHING IS BIG-ENDIAN
 remember that this will be running on 32-bit systems, so all our ints are going to be 32 bits.
 If an int happens to have more than 32 bits of info in it when converting to a byte array, we'll just truncate it to 32 bits. This should never happen.
 
+enums are all represented by unsigned ints
+
 enum definitions:
 	PacketType is defined in com.timothyaveni.apcsfinal.networking.PacketTypeID
 	Direction:
@@ -12,21 +14,21 @@ enum definitions:
 
 all Packets:
 	byte 0: packet type		(PacketType enum)
-	bytes 1-3: sender packet ID
-	byte 5: client ID (max 256 clients connected)
-	byte 6: must-acknowledge? boolean
+	bytes 1-3: sender packet ID	(unsigned int)
+	byte 5: client ID (max 256 clients connected)	(unsigned int)
+	byte 6: must-acknowledge? boolean	(unsigned int 0-1)
 	
 AcknowledgePacket (total size=9 bytes):
 	bytes 7-9: ID of must-acknowledge packet according to receiver
 
 PlayerLocationPacket (total size=16 bytes):
-	byte 7: world section ID
+	byte 7: world section ID	(unsigned int)
 		0 corresponds to a null world, which means the client is in the process of switching worlds. The client will send another packet after the world switch..
 		both of these packets will be must-acknowledge. 
-	bytes 8-11: location-x	 (int)
-	bytes 12-15: location-y  (int)
+	bytes 8-11: location-x	 (unsigned int)
+	bytes 12-15: location-y  (unsigned int)
 	byte 16: facing			 (Direction enum)
 
-EnemyDamagePacket must-acknowledge (total size=10 bytes):
+EnemyDamagePacket must-acknowledge (total size=11 bytes):
 	bytes 7-8: entity id
-	bytes 9-10: damage amount
+	bytes 9-11: damage amount (signed int)
