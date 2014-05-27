@@ -1,7 +1,6 @@
 package com.timothyaveni.apcsfinal.client.gui;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,6 +48,10 @@ public class MenuPanel extends JPanel implements ActionListener {
 		joinServer.setBounds(0, 572, 256, 64);
 		options.setBounds(0, 636, 256, 64);
 		exit.setBounds(0, 700, 256, 64);
+
+		joinServer.addActionListener(this);
+		options.addActionListener(this);
+		exit.addActionListener(this);
 
 		// adds buttons into the Panel
 		this.add(joinServer);
