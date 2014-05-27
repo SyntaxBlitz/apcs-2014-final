@@ -5,8 +5,8 @@ import com.timothyaveni.apcsfinal.server.EnemyAI;
 public class SkeletonEnemy extends Entity implements EnemyAI {
 	private int baseDmg;
 
-	SkeletonEnemy(String name, Location location, int height, int width, int strength, int intelligence, int speed){
-		super(name, location, height, width, strength, intelligence, speed);
+	SkeletonEnemy(String name, String location, int height, int width, int strength, int intelligence, int speed, Location loc){
+		super(name, location, height, width, strength, intelligence, speed, loc);
 		baseDmg = 30;
 		
 	}

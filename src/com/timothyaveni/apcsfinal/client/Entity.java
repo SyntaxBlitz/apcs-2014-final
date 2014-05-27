@@ -4,17 +4,17 @@ package com.timothyaveni.apcsfinal.client;
 public abstract class Entity {
 
 
-	private int height; // height of the entity in pixels
-	private int width; // width of the entity in pixels
-	private String name; // name of the entity in terms of type (so Tank's name
+	protected int height; // height of the entity in pixels
+	protected int width; // width of the entity in pixels
+	protected String name; // name of the entity in terms of type (so Tank's name
 						// is Tank)
-	private String fileLocation; // stream that represents the files location in
+	protected String fileLocation; // stream that represents the files location in
 								// the res folder
-	private int strength; // strength attribute determines health
-	private int intelligence; // intelligence attribute determines mana
-	private int speed; // speed determines stamina
+	protected int strength; // strength attribute determines health
+	protected int intelligence; // intelligence attribute determines mana
+	protected int speed; // speed determines stamina
 	
-	private Location loc;
+	protected Location loc;
 
 
 	public Entity(String name, String location, int height, int width, int strength, int intelligence, int speed, Location loc) {
