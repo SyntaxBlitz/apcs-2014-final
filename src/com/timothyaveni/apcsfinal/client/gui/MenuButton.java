@@ -1,8 +1,6 @@
 package com.timothyaveni.apcsfinal.client.gui;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class MenuButton extends JButton implements ActionListener {
+public class MenuButton extends JButton {
 
 	private static final long serialVersionUID = 1L;
 	private BufferedImage image, highlightedImage;
@@ -30,7 +28,6 @@ public class MenuButton extends JButton implements ActionListener {
 		this.setIcon(new ImageIcon(image));
 		this.setRolloverIcon(new ImageIcon(highlightedImage));
 
-		this.addActionListener(this);
 	}
 
 	// Returns highlightedImage for actionPerformed event in MenuPanel class
@@ -47,12 +44,5 @@ public class MenuButton extends JButton implements ActionListener {
 		} else {
 			return new Dimension(image.getWidth(), image.getHeight());
 		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this)
-			this.setIcon(new ImageIcon(highlightedImage));
-
 	}
 }

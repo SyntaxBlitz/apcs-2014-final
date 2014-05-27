@@ -3,24 +3,30 @@ package com.timothyaveni.apcsfinal.client.gui;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MenuPanel extends JPanel {
+public class MenuPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JButton joinServer, options, exit;
 	private BufferedImage menuBackground;
+	private GameFrame frame;
 
-	public MenuPanel() {
+	public MenuPanel(GameFrame frame) {
 
 		// to make sure JPanel is set-up correctly
 		super();
+
+		this.frame = frame;
 
 		// constructs buttons for inside the Panel
 		joinServer = new MenuButton("E:\\JoinServerButton.png",
@@ -62,5 +68,19 @@ public class MenuPanel extends JPanel {
 			return new Dimension(menuBackground.getWidth(),
 					menuBackground.getHeight());
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		if (e.getSource() == joinServer) {
+			frame.close();
+			frame.changeFrame(joinServer);
+		}
+		if (e.getSource() == options)
+			frame.changeFrame(new JLabel(
+					"Not yet created, I apologize for the inconvience"));
+		if (e.getSource() == exit)
+			frame.close();
 	}
 }
