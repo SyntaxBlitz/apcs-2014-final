@@ -44,7 +44,11 @@ public class MenuPanel extends JPanel implements ActionListener {
 		}
 
 		// sets layout for the buttons
-		this.setLayout(new FlowLayout());
+		this.setLayout(null);
+
+		joinServer.setBounds(0, 572, 256, 64);
+		options.setBounds(0, 636, 256, 64);
+		exit.setBounds(0, 700, 256, 64);
 
 		// adds buttons into the Panel
 		this.add(joinServer);
