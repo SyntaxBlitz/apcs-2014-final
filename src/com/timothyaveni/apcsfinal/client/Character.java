@@ -10,7 +10,7 @@ public abstract class Character extends Entity {
 	@Override
 	public abstract void move();
 	
-	public abstract void attack();
+	public abstract Entity attack();
 	
 	
 	

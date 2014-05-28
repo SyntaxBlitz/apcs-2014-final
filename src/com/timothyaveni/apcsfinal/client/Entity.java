@@ -49,9 +49,6 @@ public abstract class Entity {
 	}
 
 
-	public abstract int attack();
-
-
 	public abstract void move();
 
 
