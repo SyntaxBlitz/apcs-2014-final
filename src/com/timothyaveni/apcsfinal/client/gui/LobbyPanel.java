@@ -82,6 +82,7 @@ public class LobbyPanel extends JPanel implements ActionListener {
 		this.add(quitLobby);
 	}
 
+	//hi
 	// paints background to the JPanel
 	@Override
 	protected void paintComponent(Graphics g) {

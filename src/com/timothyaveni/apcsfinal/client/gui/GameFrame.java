@@ -12,6 +12,7 @@ public class GameFrame {
 	private String name;
 	private JFrame frame;
 
+	//hi
 	// ******When you construct a GameFrame object you must call changeFrame()
 	public GameFrame(String name) {
 		this.name = name;

@@ -11,4 +11,5 @@ public class StartGame {
 		//newGame.close();
 		newGame.changeFrame(menu);
 	}
+	//hi
 }
