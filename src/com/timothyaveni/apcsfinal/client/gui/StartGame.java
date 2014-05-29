@@ -7,9 +7,8 @@ public class StartGame {
 		MenuPanel menu = new MenuPanel(newGame);
 		// MapCanvas map = new MapCanvas();
 		LobbyPanel lobby = new LobbyPanel(newGame);
+		newGame.changeFrame(menu);
+		newGame.close();
 		newGame.changeFrame(lobby);
-		// newGame.close();
-		// newGame.changeFrame(menu);
 	}
-	// hi
 }
