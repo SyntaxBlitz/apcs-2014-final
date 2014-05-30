@@ -55,10 +55,13 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		int playerX = playerLoc.getX();
 		int playerY = playerLoc.getY();
 		
-		if(playerX - loc.getX() < playerY - loc.getY())
+		if(Math.abs(playerX - loc.getX()) <= 16 || Math.abs(playerY - loc.getY()) <= 16)
+			attack();
+		else if(playerX - loc.getX() < playerY - loc.getY())
 			move((playerX - loc.getX()), (loc.getX() - playerX), "X");
-		else
+		else if(playerY - loc.getY() < playerY - loc.getY())
 			move((playerY - loc.getY()), (loc.getY() - playerY), "Y");
+		
 				
 	}
 
