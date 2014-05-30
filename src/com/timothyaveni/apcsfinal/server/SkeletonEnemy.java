@@ -33,7 +33,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		
 	}
 
-	public void move(int distance, int direction, String plane){ //Might need to be void?
+	public void move(int distance, int direction, String plane){
 		if(plane.equals("X"))
 		{
 			if(direction > 0)
@@ -51,14 +51,17 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		
 	}
 	
-	public void trackPlayer(Location playerLoc){
+	public void trackPlayer(Location playerLoc){ //Tracks player based off the player's location might want all player locations to determine closest?
 		int playerX = playerLoc.getX();
 		int playerY = playerLoc.getY();
 		
-		if(playerX - loc.getX() < playerY - loc.getY())
+		if(Math.abs(playerX - loc.getX()) <= 16 || Math.abs(playerY - loc.getY()) <= 16)
+			attack(); //This is probably wrong because the method is void
+		else if(playerX - loc.getX() < playerY - loc.getY())
 			move((playerX - loc.getX()), (loc.getX() - playerX), "X");
-		else
+		else if(playerY - loc.getY() < playerY - loc.getY())
 			move((playerY - loc.getY()), (loc.getY() - playerY), "Y");
+		
 				
 	}
 
@@ -67,7 +70,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		return this.loc;
 	}
 
-	public Location getPlayerLocation(){
-		return null; //TODO need to get player locations
+	public Location getPlayerLocation(Location playerLoc){
+		return playerLoc; //This might not be needed.
 	}
 }

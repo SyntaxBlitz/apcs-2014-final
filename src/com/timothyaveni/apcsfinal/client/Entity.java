@@ -49,7 +49,7 @@ public abstract class Entity {
 	}
 
 
-	public abstract void move();
+	public abstract void move(int distance, int direction, String plane);
 
 
 }
