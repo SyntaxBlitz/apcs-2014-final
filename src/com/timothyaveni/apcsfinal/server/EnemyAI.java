@@ -8,6 +8,6 @@ public interface EnemyAI {
 
 	public Location getLocation();
 
-	public Location getPlayerLocation();
+	public Location getPlayerLocation(Location playerLoc);
 
 }

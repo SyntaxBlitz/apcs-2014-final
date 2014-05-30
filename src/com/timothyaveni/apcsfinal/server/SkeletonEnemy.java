@@ -67,7 +67,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		return this.loc;
 	}
 
-	public Location getPlayerLocation(){
-		return null; //TODO need to get player locations
+	public Location getPlayerLocation(Location playerLoc){
+		return playerLoc; //This might not be needed.
 	}
 }
