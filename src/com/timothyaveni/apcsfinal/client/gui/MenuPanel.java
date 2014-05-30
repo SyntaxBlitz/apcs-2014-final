@@ -10,7 +10,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MenuPanel extends JPanel implements ActionListener {
@@ -28,12 +30,9 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.frame = frame;
 
 		// constructs buttons for inside the Panel
-		joinServer = new MenuButton("E:\\JoinServerButton.png",
-				"E:\\JoinServerButtonHighlighted.png");
-		options = new MenuButton("E:\\OptionButton.png",
-				"E:\\OptionButtonHighlighted.png");
-		exit = new MenuButton("E:\\ExitButton.png",
-				"E:\\ExitButtonHighlighted.png");
+		joinServer = new MenuButton("E:\\JoinServerButton.png", "E:\\JoinServerButtonHighlighted.png");
+		options = new MenuButton("E:\\OptionButton.png", "E:\\OptionButtonHighlighted.png");
+		exit = new MenuButton("E:\\ExitButton.png", "E:\\ExitButtonHighlighted.png");
 
 		// assigns the Background Image of the Panel
 		try {
@@ -73,8 +72,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		if (menuBackground == null) {
 			return new Dimension(100, 100);
 		} else {
-			return new Dimension(menuBackground.getWidth(),
-					menuBackground.getHeight());
+			return new Dimension(menuBackground.getWidth(), menuBackground.getHeight());
 		}
 	}
 
@@ -84,11 +82,16 @@ public class MenuPanel extends JPanel implements ActionListener {
 		if (e.getSource() == joinServer) {
 			frame.close();
 			frame.changeFrame(new LobbyPanel(frame));
-		}
-		if (e.getSource() == options)
-			frame.changeFrame(new JLabel(
-					"Not yet created, I apologize for the inconvience"));
-		if (e.getSource() == exit)
+		} else if (e.getSource() == options) {
+			/*JFrame f = new JFrame("Options");
+			f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			f.add(new JLabel("Sorry, not implemented yet"));
+			f.pack();
+			f.setLocationRelativeTo(null);
+			f.setVisible(true);*/
+			JOptionPane.showMessageDialog(frame, "Sorry, not implemented yet");
+		} else if (e.getSource() == exit) {
 			frame.close();
+		}
 	}
 }

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -183,12 +184,22 @@ public class LobbyPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == quitLobby) {
-			frame.close();
+			//frame.close();
 			frame.changeFrame(new MenuPanel(frame));
 		} else if (e.getSource() == startGame) {
-			frame.changeFrame(new JLabel("Standy by for beaming...."));
+			JFrame f = new JFrame("Options");
+			f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			f.add(new JLabel("Standy by for beaming...."));
+			f.pack();
+			f.setLocationRelativeTo(null);
+			f.setVisible(true);
 		} else if (e.getSource() == kickPlayer) {
-			frame.changeFrame(new JLabel("Please enter player to kick"));
+			JFrame f = new JFrame("Options");
+			f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			f.add(new JLabel("Please enter player to kick"));
+			f.pack();
+			f.setLocationRelativeTo(null);
+			f.setVisible(true);
 		} else if (e.getSource() == chatInput) {
 			if (chatInput.getText().length() >= 1) {
 				chatHistory.append(chatInput.getText() + "\n");

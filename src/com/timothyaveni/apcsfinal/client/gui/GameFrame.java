@@ -4,8 +4,13 @@ import java.awt.Component;
 
 import javax.swing.JFrame;
 
-public class GameFrame {
+public class GameFrame extends JFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public final int WIDTH = 1024;
 	public final int HEIGHT = 768;
 
@@ -20,6 +25,7 @@ public class GameFrame {
 	public void changeFrame(Component c) {
 
 		// creates new frame and sets all attributes associated with it
+		//frame.getContentPane().removeAll();
 		frame = new JFrame(name);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		c.setBounds(0, 0, WIDTH, HEIGHT);
@@ -35,5 +41,9 @@ public class GameFrame {
 	// closes previous frame
 	public void close() {
 		frame.dispose();
+	}
+	@Override
+	public void setDefaultCloseOperation(int operation){
+		super.setDefaultCloseOperation(operation);
 	}
 }
