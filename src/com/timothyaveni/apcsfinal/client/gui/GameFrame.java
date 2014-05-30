@@ -46,4 +46,6 @@ public class GameFrame extends JFrame{
 	public void setDefaultCloseOperation(int operation){
 		super.setDefaultCloseOperation(operation);
 	}
+	
+	//hi
 }
