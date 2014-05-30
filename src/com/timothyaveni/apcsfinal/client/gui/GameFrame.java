@@ -28,14 +28,12 @@ public class GameFrame {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
 		frame.update(frame.getGraphics());
 
 	}
 
+	// closes previous frame
 	public void close() {
-		// WindowEvent wev = new WindowEvent(frame, WindowEvent.WINDOW_CLOSED);
-		// Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
 		frame.dispose();
 	}
 }

@@ -45,6 +45,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		// sets layout for the buttons
 		this.setLayout(null);
 
+		// sets size and location of buttons
 		joinServer.setBounds(0, 572, 256, 64);
 		options.setBounds(0, 636, 256, 64);
 		exit.setBounds(0, 700, 256, 64);
@@ -82,7 +83,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 		if (e.getSource() == joinServer) {
 			frame.close();
-			frame.changeFrame(joinServer);
+			frame.changeFrame(new LobbyPanel(frame));
 		}
 		if (e.getSource() == options)
 			frame.changeFrame(new JLabel(
