@@ -1,6 +1,7 @@
-package com.timothyaveni.apcsfinal.client;
+package com.timothyaveni.apcsfinal.server;
 
-import com.timothyaveni.apcsfinal.server.EnemyAI;
+import com.timothyaveni.apcsfinal.client.Entity;
+import com.timothyaveni.apcsfinal.client.Location;
 
 public class SkeletonEnemy extends Entity implements EnemyAI {
 	private int baseDmg;
@@ -32,27 +33,41 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		
 	}
 
-	public void move(){ //Might need to be void?
-		
+	public void move(int distance, int direction, String plane){ //Might need to be void?
+		if(plane.equals("X"))
+		{
+			if(direction > 0)
+				this.loc.setX(this.loc.getX() + 16);
+			else
+				this.loc.setX(this.loc.getX() - 16);
+		}
+		else
+		{
+			if(direction > 0)
+				this.loc.setY(this.loc.getY() + 16);
+			else
+				this.loc.setY(this.loc.getY() - 16);
+		}
 		
 	}
 	
-	public Location trackPlayer(Location playerLoc){
+	public void trackPlayer(Location playerLoc){
 		int playerX = playerLoc.getX();
 		int playerY = playerLoc.getY();
 		
-		
-		
-		return null;
-		
+		if(playerX - loc.getX() < playerY - loc.getY())
+			move((playerX - loc.getX()), (loc.getX() - playerX), "X");
+		else
+			move((playerY - loc.getY()), (loc.getY() - playerY), "Y");
+				
 	}
 
 
 	public Location getLocation(){
-		return null;
+		return this.loc;
 	}
 
 	public Location getPlayerLocation(){
-		return null;
+		return null; //TODO need to get player locations
 	}
 }
