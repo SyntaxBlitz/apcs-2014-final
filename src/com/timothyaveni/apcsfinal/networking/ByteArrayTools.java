@@ -30,10 +30,10 @@ public class ByteArrayTools {
 			return -1;
 
 		int toReturn = 0;
-		int pow = 0; // don't strictly need this variable but it's nice to have
+		int bits = 0;
 		for (int i = startIndex + length - 1; i >= startIndex; i--) {
-			toReturn += (data[i] & 0xFF) * (Math.pow(256, pow));
-			pow++;
+			toReturn += (data[i] & 0xFF) << bits;
+			bits += 8;
 		}
 		return toReturn;
 	}
@@ -58,12 +58,10 @@ public class ByteArrayTools {
 		if (length < 1 || length > 4 || startIndex + length > data.length)
 			return;
 
-		int pow = length - 1;
+		int bits = (length - 1) * 8;
 		for (int i = startIndex; i < startIndex + length; i++) {
-			int thisByte = (int) (value / Math.pow(256, pow));
-			data[i] = (byte)(thisByte & 0xFF);
-			value -= thisByte * Math.pow(256, pow);
-			pow--;
+			data[i] = (byte) ((value >> bits) & 0xFF);
+			bits -= 8;
 		}
 	}
 

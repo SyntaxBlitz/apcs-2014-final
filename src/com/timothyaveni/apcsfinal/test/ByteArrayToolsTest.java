@@ -50,8 +50,7 @@ public class ByteArrayToolsTest {
 			assertEquals("self-reference test", ByteArrayTools.readBytes(testArray, 0, 4), toSet);
 		}
 
-		// Finishes in about 16 seconds on my pc. This is about 625k runs per
-		// second (1.6 us/run).
-		// Not terrible.
+		// Finishes in about 4.1 seconds on my pc. This is because I decided to
+		// man up and use bit shifting.
 	}
 }
