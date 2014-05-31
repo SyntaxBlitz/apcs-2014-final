@@ -8,7 +8,7 @@ public class PacketTypeID {
 				return 0;
 			case PLAYER_LOCATION:
 				return 1;
-			case ENEMY_DAMAGE:
+			case ENTITY_DAMAGE:
 				return 2;
 			default:
 				return -1;
@@ -22,7 +22,7 @@ public class PacketTypeID {
 			case 1:
 				return PacketType.PLAYER_LOCATION;
 			case 2:
-				return PacketType.ENEMY_DAMAGE;
+				return PacketType.ENTITY_DAMAGE;
 			default:
 				return null;
 		}

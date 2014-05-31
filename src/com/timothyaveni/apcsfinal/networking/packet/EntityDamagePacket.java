@@ -2,15 +2,15 @@ package com.timothyaveni.apcsfinal.networking.packet;
 
 import com.timothyaveni.apcsfinal.networking.PacketType;
 
-public class EnemyDamagePacket extends Packet {
+public class EntityDamagePacket extends Packet {
 
-	public EnemyDamagePacket(int id, byte[] data) {
+	public EntityDamagePacket(int id, byte[] data) {
 		super(id);
 	}
 
 	@Override
 	public PacketType getPacketType() {
-		return PacketType.ENEMY_DAMAGE;
+		return PacketType.ENTITY_DAMAGE;
 	}
 
 }

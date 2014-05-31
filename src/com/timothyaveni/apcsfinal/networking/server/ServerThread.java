@@ -7,7 +7,7 @@ import java.net.SocketException;
 
 import com.timothyaveni.apcsfinal.networking.PacketProcessor;
 import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
-import com.timothyaveni.apcsfinal.networking.packet.EnemyDamagePacket;
+import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
 import com.timothyaveni.apcsfinal.networking.packet.PlayerLocationPacket;
 
@@ -68,8 +68,8 @@ public class ServerThread implements Runnable {
 			case PLAYER_LOCATION:
 				listener.playerMoved((PlayerLocationPacket) packet);
 				break;
-			case ENEMY_DAMAGE:
-				listener.entityDamaged((EnemyDamagePacket) packet);
+			case ENTITY_DAMAGE:
+				listener.entityDamaged((EntityDamagePacket) packet);
 				break;
 		}
 	}
