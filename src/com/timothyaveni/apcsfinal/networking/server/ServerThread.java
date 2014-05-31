@@ -24,11 +24,8 @@ public class ServerThread implements Runnable {
 
 	private int lastLocalPacketId = 0;
 
-	public ServerThread(int port) {
+	public ServerThread(int port, ServerCallbackListener listener) {
 		this.port = port;
-	}
-
-	public void setCallbackListener(ServerCallbackListener listener) {
 		this.listener = listener;
 	}
 
