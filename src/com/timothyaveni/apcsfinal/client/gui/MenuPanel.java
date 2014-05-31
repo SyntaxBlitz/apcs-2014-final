@@ -10,8 +10,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -80,16 +78,16 @@ public class MenuPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == joinServer) {
+			JOptionPane ip = new JOptionPane();
+			ip.setWantsInput(true);
+			ip.showInputDialog(frame, "Enter Server IP:");
+			//ip.getInputValue();
+			//ip.showInputDialog(frame, "Enter Character Name:");
+			String characterName = ip.showInputDialog(frame, "Enter Character Name:");
 			frame.close();
-			frame.changeFrame(new LobbyPanel(frame));
+			frame.changeFrame(new LobbyPanel(frame, characterName));
 		} else if (e.getSource() == options) {
-			/*JFrame f = new JFrame("Options");
-			f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			f.add(new JLabel("Sorry, not implemented yet"));
-			f.pack();
-			f.setLocationRelativeTo(null);
-			f.setVisible(true);*/
-			JOptionPane.showMessageDialog(frame, "Sorry, not implemented yet");
+			JOptionPane.showMessageDialog(frame, "Sorry, not implemented yet", "Options", JOptionPane.INFORMATION_MESSAGE);
 		} else if (e.getSource() == exit) {
 			frame.close();
 		}

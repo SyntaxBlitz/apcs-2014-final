@@ -11,8 +11,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -31,6 +31,8 @@ public class LobbyPanel extends JPanel implements ActionListener {
 	private GameFrame frame;
 	private String[] l = { "Timothy Aveni", "Chris Muller", "Nick Foster",
 			"Dan Fisher" };
+	private String characterName;
+	private int numberOfPlayers;
 
 	private MenuButton pickTank, pickHealer, pickArcher, pickMage, pickRogue,
 			quitLobby, startGame, kickPlayer;
@@ -41,17 +43,17 @@ public class LobbyPanel extends JPanel implements ActionListener {
 	private JTextField chatInput;
 	private JScrollPane chatScroll;
 
-	public LobbyPanel(GameFrame frame) {
+	public LobbyPanel(GameFrame frame, String characterName) {
 
 		// to make sure JPanel is set-up correctly
 		super();
 
 		// takes the frame from the parameter and puts it in the field
 		this.frame = frame;
-
+		this.characterName = characterName;
+		numberOfPlayers = 1;
 		// sets text of the box that stores the players currently in the lobby
-		playerList = new JTextArea(l[0] + "\n" + l[1] + "\n" + l[2] + "\n"
-				+ l[3]);
+		playerList = new JTextArea(this.characterName);
 
 		// this creates what will be the panel that will show the player what
 		// class they currently have selected
@@ -59,7 +61,7 @@ public class LobbyPanel extends JPanel implements ActionListener {
 				"This will be where the selected class will be viewed");
 
 		// this is the header for the playerList
-		listHeader = new JLabel("Players 4/4");
+		listHeader = new JLabel("Players " + numberOfPlayers + "/4");
 
 		// this is the text box that the player types in to send chat
 		chatInput = new JTextField("Insert text here", 30);
@@ -184,22 +186,13 @@ public class LobbyPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == quitLobby) {
-			//frame.close();
+			frame.close();
 			frame.changeFrame(new MenuPanel(frame));
 		} else if (e.getSource() == startGame) {
-			JFrame f = new JFrame("Options");
-			f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			f.add(new JLabel("Standy by for beaming...."));
-			f.pack();
-			f.setLocationRelativeTo(null);
-			f.setVisible(true);
+			JOptionPane.showMessageDialog(frame, "Standy by for beaming....", "Start Game", JOptionPane.INFORMATION_MESSAGE);
 		} else if (e.getSource() == kickPlayer) {
-			JFrame f = new JFrame("Options");
-			f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			f.add(new JLabel("Please enter player to kick"));
-			f.pack();
-			f.setLocationRelativeTo(null);
-			f.setVisible(true);
+			String kick = JOptionPane.showInputDialog(frame, "Please enter player to kick");
+			//send kick to the server so player is removed
 		} else if (e.getSource() == chatInput) {
 			if (chatInput.getText().length() >= 1) {
 				chatHistory.append(chatInput.getText() + "\n");
