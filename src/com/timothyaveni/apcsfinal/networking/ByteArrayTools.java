@@ -22,10 +22,11 @@ public class ByteArrayTools {
 	 * @param length
 	 *            the length, in bytes, of the integer to analyze. MUST BE in
 	 *            the range 1..4.
+	 * @param signed TODO
 	 * @return the computed integer, or -1 if the length is > 4 or < 1 or
 	 *         (startIndex + length) > data.length
 	 */
-	public static int readBytes(byte[] data, int startIndex, int length) {
+	public static int readBytes(byte[] data, int startIndex, int length, boolean signed) {
 		if (length < 1 || length > 4 || startIndex + length > data.length)
 			return -1;
 
