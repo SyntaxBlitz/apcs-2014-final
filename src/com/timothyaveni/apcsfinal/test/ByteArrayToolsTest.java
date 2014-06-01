@@ -2,6 +2,7 @@ package com.timothyaveni.apcsfinal.test;
 
 import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.timothyaveni.apcsfinal.networking.ByteArrayTools;
@@ -50,8 +51,34 @@ public class ByteArrayToolsTest {
 
 			assertEquals("self-reference test", ByteArrayTools.readBytes(testArray, 0, 4, false), toSet);
 		}
+	}
+	
+	@Test
+	public void testSignedReadBytes() {
+		// pretty casual test.
+		byte[] data = { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 };
+		
+		ByteArrayTools.setBytes(data, 1, 0, 4);
+		assertEquals(1, ByteArrayTools.readBytes(data, 0, 4, true));	
+		ByteArrayTools.setBytes(data, -1, 0, 4);
+		assertEquals(-1, ByteArrayTools.readBytes(data, 0, 4, true));	
+		assertEquals(-1, ByteArrayTools.readBytes(data, 1, 3, true));	
+		assertEquals(16777215, ByteArrayTools.readBytes(data, 1, 3, false));
 
-		// Finishes in about 0.625 seconds on my pc. This is because I stopped
-		// being a moron.
+		ByteArrayTools.setBytes(data, 8388608, 0, 3);
+		assertEquals(-8388608, ByteArrayTools.readBytes(data, 0, 3, true));	
+		assertEquals(8388608, ByteArrayTools.readBytes(data, 0, 3, false));
+
+		ByteArrayTools.setBytes(data, 8388610, 0, 3);
+		assertEquals(-8388606, ByteArrayTools.readBytes(data, 0, 3, true));	
+		assertEquals(8388610, ByteArrayTools.readBytes(data, 0, 3, false));
+
+		ByteArrayTools.setBytes(data, 2147483647, 0, 4);
+		assertEquals(2147483647, ByteArrayTools.readBytes(data, 0, 4, true));	
+		assertEquals(2147483647, ByteArrayTools.readBytes(data, 0, 4, false));
+
+		ByteArrayTools.setBytes(data, 2147483647, 0, 4);
+		assertEquals(-1, ByteArrayTools.readBytes(data, 3, 1, true));	
+		assertEquals(255, ByteArrayTools.readBytes(data, 3, 1, false));
 	}
 }

@@ -31,10 +31,11 @@ public class ByteArrayTools {
 			return -1;
 
 		int toReturn = 0;
-		int bits = 0;
-		for (int i = startIndex + length - 1; i >= startIndex; i--) {
-			toReturn += (data[i] & 0xFF) << bits;
-			bits += 8;
+		if (signed && (data[startIndex] & 0x80) == 0x80)	// the first bit is on
+			toReturn = ~toReturn;	// -1
+		for (int i = startIndex; i < startIndex + length; i++) {
+			toReturn = toReturn << 8;
+			toReturn = toReturn | (data[i] & 0xFF);
 		}
 		return toReturn;
 	}
