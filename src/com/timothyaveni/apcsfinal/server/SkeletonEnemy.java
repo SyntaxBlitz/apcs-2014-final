@@ -28,7 +28,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		return fileLocation;
 	}
 
-	public int attack(){
+	public int attack(){ //Test
 		return speed + baseDmg;
 		
 	}
