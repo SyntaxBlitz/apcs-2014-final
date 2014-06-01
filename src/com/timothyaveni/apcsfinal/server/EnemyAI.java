@@ -4,7 +4,7 @@ import com.timothyaveni.apcsfinal.client.*;
 
 public interface EnemyAI {
 
-	public void trackPlayer(Location playerLoc);
+	public EntityDamagePacket trackPlayer(Location playerLoc);
 
 	public Location getLocation();
 
