@@ -43,14 +43,15 @@ public class ByteArrayToolsTest {
 		// you?
 
 		byte[] testArray = new byte[4];
+		int n = (int) (Math.pow(256, 4) / 2);
 		for (int i = 0; i < 10000000; i++) { // the fun part.
-			int toSet = (int) (Math.random() * Math.pow(256, 4) / 2); // 0..2.147B
+			int toSet = (int) (Math.random() * n); // 0..2.147B
 			ByteArrayTools.setBytes(testArray, toSet, 0, 4);
 
 			assertEquals("self-reference test", ByteArrayTools.readBytes(testArray, 0, 4, false), toSet);
 		}
 
-		// Finishes in about 4.1 seconds on my pc. This is because I decided to
-		// man up and use bit shifting.
+		// Finishes in about 0.625 seconds on my pc. This is because I stopped
+		// being a moron.
 	}
 }
