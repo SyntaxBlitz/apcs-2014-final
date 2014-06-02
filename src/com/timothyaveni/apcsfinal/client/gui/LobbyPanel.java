@@ -189,7 +189,7 @@ public class LobbyPanel extends JPanel implements ActionListener {
 		} else if (e.getSource() == startGame) {
 			//JOptionPane.showMessageDialog(frame, "Standy by for beaming....", "Start Game", JOptionPane.INFORMATION_MESSAGE);
 			frame.close();
-			frame.changeFrame(new MapCanvas());
+			frame.changeFrame(new MapCanvas(frame.getClient()));
 		} else if (e.getSource() == kickPlayer) {
 			String kick = JOptionPane.showInputDialog(frame, "Please enter player to kick");
 			//send kick to the server so player is removed
@@ -200,5 +200,4 @@ public class LobbyPanel extends JPanel implements ActionListener {
 			}
 		}
 	}
-	//hi
 }
