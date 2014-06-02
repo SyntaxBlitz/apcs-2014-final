@@ -2,6 +2,7 @@ package com.timothyaveni.apcsfinal.server;
 
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 
 public class SkeletonEnemy extends Entity implements EnemyAI {
 	private int baseDmg;
