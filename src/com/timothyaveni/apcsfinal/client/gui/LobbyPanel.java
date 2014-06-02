@@ -29,8 +29,6 @@ public class LobbyPanel extends JPanel implements ActionListener {
 
 	private BufferedImage menuBackground;
 	private GameFrame frame;
-	private String[] l = { "Timothy Aveni", "Chris Muller", "Nick Foster",
-			"Dan Fisher" };
 	private String characterName;
 	private int numberOfPlayers;
 
@@ -189,7 +187,9 @@ public class LobbyPanel extends JPanel implements ActionListener {
 			frame.close();
 			frame.changeFrame(new MenuPanel(frame));
 		} else if (e.getSource() == startGame) {
-			JOptionPane.showMessageDialog(frame, "Standy by for beaming....", "Start Game", JOptionPane.INFORMATION_MESSAGE);
+			//JOptionPane.showMessageDialog(frame, "Standy by for beaming....", "Start Game", JOptionPane.INFORMATION_MESSAGE);
+			frame.close();
+			frame.changeFrame(new MapCanvas());
 		} else if (e.getSource() == kickPlayer) {
 			String kick = JOptionPane.showInputDialog(frame, "Please enter player to kick");
 			//send kick to the server so player is removed
