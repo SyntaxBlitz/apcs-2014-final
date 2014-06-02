@@ -7,13 +7,11 @@ public abstract class Character extends Entity {
 		super(name, location, height, width, strength,  intelligence, speed, loc);
 	}
 
-	@Override
-	public abstract void move(int distance, int direction, String plane);
+	public void move(int distance, int direction, String plane){}
+	
+	public abstract void characterMove(boolean[] keyboard);
 	
 	public abstract Entity attack();
-	
-	
-	//just for testing push 
 	
 
 }
