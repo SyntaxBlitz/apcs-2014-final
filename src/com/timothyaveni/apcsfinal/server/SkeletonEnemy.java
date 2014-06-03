@@ -7,15 +7,12 @@ import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Player;
 
 public class SkeletonEnemy extends Entity implements EnemyAI {
-	private int baseDmg;
-
 	public SkeletonEnemy(int id, Location loc) {
 		super(id, loc);
-		baseDmg = 30;
 	}
 
-	public int attack() { // Test
-		return getSpeed() + baseDmg;
+	public void attack() { // Test
+		return;
 
 	}
 
