@@ -4,50 +4,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import com.timothyaveni.apcsfinal.client.gui.GameFrame;
+import com.timothyaveni.apcsfinal.client.gui.MenuPanel;
+
 public class Client {
 	private static final double FPS = 30.0;
 	private boolean[] keyboard = new boolean[4];
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private long frame = 0; // current frame number. Increments on each frame
-	private KeyListener keyListener = new KeyListener() {
-		public void keyTyped(KeyEvent e) {
-		}
-
-		public void keyPressed(KeyEvent e) {
-			switch (e.getKeyCode()) {
-				case 39:
-					keyboard[0] = true;
-					break;
-				case 38:
-					keyboard[1] = true;
-					break;
-				case 37:
-					keyboard[2] = true;
-					break;
-				case 40:
-					keyboard[3] = true;
-					break;
-			}
-
-		}
-
-		public void keyReleased(KeyEvent e) {
-			switch (e.getKeyCode()) {
-				case 39:
-					keyboard[0] = false;
-					break;
-				case 38:
-					keyboard[1] = false;
-					break;
-				case 37:
-					keyboard[2] = false;
-					break;
-				case 40:
-					keyboard[3] = false;
-					break;
-			}
-		}
-	};
+	private KeyListener keyListener;
+	
+	public Client() {
+		keyListener = new ClientKeyListener(this);
+		GameFrame newGame = new GameFrame("Saviors of Gundthor", null);
+		MenuPanel menu = new MenuPanel(newGame);
+		newGame.changeFrame(menu);
+	}
 
 	/**
 	 * render environment
@@ -83,6 +55,10 @@ public class Client {
 
 	public long getFrame() {
 		return this.frame;
+	}
+	
+	public void setKey(int index, boolean value) {
+		keyboard[index] = value;
 	}
 
 }

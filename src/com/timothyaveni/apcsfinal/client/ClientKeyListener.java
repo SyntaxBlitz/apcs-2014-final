@@ -6,48 +6,50 @@ import java.awt.event.KeyListener;
 public class ClientKeyListener implements KeyListener {
 	private Client client;
 	private boolean[] keyboard = new boolean[4];
+
+	public ClientKeyListener(Client client) {
+		this.client = client;
+	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
-			switch (e.getKeyCode()) {
-			case 39:
-				keyboard[0] = true;
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_RIGHT:
+				client.setKey(0, true);
 				break;
-			case 38:
-				keyboard[1] = true;
+			case KeyEvent.VK_UP:
+ 				client.setKey(1, true);
 				break;
-			case 37:
-				keyboard[2] = true;
+			case KeyEvent.VK_LEFT:
+				client.setKey(2, true);
 				break;
-			case 40:
-				keyboard[3] = true;
+			case KeyEvent.VK_DOWN:
+				client.setKey(3, true);
 				break;
-			}
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
-			switch (e.getKeyCode()) {
-			case 39:
-				keyboard[0] = false;
+
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_RIGHT:
+				client.setKey(0, false);
 				break;
-			case 38:
-				keyboard[1] = false;
+			case KeyEvent.VK_UP:
+ 				client.setKey(1, false);
 				break;
-			case 37:
-				keyboard[2] = false;
+			case KeyEvent.VK_LEFT:
+				client.setKey(2, false);
 				break;
-			case 40:
-				keyboard[3] = false;
+			case KeyEvent.VK_DOWN:
+				client.setKey(3, false);
 				break;
-			}
+		}
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {}
-	
-	public boolean[] getKeyboard(){
-		return keyboard;
-	}			
+	public void keyTyped(KeyEvent e) {
+	}
 
 }
