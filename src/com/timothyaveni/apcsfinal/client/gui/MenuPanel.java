@@ -97,6 +97,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 					JOptionPane.INFORMATION_MESSAGE);
 		} else if (e.getSource() == exit) {
 			frame.close();
+			System.exit(0);
 		}
 	}
 }
