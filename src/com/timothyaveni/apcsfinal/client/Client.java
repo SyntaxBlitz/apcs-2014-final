@@ -1,5 +1,6 @@
 package com.timothyaveni.apcsfinal.client;
 
+import java.awt.Container;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
@@ -13,6 +14,9 @@ public class Client {
 	private long frame = 0; // current frame number. Increments on each frame
 	private KeyListener keyListener;
 	
+	private boolean inGame = false;
+	private Player player;
+
 	public Client() {
 		keyListener = new ClientKeyListener(this);
 		GameFrame newGame = new GameFrame("Saviors of Gundthor", this);
@@ -58,6 +62,26 @@ public class Client {
 	
 	public void setKey(int index, boolean value) {
 		keyboard[index] = value;
+	}
+	
+	public boolean isInGame() {
+		return inGame;
+	}
+
+	public void setInGame(boolean inGame) {
+		this.inGame = inGame;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public ArrayList<Entity> getEntityList() {
+		return entities;
 	}
 
 }

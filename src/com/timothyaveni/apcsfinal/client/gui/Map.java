@@ -1,18 +1,12 @@
 package com.timothyaveni.apcsfinal.client.gui;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.FileReader;
+import com.timothyaveni.apcsfinal.client.Location;
 
 public class Map {
 	String imageFileName; // name of the file location
@@ -31,7 +25,7 @@ public class Map {
 	}
 
 	// convenient accessor method
-	public BufferedImage getPic() {
-		return image.getSubimage(0, 0, 1024, 768);	// this is just to test. Seems to be relatively quick.
+	public BufferedImage getPic(Location playerLocation) {
+		return image.getSubimage(playerLocation.getX() - MapCanvas.WIDTH / 2, playerLocation.getY() - MapCanvas.HEIGHT / 2, 1024, 768);
 	}
 }

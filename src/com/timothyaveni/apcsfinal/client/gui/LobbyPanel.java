@@ -21,6 +21,9 @@ import javax.swing.SwingConstants;
 
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.FileReader;
+import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.Player;
+import com.timothyaveni.apcsfinal.client.Tank;
 
 /* This class is what where the players will group up until the game
  * is launched. There are many features that are not necessary, 
@@ -183,8 +186,14 @@ public class LobbyPanel extends JPanel implements ActionListener, UsesClient {
 		} else if (e.getSource() == startGame) {
 			// JOptionPane.showMessageDialog(frame, "Standy by for beaming....",
 			// "Start Game", JOptionPane.INFORMATION_MESSAGE);
+			// when you move this code, make sure you change the player entity id.
 			frame.close();
 			frame.changeFrame(new MapCanvas());
+			client.setInGame(true);
+			
+			Player player = new Tank(-1, new Location(600, 600, 1));
+			client.setPlayer(player);
+			client.getEntityList().add(player);
 		} else if (e.getSource() == kickPlayer) {
 			String kick = JOptionPane.showInputDialog(frame, "Please enter player to kick");
 			// send kick to the server so player is removed
