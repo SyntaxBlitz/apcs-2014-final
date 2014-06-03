@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.Entity;
+import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.Tank;
 
 public class MapCanvas extends Canvas {
 
@@ -26,10 +28,12 @@ public class MapCanvas extends Canvas {
 		Map m = new Map("E:\\Map.png");
 		g.drawImage(m.getPic(), 0, 0, 1024, 768, null);
 		
-		ArrayList<Entity> e = c.getArrayList();
+		ArrayList<Entity> e = new ArrayList<Entity>();
+		e.add(new Tank("Tank", "E:\\Tank.png", 48, 32, 0 ,0 ,0, new Location(512, 382, 1)));
+				//c.getArrayList();
 		
 		for(int i = 0; i < e.size(); i++){
-			g.drawImage(e.get(i).getImage(), 0, 0, e.get(i).getWidth(), e.get(i).getHeight());
+			g.drawImage(e.get(i).getImage(), 0, 0, e.get(i).getWidth(), e.get(i).getHeight(), null);
 		}
 
 		//pull arraylist down off client
