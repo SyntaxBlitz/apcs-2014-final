@@ -5,7 +5,6 @@ public class Tank extends Player {
 	public Tank(int id, Location loc) {
 		super(id, loc);
 		setVelocity(8);
-		setBaseDamage(12);
 	}
 
 	public void attack() {
@@ -42,4 +41,9 @@ public class Tank extends Player {
 		return 3 + getLevel();
 	}
 
+	@Override
+	public int getBaseDamage() {
+		return 12;
+	}
+	
 }

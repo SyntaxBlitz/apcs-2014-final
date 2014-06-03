@@ -17,7 +17,7 @@ public class PacketProcessor {
 	}
 
 	public Packet getPacket() {
-		Packet toReturn;
+		Packet toReturn = null;
 		PacketType type = PacketTypeID.getType((int) data[0]);
 
 		switch (type) {
@@ -30,7 +30,8 @@ public class PacketProcessor {
 			case NEW_ENTITY:
 				toReturn = new NewEntityPacket(localPacketId, data);
 		}
-		return null;
+
+		return toReturn;
 	}
 
 }

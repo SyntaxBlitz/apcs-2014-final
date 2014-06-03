@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Player;
-import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 
 public interface EnemyAI {
 

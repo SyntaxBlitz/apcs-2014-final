@@ -5,15 +5,15 @@ import com.timothyaveni.apcsfinal.networking.server.ServerThread;
 public class Server {
 
 	private int port;
-	
+
 	public Server(int port) {
 		PrimaryCallbackListener listener = new PrimaryCallbackListener(this);
 		ServerThread thread = new ServerThread(port, listener);
-		
+
 		Thread runThread = new Thread(thread);
 		runThread.start();
 	}
-	
+
 	public static void main(String[] args) {
 		int port = 21102;
 		if (args.length > 0) {

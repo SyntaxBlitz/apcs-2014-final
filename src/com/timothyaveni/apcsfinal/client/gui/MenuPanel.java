@@ -81,17 +81,18 @@ public class MenuPanel extends JPanel implements ActionListener {
 			JOptionPane ip = new JOptionPane();
 			ip.setWantsInput(true);
 			ip.showInputDialog(frame, "Enter Server IP:");
-			//ip.getInputValue();
-			//ip.showInputDialog(frame, "Enter Character Name:");
+			// ip.getInputValue();
+			// ip.showInputDialog(frame, "Enter Character Name:");
 			String characterName = ip.showInputDialog(frame, "Enter Character Name:");
-			while(characterName.equals("") || characterName.equals(null)){
+			while (characterName.equals("") || characterName.equals(null)) {
 				JOptionPane.showMessageDialog(frame, "Not a valid name");
 				characterName = ip.showInputDialog(frame, "Enter Character Name:");
 			}
 			frame.close();
 			frame.changeFrame(new LobbyPanel(frame, characterName));
 		} else if (e.getSource() == options) {
-			JOptionPane.showMessageDialog(frame, "Sorry, not implemented yet", "Options", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "Sorry, not implemented yet", "Options",
+					JOptionPane.INFORMATION_MESSAGE);
 		} else if (e.getSource() == exit) {
 			frame.close();
 		}

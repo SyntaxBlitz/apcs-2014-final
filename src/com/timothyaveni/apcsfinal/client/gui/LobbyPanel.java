@@ -32,8 +32,7 @@ public class LobbyPanel extends JPanel implements ActionListener {
 	private String characterName;
 	private int numberOfPlayers;
 
-	private MenuButton pickTank, pickHealer, pickArcher, pickMage, pickRogue,
-			quitLobby, startGame, kickPlayer;
+	private MenuButton pickTank, pickHealer, pickArcher, pickMage, pickRogue, quitLobby, startGame, kickPlayer;
 
 	// JComponent elements that get added into the panel
 	private JTextArea chatHistory, playerList;
@@ -55,8 +54,7 @@ public class LobbyPanel extends JPanel implements ActionListener {
 
 		// this creates what will be the panel that will show the player what
 		// class they currently have selected
-		characterView = new JLabel(
-				"This will be where the selected class will be viewed");
+		characterView = new JLabel("This will be where the selected class will be viewed");
 
 		// this is the header for the playerList
 		listHeader = new JLabel("Players " + numberOfPlayers + "/4");
@@ -68,22 +66,14 @@ public class LobbyPanel extends JPanel implements ActionListener {
 		chatHistory = new JTextArea();
 
 		// this creates the buttons incorporated in the panel
-		pickTank = new MenuButton("E:\\PickTankButton.png",
-				"E:\\PickTankButtonHighlighted.png");
-		pickHealer = new MenuButton("E:\\PickHealerButton.png",
-				"E:\\PickHealerButtonHighlighted.png");
-		pickArcher = new MenuButton("E:\\PickArcherButton.png",
-				"E:\\PickArcherButtonHighlighted.png");
-		pickMage = new MenuButton("E:\\PickMageButton.png",
-				"E:\\PickMageButtonHighlighted.png");
-		pickRogue = new MenuButton("E:\\PickRogueButton.png",
-				"E:\\PickRogueButtonHighlighted.png");
-		quitLobby = new MenuButton("E:\\QuitLobbyButton.png",
-				"E:\\QuitLobbyButtonHighlighted.png");
-		startGame = new MenuButton("E:\\StartGameButton.png",
-				"E:\\StartGameButtonHighlighted.png");
-		kickPlayer = new MenuButton("E:\\KickPlayerButton.png",
-				"E:\\KickPlayerButtonHighlighted.png");
+		pickTank = new MenuButton("E:\\PickTankButton.png", "E:\\PickTankButtonHighlighted.png");
+		pickHealer = new MenuButton("E:\\PickHealerButton.png", "E:\\PickHealerButtonHighlighted.png");
+		pickArcher = new MenuButton("E:\\PickArcherButton.png", "E:\\PickArcherButtonHighlighted.png");
+		pickMage = new MenuButton("E:\\PickMageButton.png", "E:\\PickMageButtonHighlighted.png");
+		pickRogue = new MenuButton("E:\\PickRogueButton.png", "E:\\PickRogueButtonHighlighted.png");
+		quitLobby = new MenuButton("E:\\QuitLobbyButton.png", "E:\\QuitLobbyButtonHighlighted.png");
+		startGame = new MenuButton("E:\\StartGameButton.png", "E:\\StartGameButtonHighlighted.png");
+		kickPlayer = new MenuButton("E:\\KickPlayerButton.png", "E:\\KickPlayerButtonHighlighted.png");
 
 		// assigns the Background Image of the Panel
 		try {
@@ -176,8 +166,7 @@ public class LobbyPanel extends JPanel implements ActionListener {
 		if (menuBackground == null) {
 			return new Dimension(100, 100);
 		} else {
-			return new Dimension(menuBackground.getWidth(),
-					menuBackground.getHeight());
+			return new Dimension(menuBackground.getWidth(), menuBackground.getHeight());
 		}
 	}
 
@@ -187,12 +176,13 @@ public class LobbyPanel extends JPanel implements ActionListener {
 			frame.close();
 			frame.changeFrame(new MenuPanel(frame));
 		} else if (e.getSource() == startGame) {
-			//JOptionPane.showMessageDialog(frame, "Standy by for beaming....", "Start Game", JOptionPane.INFORMATION_MESSAGE);
+			// JOptionPane.showMessageDialog(frame, "Standy by for beaming....",
+			// "Start Game", JOptionPane.INFORMATION_MESSAGE);
 			frame.close();
 			frame.changeFrame(new MapCanvas(frame.getClient()));
 		} else if (e.getSource() == kickPlayer) {
 			String kick = JOptionPane.showInputDialog(frame, "Please enter player to kick");
-			//send kick to the server so player is removed
+			// send kick to the server so player is removed
 		} else if (e.getSource() == chatInput) {
 			if (chatInput.getText().length() >= 1) {
 				chatHistory.append(chatInput.getText() + "\n");

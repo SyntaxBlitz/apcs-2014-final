@@ -8,11 +8,11 @@ import com.timothyaveni.apcsfinal.networking.server.ServerCallbackListener;
 public class PrimaryCallbackListener extends ServerCallbackListener {
 
 	private Server server;
-	
+
 	public PrimaryCallbackListener(Server server) {
 		this.server = server;
 	}
-	
+
 	@Override
 	public void bindSuccess() {
 		// TODO Auto-generated method stub
