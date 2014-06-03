@@ -22,7 +22,7 @@ public class ServerThread implements Runnable {
 
 	private boolean keepRunning = true;
 
-	private int lastLocalPacketId = 0;
+	private static int lastLocalPacketId = 0;
 
 	public ServerThread(int port, ServerCallbackListener listener) {
 		this.port = port;
@@ -73,8 +73,8 @@ public class ServerThread implements Runnable {
 
 	// this doesn't strictly need to be synchronized because it's being called
 	// in a blocking loop anyway. Mostly this is just in case we refactor later.
-	private synchronized int getNextPacketId() {
-		return this.lastLocalPacketId++; // starts at 0, so we can just
+	public synchronized static int getNextPacketId() {
+		return lastLocalPacketId++; // starts at 0, so we can just
 											// increment afterwards
 	}
 
