@@ -25,13 +25,8 @@ public abstract class Entity {
 
 	protected boolean inCombat;
 
-	public Entity(int id, int height, int width, int strength, int intelligence, int speed, Location loc) {
+	public Entity(int id, Location loc) {
 		this.id = id;
-		this.height = height;
-		this.width = width;
-		this.strength = strength;
-		this.intelligence = intelligence;
-		this.speed = speed;
 		this.loc = loc;
 	}
 
