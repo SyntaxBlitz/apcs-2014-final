@@ -1,14 +1,19 @@
 package com.timothyaveni.apcsfinal.server;
 
+import java.util.ArrayList;
+
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
+import com.timothyaveni.apcsfinal.networking.server.ServerThread;
+
 
 public class SkeletonEnemy extends Entity implements EnemyAI {
 	private int baseDmg;
 
-	SkeletonEnemy(String name, String location, int height, int width, int strength, int intelligence, int speed, Location loc){
-		super(name, location, height, width, strength, intelligence, speed, loc);
+	public SkeletonEnemy(String name, String location, int height, int width, int strength, int intelligence, int speed, Location loc, int id){
+		super(name, location, height, width, strength, intelligence, speed, loc, id);
 		baseDmg = 30;
 		
 	}
@@ -33,7 +38,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		return speed + baseDmg;
 		
 	}
-
+	
 	public void move(int distance, int direction, String plane){
 		if(plane.equals("X"))
 		{
@@ -52,16 +57,38 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		
 	}
 	
-	public EntityDamagePacket trackPlayer(Location playerLoc){ //Tracks player based off the player's location might want all player locations to determine closest?
-		int playerX = playerLoc.getX();
-		int playerY = playerLoc.getY();
+	
+	public EntityDamagePacket trackPlayer(ArrayList<Player> player){ //Tracks player based off the player's location might want all player locations to determine closest?
+		ArrayList<Integer> distances = new ArrayList<Integer>();
+		Player track;
+		int playerDis, temp, playerIndex;
+		for(Player p : player)
+		{
+			distances.add(getDistanceToPlayer(p.getLocation()));
+		}
 		
-		if(Math.abs(playerX - loc.getX()) <= 16 || Math.abs(playerY - loc.getY()) <= 16)
-			EntityDamagePacket(attack(), "Byte Array"); //This is probably wrong because the method is void
-		else if(playerX - loc.getX() < playerY - loc.getY())
-			move((playerX - loc.getX()), (loc.getX() - playerX), "X");
-		else if(playerY - loc.getY() < playerY - loc.getY())
-			move((playerY - loc.getY()), (loc.getY() - playerY), "Y");
+		for(int i = 0; i < distances.size(); i++)
+		{
+			temp = distances.get(i);
+			
+			if(temp < playerDis)
+			{
+				playerDis = temp;
+				playerIndex = i;
+			}
+		}
+		
+		track = player.get(playerIndex);
+		
+		
+		
+		
+		if(Math.abs(track.getLocation().getX() - loc.getX()) <= 32 || Math.abs(track.getLocation().getY() - loc.getY()) <= 48)
+			EntityDamagePacket(ServerThread.getNextPacketId(), track.getId(), baseDmg + speed);
+		else if(track.getLocation().getX() - loc.getX() < track.getLocation().getY() - loc.getY())
+			move((track.getLocation().getX() - loc.getX()), (loc.getX() - track.getLocation().getX()), "X");
+		else if(track.getLocation().getY() - loc.getY() < track.getLocation().getY() - loc.getY())
+			move((track.getLocation().getY() - loc.getY()), (loc.getY() - track.getLocation().getY()), "Y");
 		
 				
 	}
@@ -74,4 +101,13 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 	public Location getPlayerLocation(Location playerLoc){
 		return playerLoc; //This might not be needed.
 	}
+	
+	public int getDistanceToPlayer(Location player)
+	{
+		int playerX = player.getX();
+		int playerY = player.getY();
+		
+		return (int)Math.sqrt(Math.pow(playerX - this.getLocation().getX(), 2) + Math.pow(playerY - this.getLocation().getY(), 2));
+	}
+
 }
