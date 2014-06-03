@@ -9,6 +9,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import com.timothyaveni.apcsfinal.client.FileReader;
+
 public class MenuButton extends JButton {
 
 	private static final long serialVersionUID = 1L;
@@ -18,8 +20,8 @@ public class MenuButton extends JButton {
 
 		// try-catch block assigns images from directory to fields
 		try {
-			image = ImageIO.read(new File(fileLocation));
-			highlightedImage = ImageIO.read(new File(highlightedFileLocation));
+			image = ImageIO.read(FileReader.getFileFromResourceString(fileLocation));
+			highlightedImage = ImageIO.read(FileReader.getFileFromResourceString(highlightedFileLocation));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

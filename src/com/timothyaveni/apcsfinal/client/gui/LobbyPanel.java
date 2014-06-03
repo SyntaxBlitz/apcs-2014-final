@@ -19,6 +19,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.timothyaveni.apcsfinal.client.FileReader;
+
 /* This class is what where the players will group up until the game
  * is launched. There are many features that are not necessary, 
  * but add user friendly interactions. */
@@ -66,18 +68,18 @@ public class LobbyPanel extends JPanel implements ActionListener {
 		chatHistory = new JTextArea();
 
 		// this creates the buttons incorporated in the panel
-		pickTank = new MenuButton("E:\\PickTankButton.png", "E:\\PickTankButtonHighlighted.png");
-		pickHealer = new MenuButton("E:\\PickHealerButton.png", "E:\\PickHealerButtonHighlighted.png");
-		pickArcher = new MenuButton("E:\\PickArcherButton.png", "E:\\PickArcherButtonHighlighted.png");
-		pickMage = new MenuButton("E:\\PickMageButton.png", "E:\\PickMageButtonHighlighted.png");
-		pickRogue = new MenuButton("E:\\PickRogueButton.png", "E:\\PickRogueButtonHighlighted.png");
-		quitLobby = new MenuButton("E:\\QuitLobbyButton.png", "E:\\QuitLobbyButtonHighlighted.png");
-		startGame = new MenuButton("E:\\StartGameButton.png", "E:\\StartGameButtonHighlighted.png");
-		kickPlayer = new MenuButton("E:\\KickPlayerButton.png", "E:\\KickPlayerButtonHighlighted.png");
+		pickTank = new MenuButton("PickTankButton.png", "PickTankButtonHighlighted.png");
+		pickHealer = new MenuButton("PickHealerButton.png", "PickHealerButtonHighlighted.png");
+		pickArcher = new MenuButton("PickArcherButton.png", "PickArcherButtonHighlighted.png");
+		pickMage = new MenuButton("PickMageButton.png", "PickMageButtonHighlighted.png");
+		pickRogue = new MenuButton("PickRogueButton.png", "PickRogueButtonHighlighted.png");
+		quitLobby = new MenuButton("QuitLobbyButton.png", "QuitLobbyButtonHighlighted.png");
+		startGame = new MenuButton("StartGameButton.png", "StartGameButtonHighlighted.png");
+		kickPlayer = new MenuButton("KickPlayerButton.png", "KickPlayerButtonHighlighted.png");
 
 		// assigns the Background Image of the Panel
 		try {
-			menuBackground = ImageIO.read(new File("E:\\MainMenu.png"));
+			menuBackground = ImageIO.read(FileReader.getFileFromResourceString("MainMenu.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

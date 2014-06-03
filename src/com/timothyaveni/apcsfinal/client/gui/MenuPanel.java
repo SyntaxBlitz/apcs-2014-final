@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.timothyaveni.apcsfinal.client.FileReader;
+
 public class MenuPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -28,13 +30,13 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.frame = frame;
 
 		// constructs buttons for inside the Panel
-		joinServer = new MenuButton("E:\\JoinServerButton.png", "E:\\JoinServerButtonHighlighted.png");
-		options = new MenuButton("E:\\OptionButton.png", "E:\\OptionButtonHighlighted.png");
-		exit = new MenuButton("E:\\ExitButton.png", "E:\\ExitButtonHighlighted.png");
+		joinServer = new MenuButton("JoinServerButton.png", "JoinServerButtonHighlighted.png");
+		options = new MenuButton("OptionButton.png", "OptionButtonHighlighted.png");
+		exit = new MenuButton("ExitButton.png", "ExitButtonHighlighted.png");
 
 		// assigns the Background Image of the Panel
 		try {
-			menuBackground = ImageIO.read(new File("E:\\MainMenu.png"));
+			menuBackground = ImageIO.read(FileReader.getFileFromResourceString("MainMenu.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -84,7 +86,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 			// ip.getInputValue();
 			// ip.showInputDialog(frame, "Enter Character Name:");
 			String characterName = ip.showInputDialog(frame, "Enter Character Name:");
-			while (characterName.equals("") || characterName.equals(null)) {
+			while (characterName == null || characterName.equals("")) {
 				JOptionPane.showMessageDialog(frame, "Not a valid name");
 				characterName = ip.showInputDialog(frame, "Enter Character Name:");
 			}

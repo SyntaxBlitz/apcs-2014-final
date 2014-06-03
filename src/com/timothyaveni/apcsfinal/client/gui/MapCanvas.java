@@ -25,7 +25,7 @@ public class MapCanvas extends Canvas {
 	public void render(Graphics g) {
 
 		// draws map background on Canvas in frame
-		Map m = new Map("E:\\Map.png");
+		Map m = new Map("Map.png");
 		g.drawImage(m.getPic(), 0, 0, 1024, 768, null);
 
 		ArrayList<Entity> e = new ArrayList<Entity>();

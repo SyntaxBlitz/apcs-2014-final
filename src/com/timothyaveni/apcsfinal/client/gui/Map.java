@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.timothyaveni.apcsfinal.client.FileReader;
+
 public class Map extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -24,7 +26,7 @@ public class Map extends JPanel {
 
 		// assigns Image of the map background to the field
 		try {
-			image = ImageIO.read(new File(imageFileName));
+			image = ImageIO.read(FileReader.getFileFromResourceString(fileLocation));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

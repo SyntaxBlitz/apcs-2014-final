@@ -44,7 +44,7 @@ public abstract class Entity {
 		BufferedImage image = null;
 		if (inCombat == false) {
 			try {
-				image = ImageIO.read(new File(getFileLocation()));
+				image = ImageIO.read(FileReader.getFileFromResourceString(getFileLocation()));
 				image = image.getSubimage((int) ((frame % 4) * 32), loc.getDirection() * 48, this.getWidth(),
 						this.getHeight());
 			} catch (IOException e) {
@@ -52,7 +52,7 @@ public abstract class Entity {
 			}
 		} else {
 			try {
-				image = ImageIO.read(new File(getFileLocation()));
+				image = ImageIO.read(FileReader.getFileFromResourceString(getFileLocation()));
 				image = image.getSubimage((int) ((frame % 2) * 32 + 128), loc.getDirection() * 48, this.getWidth(),
 						this.getHeight());
 			} catch (IOException e) {
