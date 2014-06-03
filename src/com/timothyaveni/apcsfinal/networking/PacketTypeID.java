@@ -10,6 +10,8 @@ public class PacketTypeID {
 				return 1;
 			case ENTITY_DAMAGE:
 				return 2;
+			case NEW_ENTITY:
+				return 3;
 			default:
 				return -1;
 		}
@@ -23,6 +25,8 @@ public class PacketTypeID {
 				return PacketType.PLAYER_LOCATION;
 			case 2:
 				return PacketType.ENTITY_DAMAGE;
+			case 3:
+				return PacketType.NEW_ENTITY;
 			default:
 				return null;
 		}

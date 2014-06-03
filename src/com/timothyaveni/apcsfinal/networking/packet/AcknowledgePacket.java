@@ -14,6 +14,7 @@ public class AcknowledgePacket extends Packet {
 
 	public AcknowledgePacket(int id, int remotePacketId) {
 		super(id);
+		this.setMustAcknowledge(false);	//lol
 		this.acknowledgedPacketId = remotePacketId;
 	}
 	

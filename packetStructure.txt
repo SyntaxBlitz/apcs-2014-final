@@ -32,3 +32,9 @@ PlayerLocationPacket (total size=15 bytes):
 EntityDamagePacket must-acknowledge (total size=10 bytes):
 	bytes 6-7: entity id
 	bytes 8-10: damage amount (signed int)
+
+NewEntityPacket must-acknowledge (total size= bytes):
+	bytes 6-7: entity id	(unsigned int)
+	bytes 8-11: location-x	(signed int)
+	bytes 12-15: location-y	(signed int)
+	byte 16: facing (Direction enum)

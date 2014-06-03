@@ -15,6 +15,7 @@ public class EntityDamagePacket extends Packet {
 
 	public EntityDamagePacket(int id, int entityId, int damageAmount) {
 		super(id);
+		this.setMustAcknowledge(true);
 		this.entityId = entityId;
 		this.damageAmount = damageAmount;
 	}

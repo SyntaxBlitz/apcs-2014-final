@@ -16,6 +16,7 @@ public class PlayerLocationPacket extends Packet {
 
 	public PlayerLocationPacket(int id, int worldSectionId, Location location) {
 		super(id);
+		this.setMustAcknowledge(false);
 		this.worldSectionId = worldSectionId;
 		this.location = location;
 	}
