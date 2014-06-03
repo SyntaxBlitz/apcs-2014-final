@@ -3,6 +3,7 @@ package com.timothyaveni.apcsfinal.client;
 public abstract class Player extends Entity {
 	private int velocity;
 	private int baseDamage;
+	private int level;
 
 	public Player(int id, Location loc){
 		super(id, loc);
@@ -16,6 +17,13 @@ public abstract class Player extends Entity {
 		baseDamage = d;
 	}
 	
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	
 	public Location getLocation(){
 		return this.loc;
@@ -47,7 +55,7 @@ public abstract class Player extends Entity {
 		}
 	}
 
-	public abstract Entity attack();
+	public abstract void attack();
 
 
 }

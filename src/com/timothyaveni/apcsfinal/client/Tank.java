@@ -1,19 +1,45 @@
 package com.timothyaveni.apcsfinal.client;
 
 public class Tank extends Player {
-	
-	
-	public Tank(String name, String location, int height, int width, int strength, int intelligence, int speed, Location loc){
-		super(name, location, height, width, strength,  intelligence, speed, loc);
+
+	public Tank(int id, Location loc) {
+		super(id, loc);
 		setVelocity(8);
 		setBaseDamage(12);
 	}
 
-	
+	public void attack() {
+		return;
+	}
 
 	@Override
-	public Entity attack() {
-		return null;
+	public int getHeight() {
+		return 48;
+	}
+
+	@Override
+	public int getWidth() {
+		return 32;
+	}
+
+	@Override
+	public String getFileLocation() {
+		return "Tank.png";
+	}
+
+	@Override
+	public int getStrength() {
+		return 10 + getLevel() * 5;
+	}
+
+	@Override
+	public int getSpeed() {
+		return 5 + getLevel() * 2;
+	}
+
+	@Override
+	public int getIntelligence() {
+		return 3 + getLevel();
 	}
 
 }
