@@ -8,42 +8,43 @@ public class Client {
 	private static final double FPS = 30.0;
 	private boolean[] keyboard = new boolean[4];
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
+	private long frame = 0; // current frame number. Increments on each frame
 	private KeyListener keyListener = new KeyListener() {
 		public void keyTyped(KeyEvent e) {
 		}
 
 		public void keyPressed(KeyEvent e) {
 			switch (e.getKeyCode()) {
-			case 39:
-				keyboard[0] = true;
-				break;
-			case 38:
-				keyboard[1] = true;
-				break;
-			case 37:
-				keyboard[2] = true;
-				break;
-			case 40:
-				keyboard[3] = true;
-				break;
+				case 39:
+					keyboard[0] = true;
+					break;
+				case 38:
+					keyboard[1] = true;
+					break;
+				case 37:
+					keyboard[2] = true;
+					break;
+				case 40:
+					keyboard[3] = true;
+					break;
 			}
 
 		}
 
 		public void keyReleased(KeyEvent e) {
 			switch (e.getKeyCode()) {
-			case 39:
-				keyboard[0] = false;
-				break;
-			case 38:
-				keyboard[1] = false;
-				break;
-			case 37:
-				keyboard[2] = false;
-				break;
-			case 40:
-				keyboard[3] = false;
-				break;
+				case 39:
+					keyboard[0] = false;
+					break;
+				case 38:
+					keyboard[1] = false;
+					break;
+				case 37:
+					keyboard[2] = false;
+					break;
+				case 40:
+					keyboard[3] = false;
+					break;
 			}
 		}
 	};
@@ -55,11 +56,13 @@ public class Client {
 	 */
 	public static void main(String[] args) {
 		// display GUI
-		gameLoop(true);
+		Client client = new Client();
+		client.gameLoop();
 	}
 
-	public static void gameLoop(boolean isRunning) {
+	public void gameLoop() {
 		long lastLoopTime;
+		boolean isRunning = true;
 
 		while (isRunning) {
 			lastLoopTime = System.nanoTime();
@@ -74,7 +77,12 @@ public class Client {
 			} catch (InterruptedException e) {
 			}
 
+			frame++;
 		}
+	}
+
+	public long getFrame() {
+		return this.frame;
 	}
 
 }

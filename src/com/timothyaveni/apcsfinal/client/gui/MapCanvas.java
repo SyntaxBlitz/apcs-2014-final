@@ -14,30 +14,32 @@ public class MapCanvas extends Canvas {
 	private static final long serialVersionUID = 1L;
 	public final int WIDTH = 1024;
 	public final int HEIGHT = WIDTH / 4 * 3;
-	private Client c;
+	private Client client;
 
 	// Constructor :D
 	public MapCanvas(Client c) {
 		super();
-		this.c = c;
+		this.client = c;
 	}
 
-	public static void render(Graphics g) {
+	public void render(Graphics g) {
 
 		// draws map background on Canvas in frame
 		Map m = new Map("E:\\Map.png");
 		g.drawImage(m.getPic(), 0, 0, 1024, 768, null);
-		
+
 		ArrayList<Entity> e = new ArrayList<Entity>();
-		e.add(new Tank("Tank", "E:\\Tank.png", 48, 32, 0 ,0 ,0, new Location(512, 382, 1)));
-				//c.getArrayList();
-		
-		for(int i = 0; i < e.size(); i++){
-			g.drawImage(e.get(i).getImage(), 0, 0, e.get(i).getWidth(), e.get(i).getHeight(), null);
+		// it is never okay to construct entities with id=-1 but this is just a
+		// test and normally you get the id from the server
+		e.add(new Tank(-1, new Location(512, 382, 1)));
+		// c.getArrayList();
+
+		for (int i = 0; i < e.size(); i++) {
+			g.drawImage(e.get(i).getImage(client.getFrame()), 0, 0, e.get(i).getWidth(), e.get(i).getHeight(), null);
 		}
 
-		//pull arraylist down off client
-		//misc comment so I'm able to commit
+		// pull arraylist down off client
+		// misc comment so I'm able to commit
 		g.dispose(); // releases system resources the graphics object is taking
 						// up
 	}
