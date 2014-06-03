@@ -33,7 +33,7 @@ public class MapCanvas extends Canvas {
 		}
 
 		//pull arraylist down off client
-		
+		//misc comment so I'm able to commit
 		g.dispose(); // releases system resources the graphics object is taking
 						// up
 	}
