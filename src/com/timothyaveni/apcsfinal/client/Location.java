@@ -31,6 +31,10 @@ public class Location {
 	public int getDirection() {
 		return direction;
 	}
+	
+	public void setDirection(int d){
+		direction = d;
+	}
 
 	public void setX(int x) {
 		this.x = x;
