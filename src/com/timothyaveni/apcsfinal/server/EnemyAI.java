@@ -8,7 +8,7 @@ import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 
 public interface EnemyAI {
 
-	public EntityDamagePacket trackPlayer(ArrayList<Player> players);
+	public void trackPlayer(ArrayList<Player> players);
 
 	public Location getLocation();
 

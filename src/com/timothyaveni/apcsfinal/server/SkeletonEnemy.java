@@ -5,109 +5,105 @@ import java.util.ArrayList;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Player;
-import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
-import com.timothyaveni.apcsfinal.networking.server.ServerThread;
-
 
 public class SkeletonEnemy extends Entity implements EnemyAI {
 	private int baseDmg;
 
-	public SkeletonEnemy(String name, String location, int height, int width, int strength, int intelligence, int speed, Location loc, int id){
-		super(name, location, height, width, strength, intelligence, speed, loc, id);
+	public SkeletonEnemy(int id, Location loc) {
+		super(id, loc);
 		baseDmg = 30;
-		
-	}
-	
-	public String getName() {
-		return name;
 	}
 
-	public int getHeight() {
-		return height;
+	public int attack() { // Test
+		return getSpeed() + baseDmg;
+
 	}
 
-	public int getWidth() {
-		return width;
-	}
-
-	public String getFileLocation() {
-		return fileLocation;
-	}
-
-	public int attack(){ //Test
-		return speed + baseDmg;
-		
-	}
-	
-	public void move(int distance, int direction, String plane){
-		if(plane.equals("X"))
-		{
-			if(direction > 0)
+	public void move(int distance, int direction, String plane) {
+		if (plane.equals("X")) {
+			if (direction > 0)
 				this.loc.setX(this.loc.getX() + 16);
 			else
 				this.loc.setX(this.loc.getX() - 16);
-		}
-		else
-		{
-			if(direction > 0)
+		} else {
+			if (direction > 0)
 				this.loc.setY(this.loc.getY() + 16);
 			else
 				this.loc.setY(this.loc.getY() - 16);
 		}
-		
+
 	}
-	
-	
-	public EntityDamagePacket trackPlayer(ArrayList<Player> player){ //Tracks player based off the player's location might want all player locations to determine closest?
-		ArrayList<Integer> distances = new ArrayList<Integer>();
+
+	// Tracks player based off the player's location; might want all player
+	// locations to determine closest?
+	public void trackPlayer(ArrayList<Player> players) {
+		if (players.size() == 0)
+			return;
 		Player track;
-		int playerDis, temp, playerIndex;
-		for(Player p : player)
-		{
-			distances.add(getDistanceToPlayer(p.getLocation()));
-		}
-		
-		for(int i = 0; i < distances.size(); i++)
-		{
-			temp = distances.get(i);
-			
-			if(temp < playerDis)
-			{
-				playerDis = temp;
-				playerIndex = i;
+
+		double smallestDistance = getLocation().getDistanceTo(players.get(0).getLocation());
+		int smallestIndex = 0;
+
+		for (int i = 0; i < players.size(); i++) {
+			double thisDistance = getLocation().getDistanceTo(players.get(i).getLocation());
+
+			if (thisDistance < smallestDistance) {
+				smallestDistance = thisDistance;
+				smallestIndex = i;
 			}
 		}
-		
-		track = player.get(playerIndex);
-		
-		
-		
-		
-		if(Math.abs(track.getLocation().getX() - loc.getX()) <= 32 || Math.abs(track.getLocation().getY() - loc.getY()) <= 48)
-			EntityDamagePacket(ServerThread.getNextPacketId(), track.getId(), baseDmg + speed);
-		else if(track.getLocation().getX() - loc.getX() < track.getLocation().getY() - loc.getY())
+
+		track = players.get(smallestIndex);
+
+		if (Math.abs(track.getLocation().getX() - loc.getX()) <= 32
+				|| Math.abs(track.getLocation().getY() - loc.getY()) <= 48) {
+			// EntityDamagePacket(ServerThread.getNextPacketId(), track.getId(),
+			// baseDmg + getSpeed());
+			// attack
+		} else if (track.getLocation().getX() - loc.getX() < track.getLocation().getY() - loc.getY()) {
 			move((track.getLocation().getX() - loc.getX()), (loc.getX() - track.getLocation().getX()), "X");
-		else if(track.getLocation().getY() - loc.getY() < track.getLocation().getY() - loc.getY())
+		} else if (track.getLocation().getY() - loc.getY() < track.getLocation().getY() - loc.getY()) {
 			move((track.getLocation().getY() - loc.getY()), (loc.getY() - track.getLocation().getY()), "Y");
-		
-				
+		}
+
 	}
 
-
-	public Location getLocation(){
+	public Location getLocation() {
 		return this.loc;
 	}
 
-	public Location getPlayerLocation(Location playerLoc){
-		return playerLoc; //This might not be needed.
+	public Location getPlayerLocation(Location playerLoc) {
+		return playerLoc; // This might not be needed.
 	}
-	
-	public int getDistanceToPlayer(Location player)
-	{
-		int playerX = player.getX();
-		int playerY = player.getY();
-		
-		return (int)Math.sqrt(Math.pow(playerX - this.getLocation().getX(), 2) + Math.pow(playerY - this.getLocation().getY(), 2));
+
+	@Override
+	public int getHeight() {
+		return 48;
+	}
+
+	@Override
+	public int getWidth() {
+		return 32;
+	}
+
+	@Override
+	public String getFileLocation() {
+		return "";
+	}
+
+	@Override
+	public int getStrength() {
+		return 6;
+	}
+
+	@Override
+	public int getSpeed() {
+		return 5;
+	}
+
+	@Override
+	public int getIntelligence() {
+		return 0;
 	}
 
 }

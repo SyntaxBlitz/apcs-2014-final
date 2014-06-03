@@ -30,6 +30,10 @@ public abstract class Entity {
 
 	public abstract int getIntelligence();
 
+	public int getId() {
+		return this.id;
+	}
+	
 	public Location getLocation() {
 		return this.loc;
 	}

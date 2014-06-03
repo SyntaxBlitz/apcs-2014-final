@@ -28,8 +28,8 @@ public class Location {
 	public int getDirection() {
 		return direction;
 	}
-	
-	public void setDirection(int d){
+
+	public void setDirection(int d) {
 		direction = d;
 	}
 
@@ -39,5 +39,10 @@ public class Location {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public double getDistanceTo(Location other) {
+		return Math.sqrt((other.getX() - this.getX()) * (other.getX() - this.getX()) + (other.getY() - this.getY())
+				* (other.getY() - this.getY()));
 	}
 }
