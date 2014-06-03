@@ -7,10 +7,10 @@ enums are all represented by unsigned ints
 enum definitions:
 	PacketType is defined in com.timothyaveni.apcsfinal.networking.PacketTypeID
 	Direction:
-		Direction.NORTH : 0
-		Direction.EAST  : 1
-		Direction.SOUTH : 2
-		Direction.WEST  : 3
+		Direction.NORTH : 4
+		Direction.EAST  : 3
+		Direction.SOUTH : 1
+		Direction.WEST  : 2
 
 all Packets:
 	byte 0: packet type		(PacketType enum)
