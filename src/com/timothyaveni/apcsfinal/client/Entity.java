@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 public abstract class Entity {
 
+	protected int id;		// entity id according to server
 	protected int height; // height of the entity in pixels
 	protected int width; // width of the entity in pixels
 	protected String name; // name of the entity in terms of type (so Tank's
@@ -24,8 +25,9 @@ public abstract class Entity {
 
 	protected boolean inCombat;
 
-	public Entity(String name, String location, int height, int width,
+	public Entity(int id, String name, String location, int height, int width,
 			int strength, int intelligence, int speed, Location loc) {
+		this.id = id;
 		this.name = name;
 		fileLocation = location;
 		this.height = height;
@@ -36,6 +38,10 @@ public abstract class Entity {
 		this.loc = loc;
 	}
 
+	public int getId() {
+		return id;
+	}
+	
 	public String getName() {
 		return name;
 	}
