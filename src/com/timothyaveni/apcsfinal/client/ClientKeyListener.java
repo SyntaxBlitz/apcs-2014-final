@@ -3,7 +3,7 @@ package com.timothyaveni.apcsfinal.client;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class ClientKeyListner implements KeyListener {
+public class ClientKeyListener implements KeyListener {
 	private Client client;
 	private boolean[] keyboard = new boolean[4];
 	@Override
