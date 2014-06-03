@@ -11,9 +11,6 @@ public class Location {
 	 */
 	private int direction;
 
-	// may want to move to entity
-	private int steps;
-
 	public Location(int x, int y, int direction) {
 		this.x = x;
 		this.y = y;
@@ -42,9 +39,5 @@ public class Location {
 
 	public void setY(int y) {
 		this.y = y;
-	}
-
-	public int getSteps() {
-		return steps;
 	}
 }
