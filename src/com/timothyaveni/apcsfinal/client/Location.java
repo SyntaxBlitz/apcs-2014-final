@@ -4,7 +4,15 @@ public class Location {
 
 	private int x;
 	private int y;
+
+	/*
+	 * 1 represents South | 2 represents West | 3 represents East | 4 represents
+	 * North.
+	 */
 	private int direction;
+
+	// may want to move to entity
+	private int steps;
 
 	public Location(int x, int y, int direction) {
 		this.x = x;
@@ -24,13 +32,15 @@ public class Location {
 		return direction;
 	}
 
-	public void setX(int x)
-	{
+	public void setX(int x) {
 		this.x = x;
 	}
-	
-	public void setY(int y)
-	{
+
+	public void setY(int y) {
 		this.y = y;
+	}
+
+	public int getSteps() {
+		return steps;
 	}
 }

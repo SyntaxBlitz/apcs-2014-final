@@ -1,7 +1,52 @@
 package com.timothyaveni.apcsfinal.client;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+
 public class Client {
 	private static final double FPS = 30.0;
+	private boolean[] keyboard = new boolean[4];
+	private ArrayList<Entity> entities = new ArrayList<Entity>();
+	private KeyListener keyListener = new KeyListener() {
+		public void keyTyped(KeyEvent e) {
+		}
+
+		public void keyPressed(KeyEvent e) {
+			switch (e.getKeyCode()) {
+			case 39:
+				keyboard[0] = true;
+				break;
+			case 38:
+				keyboard[1] = true;
+				break;
+			case 37:
+				keyboard[2] = true;
+				break;
+			case 40:
+				keyboard[3] = true;
+				break;
+			}
+
+		}
+
+		public void keyReleased(KeyEvent e) {
+			switch (e.getKeyCode()) {
+			case 39:
+				keyboard[0] = false;
+				break;
+			case 38:
+				keyboard[1] = false;
+				break;
+			case 37:
+				keyboard[2] = false;
+				break;
+			case 40:
+				keyboard[3] = false;
+				break;
+			}
+		}
+	};
 
 	/**
 	 * render environment

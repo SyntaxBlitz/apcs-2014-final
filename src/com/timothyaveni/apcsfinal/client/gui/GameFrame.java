@@ -4,6 +4,8 @@ import java.awt.Component;
 
 import javax.swing.JFrame;
 
+import com.timothyaveni.apcsfinal.client.Client;
+
 public class GameFrame extends JFrame{
 
 	/**
@@ -16,10 +18,12 @@ public class GameFrame extends JFrame{
 
 	private String name;
 	private JFrame frame;
+	private Client c;
 
 	// ******When you construct a GameFrame object you must call changeFrame()
-	public GameFrame(String name) {
+	public GameFrame(String name, Client c) {
 		this.name = name;
+		this.c = c;
 	}
 
 	public void changeFrame(Component c) {
@@ -46,6 +50,8 @@ public class GameFrame extends JFrame{
 	public void setDefaultCloseOperation(int operation){
 		super.setDefaultCloseOperation(operation);
 	}
-	
-	//hi
+
+	public Client getClient() {
+		return c;
+	}
 }

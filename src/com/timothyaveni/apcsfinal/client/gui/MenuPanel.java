@@ -84,6 +84,10 @@ public class MenuPanel extends JPanel implements ActionListener {
 			//ip.getInputValue();
 			//ip.showInputDialog(frame, "Enter Character Name:");
 			String characterName = ip.showInputDialog(frame, "Enter Character Name:");
+			while(characterName.equals("") || characterName.equals(null)){
+				JOptionPane.showMessageDialog(frame, "Not a valid name");
+				characterName = ip.showInputDialog(frame, "Enter Character Name:");
+			}
 			frame.close();
 			frame.changeFrame(new LobbyPanel(frame, characterName));
 		} else if (e.getSource() == options) {
@@ -92,6 +96,4 @@ public class MenuPanel extends JPanel implements ActionListener {
 			frame.close();
 		}
 	}
-	
-	//hi
 }
