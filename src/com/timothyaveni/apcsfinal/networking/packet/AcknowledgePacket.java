@@ -9,7 +9,7 @@ public class AcknowledgePacket extends Packet {
 
 	public AcknowledgePacket(int id, byte[] data) {
 		super(id);
-		this.unpack(data);
+		unpack(data);
 	}
 
 	public AcknowledgePacket(int id, int remotePacketId) {
