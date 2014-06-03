@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -13,14 +12,16 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.FileReader;
 
-public class MenuPanel extends JPanel implements ActionListener {
+public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 
 	private static final long serialVersionUID = 1L;
 	private JButton joinServer, options, exit;
 	private BufferedImage menuBackground;
 	private GameFrame frame;
+	private Client client;
 
 	public MenuPanel(GameFrame frame) {
 
@@ -99,5 +100,10 @@ public class MenuPanel extends JPanel implements ActionListener {
 			frame.close();
 			System.exit(0);
 		}
+	}
+
+	@Override
+	public void setClient(Client client) {
+		this.client = client;
 	}
 }

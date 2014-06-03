@@ -15,7 +15,7 @@ public class Client {
 	
 	public Client() {
 		keyListener = new ClientKeyListener(this);
-		GameFrame newGame = new GameFrame("Saviors of Gundthor", null);
+		GameFrame newGame = new GameFrame("Saviors of Gundthor", this);
 		MenuPanel menu = new MenuPanel(newGame);
 		newGame.changeFrame(menu);
 	}

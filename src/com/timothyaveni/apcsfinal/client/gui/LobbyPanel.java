@@ -19,13 +19,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.FileReader;
 
 /* This class is what where the players will group up until the game
  * is launched. There are many features that are not necessary, 
  * but add user friendly interactions. */
 
-public class LobbyPanel extends JPanel implements ActionListener {
+public class LobbyPanel extends JPanel implements ActionListener, UsesClient {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,6 +34,8 @@ public class LobbyPanel extends JPanel implements ActionListener {
 	private GameFrame frame;
 	private String characterName;
 	private int numberOfPlayers;
+	
+	private Client client;
 
 	private MenuButton pickTank, pickHealer, pickArcher, pickMage, pickRogue, quitLobby, startGame, kickPlayer;
 
@@ -181,7 +184,7 @@ public class LobbyPanel extends JPanel implements ActionListener {
 			// JOptionPane.showMessageDialog(frame, "Standy by for beaming....",
 			// "Start Game", JOptionPane.INFORMATION_MESSAGE);
 			frame.close();
-			frame.changeFrame(new MapCanvas(frame.getClient()));
+			frame.changeFrame(new MapCanvas());
 		} else if (e.getSource() == kickPlayer) {
 			String kick = JOptionPane.showInputDialog(frame, "Please enter player to kick");
 			// send kick to the server so player is removed
@@ -191,5 +194,10 @@ public class LobbyPanel extends JPanel implements ActionListener {
 				chatInput.setText("");
 			}
 		}
+	}
+
+	@Override
+	public void setClient(Client client) {
+		this.client = client;
 	}
 }

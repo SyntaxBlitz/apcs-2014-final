@@ -9,7 +9,7 @@ import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Tank;
 
-public class MapCanvas extends Canvas {
+public class MapCanvas extends Canvas implements UsesClient {
 
 	private static final long serialVersionUID = 1L;
 	public final int WIDTH = 1024;
@@ -17,9 +17,8 @@ public class MapCanvas extends Canvas {
 	private Client client;
 
 	// Constructor :D
-	public MapCanvas(Client c) {
+	public MapCanvas() {
 		super();
-		this.client = c;
 	}
 
 	public void render(Graphics g) {
@@ -47,5 +46,10 @@ public class MapCanvas extends Canvas {
 	@Override
 	public void paint(Graphics g) {
 		render(g);
+	}
+
+	@Override
+	public void setClient(Client client) {
+		this.client = client;
 	}
 }

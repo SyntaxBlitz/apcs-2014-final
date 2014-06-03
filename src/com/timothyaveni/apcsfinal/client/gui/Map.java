@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.FileReader;
 
 public class Map extends JPanel {
