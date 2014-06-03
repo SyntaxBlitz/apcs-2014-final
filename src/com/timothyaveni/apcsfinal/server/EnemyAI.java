@@ -1,10 +1,14 @@
 package com.timothyaveni.apcsfinal.server;
 
-import com.timothyaveni.apcsfinal.client.*;
+import java.util.ArrayList;
+
+import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.Player;
+import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 
 public interface EnemyAI {
 
-	public EntityDamagePacket trackPlayer(Location playerLoc);
+	public EntityDamagePacket trackPlayer(ArrayList<Player> players);
 
 	public Location getLocation();
 
