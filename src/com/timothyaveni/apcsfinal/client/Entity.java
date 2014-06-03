@@ -1,4 +1,4 @@
-package com.timothyaveni.apcsfinal.client;
+ppackage com.timothyaveni.apcsfinal.client;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 
 public abstract class Entity {
 
-	protected int id; // entity id according to server
 	protected int height; // height of the entity in pixels
 	protected int width; // width of the entity in pixels
 	protected String name; // name of the entity in terms of type (so Tank's
@@ -25,13 +24,16 @@ public abstract class Entity {
 
 	protected boolean inCombat;
 
-	public Entity(int id, Location loc) {
-		this.id = id;
+	public Entity(String name, String location, int height, int width,
+			int strength, int intelligence, int speed, Location loc) {
+		this.name = name;
+		fileLocation = location;
+		this.height = height;
+		this.width = width;
+		this.strength = strength;
+		this.intelligence = intelligence;
+		this.speed = speed;
 		this.loc = loc;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public String getName() {
@@ -50,14 +52,14 @@ public abstract class Entity {
 		return fileLocation;
 	}
 
-	public abstract void move(int distance, Location loc, String plane);
 
-	public BufferedImage getImage() {
+	public BufferedImage getImage(Location loc) {
 		BufferedImage image = null;
 		if (inCombat == false) {
 			try {
 				image = ImageIO.read(new File(fileLocation));
-				image = image.getSubimage((loc.getSteps() % 4) * 32, loc.getDirection() * 48, this.getWidth(),
+				image = image.getSubimage((loc.getSteps() % 4) * 32,
+						loc.getDirection() * 48, this.getWidth(),
 						this.getHeight());
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -65,7 +67,8 @@ public abstract class Entity {
 		} else {
 			try {
 				image = ImageIO.read(new File(fileLocation));
-				image = image.getSubimage((loc.getSteps() % 2) * 32 + 128, loc.getDirection() * 48, this.getWidth(),
+				image = image.getSubimage((loc.getSteps() % 2) * 32 + 128,
+						loc.getDirection() * 48, this.getWidth(),
 						this.getHeight());
 			} catch (IOException e) {
 				e.printStackTrace();
