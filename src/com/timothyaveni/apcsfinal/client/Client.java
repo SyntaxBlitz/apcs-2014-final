@@ -1,9 +1,13 @@
 package com.timothyaveni.apcsfinal.client;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+
 public class Client {
 	private static final double FPS = 30.0;
 	private boolean[] keyboard = new boolean[4];
-	private ArrayList<> entities = new ArrayList<Entity>();
+	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private KeyListener keyListener = new KeyListener(){
 		public void keyTyped(KeyEvent e){}
 		public void keyPressed(KeyEvent e){
@@ -39,7 +43,7 @@ public class Client {
 				break;
 			}
 		}
-	}
+	};
 	
 	/**
 	 * render environment
