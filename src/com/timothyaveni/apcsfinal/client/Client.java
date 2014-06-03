@@ -8,10 +8,12 @@ public class Client {
 	private static final double FPS = 30.0;
 	private boolean[] keyboard = new boolean[4];
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
-	private KeyListener keyListener = new KeyListener(){
-		public void keyTyped(KeyEvent e){}
-		public void keyPressed(KeyEvent e){
-			switch(e.getKeyCode()){
+	private KeyListener keyListener = new KeyListener() {
+		public void keyTyped(KeyEvent e) {
+		}
+
+		public void keyPressed(KeyEvent e) {
+			switch (e.getKeyCode()) {
 			case 39:
 				keyboard[0] = true;
 				break;
@@ -25,10 +27,11 @@ public class Client {
 				keyboard[3] = true;
 				break;
 			}
-			
+
 		}
-		public void keyReleased(KeyEvent e){
-			switch(e.getKeyCode()){
+
+		public void keyReleased(KeyEvent e) {
+			switch (e.getKeyCode()) {
 			case 39:
 				keyboard[0] = false;
 				break;
@@ -44,7 +47,7 @@ public class Client {
 			}
 		}
 	};
-	
+
 	/**
 	 * render environment
 	 * 
