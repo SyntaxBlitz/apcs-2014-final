@@ -54,7 +54,7 @@ public abstract class Entity {
 
 	public abstract void move(int distance, Location loc, String plane);
 
-	public BufferedImage getImage(Location loc) {
+	public BufferedImage getImage() {
 		BufferedImage image = null;
 		if (inCombat == false) {
 			try {
