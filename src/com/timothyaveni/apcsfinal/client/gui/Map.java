@@ -14,14 +14,11 @@ import javax.swing.JPanel;
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.FileReader;
 
-public class Map extends JPanel {
-
-	private static final long serialVersionUID = 1L;
+public class Map {
 	String imageFileName; // name of the file location
 	private BufferedImage image = null; // image to be used in render method
 
-	public Map(String fileLocation) { // file location does nothing as of yet
-										// for testing purposes
+	public Map(String fileLocation) {
 
 		imageFileName = fileLocation;
 
@@ -31,30 +28,10 @@ public class Map extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		// creates background with JPanel
-		JLabel pic = new JLabel(new ImageIcon(image));
-		add(pic);
-
-	}
-
-	// makes sure image is drawn correctly
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(image, 0, 0, 1024, 768, null);
-	}
-
-	// correctly returns the preferred size of the JPanel
-	public Dimension getPreferredSize() {
-		if (image == null) {
-			return new Dimension(100, 100);
-		} else {
-			return new Dimension(image.getWidth(), image.getHeight());
-		}
 	}
 
 	// convenient accessor method
 	public BufferedImage getPic() {
-		return image;
+		return image.getSubimage(0, 0, 1024, 768);	// this is just to test. Seems to be relatively quick.
 	}
 }
