@@ -25,8 +25,8 @@ PlayerLocationPacket (total size=15 bytes):
 	byte 6: world section ID	(unsigned int)
 		0 corresponds to a null world, which means the client is in the process of switching worlds. The client will send another packet after the world switch..
 		both of these packets will be must-acknowledge. 
-	bytes 7-10: location-x	 (unsigned int)
-	bytes 11-14: location-y  (unsigned int)
+	bytes 7-10: location-x	 (signed int)	// these are signed because we can't actually store 4-byte unsigned ints on a 32-bit system ;)
+	bytes 11-14: location-y  (signed int)
 	byte 15: facing			 (Direction enum)
 
 EntityDamagePacket must-acknowledge (total size=10 bytes):
