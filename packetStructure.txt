@@ -11,6 +11,9 @@ enum definitions:
 		Direction.EAST  : 3
 		Direction.SOUTH : 1
 		Direction.WEST  : 2
+	Entity:
+		Tank			: 0
+		SkeletonEnemy	: 1
 
 all Packets:
 	byte 0: packet type		(PacketType enum)
@@ -33,8 +36,9 @@ EntityDamagePacket must-acknowledge (total size=10 bytes):
 	bytes 6-7: entity id
 	bytes 8-10: damage amount (signed int)
 
-NewEntityPacket must-acknowledge (total size= bytes):
-	bytes 6-7: entity id	(unsigned int)
-	bytes 8-11: location-x	(signed int)
-	bytes 12-15: location-y	(signed int)
-	byte 16: facing (Direction enum)
+NewEntityPacket must-acknowledge (total size=17 bytes):
+	byte 6: entity type		(Entity enum)
+	bytes 7-8: entity id	(unsigned int)
+	bytes 9-12: location-x	(signed int)
+	bytes 13-16: location-y	(signed int)
+	byte 17: facing (Direction enum)

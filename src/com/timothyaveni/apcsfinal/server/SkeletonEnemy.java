@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Player;
+import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class SkeletonEnemy extends Entity implements EnemyAI {
 	public SkeletonEnemy(int id, Location loc) {
@@ -101,6 +102,11 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 	@Override
 	public int getIntelligence() {
 		return 0;
+	}
+	
+	@Override
+	public EntityType getType() {
+		return EntityType.SKELETON_ENEMY;
 	}
 
 }

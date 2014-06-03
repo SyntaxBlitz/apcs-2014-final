@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.timothyaveni.apcsfinal.networking.EntityType;
+
 public abstract class Entity {
 
 	protected int id;
@@ -60,4 +62,6 @@ public abstract class Entity {
 
 		return image;
 	}
+
+	public abstract EntityType getType();
 }

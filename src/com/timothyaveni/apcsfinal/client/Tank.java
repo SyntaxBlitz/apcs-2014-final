@@ -1,5 +1,7 @@
 package com.timothyaveni.apcsfinal.client;
 
+import com.timothyaveni.apcsfinal.networking.EntityType;
+
 public class Tank extends Player {
 
 	public Tank(int id, Location loc) {
@@ -44,6 +46,11 @@ public class Tank extends Player {
 	@Override
 	public int getBaseDamage() {
 		return 12;
+	}
+	
+	@Override
+	public EntityType getType() {
+		return EntityType.TANK;
 	}
 	
 }
