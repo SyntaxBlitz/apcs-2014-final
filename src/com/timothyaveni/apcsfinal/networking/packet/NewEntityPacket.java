@@ -17,7 +17,7 @@ public class NewEntityPacket extends Packet {
 		super(id);
 		unpack(data);
 	}
-	
+
 	public NewEntityPacket(int id, Entity entity) {
 		super(id);
 		this.setMustAcknowledge(true);
@@ -35,16 +35,16 @@ public class NewEntityPacket extends Packet {
 		ByteArrayTools.setBytes(data, entityLocation.getY(), 13, 4);
 		ByteArrayTools.setBytes(data, entityLocation.getDirection(), 17, 1);
 	}
-	
+
 	@Override
 	public void unpack(byte[] data) {
 		super.unpack(data);
 		this.entityType = EntityTypeID.getType(ByteArrayTools.readBytes(data, 6, 1, false));
 		this.entityId = ByteArrayTools.readBytes(data, 7, 2, false);
-		this.entityLocation = new Location(ByteArrayTools.readBytes(data, 9, 4, true), ByteArrayTools.readBytes(data, 13, 4,
-				true), ByteArrayTools.readBytes(data, 17, 1, false));
+		this.entityLocation = new Location(ByteArrayTools.readBytes(data, 9, 4, true), ByteArrayTools.readBytes(data,
+				13, 4, true), ByteArrayTools.readBytes(data, 17, 1, false));
 	}
-	
+
 	@Override
 	public byte[] getByteArray() {
 		byte[] toReturn = new byte[17];
