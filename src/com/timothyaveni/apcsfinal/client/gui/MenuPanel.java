@@ -83,11 +83,20 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 		if (e.getSource() == joinServer) {
 			JOptionPane ip = new JOptionPane();
 			ip.setWantsInput(true);
-			ip.showInputDialog(frame, "Enter Server IP:");
-			// ip.getInputValue();
-			// ip.showInputDialog(frame, "Enter Character Name:");
+			String serverIP = ip.showInputDialog(frame, "Enter Server IP:");
+			
+			while (serverIP == null || serverIP.equals("")) {
+				if (serverIP == null){
+					return;
+				}
+				JOptionPane.showMessageDialog(frame, "Not a valid Server IP");
+				serverIP = ip.showInputDialog(frame, "Enter Character Name:");
+			}
 			String characterName = ip.showInputDialog(frame, "Enter Character Name:");
 			while (characterName == null || characterName.equals("")) {
+				if (characterName == null){
+					return;
+				}
 				JOptionPane.showMessageDialog(frame, "Not a valid name");
 				characterName = ip.showInputDialog(frame, "Enter Character Name:");
 			}

@@ -183,8 +183,6 @@ public class LobbyPanel extends JPanel implements ActionListener, UsesClient {
 			frame.close();
 			frame.changeFrame(new MenuPanel(frame));
 		} else if (e.getSource() == startGame) {
-			// JOptionPane.showMessageDialog(frame, "Standy by for beaming....",
-			// "Start Game", JOptionPane.INFORMATION_MESSAGE);
 			// when you move this code, make sure you change the player entity id.
 			frame.close();
 			frame.changeFrame(new MapCanvas());
