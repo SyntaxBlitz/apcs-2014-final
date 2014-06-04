@@ -1,5 +1,6 @@
 package com.timothyaveni.apcsfinal.client;
-package com.timothyaveni.apcsfinal.client;
+
+import java.util.ArrayList;
 
 public abstract class Player extends Entity {
 	private int velocity;
@@ -58,10 +59,10 @@ public abstract class Player extends Entity {
 	}
 
 	public void attack(ArrayList<Entity> entities){
-		int height = this.getHeight;
-		int width = this.getWidth;
+		int height = this.getHeight();
+		int width = this.getWidth();
 		Location[] attackLocs = new Location[height * width / 2];
-		switch(loc.getDirection){
+		switch(loc.getDirection()){
 		case 1:
 			for (int p = 0; p < attackLocs.length; p ++){
 				if((p + 1) % width <= width / 2){
