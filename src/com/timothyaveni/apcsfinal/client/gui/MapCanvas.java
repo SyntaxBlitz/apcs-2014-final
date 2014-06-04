@@ -4,13 +4,11 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
-import com.timothyaveni.apcsfinal.client.Tank;
 
 public class MapCanvas extends Canvas implements UsesClient {
 
