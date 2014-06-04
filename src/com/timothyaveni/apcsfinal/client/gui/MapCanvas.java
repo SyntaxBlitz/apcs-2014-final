@@ -20,25 +20,27 @@ public class MapCanvas extends Canvas implements UsesClient{
 	private Client client;
 
 	private Map map;
-	private BufferStrategy strategy;
+	private BufferStrategy bs;
 	
-	
+	private Tank t;
 
 	// Constructor :D
 	public MapCanvas() {
 		super();
 		map = new Map("Map1.png");
-		client.setPlayer(new Tank(1, new Location(200, 200, 1)));
+		//client.setPlayer(new Tank(1, new Location(200, 200, 1)));
+		t = new Tank(1, new Location(512, 512, 1));
 	}
 
 	public void render() {
 		do {
 			do {
-				Graphics g = strategy.getDrawGraphics();
+				Graphics g = bs.getDrawGraphics();
 				BufferedImage buffer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 				Graphics2D bufferGraphics = buffer.createGraphics();
 
-				Location playerLocation = client.getPlayer().getLocation();
+				//Location playerLocation = client.getPlayer().getLocation();
+				Location playerLocation = t.getLocation();
 				bufferGraphics.drawImage(map.getPic(playerLocation), 0, 0, 1024, 768, null);
 
 				List<Entity> entities = client.getEntityList();
@@ -56,16 +58,17 @@ public class MapCanvas extends Canvas implements UsesClient{
 				// pull arraylist down off client
 				// misc comment so I'm able to commit
 				g.dispose(); // releases system resources the graphics object is
-			} while (strategy.contentsRestored());
-			strategy.show();
-		} while (strategy.contentsLost());
+				
+			} while (bs.contentsRestored());
+		} while (bs.contentsLost());
+		bs.show();
 	}
 
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
 		this.createBufferStrategy(2);
-		strategy = this.getBufferStrategy();
+		bs = this.getBufferStrategy();
 		render();
 	}
 	
