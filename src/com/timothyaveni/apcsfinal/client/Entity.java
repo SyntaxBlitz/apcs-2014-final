@@ -31,6 +31,8 @@ public abstract class Entity {
 	public abstract int getSpeed();
 
 	public abstract int getIntelligence();
+	
+	public abstract int getVelocity();
 
 	public int getId() {
 		return this.id;

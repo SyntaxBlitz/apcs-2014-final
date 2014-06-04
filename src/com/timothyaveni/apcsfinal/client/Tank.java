@@ -6,11 +6,6 @@ public class Tank extends Player {
 
 	public Tank(int id, Location loc) {
 		super(id, loc);
-		setVelocity(8);
-	}
-
-	public void attack() {
-		return;
 	}
 
 	@Override
@@ -51,6 +46,10 @@ public class Tank extends Player {
 	@Override
 	public EntityType getType() {
 		return EntityType.TANK;
+	}
+	
+	public int getVelocity(){
+		return 8;
 	}
 	
 }
