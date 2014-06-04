@@ -3,62 +3,42 @@ package com.timothyaveni.apcsfinal.client;
 import java.util.ArrayList;
 
 public abstract class Player extends Entity {
-	private int velocity;
-	private int level;
 
-	public Player(int id, Location loc) {
+
+	public Player(int id, Location loc){
 		super(id, loc);
 	}
 
-	public void setVelocity(int s) {
-		velocity = s;
+	public void move(int distance, int direction, String plane){}
+	
+	public Location getLocation(){
+		return this.loc;
 	}
 
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public void setLocation(Location loc) {
-		 this.loc = loc;
-	}
-
-	public void characterMove(boolean[] keyboard) {
-		if (keyboard[0]) {
-			if (keyboard[2])
-				;
-			else {
-				loc.setX(loc.getX() + velocity);
-				loc.setDirection(3);
-			}
-		} else if (keyboard[1]) {
-			if (keyboard[3])
-				;
-			else{
-				loc.setY(loc.getY() + velocity);
-				loc.setDirection(1);
-			}
-		} else if (keyboard[2]) {
-			if (keyboard[0])
-				;
-			else{
-				loc.setX(loc.getX() - velocity);
-				loc.setDirection(2);	
-			}
-		} else if (keyboard[3]) {
-			if (keyboard[1])
-				;
-			else{
-				loc.setY(loc.getY() - velocity);
-				loc.setDirection(4);
-			}
+	public void characterMove(boolean[] keyboard){
+		if(keyboard[0]){
+			if(keyboard[2]);
+			else
+				loc.setX(loc.getX() + 8);
+		}
+		else if(keyboard[1]){
+			if(keyboard[3]);
+			else
+				loc.setY(loc.getY() + 8);
+		}
+		else if(keyboard[2]){
+			if(keyboard[0]);  
+			else
+				loc.setX(loc.getX() - 8);
+		}
+		else if(keyboard[3]){
+			if(keyboard[1]);
+			else
+				loc.setY(loc.getY() - 8);
 		}
 	}
-
-	/*public void attack(ArrayList<Entity> entities){
+	
+	public void attack(ArrayList<Entity> entities){
 		int height = this.getHeight();
 		int width = this.getWidth();
 		Location[] attackLocs = new Location[height * width / 2];
@@ -66,10 +46,10 @@ public abstract class Player extends Entity {
 		case 1:
 			for (int p = 0; p < attackLocs.length; p ++){
 				if((p + 1) % width <= width / 2){
-					attackLocs[p] = new Location(loc.getX() -(width / 2 - p), loc.getY() + (p / width + 1));
+					attackLocs[p] = new Location(loc.getX() -(width / 2 - p), loc.getY() + (p / width + 1), 1);
 				}
 				else
-					attackLocs[p] = new Location(loc.getX() + (p - width / 2), loc.getY() + (p / width + 1));
+					attackLocs[p] = new Location(loc.getX() + (p - width / 2), loc.getY() + (p / width + 1), 1);
 			}
 			for (Entity a  : entities){
 				for (Location p: attackLocs){
@@ -95,11 +75,13 @@ public abstract class Player extends Entity {
 				}
 			}
 			break;
-			
-		}
-	}*/
 
-	public abstract int getBaseDamage();
+
+		}
+	}
+
+
+	public abstract Entity attack();
+
 
 }
-
