@@ -31,7 +31,7 @@ public class GameFrame extends JFrame {
 		// creates new frame and sets all attributes associated with it
 		// frame.getContentPane().removeAll();
 		frame = new JFrame(name);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		component.setBounds(0, 0, WIDTH, HEIGHT);
 		frame.add(component);
 		frame.setResizable(false);

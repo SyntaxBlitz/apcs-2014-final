@@ -22,7 +22,7 @@ public class MapCanvas extends Canvas implements UsesClient {
 	// Constructor :D
 	public MapCanvas() {
 		super();
-		map = new Map("Map.png");
+		map = new Map("Map1.png");
 	}
 
 	public void render(Graphics g) {
