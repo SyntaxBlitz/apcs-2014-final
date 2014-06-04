@@ -10,9 +10,10 @@ import java.util.List;
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.Tank;
 
-public class MapCanvas extends Canvas implements UsesClient {
 
+public class MapCanvas extends Canvas implements UsesClient{
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 1024;
 	public static final int HEIGHT = WIDTH / 4 * 3;
@@ -20,13 +21,14 @@ public class MapCanvas extends Canvas implements UsesClient {
 
 	private Map map;
 	private BufferStrategy strategy;
+	
+	
 
 	// Constructor :D
 	public MapCanvas() {
 		super();
 		map = new Map("Map1.png");
-		this.createBufferStrategy(2);
-		strategy = this.getBufferStrategy();
+		client.setPlayer(new Tank(1, new Location(200, 200, 1)));
 	}
 
 	public void render() {
@@ -59,6 +61,14 @@ public class MapCanvas extends Canvas implements UsesClient {
 		} while (strategy.contentsLost());
 	}
 
+	@Override
+	public void paint(Graphics g){
+		super.paint(g);
+		this.createBufferStrategy(2);
+		strategy = this.getBufferStrategy();
+		render();
+	}
+	
 	@Override
 	public void setClient(Client client) {
 		this.client = client;
