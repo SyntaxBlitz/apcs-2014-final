@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public abstract class Player extends Entity {
 	
-	private double attackRadius;
 	private int level;
 
 	public Player(int id, Location loc) {
@@ -48,7 +47,7 @@ public abstract class Player extends Entity {
 		Location enemyLoc;
 		for(Entity a: entities){
 			enemyLoc = a.getLocation();
-			if(enemyLoc.getDistanceTo(loc) <= attackRadius){
+			if(enemyLoc.getDistanceTo(loc) <= getAttackRadius()){
 				switch(loc.getDirection()){
 					case 1:
 					case 4:	
@@ -74,6 +73,8 @@ public abstract class Player extends Entity {
 	public int getLevel(){
 		return level;
 	}
+	
+	public abstract double getAttackRadius();
 	
 	public abstract int getBaseDamage();
 }

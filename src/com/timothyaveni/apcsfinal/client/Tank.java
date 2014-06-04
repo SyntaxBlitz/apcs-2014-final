@@ -52,4 +52,8 @@ public class Tank extends Player {
 		return 8;
 	}
 	
+	public double getAttackRadius(){
+		return this.getHeight();
+	}
+	
 }
