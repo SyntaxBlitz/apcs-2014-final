@@ -22,8 +22,8 @@ public abstract class Player extends Entity {
 		this.level = level;
 	}
 
-	public Location getLocation() {
-		return this.loc;
+	public void setLocation(Location loc) {
+		 this.loc = loc;
 	}
 
 	public void characterMove(boolean[] keyboard) {
@@ -58,7 +58,7 @@ public abstract class Player extends Entity {
 		}
 	}
 
-	public void attack(ArrayList<Entity> entities){
+	/*public void attack(ArrayList<Entity> entities){
 		int height = this.getHeight();
 		int width = this.getWidth();
 		Location[] attackLocs = new Location[height * width / 2];
@@ -97,7 +97,7 @@ public abstract class Player extends Entity {
 			break;
 			
 		}
-	}
+	}*/
 
 	public abstract int getBaseDamage();
 
