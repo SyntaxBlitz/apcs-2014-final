@@ -46,19 +46,7 @@ public class Client {
 				continue;
 			lastLoopTime = System.nanoTime();
 
-			if (keyboard[0]) {
-				player.setLocation(new Location(player.getLocation().getX() + player.getVelocity(), player
-						.getLocation().getY(), Location.EAST));
-			} else if (keyboard[1]) {
-				player.setLocation(new Location(player.getLocation().getX(), player.getLocation().getY()
-						- player.getVelocity(), Location.NORTH));
-			} else if (keyboard[2]) {
-				player.setLocation(new Location(player.getLocation().getX() - player.getVelocity(), player
-						.getLocation().getY(), Location.WEST));
-			} else if (keyboard[3]) {
-				player.setLocation(new Location(player.getLocation().getX(), player.getLocation().getY()
-						+ player.getVelocity(), Location.SOUTH));
-			}
+			player.characterMove(keyboard);
 
 			// get player input
 			// move sprites

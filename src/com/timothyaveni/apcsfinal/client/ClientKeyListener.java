@@ -16,13 +16,13 @@ public class ClientKeyListener implements KeyListener {
 			case KeyEvent.VK_RIGHT:
 				client.setKey(0, true);
 				break;
-			case KeyEvent.VK_UP:
+			case KeyEvent.VK_DOWN:
 				client.setKey(1, true);
 				break;
 			case KeyEvent.VK_LEFT:
 				client.setKey(2, true);
 				break;
-			case KeyEvent.VK_DOWN:
+			case KeyEvent.VK_UP:
 				client.setKey(3, true);
 				break;
 		}
@@ -35,13 +35,13 @@ public class ClientKeyListener implements KeyListener {
 			case KeyEvent.VK_RIGHT:
 				client.setKey(0, false);
 				break;
-			case KeyEvent.VK_UP:
+			case KeyEvent.VK_DOWN:
 				client.setKey(1, false);
 				break;
 			case KeyEvent.VK_LEFT:
 				client.setKey(2, false);
 				break;
-			case KeyEvent.VK_DOWN:
+			case KeyEvent.VK_UP:
 				client.setKey(3, false);
 				break;
 		}
