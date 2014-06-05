@@ -1,7 +1,6 @@
 package com.timothyaveni.apcsfinal.client;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -12,12 +11,20 @@ public abstract class Entity {
 
 	protected int id;
 	protected Location loc;
+	private BufferedImage image;
+	private BufferedImage currentSubImage;
 
 	protected boolean inCombat;
 
 	public Entity(int id, Location loc) {
 		this.id = id;
 		this.loc = loc;
+		
+		try {
+			image = ImageIO.read(FileReader.getFileFromResourceString(getFileLocation()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public abstract int getHeight();
@@ -47,26 +54,17 @@ public abstract class Entity {
 	}
 
 	public BufferedImage getImage(long frame) {
-		BufferedImage image = null;
-		if (inCombat == false) {
-			try {
-				image = ImageIO.read(FileReader.getFileFromResourceString(getFileLocation()));
-				image = image.getSubimage((int) ((frame % 4) * 32), loc.getDirection() * 48, this.getWidth(),
+		if (frame % 5 == 0) {
+
+			if (inCombat == false) {
+				currentSubImage = image.getSubimage((int) ((frame % 4) * 32), loc.getDirection() * 48, this.getWidth(),
 						this.getHeight());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else {
-			try {
-				image = ImageIO.read(FileReader.getFileFromResourceString(getFileLocation()));
-				image = image.getSubimage((int) ((frame % 2) * 32 + 128), loc.getDirection() * 48, this.getWidth(),
-						this.getHeight());
-			} catch (IOException e) {
-				e.printStackTrace();
+			} else {
+				currentSubImage = image.getSubimage((int) ((frame % 2) * 32 + 128), loc.getDirection() * 48,
+						this.getWidth(), this.getHeight());
 			}
 		}
-
-		return image;
+		return currentSubImage;
 	}
 
 	public abstract EntityType getType();
