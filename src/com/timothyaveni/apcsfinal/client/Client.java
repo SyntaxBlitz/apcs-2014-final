@@ -1,7 +1,6 @@
 package com.timothyaveni.apcsfinal.client;
 
 import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
@@ -12,10 +11,10 @@ public class Client {
 	private boolean[] keyboard = new boolean[4];
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private long frame = 0; // current frame number. Increments on each frame
-	
+
 	private boolean inGame = false;
 	private Player player;
-	private ClientMouseListener mouseListener; 
+	private ClientMouseListener mouseListener;
 
 	private GameFrame gameFrame;
 
@@ -48,16 +47,14 @@ public class Client {
 			if (!inGame)
 				continue;
 			lastLoopTime = System.nanoTime();
-			
-			if(keyboard[0] || keyboard[1] || keyboard[2] || keyboard[3]){
-				player.isMoving = true;
-			}
-			else
-				player.isMoving = false;
-			
-			
-			if(frame - mouseListener.getFrameClicked() >= 20)
-				player.inCombat = false;
+
+			if (keyboard[0] || keyboard[1] || keyboard[2] || keyboard[3]) {
+				player.setMoving(true);
+			} else
+				player.setMoving(false);
+
+			if (frame - mouseListener.getFrameClicked() >= 20)
+				player.setInCombat(false);
 
 			player.characterMove(keyboard);
 

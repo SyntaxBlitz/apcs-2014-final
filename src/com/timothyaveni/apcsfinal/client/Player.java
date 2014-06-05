@@ -16,45 +16,41 @@ public abstract class Player extends Entity {
 	public void move(int distance, int direction, String plane) {
 	}
 
-	public Location getLocation() {
-		return this.loc;
-	}
-
 	public void characterMove(boolean[] keyboard) {
-		if(!inCombat){
+		if (!isInCombat()) {
 			if (keyboard[0]) {
 				if (!keyboard[2])
-					loc = new Location(loc.getX() + getVelocity(), loc.getY(), Location.EAST);
+					setLocation(new Location(getLocation().getX() + getVelocity(), getLocation().getY(), Location.EAST));
 			} else if (keyboard[1]) {
 				if (!keyboard[3])
-					loc = new Location(loc.getX(), loc.getY() + getVelocity(), Location.SOUTH);
+					setLocation(new Location(getLocation().getX(), getLocation().getY() + getVelocity(), Location.SOUTH));
 			} else if (keyboard[2]) {
 				if (!keyboard[0])
-					loc = new Location(loc.getX() - getVelocity(), loc.getY(), Location.WEST);	
+					setLocation(new Location(getLocation().getX() - getVelocity(), getLocation().getY(), Location.WEST));
 			} else if (keyboard[3]) {
 				if (!keyboard[1])
-					loc = new Location(loc.getX(), loc.getY() - getVelocity(), Location.NORTH);
-			}	
-		} else if(keyboard[0] || keyboard[1] || keyboard[2] || keyboard[3])
-			inCombat = false;
+					setLocation(new Location(getLocation().getX(), getLocation().getY() - getVelocity(), Location.NORTH));
+			}
+		} else if (keyboard[0] || keyboard[1] || keyboard[2] || keyboard[3])
+			setInCombat(false);
 	}
 
 	public void attack(ArrayList<Entity> entities) {
 		Location enemyLoc;
 		for (Entity a : entities) {
 			enemyLoc = a.getLocation();
-			if (enemyLoc.getDistanceTo(loc) <= getAttackRadius()) {
-				switch (loc.getDirection()) {
+			if (enemyLoc.getDistanceTo(getLocation()) <= getAttackRadius()) {
+				switch (getLocation().getDirection()) {
 					case 1:
 					case 4:
-						if (Math.abs(loc.getX() - enemyLoc.getX()) <= this.getWidth()) {
+						if (Math.abs(getLocation().getX() - enemyLoc.getX()) <= this.getWidth()) {
 							// notify server
 							return;
 						}
 						break;
 					case 2:
 					case 3:
-						if (Math.abs(loc.getY() - enemyLoc.getY()) <= this.getHeight()) {
+						if (Math.abs(getLocation().getY() - enemyLoc.getY()) <= this.getHeight()) {
 							// notify server
 							return;
 						}
@@ -70,7 +66,7 @@ public abstract class Player extends Entity {
 		return level;
 	}
 
-	public void setHP(int hp){
+	public void setHP(int hp) {
 		this.HP = hp;
 	}
 

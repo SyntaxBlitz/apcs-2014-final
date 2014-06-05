@@ -9,19 +9,19 @@ import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public abstract class Entity {
 
-	protected int id;
-	protected Location loc;
+	private int id;
+	private Location loc;
 	private BufferedImage image;
 	private BufferedImage currentSubImage;
 	private int lastDirection;
 	private int currentFrameOffset;
 
-	protected boolean inCombat;
-	protected boolean isMoving;
+	private boolean inCombat;
+	private boolean moving;
 
 	public Entity(int id, Location loc) {
 		this.id = id;
-		this.loc = loc;
+		this.setLocation(loc);
 		lastDirection = loc.getDirection();
 		currentFrameOffset = 0;
 
@@ -59,14 +59,20 @@ public abstract class Entity {
 	}
 
 	public BufferedImage getImage(long frame) {
-		if (frame % 4 == 0 || this.getLocation().getDirection() != lastDirection) {
+		if (!moving) {
+			currentSubImage = image
+					.getSubimage(0, getLocation().getDirection() * 48, this.getWidth(), this.getHeight());
+			currentFrameOffset = 1;
+			return currentSubImage;
 
-			if (inCombat == false) {
-				currentSubImage = image.getSubimage((int) (currentFrameOffset * 32), loc.getDirection() * 48,
+		} else if (frame % 4 == 0 || this.getLocation().getDirection() != lastDirection) {
+
+			if (isInCombat() == false) {
+				currentSubImage = image.getSubimage((int) (currentFrameOffset * 32), getLocation().getDirection() * 48,
 						this.getWidth(), this.getHeight());
 			} else {
-				currentSubImage = image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128),
-						loc.getDirection() * 48, this.getWidth(), this.getHeight());
+				currentSubImage = image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128), getLocation()
+						.getDirection() * 48, this.getWidth(), this.getHeight());
 			}
 			lastDirection = this.getLocation().getDirection();
 			currentFrameOffset = (currentFrameOffset + 1) % 4;
@@ -75,4 +81,21 @@ public abstract class Entity {
 	}
 
 	public abstract EntityType getType();
+
+	protected boolean isMoving() {
+		return moving;
+	}
+
+	protected void setMoving(boolean moving) {
+		this.moving = moving;
+	}
+
+	protected boolean isInCombat() {
+		return inCombat;
+	}
+
+	protected void setInCombat(boolean inCombat) {
+		this.inCombat = inCombat;
+	}
+
 }

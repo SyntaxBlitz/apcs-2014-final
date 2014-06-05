@@ -20,14 +20,14 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 	public void move(int distance, int direction, String plane) {
 		if (plane.equals("X")) {
 			if (direction > 0)
-				this.loc.setX(this.loc.getX() + 16);
+				this.getLocation().setX(this.getLocation().getX() + 16);
 			else
-				this.loc.setX(this.loc.getX() - 16);
+				this.getLocation().setX(this.getLocation().getX() - 16);
 		} else {
 			if (direction > 0)
-				this.loc.setY(this.loc.getY() + 16);
+				this.getLocation().setY(this.getLocation().getY() + 16);
 			else
-				this.loc.setY(this.loc.getY() - 16);
+				this.getLocation().setY(this.getLocation().getY() - 16);
 		}
 
 	}
@@ -53,15 +53,15 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 		track = players.get(smallestIndex);
 
-		if (Math.abs(track.getLocation().getX() - loc.getX()) <= 32
-				|| Math.abs(track.getLocation().getY() - loc.getY()) <= 48) {
+		if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 32
+				|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 48) {
 			// EntityDamagePacket(ServerThread.getNextPacketId(), track.getId(),
 			// baseDmg + getSpeed());
 			// attack
-		} else if (track.getLocation().getX() - loc.getX() < track.getLocation().getY() - loc.getY()) {
-			move((track.getLocation().getX() - loc.getX()), (loc.getX() - track.getLocation().getX()), "X");
-		} else if (track.getLocation().getY() - loc.getY() < track.getLocation().getY() - loc.getY()) {
-			move((track.getLocation().getY() - loc.getY()), (loc.getY() - track.getLocation().getY()), "Y");
+		} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY() - getLocation().getY()) {
+			move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation().getX()), "X");
+		} else if (track.getLocation().getY() - getLocation().getY() < track.getLocation().getY() - getLocation().getY()) {
+			move((track.getLocation().getY() - getLocation().getY()), (getLocation().getY() - track.getLocation().getY()), "Y");
 		}
 
 	}
