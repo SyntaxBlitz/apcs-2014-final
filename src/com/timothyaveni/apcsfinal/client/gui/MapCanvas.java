@@ -57,9 +57,9 @@ public class MapCanvas extends Canvas implements UsesClient {
 
 				// pull arraylist down off client
 				// misc comment so I'm able to commit
-				// g.dispose(); // releases system resources the graphics object
+				// g.dispose(); // releases system resources the graphics
+				// object
 				// is
-
 			} while (bs.contentsRestored());
 		} while (bs.contentsLost());
 		bs.show();
