@@ -1,7 +1,11 @@
 package com.timothyaveni.apcsfinal.server;
 
+import java.net.InetAddress;
+
 import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.PlayerLocationPacket;
 import com.timothyaveni.apcsfinal.networking.server.ServerCallbackListener;
 
@@ -47,6 +51,16 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 	public void packetAcknowledged(AcknowledgePacket packet) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void newClientConnected(NewClientPacket packet, InetAddress address, int port) {
+		int newClientId = server.getClientList().size();
+		if (newClientId > 255) {	// uh we can't fit you bro
+			return;
+		}
+		server.getClientList().add(new ConnectedClient(newClientId, address, port));
+		server.addPacketToQueue(new NewClientAcknowledgementPacket(Server.getNextPacketId(), newClientId));
 	}
 
 }

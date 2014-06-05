@@ -42,3 +42,10 @@ NewEntityPacket must-acknowledge (total size=17 bytes):
 	bytes 9-12: location-x	(signed int)
 	bytes 13-16: location-y	(signed int)
 	byte 17: facing (Direction enum)
+	
+NewClientPacket (total size=5 bytes):	NOT must-acknowledge, because the server sends a different sort of acknowldgement.
+	byte 4's value is ignored
+	no extra bytes
+
+NewClientAcknowledgement (total size=6 bytes):
+	byte 6: assigned client ID (unsigned int)
