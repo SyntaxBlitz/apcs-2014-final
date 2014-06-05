@@ -49,6 +49,12 @@ public class Client {
 				continue;
 			lastLoopTime = System.nanoTime();
 			
+			if(keyboard[0] || keyboard[1] || keyboard[2] || keyboard[3]){
+				player.isMoving = true;
+			}
+			else
+				player.isMoving = false;
+			
 			
 			if(frame - mouseListener.getFrameClicked() >= 20)
 				player.inCombat = false;

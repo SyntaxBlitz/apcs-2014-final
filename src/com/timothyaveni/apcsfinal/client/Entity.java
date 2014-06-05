@@ -15,6 +15,7 @@ public abstract class Entity {
 	private BufferedImage currentSubImage;
 
 	protected boolean inCombat;
+	protected boolean isMoving;
 
 	public Entity(int id, Location loc) {
 		this.id = id;
