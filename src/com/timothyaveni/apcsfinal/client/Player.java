@@ -23,23 +23,31 @@ public abstract class Player extends Entity {
 		if (keyboard[0]) {
 			if (keyboard[2])
 				;
-			else
+			else{
 				loc.setX(loc.getX() + getVelocity());
+				loc.setDirection(Location.EAST);
+			}	
 		} else if (keyboard[1]) {
 			if (keyboard[3])
 				;
-			else
+			else{
 				loc.setY(loc.getY() + getVelocity());
+				loc.setDirection(Location.NORTH);
+			}	
 		} else if (keyboard[2]) {
 			if (keyboard[0])
 				;
-			else
+			else{
 				loc.setX(loc.getX() - getVelocity());
+				loc.setDirection(Location.WEST);
+			}	
 		} else if (keyboard[3]) {
 			if (keyboard[1])
 				;
-			else
+			else{
 				loc.setY(loc.getY() - getVelocity());
+				loc.setDirection(Location.SOUTH);
+			}	
 		}
 	}
 
@@ -52,14 +60,14 @@ public abstract class Player extends Entity {
 					case 1:
 					case 4:
 						if (Math.abs(loc.getX() - enemyLoc.getX()) <= this.getWidth()) {
-							// notify Tim
+							// notify server
 							return;
 						}
 						break;
 					case 2:
 					case 3:
 						if (Math.abs(loc.getY() - enemyLoc.getY()) <= this.getHeight()) {
-							// notify Tim
+							// notify server
 							return;
 						}
 						break;

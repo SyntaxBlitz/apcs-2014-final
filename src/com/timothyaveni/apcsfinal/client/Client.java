@@ -47,19 +47,7 @@ public class Client {
 				continue;
 			lastLoopTime = System.nanoTime();
 
-			if (keyboard[0]) {
-				player.setLocation(new Location(player.getLocation().getX() + player.getVelocity(), player
-						.getLocation().getY(), 2));
-			} else if (keyboard[1]) {
-				player.setLocation(new Location(player.getLocation().getX(), player.getLocation().getY()
-						- player.getVelocity(), 3));
-			} else if (keyboard[2]) {
-				player.setLocation(new Location(player.getLocation().getX() - player.getVelocity(), player
-						.getLocation().getY(), 1));
-			} else if (keyboard[3]) {
-				player.setLocation(new Location(player.getLocation().getX(), player.getLocation().getY()
-						+ player.getVelocity(), 0));
-			}
+			player.characterMove(keyboard);
 
 			// get player input
 			// move sprites
