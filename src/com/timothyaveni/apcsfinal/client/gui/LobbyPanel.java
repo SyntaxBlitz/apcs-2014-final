@@ -36,7 +36,7 @@ public class LobbyPanel extends JPanel implements ActionListener, UsesClient {
 	private GameFrame frame;
 	private String characterName;
 	private int numberOfPlayers;
-	
+
 	private Client client;
 
 	private MenuButton pickTank, pickHealer, pickArcher, pickMage, pickRogue, quitLobby, startGame, kickPlayer;
@@ -183,14 +183,16 @@ public class LobbyPanel extends JPanel implements ActionListener, UsesClient {
 			frame.close();
 			frame.changeFrame(new MenuPanel(frame));
 		} else if (e.getSource() == startGame) {
-			// when you move this code, make sure you change the player entity id.
-			frame.close();
-			frame.changeFrame(new MapCanvas());
-			client.setInGame(true);
-			
+			// when you move this code, make sure you change the player entity
+			// id.
 			Player player = new Tank(-1, new Location(600, 600, 1));
 			client.setPlayer(player);
 			client.getEntityList().add(player);
+
+			frame.close();
+			frame.changeFrame(new MapCanvas());
+
+			client.setInGame(true);
 		} else if (e.getSource() == kickPlayer) {
 			String kick = JOptionPane.showInputDialog(frame, "Please enter player to kick");
 			// send kick to the server so player is removed

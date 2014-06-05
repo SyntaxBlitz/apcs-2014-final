@@ -84,9 +84,9 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 			JOptionPane ip = new JOptionPane();
 			ip.setWantsInput(true);
 			String serverIP = ip.showInputDialog(frame, "Enter Server IP:");
-			
+
 			while (serverIP == null || serverIP.equals("")) {
-				if (serverIP == null){
+				if (serverIP == null) {
 					return;
 				}
 				JOptionPane.showMessageDialog(frame, "Not a valid Server IP");
@@ -94,7 +94,7 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 			}
 			String characterName = ip.showInputDialog(frame, "Enter Character Name:");
 			while (characterName == null || characterName.equals("")) {
-				if (characterName == null){
+				if (characterName == null) {
 					return;
 				}
 				JOptionPane.showMessageDialog(frame, "Not a valid name");

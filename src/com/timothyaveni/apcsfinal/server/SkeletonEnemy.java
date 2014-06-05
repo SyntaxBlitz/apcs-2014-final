@@ -103,7 +103,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 	public int getIntelligence() {
 		return 0;
 	}
-	
+
 	@Override
 	public EntityType getType() {
 		return EntityType.SKELETON_ENEMY;

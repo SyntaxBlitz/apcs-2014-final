@@ -42,18 +42,18 @@ public class Tank extends Player {
 	public int getBaseDamage() {
 		return 12;
 	}
-	
+
 	@Override
 	public EntityType getType() {
 		return EntityType.TANK;
 	}
-	
-	public int getVelocity(){
+
+	public int getVelocity() {
 		return 8;
 	}
-	
-	public double getAttackRadius(){
+
+	public double getAttackRadius() {
 		return this.getHeight();
 	}
-	
+
 }

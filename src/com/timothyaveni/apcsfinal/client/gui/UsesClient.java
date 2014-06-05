@@ -5,5 +5,5 @@ import com.timothyaveni.apcsfinal.client.Client;
 public interface UsesClient {
 
 	public void setClient(Client client);
-	
+
 }

@@ -26,6 +26,7 @@ public class Map {
 
 	// convenient accessor method
 	public BufferedImage getPic(Location playerLocation) {
-		return image.getSubimage(playerLocation.getX() - MapCanvas.WIDTH / 2, playerLocation.getY() - MapCanvas.HEIGHT / 2, 1024, 768);
+		return image.getSubimage(playerLocation.getX() - MapCanvas.WIDTH / 2, playerLocation.getY() - MapCanvas.HEIGHT
+				/ 2, 1024, 768);
 	}
 }

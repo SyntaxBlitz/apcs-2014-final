@@ -75,7 +75,7 @@ public class ServerThread implements Runnable {
 	// in a blocking loop anyway. Mostly this is just in case we refactor later.
 	public synchronized static int getNextPacketId() {
 		return lastLocalPacketId++; // starts at 0, so we can just
-											// increment afterwards
+									// increment afterwards
 	}
 
 }

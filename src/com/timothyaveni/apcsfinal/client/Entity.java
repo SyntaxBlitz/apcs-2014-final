@@ -31,15 +31,19 @@ public abstract class Entity {
 	public abstract int getSpeed();
 
 	public abstract int getIntelligence();
-	
+
 	public abstract int getVelocity();
 
 	public int getId() {
 		return this.id;
 	}
-	
+
 	public Location getLocation() {
 		return this.loc;
+	}
+
+	public void setLocation(Location loc) {
+		this.loc = loc;
 	}
 
 	public BufferedImage getImage(long frame) {

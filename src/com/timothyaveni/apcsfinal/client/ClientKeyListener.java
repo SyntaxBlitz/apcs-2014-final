@@ -5,7 +5,6 @@ import java.awt.event.KeyListener;
 
 public class ClientKeyListener implements KeyListener {
 	private Client client;
-	private boolean[] keyboard = new boolean[4];
 
 	public ClientKeyListener(Client client) {
 		this.client = client;
@@ -18,7 +17,7 @@ public class ClientKeyListener implements KeyListener {
 				client.setKey(0, true);
 				break;
 			case KeyEvent.VK_UP:
- 				client.setKey(1, true);
+				client.setKey(1, true);
 				break;
 			case KeyEvent.VK_LEFT:
 				client.setKey(2, true);
@@ -37,7 +36,7 @@ public class ClientKeyListener implements KeyListener {
 				client.setKey(0, false);
 				break;
 			case KeyEvent.VK_UP:
- 				client.setKey(1, false);
+				client.setKey(1, false);
 				break;
 			case KeyEvent.VK_LEFT:
 				client.setKey(2, false);

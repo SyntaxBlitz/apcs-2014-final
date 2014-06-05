@@ -20,6 +20,8 @@ public class GameFrame extends JFrame {
 	private JFrame frame;
 	private Client client;
 
+	private MapCanvas mapCanvas = null;
+
 	// ******When you construct a GameFrame object you must call changeFrame()
 	public GameFrame(String name, Client c) {
 		this.name = name;
@@ -39,9 +41,15 @@ public class GameFrame extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.update(frame.getGraphics());
-		
+
+		component.addKeyListener(this.getKeyListeners()[0]);
+
 		component.setClient(client);
 
+		if (component instanceof MapCanvas) {
+			this.mapCanvas = (MapCanvas) component;
+			mapCanvas.init();
+		}
 	}
 
 	// closes previous frame
@@ -56,5 +64,9 @@ public class GameFrame extends JFrame {
 
 	public Client getClient() {
 		return client;
+	}
+
+	public MapCanvas getMapCanvas() {
+		return this.mapCanvas;
 	}
 }

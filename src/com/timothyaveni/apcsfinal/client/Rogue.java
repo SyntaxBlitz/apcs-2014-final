@@ -3,8 +3,8 @@ package com.timothyaveni.apcsfinal.client;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class Rogue extends Player {
-	
-	public Rogue(int id, Location loc){
+
+	public Rogue(int id, Location loc) {
 		super(id, loc);
 	}
 
@@ -15,19 +15,19 @@ public class Rogue extends Player {
 
 	@Override
 	public int getHeight() {
-		
+
 		return 48;
 	}
 
 	@Override
 	public int getWidth() {
-		
+
 		return 32;
 	}
 
 	@Override
 	public String getFileLocation() {
-		
+
 		return "rogue.png";
 	}
 
@@ -60,8 +60,8 @@ public class Rogue extends Player {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public double getAttackRadius(){
+
+	public double getAttackRadius() {
 		return this.getHeight();
 	}
 

@@ -13,15 +13,18 @@ public class Client {
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private long frame = 0; // current frame number. Increments on each frame
 	private KeyListener keyListener;
-	
+
 	private boolean inGame = false;
 	private Player player;
 
+	private GameFrame gameFrame;
+
 	public Client() {
 		keyListener = new ClientKeyListener(this);
-		GameFrame newGame = new GameFrame("Saviors of Gundthor", this);
-		MenuPanel menu = new MenuPanel(newGame);
-		newGame.changeFrame(menu);
+		gameFrame = new GameFrame("Saviors of Gundthor", this);
+		gameFrame.addKeyListener(keyListener);
+		MenuPanel menu = new MenuPanel(gameFrame);
+		gameFrame.changeFrame(menu);
 	}
 
 	/**
@@ -40,14 +43,33 @@ public class Client {
 		boolean isRunning = true;
 
 		while (isRunning) {
+			if (!inGame)
+				continue;
 			lastLoopTime = System.nanoTime();
+
+			if (keyboard[0]) {
+				player.setLocation(new Location(player.getLocation().getX() + player.getVelocity(), player
+						.getLocation().getY(), 2));
+			} else if (keyboard[1]) {
+				player.setLocation(new Location(player.getLocation().getX(), player.getLocation().getY()
+						- player.getVelocity(), 3));
+			} else if (keyboard[2]) {
+				player.setLocation(new Location(player.getLocation().getX() - player.getVelocity(), player
+						.getLocation().getY(), 1));
+			} else if (keyboard[3]) {
+				player.setLocation(new Location(player.getLocation().getX(), player.getLocation().getY()
+						+ player.getVelocity(), 0));
+			}
 
 			// get player input
 			// move sprites
 			// render environment
+			gameFrame.getMapCanvas().render();
 
 			try {
-				Thread.sleep((long) (1000000000 / FPS - (System.nanoTime() - lastLoopTime)));
+				// Thread.sleep((long) (1000000000 / FPS - (System.nanoTime() -
+				// lastLoopTime)));
+				Thread.sleep(33);
 
 			} catch (InterruptedException e) {
 			}
@@ -59,11 +81,11 @@ public class Client {
 	public long getFrame() {
 		return this.frame;
 	}
-	
+
 	public void setKey(int index, boolean value) {
 		keyboard[index] = value;
 	}
-	
+
 	public boolean isInGame() {
 		return inGame;
 	}

@@ -7,5 +7,5 @@ public class FileReader {
 	public static File getFileFromResourceString(String path) {
 		return new File("res/" + path);
 	}
-	
+
 }

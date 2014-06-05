@@ -34,21 +34,21 @@ public class EntityDamagePacket extends Packet {
 		ByteArrayTools.setBytes(data, entityId, 6, 2);
 		ByteArrayTools.setBytes(data, damageAmount, 8, 3);
 	}
-	
+
 	@Override
 	protected void unpack(byte[] data) {
 		super.unpack(data);
 		this.entityId = ByteArrayTools.readBytes(data, 6, 2, false);
 		this.damageAmount = ByteArrayTools.readBytes(data, 6, 3, true);
 	}
-	
+
 	@Override
 	public byte[] getByteArray() {
 		byte[] toReturn = new byte[10];
 		pack(toReturn);
 		return toReturn;
 	}
-	
+
 	@Override
 	public PacketType getPacketType() {
 		return PacketType.ENTITY_DAMAGE;

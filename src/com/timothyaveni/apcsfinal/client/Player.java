@@ -3,12 +3,13 @@ package com.timothyaveni.apcsfinal.client;
 import java.util.ArrayList;
 
 public abstract class Player extends Entity {
-	
+
 	private int level;
 
 	public Player(int id, Location loc) {
 		super(id, loc);
-		level = 1; //this may need to be changed depending on how players are sent in packets
+		level = 1; // this may need to be changed depending on how players are
+					// sent in packets
 	}
 
 	public void move(int distance, int direction, String plane) {
@@ -17,7 +18,6 @@ public abstract class Player extends Entity {
 	public Location getLocation() {
 		return this.loc;
 	}
-	
 
 	public void characterMove(boolean[] keyboard) {
 		if (keyboard[0]) {
@@ -45,36 +45,36 @@ public abstract class Player extends Entity {
 
 	public void attack(ArrayList<Entity> entities) {
 		Location enemyLoc;
-		for(Entity a: entities){
+		for (Entity a : entities) {
 			enemyLoc = a.getLocation();
-			if(enemyLoc.getDistanceTo(loc) <= getAttackRadius()){
-				switch(loc.getDirection()){
+			if (enemyLoc.getDistanceTo(loc) <= getAttackRadius()) {
+				switch (loc.getDirection()) {
 					case 1:
-					case 4:	
-						if(Math.abs(loc.getX() - enemyLoc.getX()) <= this.getWidth()){
-							//notify Tim
+					case 4:
+						if (Math.abs(loc.getX() - enemyLoc.getX()) <= this.getWidth()) {
+							// notify Tim
 							return;
 						}
 						break;
 					case 2:
 					case 3:
-						if(Math.abs(loc.getY() - enemyLoc.getY()) <= this.getHeight()){
-							//notify Tim
+						if (Math.abs(loc.getY() - enemyLoc.getY()) <= this.getHeight()) {
+							// notify Tim
 							return;
 						}
 						break;
 				}
-				
+
 			}
 		}
-		
+
 	}
-	
-	public int getLevel(){
+
+	public int getLevel() {
 		return level;
 	}
-	
+
 	public abstract double getAttackRadius();
-	
+
 	public abstract int getBaseDamage();
 }

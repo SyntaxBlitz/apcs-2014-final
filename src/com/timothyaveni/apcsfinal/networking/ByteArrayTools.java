@@ -22,7 +22,8 @@ public class ByteArrayTools {
 	 * @param length
 	 *            the length, in bytes, of the integer to analyze. MUST BE in
 	 *            the range 1..4.
-	 * @param signed TODO
+	 * @param signed
+	 *            TODO
 	 * @return the computed integer, or -1 if the length is > 4 or < 1 or
 	 *         (startIndex + length) > data.length
 	 */
@@ -31,8 +32,8 @@ public class ByteArrayTools {
 			return -1;
 
 		int toReturn = 0;
-		if (signed && (data[startIndex] & 0x80) == 0x80)	// the first bit is on
-			toReturn = ~toReturn;	// -1
+		if (signed && (data[startIndex] & 0x80) == 0x80) // the first bit is on
+			toReturn = ~toReturn; // -1
 		for (int i = startIndex; i < startIndex + length; i++) {
 			toReturn = toReturn << 8;
 			toReturn = toReturn | (data[i] & 0xFF);
