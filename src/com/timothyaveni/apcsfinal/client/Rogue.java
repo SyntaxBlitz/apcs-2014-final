@@ -4,8 +4,10 @@ import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class Rogue extends Player {
 
+
 	public Rogue(int id, Location loc) {
 		super(id, loc);
+		setHP(50);
 	}
 
 	@Override
@@ -33,31 +35,27 @@ public class Rogue extends Player {
 
 	@Override
 	public int getStrength() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 10 + getLevel();
 	}
 
 	@Override
 	public int getSpeed() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 10 + getLevel();
 	}
 
 	@Override
 	public int getIntelligence() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 5 + getLevel();
 	}
 
 	@Override
 	public int getVelocity() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 8;
 	}
 
 	@Override
 	public EntityType getType() {
-		// TODO Auto-generated method stub
+		// return EntityType.ROGUE;
 		return null;
 	}
 

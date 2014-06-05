@@ -13,13 +13,18 @@ public abstract class Entity {
 	protected Location loc;
 	private BufferedImage image;
 	private BufferedImage currentSubImage;
+	private int lastDirection;
+	private int currentFrameOffset;
 
 	protected boolean inCombat;
+	protected boolean isMoving;
 
 	public Entity(int id, Location loc) {
 		this.id = id;
 		this.loc = loc;
-		
+		lastDirection = loc.getDirection();
+		currentFrameOffset = 0;
+
 		try {
 			image = ImageIO.read(FileReader.getFileFromResourceString(getFileLocation()));
 		} catch (IOException e) {
@@ -54,15 +59,17 @@ public abstract class Entity {
 	}
 
 	public BufferedImage getImage(long frame) {
-		if (frame % 5 == 0) {
+		if (frame % 4 == 0 || this.getLocation().getDirection() != lastDirection) {
 
 			if (inCombat == false) {
-				currentSubImage = image.getSubimage((int) ((frame % 4) * 32), loc.getDirection() * 48, this.getWidth(),
-						this.getHeight());
-			} else {
-				currentSubImage = image.getSubimage((int) ((frame % 2) * 32 + 128), loc.getDirection() * 48,
+				currentSubImage = image.getSubimage((int) (currentFrameOffset * 32), loc.getDirection() * 48,
 						this.getWidth(), this.getHeight());
+			} else {
+				currentSubImage = image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128),
+						loc.getDirection() * 48, this.getWidth(), this.getHeight());
 			}
+			lastDirection = this.getLocation().getDirection();
+			currentFrameOffset = (currentFrameOffset + 1) % 4;
 		}
 		return currentSubImage;
 	}

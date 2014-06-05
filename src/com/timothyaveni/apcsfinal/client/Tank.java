@@ -3,9 +3,12 @@ package com.timothyaveni.apcsfinal.client;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class Tank extends Player {
+	
+	
 
 	public Tank(int id, Location loc) {
 		super(id, loc);
+		setHP(75);
 	}
 
 	@Override
@@ -49,7 +52,7 @@ public class Tank extends Player {
 	}
 
 	public int getVelocity() {
-		return 8;
+		return 4;
 	}
 
 	public double getAttackRadius() {
