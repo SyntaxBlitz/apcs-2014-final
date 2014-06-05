@@ -109,4 +109,9 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		return EntityType.SKELETON_ENEMY;
 	}
 
+	@Override
+	public int getVelocity() {
+		return 10;
+	}
+
 }
