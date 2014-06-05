@@ -33,13 +33,16 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 		this.frame = frame;
 
 		// constructs buttons for inside the Panel
-		joinServer = new MenuButton("JoinServerButton.png", "JoinServerButtonHighlighted.png");
-		options = new MenuButton("OptionButton.png", "OptionButtonHighlighted.png");
+		joinServer = new MenuButton("JoinServerButton.png",
+				"JoinServerButtonHighlighted.png");
+		options = new MenuButton("OptionButton.png",
+				"OptionButtonHighlighted.png");
 		exit = new MenuButton("ExitButton.png", "ExitButtonHighlighted.png");
 
 		// assigns the Background Image of the Panel
 		try {
-			menuBackground = ImageIO.read(FileReader.getFileFromResourceString("MainMenu.png"));
+			menuBackground = ImageIO.read(FileReader
+					.getFileFromResourceString("MainMenu.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -75,7 +78,8 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 		if (menuBackground == null) {
 			return new Dimension(100, 100);
 		} else {
-			return new Dimension(menuBackground.getWidth(), menuBackground.getHeight());
+			return new Dimension(menuBackground.getWidth(),
+					menuBackground.getHeight());
 		}
 	}
 
@@ -86,7 +90,8 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 			InetAddress address = null;
 
 			do {
-				String serverIP = JOptionPane.showInputDialog(frame, "Enter Server IP:");
+				String serverIP = JOptionPane.showInputDialog(frame,
+						"Enter Server IP:");
 
 				if (serverIP == null)
 					return;
@@ -94,7 +99,8 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 				try {
 					address = InetAddress.getByName(serverIP);
 				} catch (UnknownHostException e2) {
-					JOptionPane.showMessageDialog(frame, "Not a valid Server IP");
+					JOptionPane.showMessageDialog(frame,
+							"Not a valid Server IP");
 				}
 
 			} while (address == null);
@@ -106,19 +112,24 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 			 * JOptionPane.showInputDialog(frame, "Enter Server IP:"); }
 			 */
 
-			String characterName = JOptionPane.showInputDialog(frame, "Enter Character Name:");
-			while (characterName == null || characterName.equals("")) {
+			String characterName = "";
+
+			do {
+				characterName = JOptionPane.showInputDialog(frame,
+						"Enter Character Name:");
 				if (characterName == null) {
 					return;
 				}
-				JOptionPane.showMessageDialog(frame, "Not a valid name");
-				characterName = JOptionPane.showInputDialog(frame, "Enter Character Name:");
-			}
+				if (characterName.equals("")) {
+					JOptionPane.showMessageDialog(frame, "Not a valid name");
+				}
+			} while (characterName.equals(""));
+			
 			frame.close();
 			frame.changeFrame(new LobbyPanel(frame, characterName));
 		} else if (e.getSource() == options) {
-			JOptionPane.showMessageDialog(frame, "Sorry, not implemented yet", "Options",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "Sorry, not implemented yet",
+					"Options", JOptionPane.INFORMATION_MESSAGE);
 		} else if (e.getSource() == exit) {
 			frame.close();
 			System.exit(0);
