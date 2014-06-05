@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public abstract class Player extends Entity {
 
 	private int level;
+	private int HP;
 
 	public Player(int id, Location loc) {
 		super(id, loc);
@@ -67,6 +68,10 @@ public abstract class Player extends Entity {
 
 	public int getLevel() {
 		return level;
+	}
+
+	public void setHP(int hp){
+		this.HP = hp;
 	}
 
 	public abstract double getAttackRadius();
