@@ -32,7 +32,7 @@ public abstract class Player extends Entity {
 				;
 			else{
 				loc.setY(loc.getY() + getVelocity());
-				loc.setDirection(Location.NORTH);
+				loc.setDirection(Location.SOUTH);
 			}	
 		} else if (keyboard[2]) {
 			if (keyboard[0])
@@ -46,7 +46,7 @@ public abstract class Player extends Entity {
 				;
 			else{
 				loc.setY(loc.getY() - getVelocity());
-				loc.setDirection(Location.SOUTH);
+				loc.setDirection(Location.NORTH);
 			}	
 		}
 	}
