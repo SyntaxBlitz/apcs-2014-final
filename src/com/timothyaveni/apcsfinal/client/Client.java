@@ -1,6 +1,7 @@
 package com.timothyaveni.apcsfinal.client;
 
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
@@ -11,7 +12,6 @@ public class Client {
 	private boolean[] keyboard = new boolean[4];
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private long frame = 0; // current frame number. Increments on each frame
-	private KeyListener keyListener;
 
 	private boolean inGame = false;
 	private Player player;
@@ -19,9 +19,11 @@ public class Client {
 	private GameFrame gameFrame;
 
 	public Client() {
-		keyListener = new ClientKeyListener(this);
+		KeyListener keyListener = new ClientKeyListener(this);
+		MouseListener mouseListener = new ClientMouseListener(this);
 		gameFrame = new GameFrame("Saviors of Gundthor", this);
 		gameFrame.addKeyListener(keyListener);
+		gameFrame.addMouseListener(mouseListener);
 		MenuPanel menu = new MenuPanel(gameFrame);
 		gameFrame.changeFrame(menu);
 	}

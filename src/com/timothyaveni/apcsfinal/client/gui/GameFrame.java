@@ -44,6 +44,7 @@ public class GameFrame extends JFrame {
 
 		component.requestFocus();
 		component.addKeyListener(this.getKeyListeners()[0]);
+		component.addMouseListener(this.getMouseListeners()[0]);
 		component.setClient(client);
 
 		if (component instanceof MapCanvas) {
