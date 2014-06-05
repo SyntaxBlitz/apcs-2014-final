@@ -20,35 +20,22 @@ public abstract class Player extends Entity {
 	}
 
 	public void characterMove(boolean[] keyboard) {
-		if (keyboard[0]) {
-			if (keyboard[2])
-				;
-			else{
-				loc.setX(loc.getX() + getVelocity());
-				loc.setDirection(Location.EAST);
+		if(!inCombat){
+			if (keyboard[0]) {
+				if (!keyboard[2])
+					loc = new Location(loc.getX() + getVelocity(), loc.getY(), Location.EAST);
+			} else if (keyboard[1]) {
+				if (!keyboard[3])
+					loc = new Location(loc.getX(), loc.getY() + getVelocity(), Location.SOUTH);
+			} else if (keyboard[2]) {
+				if (!keyboard[0])
+					loc = new Location(loc.getX() - getVelocity(), loc.getY(), Location.WEST);	
+			} else if (keyboard[3]) {
+				if (!keyboard[1])
+					loc = new Location(loc.getX(), loc.getY() - getVelocity(), Location.NORTH);
 			}	
-		} else if (keyboard[1]) {
-			if (keyboard[3])
-				;
-			else{
-				loc.setY(loc.getY() + getVelocity());
-				loc.setDirection(Location.SOUTH);
-			}	
-		} else if (keyboard[2]) {
-			if (keyboard[0])
-				;
-			else{
-				loc.setX(loc.getX() - getVelocity());
-				loc.setDirection(Location.WEST);
-			}	
-		} else if (keyboard[3]) {
-			if (keyboard[1])
-				;
-			else{
-				loc.setY(loc.getY() - getVelocity());
-				loc.setDirection(Location.NORTH);
-			}	
-		}
+		} else if(keyboard[0] || keyboard[1] || keyboard[2] || keyboard[3])
+			inCombat = false;
 	}
 
 	public void attack(ArrayList<Entity> entities) {

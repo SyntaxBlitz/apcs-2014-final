@@ -12,15 +12,16 @@ public class Client {
 	private boolean[] keyboard = new boolean[4];
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private long frame = 0; // current frame number. Increments on each frame
-
+	
 	private boolean inGame = false;
 	private Player player;
+	private ClientMouseListener mouseListener; 
 
 	private GameFrame gameFrame;
 
 	public Client() {
 		KeyListener keyListener = new ClientKeyListener(this);
-		MouseListener mouseListener = new ClientMouseListener(this);
+		mouseListener = new ClientMouseListener(this);
 		gameFrame = new GameFrame("Saviors of Gundthor", this);
 		gameFrame.addKeyListener(keyListener);
 		gameFrame.addMouseListener(mouseListener);
@@ -47,6 +48,10 @@ public class Client {
 			if (!inGame)
 				continue;
 			lastLoopTime = System.nanoTime();
+			
+			
+			if(frame - mouseListener.getFrameClicked() >= 20)
+				player.inCombat = false;
 
 			player.characterMove(keyboard);
 
