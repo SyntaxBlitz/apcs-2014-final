@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -81,15 +83,29 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == joinServer) {
-			String serverIP = JOptionPane.showInputDialog(frame, "Enter Server IP:");
+			InetAddress address = null;
 
-			while (serverIP == null || serverIP.equals("")) {
-				if (serverIP == null) {
+			do {
+				String serverIP = JOptionPane.showInputDialog(frame, "Enter Server IP:");
+
+				if (serverIP == null)
 					return;
+
+				try {
+					address = InetAddress.getByName(serverIP);
+				} catch (UnknownHostException e2) {
+					JOptionPane.showMessageDialog(frame, "Not a valid Server IP");
 				}
-				JOptionPane.showMessageDialog(frame, "Not a valid Server IP");
-				serverIP = JOptionPane.showInputDialog(frame, "Enter Server IP:");
-			}
+
+			} while (address == null);
+
+			/*
+			 * while (serverIP == null || serverIP.equals("")) { if (serverIP ==
+			 * null) { return; } JOptionPane.showMessageDialog(frame,
+			 * "Not a valid Server IP"); serverIP =
+			 * JOptionPane.showInputDialog(frame, "Enter Server IP:"); }
+			 */
+
 			String characterName = JOptionPane.showInputDialog(frame, "Enter Character Name:");
 			while (characterName == null || characterName.equals("")) {
 				if (characterName == null) {
