@@ -21,10 +21,10 @@ all Packets:
 	byte 4: client ID (max 256 clients connected)	(unsigned int)
 	byte 5: must-acknowledge? boolean	(unsigned int 0-1)
 	
-AcknowledgePacket (total size=8 bytes):
+AcknowledgePacket (total size=9 bytes):
 	bytes 6-8: ID of must-acknowledge packet according to receiver
 
-EntityLocationPacket (total size=17 bytes):
+EntityLocationPacket (total size=18 bytes):
 	bytes 6-7: entity id (unsigned int)
 	byte 8: world section ID	(unsigned int)
 		0 corresponds to a null world, which means the client is in the process of switching worlds. The client will send another packet after the world switch..
@@ -33,20 +33,21 @@ EntityLocationPacket (total size=17 bytes):
 	bytes 13-16: location-y  (signed int)
 	byte 17: facing			 (Direction enum)
 
-EntityDamagePacket must-acknowledge (total size=10 bytes):
+EntityDamagePacket must-acknowledge (total size=11 bytes):
 	bytes 6-7: entity id
 	bytes 8-10: damage amount (signed int)
 
-NewEntityPacket must-acknowledge (total size=17 bytes):
+NewEntityPacket must-acknowledge (total size=18 bytes):
 	byte 6: entity type		(Entity enum)
 	bytes 7-8: entity id	(unsigned int)
 	bytes 9-12: location-x	(signed int)
 	bytes 13-16: location-y	(signed int)
 	byte 17: facing (Direction enum)
 	
-NewClientPacket (total size=5 bytes):	NOT must-acknowledge, because the server sends a different sort of acknowldgement.
+NewClientPacket (total size=7 bytes):	NOT must-acknowledge, because the server sends a different sort of acknowldgement.
 	byte 4's value is ignored
-	no extra bytes
+	byte 6: player's entity type (Entity enum)
 
-NewClientAcknowledgement (total size=6 bytes):
+NewClientAcknowledgementPacket (total size=9 bytes):
 	byte 6: assigned client ID (unsigned int)
+	bytes 7-8: assigned player entity ID (unsigned int)
