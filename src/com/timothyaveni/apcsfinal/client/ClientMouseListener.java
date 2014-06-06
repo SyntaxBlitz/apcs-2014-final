@@ -18,7 +18,6 @@ public class ClientMouseListener implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		if (!client.getPlayer().isMoving()) {
-			client.getPlayer().attack(client.getEntityList());
 			client.getPlayer().setInCombat(true);
 			frameClicked = client.getFrame();
 		}
