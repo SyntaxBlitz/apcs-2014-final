@@ -2,9 +2,7 @@ package com.timothyaveni.apcsfinal.client.gui;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
 import com.timothyaveni.apcsfinal.client.Client;
@@ -26,7 +24,7 @@ public class MapCanvas extends Canvas implements UsesClient {
 	// Constructor :D
 	public MapCanvas() {
 		super();
-		map = new Map("Map1.png");
+		map = new Map("Map1", ".png");
 		// render();
 	}
 
