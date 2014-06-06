@@ -6,7 +6,7 @@ public class PacketTypeID {
 		switch (type) {
 			case ACKNOWLEDGE:
 				return 0;
-			case PLAYER_LOCATION:
+			case ENTITY_LOCATION:
 				return 1;
 			case ENTITY_DAMAGE:
 				return 2;
@@ -26,7 +26,7 @@ public class PacketTypeID {
 			case 0:
 				return PacketType.ACKNOWLEDGE;
 			case 1:
-				return PacketType.PLAYER_LOCATION;
+				return PacketType.ENTITY_LOCATION;
 			case 2:
 				return PacketType.ENTITY_DAMAGE;
 			case 3:

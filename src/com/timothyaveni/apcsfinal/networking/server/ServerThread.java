@@ -11,7 +11,7 @@ import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
-import com.timothyaveni.apcsfinal.networking.packet.PlayerLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.server.ConnectedClient;
 import com.timothyaveni.apcsfinal.server.Server;
 
@@ -67,8 +67,8 @@ public class ServerThread implements Runnable {
 				// ServerThread
 				listener.packetAcknowledged((AcknowledgePacket) packet);
 				break;
-			case PLAYER_LOCATION:
-				listener.playerMoved((PlayerLocationPacket) packet);
+			case ENTITY_LOCATION:
+				listener.entityMoved((EntityLocationPacket) packet);
 				break;
 			case ENTITY_DAMAGE:
 				listener.entityDamaged((EntityDamagePacket) packet);

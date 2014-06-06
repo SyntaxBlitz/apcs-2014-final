@@ -6,14 +6,18 @@ import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.networking.EntityType;
+import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
+import com.timothyaveni.apcsfinal.networking.server.ServerThread;
 
 public class SkeletonEnemy extends Entity implements EnemyAI {
+	private int baseDmg = 30;
+	
 	public SkeletonEnemy(int id, Location loc) {
 		super(id, loc);
 	}
 
-	public void attack() { // Test
-		return;
+	public EntityDamagePacket attack(EntityDamagePacket e) { // Test
+		return e;
 
 	}
 
@@ -55,9 +59,8 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 		if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 32
 				|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 48) {
-			// EntityDamagePacket(ServerThread.getNextPacketId(), track.getId(),
-			// baseDmg + getSpeed());
-			// attack
+			 Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(),
+						baseDmg + getSpeed()));
 		} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY()
 				- getLocation().getY()) {
 			move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation()
@@ -71,7 +74,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 	}
 
 	public Location getLocation() {
-		return this.loc;
+		return super.getLocation();
 	}
 
 	public Location getPlayerLocation(Location playerLoc) {

@@ -35,28 +35,28 @@ public abstract class Player extends Entity {
 			setInCombat(false);
 	}
 
-	public void attack(ArrayList<Entity> entities) {
+	public void attack(ArrayList<Entity> entities, boolean inCombat) {
 		Location enemyLoc;
-		for (Entity a : entities) {
-			enemyLoc = a.getLocation();
-			if (enemyLoc.getDistanceTo(getLocation()) <= getAttackRadius()) {
-				switch (getLocation().getDirection()) {
-					case 1:
-					case 4:
-						if (Math.abs(getLocation().getX() - enemyLoc.getX()) <= this.getWidth()) {
-							// notify server
-							return;
-						}
-						break;
-					case 2:
-					case 3:
-						if (Math.abs(getLocation().getY() - enemyLoc.getY()) <= this.getHeight()) {
-							// notify server
-							return;
-						}
-						break;
+		if(this.isInCombat()){
+			for (Entity a : entities) {
+				enemyLoc = a.getLocation();
+				if (enemyLoc.getDistanceTo(getLocation()) <= getAttackRadius()) {
+					switch (getLocation().getDirection()) {
+						case Location.NORTH:
+						case Location.SOUTH:
+							if (Math.abs(getLocation().getX() - enemyLoc.getX()) <= a.getWidth()) {
+								// notify server
+							}
+							break;
+						case Location.EAST:
+						case Location.WEST:
+							if (Math.abs(getLocation().getY() - enemyLoc.getY()) <= a.getHeight()) {
+								// notify server
+							}
+							break;
+					}
+	
 				}
-
 			}
 		}
 

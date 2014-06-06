@@ -6,7 +6,7 @@ import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
-import com.timothyaveni.apcsfinal.networking.packet.PlayerLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.server.ServerCallbackListener;
 
 public class PrimaryCallbackListener extends ServerCallbackListener {
@@ -36,7 +36,7 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 	}
 
 	@Override
-	public void playerMoved(PlayerLocationPacket p) {
+	public void entityMoved(EntityLocationPacket p) {
 		// TODO Auto-generated method stub
 
 	}

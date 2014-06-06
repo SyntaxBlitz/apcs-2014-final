@@ -5,7 +5,7 @@ import java.net.InetAddress;
 import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
-import com.timothyaveni.apcsfinal.networking.packet.PlayerLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 
 public abstract class ServerCallbackListener {
 
@@ -15,7 +15,7 @@ public abstract class ServerCallbackListener {
 
 	public abstract void receiveFailure();
 
-	public abstract void playerMoved(PlayerLocationPacket p);
+	public abstract void entityMoved(EntityLocationPacket p);
 
 	public abstract void entityDamaged(EntityDamagePacket packet);
 
