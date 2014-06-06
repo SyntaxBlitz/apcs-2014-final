@@ -9,16 +9,15 @@ import com.timothyaveni.apcsfinal.client.FileReader;
 import com.timothyaveni.apcsfinal.client.Location;
 
 public class Map {
-	String imageFileName; // name of the file location
 	private BufferedImage image = null; // image to be used in render method
+	private BufferedImage collision;
 
-	public Map(String fileLocation) {
-
-		imageFileName = fileLocation;
+	public Map(String fileLocation, String ext) {
 
 		// assigns Image of the map background to the field
 		try {
-			image = ImageIO.read(FileReader.getFileFromResourceString(fileLocation));
+			image = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + ext));
+			collision = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + "_Collision" + ext));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -28,5 +27,9 @@ public class Map {
 	public BufferedImage getPic(Location playerLocation) {
 		return image.getSubimage(playerLocation.getX() - MapCanvas.WIDTH / 2, playerLocation.getY() - MapCanvas.HEIGHT
 				/ 2, 1024, 768);
+	}
+
+	public boolean isPointValid(int x, int y) {
+		return (collision.getRGB(x, y) & 0xFFFFFF) == 0xFFFFFF;
 	}
 }

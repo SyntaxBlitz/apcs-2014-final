@@ -6,7 +6,7 @@ import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPack
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
-import com.timothyaveni.apcsfinal.networking.packet.PlayerLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 
 public class PacketProcessor {
 
@@ -25,8 +25,8 @@ public class PacketProcessor {
 		switch (type) {
 			case ACKNOWLEDGE:
 				toReturn = new AcknowledgePacket(localPacketId, data);
-			case PLAYER_LOCATION:
-				toReturn = new PlayerLocationPacket(localPacketId, data);
+			case ENTITY_LOCATION:
+				toReturn = new EntityLocationPacket(localPacketId, data);
 			case ENTITY_DAMAGE:
 				toReturn = new EntityDamagePacket(localPacketId, data);
 			case NEW_ENTITY:

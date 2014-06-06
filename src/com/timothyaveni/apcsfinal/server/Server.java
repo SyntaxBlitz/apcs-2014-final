@@ -16,7 +16,7 @@ public class Server {
 	private final double TPS = 30.0;
 
 	private ArrayList<ConnectedClient> clientList = new ArrayList<ConnectedClient>();
-	private ArrayList<Packet> packetQueue = new ArrayList<Packet>();
+	private static ArrayList<Packet> packetQueue = new ArrayList<Packet>();
 
 	private ServerThread thread;
 
@@ -92,7 +92,7 @@ public class Server {
 									// increment afterwards
 	}
 
-	public void addPacketToQueue(Packet packet) {
+	public static void addPacketToQueue(Packet packet) {
 		packetQueue.add(packet);
 	}
 
