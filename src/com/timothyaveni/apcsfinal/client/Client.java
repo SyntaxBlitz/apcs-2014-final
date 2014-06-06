@@ -27,7 +27,7 @@ public class Client {
 		MenuPanel menu = new MenuPanel(gameFrame);
 		gameFrame.changeFrame(menu);
 	}
-
+	
 	/**
 	 * render environment
 	 * 
@@ -103,3 +103,4 @@ public class Client {
 		return entities;
 	}
 }
+//testing something
