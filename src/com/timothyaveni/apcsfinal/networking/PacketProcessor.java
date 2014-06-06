@@ -26,16 +26,22 @@ public class PacketProcessor {
 		switch (type) {
 			case ACKNOWLEDGE:
 				toReturn = new AcknowledgePacket(localPacketId, data);
+				break;
 			case ENTITY_LOCATION:
 				toReturn = new EntityLocationPacket(localPacketId, data);
+				break;
 			case ENTITY_DAMAGE:
 				toReturn = new EntityDamagePacket(localPacketId, data);
+				break;
 			case NEW_ENTITY:
 				toReturn = new NewEntityPacket(localPacketId, data);
+				break;
 			case NEW_CLIENT:
 				toReturn = new NewClientPacket(localPacketId, data);
+				break;
 			case NEW_CLIENT_ACKNOWLDEGEMENT:
 				toReturn = new NewClientAcknowledgementPacket(localPacketId, data);
+				break;
 		}
 
 		return toReturn;
