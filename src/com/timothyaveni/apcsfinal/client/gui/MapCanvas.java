@@ -8,7 +8,6 @@ import java.util.List;
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
-import com.timothyaveni.apcsfinal.client.Tank;
 
 public class MapCanvas extends Canvas implements UsesClient {
 	private static final long serialVersionUID = 1L;
@@ -18,8 +17,6 @@ public class MapCanvas extends Canvas implements UsesClient {
 
 	private Map map;
 	private BufferStrategy bs;
-
-	private Tank t;
 
 	// Constructor :D
 	public MapCanvas() {

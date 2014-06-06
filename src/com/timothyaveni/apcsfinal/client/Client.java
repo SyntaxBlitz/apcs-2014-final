@@ -63,19 +63,21 @@ public class Client {
 
 			if (frame - mouseListener.getFrameClicked() >= 20)
 				player.setInCombat(false);
+			
+			player.attack(entities, player.isInCombat());
 
 			player.characterMove(keyboard);
 
 			// get player input
 			// move sprites
-			// render environment
 			gameFrame.getMapCanvas().render();
 
 			try {
-				// Thread.sleep((long) (1000000000 / FPS - (System.nanoTime() -
-				// lastLoopTime)));
+				//System.out.println(1000000000 / FPS);
+				//System.out.println(System.nanoTime() - lastLoopTime);
+				//System.out.println((1000000000 / FPS) - (System.nanoTime() - lastLoopTime));
+				//Thread.sleep(((long) (1000000000 / FPS) - (System.nanoTime() - lastLoopTime)) / 1000000);
 				Thread.sleep(33);
-
 			} catch (InterruptedException e) {
 			}
 
