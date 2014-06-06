@@ -1,6 +1,7 @@
 package com.timothyaveni.apcsfinal.server;
 
 import java.net.InetAddress;
+import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
@@ -12,6 +13,9 @@ import com.timothyaveni.apcsfinal.networking.server.ServerCallbackListener;
 public class PrimaryCallbackListener extends ServerCallbackListener {
 
 	private Server server;
+	
+	// key is player entity id, val is last location packet from player
+	private HashMap<Integer, Integer> lastPlayerLocationId = new HashMap<Integer, Integer>();
 
 	public PrimaryCallbackListener(Server server) {
 		this.server = server;

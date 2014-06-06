@@ -10,6 +10,7 @@ import com.timothyaveni.apcsfinal.client.gui.MenuPanel;
 
 public class Client {
 	private static final double FPS = 30.0;
+	private static int lastLocalPacketId = 0;
 	private boolean[] keyboard = new boolean[4];
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private long frame = 0; // current frame number. Increments on each frame
@@ -17,16 +18,16 @@ public class Client {
 	private boolean inGame = false;
 	private Player player;
 	private ClientMouseListener mouseListener;
-	
+
 	private GameFrame gameFrame;
-	
+
 	private DatagramSocket socket;
 	private ClientCallbackListener callbackListener;
 	private InetAddress address;
-	
+
 	private ClientNetworkThread networkThread;
 
-	public Client() {		
+	public Client() {
 		KeyListener keyListener = new ClientKeyListener(this);
 		mouseListener = new ClientMouseListener(this);
 		gameFrame = new GameFrame("Saviors of Gundthor", this);
@@ -58,7 +59,7 @@ public class Client {
 					Thread.sleep(tryDelay);
 			} catch (InterruptedException e) {
 			}
-			
+
 			if (!inGame)
 				continue;
 			lastLoopTime = System.nanoTime();
@@ -70,10 +71,16 @@ public class Client {
 
 			if (frame - mouseListener.getFrameClicked() >= 20)
 				player.setInCombat(false);
-			
+
 			player.attack(entities, player.isInCombat());
 
 			player.characterMove(keyboard);
+
+			networkThread.checkUnacknowledgedPackets(); // if the server has
+														// taken too long to
+														// acknowledge any
+														// packets, this is
+														// where we resend them
 
 			// get player input
 			// move sprites
@@ -110,21 +117,31 @@ public class Client {
 	public ArrayList<Entity> getEntityList() {
 		return entities;
 	}
-	
+
 	public void setSocket(DatagramSocket socket) {
 		this.socket = socket;
 	}
-	
+
 	public void setRemoteInetAddress(InetAddress address) {
 		this.address = address;
 	}
 	
+	public InetAddress getRemoteInetAddress() {
+		return address;
+	}
+
 	public void setNetworkThread(ClientNetworkThread thread) {
 		this.networkThread = thread;
 	}
-	
+
 	public void setCallbackListener(ClientCallbackListener listener) {
 		this.callbackListener = listener;
 	}
+
+	public synchronized static int getNextPacketId() {
+		return lastLocalPacketId++; // starts at 0, so we can just
+									// increment afterwards
+	}
+
 }
 // testing something

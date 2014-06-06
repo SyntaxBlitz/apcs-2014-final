@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.ClientNetworkThread;
 import com.timothyaveni.apcsfinal.client.FileReader;
+import com.timothyaveni.apcsfinal.client.PrimaryCallbackListener;
 
 public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 
@@ -131,7 +132,7 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 			client.setSocket(s);
 			client.setRemoteInetAddress(address);
 			
-			client.setNetworkThread(new ClientNetworkThread(s, new PrimaryCallbackListener(client)));
+			client.setNetworkThread(new ClientNetworkThread(s, new PrimaryCallbackListener(client), client));
 			
 			frame.close();
 			frame.changeFrame(new LobbyPanel(frame, characterName));

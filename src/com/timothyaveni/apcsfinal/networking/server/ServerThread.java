@@ -3,7 +3,10 @@ package com.timothyaveni.apcsfinal.networking.server;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.networking.PacketProcessor;
 import com.timothyaveni.apcsfinal.networking.PacketType;
@@ -17,12 +20,20 @@ import com.timothyaveni.apcsfinal.server.Server;
 
 public class ServerThread implements Runnable {
 
+	private class PacketWithTick {
+		Packet packet;
+		long tick;
+	}
+
 	private final int MAX_PACKET_LENGTH = 512; // in bytes
 
 	private int port;
 	private ServerCallbackListener listener;
 
 	private boolean keepRunning = true;
+
+	private HashMap<Integer, PacketWithTick> unacknowledgedPackets = new HashMap<Integer, PacketWithTick>();
+	private ArrayList<Integer> alreadyAcknowledgedPackets = new ArrayList<Integer>();
 
 	private DatagramSocket socket;
 
@@ -47,20 +58,25 @@ public class ServerThread implements Runnable {
 				PacketProcessor processor = new PacketProcessor(receivePacket.getData(), Server.getNextPacketId());
 				Packet packetObject = processor.getPacket();
 
-				// special case, because it needs address/port
-				if (packetObject.getPacketType() == PacketType.NEW_CLIENT) {
-					listener.newClientConnected((NewClientPacket) packetObject, receivePacket.getAddress(),
-							receivePacket.getPort());
-				} else {
-					callAppropriateCallback(packetObject);
-				}
+				callAppropriateCallback(packetObject, receivePacket.getAddress(), receivePacket.getPort());
 			}
 		} catch (IOException e) {
 			listener.receiveFailure();
 		}
 	}
 
-	private void callAppropriateCallback(Packet packet) {
+	private void callAppropriateCallback(Packet packet, InetAddress address, int port) {
+		if (packet.isMustAcknowledge()) {
+			sendIndividualPacket(new AcknowledgePacket(Server.getNextPacketId(), packet.getId()), address, port);
+
+			// now if we've already received this packet (and the client
+			// just didn't get our ack), we can ignore the packet but not before
+			// sending out a new ack
+			if (alreadyAcknowledgedPackets.contains(packet.getId()))
+				return;
+			alreadyAcknowledgedPackets.add(packet.getId());
+		}
+
 		switch (packet.getPacketType()) {
 			case ACKNOWLEDGE:
 				// TODO: instead of forcing this on the listener, keep track in
@@ -74,6 +90,7 @@ public class ServerThread implements Runnable {
 				listener.entityDamaged((EntityDamagePacket) packet);
 				break;
 			case NEW_CLIENT: // special case
+				listener.newClientConnected((NewClientPacket) packet, address, port);
 				break;
 			case NEW_ENTITY: // client-only packets
 			case NEW_CLIENT_ACKNOWLDEGEMENT:
@@ -81,4 +98,13 @@ public class ServerThread implements Runnable {
 		}
 	}
 
+	private void sendIndividualPacket(Packet packet, InetAddress address, int port) {
+		byte[] data = packet.getByteArray();
+		DatagramPacket outPacket = new DatagramPacket(data, data.length, address, port);
+		try {
+			socket.send(outPacket);
+		} catch (IOException e) {
+			// cry
+		}
+	}
 }
