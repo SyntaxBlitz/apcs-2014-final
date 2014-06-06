@@ -21,6 +21,8 @@ public class Server {
 	private ServerThread thread;
 
 	private DatagramSocket socket;
+	
+	private long currentTick = 0;
 
 	private static int lastLocalPacketId = 0;
 
@@ -34,7 +36,7 @@ public class Server {
 			listener.bindFail();
 		}
 
-		thread = new ServerThread(socket, listener);
+		thread = new ServerThread(socket, listener, this);
 
 		Thread runThread = new Thread(thread);
 		runThread.start();
@@ -52,15 +54,13 @@ public class Server {
 	}
 
 	private void mainLoop() {
-		long currentTick = 0;
-
 		long tickStart;
 		while (true) {
 			tickStart = System.nanoTime();
 
 			for (Packet packet : packetQueue) {
+				byte[] data = packet.getByteArray();
 				for (ConnectedClient client : clientList) {
-					byte[] data = packet.getByteArray();
 					DatagramPacket outPacket = new DatagramPacket(data, data.length, client.getAddress(),
 							client.getPort());
 					try {
@@ -70,6 +70,8 @@ public class Server {
 					}
 				}
 			}
+			
+			thread.checkUnacknowledgedPackets();
 
 			try {
 				Thread.sleep(((long) (1000000000 / TPS) - (System.nanoTime() - tickStart)) / 1000000);
@@ -95,5 +97,10 @@ public class Server {
 	public static void addPacketToQueue(Packet packet) {
 		packetQueue.add(packet);
 	}
+
+	public long getCurrentTick() {
+		return currentTick;
+	}
+
 
 }

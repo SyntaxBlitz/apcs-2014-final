@@ -7,6 +7,8 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import com.timothyaveni.apcsfinal.networking.PacketProcessor;
 import com.timothyaveni.apcsfinal.networking.PacketType;
@@ -37,9 +39,12 @@ public class ServerThread implements Runnable {
 
 	private DatagramSocket socket;
 
-	public ServerThread(DatagramSocket socket, ServerCallbackListener listener) {
+	Server server;
+	
+	public ServerThread(DatagramSocket socket, ServerCallbackListener listener, Server server) {
 		this.socket = socket;
 		this.listener = listener;
+		this.server = server;
 	}
 
 	@Override
@@ -97,14 +102,31 @@ public class ServerThread implements Runnable {
 				break;
 		}
 	}
+	
+	public synchronized void checkUnacknowledgedPackets() {
+		Iterator it = unacknowledgedPackets.entrySet().iterator();
+		while (it.hasNext()) {
+			Entry pair = (Entry) it.next();
+			PacketWithTick packet = (PacketWithTick) pair.getValue();
+			if (server.getCurrentTick() - packet.tick > 30) { // it has been more
+															// than 30 ticks
+															// since it was sent
+				//sendIndividualPacket(packet.packet);
+			}
+		}
+	}
 
 	private void sendIndividualPacket(Packet packet, InetAddress address, int port) {
+		// screw it, send to everyone
 		byte[] data = packet.getByteArray();
-		DatagramPacket outPacket = new DatagramPacket(data, data.length, address, port);
-		try {
-			socket.send(outPacket);
-		} catch (IOException e) {
-			// cry
+		for (ConnectedClient client : server.getClientList()) {
+			DatagramPacket outPacket = new DatagramPacket(data, data.length, client.getAddress(),
+					client.getPort());
+			try {
+				socket.send(outPacket);
+			} catch (IOException e) {
+				// cry
+			}
 		}
 	}
 }
