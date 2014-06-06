@@ -8,17 +8,17 @@ public class NewClientPacket extends Packet {
 		super(id);
 		unpack(data);
 	}
-	
+
 	public NewClientPacket(int id) {
 		super(id);
 		this.setMustAcknowledge(false);
 	}
-	
+
 	@Override
 	public void pack(byte[] data) {
 		super.pack(data);
 	}
-	
+
 	@Override
 	public void unpack(byte[] data) {
 		super.unpack(data);

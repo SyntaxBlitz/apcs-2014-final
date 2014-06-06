@@ -58,10 +58,14 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 			// EntityDamagePacket(ServerThread.getNextPacketId(), track.getId(),
 			// baseDmg + getSpeed());
 			// attack
-		} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY() - getLocation().getY()) {
-			move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation().getX()), "X");
-		} else if (track.getLocation().getY() - getLocation().getY() < track.getLocation().getY() - getLocation().getY()) {
-			move((track.getLocation().getY() - getLocation().getY()), (getLocation().getY() - track.getLocation().getY()), "Y");
+		} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY()
+				- getLocation().getY()) {
+			move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation()
+					.getX()), "X");
+		} else if (track.getLocation().getY() - getLocation().getY() < track.getLocation().getY()
+				- getLocation().getY()) {
+			move((track.getLocation().getY() - getLocation().getY()), (getLocation().getY() - track.getLocation()
+					.getY()), "Y");
 		}
 
 	}

@@ -4,7 +4,6 @@ import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class Rogue extends Player {
 
-
 	public Rogue(int id, Location loc) {
 		super(id, loc);
 		setHP(50);

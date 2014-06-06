@@ -3,8 +3,6 @@ package com.timothyaveni.apcsfinal.client;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class Tank extends Player {
-	
-	
 
 	public Tank(int id, Location loc) {
 		super(id, loc);

@@ -61,8 +61,8 @@ public class Server {
 			for (Packet packet : packetQueue) {
 				for (ConnectedClient client : clientList) {
 					byte[] data = packet.getByteArray();
-					DatagramPacket outPacket = new DatagramPacket(data,
-							data.length, client.getAddress(), client.getPort());
+					DatagramPacket outPacket = new DatagramPacket(data, data.length, client.getAddress(),
+							client.getPort());
 					try {
 						socket.send(outPacket);
 					} catch (IOException e) {

@@ -34,26 +34,23 @@ public class ServerThread implements Runnable {
 	@Override
 	public void run() {
 		if (listener == null) {
-			System.out
-					.println("Cannot run server thread without assigning callback listener");
+			System.out.println("Cannot run server thread without assigning callback listener");
 			return;
 		}
 
 		try {
 			while (keepRunning) {
 				byte[] buffer = new byte[MAX_PACKET_LENGTH];
-				DatagramPacket receivePacket = new DatagramPacket(buffer,
-						buffer.length);
+				DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
 				socket.receive(receivePacket);
 
-				PacketProcessor processor = new PacketProcessor(
-						receivePacket.getData(), Server.getNextPacketId());
+				PacketProcessor processor = new PacketProcessor(receivePacket.getData(), Server.getNextPacketId());
 				Packet packetObject = processor.getPacket();
 
 				// special case, because it needs address/port
 				if (packetObject.getPacketType() == PacketType.NEW_CLIENT) {
-					listener.newClientConnected((NewClientPacket) packetObject,
-							receivePacket.getAddress(), receivePacket.getPort());
+					listener.newClientConnected((NewClientPacket) packetObject, receivePacket.getAddress(),
+							receivePacket.getPort());
 				} else {
 					callAppropriateCallback(packetObject);
 				}
@@ -65,22 +62,22 @@ public class ServerThread implements Runnable {
 
 	private void callAppropriateCallback(Packet packet) {
 		switch (packet.getPacketType()) {
-		case ACKNOWLEDGE:
-			// TODO: instead of forcing this on the listener, keep track in
-			// ServerThread
-			listener.packetAcknowledged((AcknowledgePacket) packet);
-			break;
-		case PLAYER_LOCATION:
-			listener.playerMoved((PlayerLocationPacket) packet);
-			break;
-		case ENTITY_DAMAGE:
-			listener.entityDamaged((EntityDamagePacket) packet);
-			break;
-		case NEW_CLIENT: //special case
-			break;
-		case NEW_ENTITY: //client-only packets
-		case NEW_CLIENT_ACKNOWLDEGEMENT:
-			break;
+			case ACKNOWLEDGE:
+				// TODO: instead of forcing this on the listener, keep track in
+				// ServerThread
+				listener.packetAcknowledged((AcknowledgePacket) packet);
+				break;
+			case PLAYER_LOCATION:
+				listener.playerMoved((PlayerLocationPacket) packet);
+				break;
+			case ENTITY_DAMAGE:
+				listener.entityDamaged((EntityDamagePacket) packet);
+				break;
+			case NEW_CLIENT: // special case
+				break;
+			case NEW_ENTITY: // client-only packets
+			case NEW_CLIENT_ACKNOWLDEGEMENT:
+				break;
 		}
 	}
 

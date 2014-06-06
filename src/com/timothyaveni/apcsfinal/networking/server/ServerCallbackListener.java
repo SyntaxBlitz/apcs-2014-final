@@ -20,7 +20,7 @@ public abstract class ServerCallbackListener {
 	public abstract void entityDamaged(EntityDamagePacket packet);
 
 	public abstract void packetAcknowledged(AcknowledgePacket packet);
-	
+
 	public abstract void newClientConnected(NewClientPacket packet, InetAddress address, int port);
 
 }
