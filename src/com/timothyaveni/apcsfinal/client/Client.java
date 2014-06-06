@@ -48,10 +48,17 @@ public class Client {
 	}
 
 	public void gameLoop() {
-		long lastLoopTime;
+		long lastLoopTime = System.nanoTime();
 		boolean isRunning = true;
 
 		while (isRunning) {
+			try {
+				long tryDelay = ((long) (1000000000 / FPS) - (System.nanoTime() - lastLoopTime)) / 1000000;
+				if (tryDelay > 0)
+					Thread.sleep(tryDelay);
+			} catch (InterruptedException e) {
+			}
+			
 			if (!inGame)
 				continue;
 			lastLoopTime = System.nanoTime();
@@ -71,15 +78,6 @@ public class Client {
 			// get player input
 			// move sprites
 			gameFrame.getMapCanvas().render();
-
-			try {
-				//System.out.println(1000000000 / FPS);
-				//System.out.println(System.nanoTime() - lastLoopTime);
-				//System.out.println((1000000000 / FPS) - (System.nanoTime() - lastLoopTime));
-				//Thread.sleep(((long) (1000000000 / FPS) - (System.nanoTime() - lastLoopTime)) / 1000000);
-				Thread.sleep(33);
-			} catch (InterruptedException e) {
-			}
 
 			frame++;
 		}
