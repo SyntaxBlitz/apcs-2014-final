@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import javax.imageio.ImageIO;
@@ -15,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.timothyaveni.apcsfinal.client.Client;
+import com.timothyaveni.apcsfinal.client.ClientNetworkThread;
 import com.timothyaveni.apcsfinal.client.FileReader;
 
 public class MenuPanel extends JPanel implements ActionListener, UsesClient {
@@ -118,6 +121,18 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 				}
 			} while (characterName.equals(""));
 
+			DatagramSocket s = null;
+			try {
+				s = new DatagramSocket();
+			} catch (SocketException e1) {
+				e1.printStackTrace();
+				System.exit(1);
+			}
+			client.setSocket(s);
+			client.setRemoteInetAddress(address);
+			
+			client.setNetworkThread(new ClientNetworkThread(s, new PrimaryCallbackListener(client)));
+			
 			frame.close();
 			frame.changeFrame(new LobbyPanel(frame, characterName));
 		} else if (e.getSource() == options) {

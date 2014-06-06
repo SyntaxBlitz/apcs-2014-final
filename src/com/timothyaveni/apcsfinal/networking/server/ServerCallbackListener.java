@@ -15,7 +15,7 @@ public abstract class ServerCallbackListener {
 
 	public abstract void receiveFailure();
 
-	public abstract void entityMoved(EntityLocationPacket p);
+	public abstract void entityMoved(EntityLocationPacket packet);
 
 	public abstract void entityDamaged(EntityDamagePacket packet);
 

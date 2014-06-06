@@ -1,6 +1,8 @@
 package com.timothyaveni.apcsfinal.client;
 
 import java.awt.event.KeyListener;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
@@ -15,10 +17,16 @@ public class Client {
 	private boolean inGame = false;
 	private Player player;
 	private ClientMouseListener mouseListener;
-
+	
 	private GameFrame gameFrame;
+	
+	private DatagramSocket socket;
+	private ClientCallbackListener callbackListener;
+	private InetAddress address;
+	
+	private ClientNetworkThread networkThread;
 
-	public Client() {
+	public Client() {		
 		KeyListener keyListener = new ClientKeyListener(this);
 		mouseListener = new ClientMouseListener(this);
 		gameFrame = new GameFrame("Saviors of Gundthor", this);
@@ -101,6 +109,22 @@ public class Client {
 
 	public ArrayList<Entity> getEntityList() {
 		return entities;
+	}
+	
+	public void setSocket(DatagramSocket socket) {
+		this.socket = socket;
+	}
+	
+	public void setRemoteInetAddress(InetAddress address) {
+		this.address = address;
+	}
+	
+	public void setNetworkThread(ClientNetworkThread thread) {
+		this.networkThread = thread;
+	}
+	
+	public void setCallbackListener(ClientCallbackListener listener) {
+		this.callbackListener = listener;
 	}
 }
 // testing something
