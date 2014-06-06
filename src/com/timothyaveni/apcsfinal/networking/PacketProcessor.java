@@ -2,11 +2,11 @@ package com.timothyaveni.apcsfinal.networking;
 
 import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
+import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
-import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 
 public class PacketProcessor {
 
@@ -20,7 +20,8 @@ public class PacketProcessor {
 
 	public Packet getPacket() {
 		Packet toReturn = null;
-		PacketType type = PacketTypeID.getType((int) data[0]);
+		int packetTypeID = ByteArrayTools.readBytes(data, 0, 1, false);
+		PacketType type = PacketTypeID.getType(packetTypeID);
 
 		switch (type) {
 			case ACKNOWLEDGE:
