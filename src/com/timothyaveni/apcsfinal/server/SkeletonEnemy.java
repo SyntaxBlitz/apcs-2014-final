@@ -20,14 +20,14 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 	public void move(int distance, int direction, String plane) {
 		if (plane.equals("X")) {
 			if (direction > 0)
-				this.getLocation().setX(this.getLocation().getX() + 16);
+				setLocation(new Location(this.getLocation().getX() + 16, this.getLocation().getY(), Location.SOUTH));
 			else
-				this.getLocation().setX(this.getLocation().getX() - 16);
+				setLocation(new Location(this.getLocation().getX() - 16, this.getLocation().getY(), Location.NORTH));
 		} else {
 			if (direction > 0)
-				this.getLocation().setY(this.getLocation().getY() + 16);
+				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() + 16, Location.EAST));
 			else
-				this.getLocation().setY(this.getLocation().getY() - 16);
+				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() - 16, Location.WEST));
 		}
 
 	}
