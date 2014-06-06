@@ -39,6 +39,22 @@ public class ByteArrayToolsTest {
 		ByteArrayTools.setBytes(data1, 12345678, 0, 4);
 
 		assertArrayEquals("byte 1", data1Expected, data1);
+		
+		byte[] data = {0,0,0,0,0,0,0,0};
+		
+		ByteArrayTools.setBytes(data, 0, 7, 2);
+		System.out.println(data[0]);
+		System.out.println(data[1]);
+		System.out.println(data[2]);
+		System.out.println(data[3]);
+		System.out.println(data[4]);
+		System.out.println(data[5]);
+		System.out.println(data[6]);
+		System.out.println(data[7]);
+		System.out.println(data[8]);
+		System.out.println(Integer.toBinaryString(ByteArrayTools.readBytes(data, 7, 2, false)));
+		System.out.println(ByteArrayTools.readBytes(data1, 0, 2, false));
+		assertEquals("uh", 0, ByteArrayTools.readBytes(data1, 0, 2, false));
 
 		// you're not actually going to make me test all that boring stuff, are
 		// you?

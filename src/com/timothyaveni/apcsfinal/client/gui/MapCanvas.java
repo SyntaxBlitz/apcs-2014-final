@@ -3,6 +3,7 @@ package com.timothyaveni.apcsfinal.client.gui;
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.HashMap;
 import java.util.List;
 
 import com.timothyaveni.apcsfinal.client.Client;
@@ -40,10 +41,10 @@ public class MapCanvas extends Canvas implements UsesClient {
 				// Location playerLocation = t.getLocation();
 				g.drawImage(map.getPic(playerLocation), 0, 0, 1024, 768, null);
 
-				List<Entity> entities = client.getEntityList();
+				HashMap<Integer, Entity> entities = client.getEntityList();
 
-				for (int i = 0; i < entities.size(); i++) {
-					Entity thisEntity = entities.get(i);
+				for (Integer key: entities.keySet()) {
+					Entity thisEntity = entities.get(key);
 					g.drawImage(thisEntity.getImage(client.getFrame()), thisEntity.getLocation().getX()
 							- playerLocation.getX() + WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity.getLocation()
 							.getY() - playerLocation.getY() + HEIGHT / 2 - thisEntity.getHeight() / 2,

@@ -185,9 +185,6 @@ public class LobbyPanel extends JPanel implements ActionListener, UsesClient {
 		} else if (e.getSource() == startGame) {
 			// when you move this code, make sure you change the player entity
 			// id.
-			Player player = new Tank(-1, new Location(600, 600, 1));
-			client.setPlayer(player);
-			client.getEntityList().add(player);
 
 			frame.close();
 			frame.changeFrame(new MapCanvas());

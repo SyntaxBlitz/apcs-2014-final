@@ -40,7 +40,7 @@ public class ServerThread implements Runnable {
 	private DatagramSocket socket;
 
 	Server server;
-	
+
 	public ServerThread(DatagramSocket socket, ServerCallbackListener listener, Server server) {
 		this.socket = socket;
 		this.listener = listener;
@@ -81,7 +81,7 @@ public class ServerThread implements Runnable {
 				return;
 			alreadyAcknowledgedPackets.add(packet.getId());
 		}
-
+		
 		switch (packet.getPacketType()) {
 			case ACKNOWLEDGE:
 				// TODO: instead of forcing this on the listener, keep track in
@@ -94,7 +94,8 @@ public class ServerThread implements Runnable {
 			case ENTITY_DAMAGE:
 				listener.entityDamaged((EntityDamagePacket) packet);
 				break;
-			case NEW_CLIENT: // special case
+			case NEW_CLIENT:
+				System.out.println("new client packet!");
 				listener.newClientConnected((NewClientPacket) packet, address, port);
 				break;
 			case NEW_ENTITY: // client-only packets
@@ -102,31 +103,33 @@ public class ServerThread implements Runnable {
 				break;
 		}
 	}
-	
+
 	public synchronized void checkUnacknowledgedPackets() {
 		Iterator it = unacknowledgedPackets.entrySet().iterator();
 		while (it.hasNext()) {
 			Entry pair = (Entry) it.next();
 			PacketWithTick packet = (PacketWithTick) pair.getValue();
-			if (server.getCurrentTick() - packet.tick > 30) { // it has been more
-															// than 30 ticks
-															// since it was sent
-				//sendIndividualPacket(packet.packet);
+			if (server.getCurrentTick() - packet.tick > 30) { // it has been
+																// more
+																// than 30 ticks
+																// since it was
+																// sent
+				// sendIndividualPacket(packet.packet);
 			}
 		}
 	}
 
-	private void sendIndividualPacket(Packet packet, InetAddress address, int port) {
-		// screw it, send to everyone
+	public void sendIndividualPacket(Packet packet, InetAddress address, int port) {
 		byte[] data = packet.getByteArray();
-		for (ConnectedClient client : server.getClientList()) {
-			DatagramPacket outPacket = new DatagramPacket(data, data.length, client.getAddress(),
-					client.getPort());
-			try {
-				socket.send(outPacket);
-			} catch (IOException e) {
-				// cry
-			}
+		DatagramPacket outPacket = new DatagramPacket(data, data.length, address, port);
+		try {
+			socket.send(outPacket);
+		} catch (IOException e) {
+			// cry
 		}
+	}
+
+	public DatagramSocket getSocket() {
+		return this.socket;
 	}
 }

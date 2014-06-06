@@ -26,6 +26,18 @@ public class NewEntityPacket extends Packet {
 		this.entityLocation = entity.getLocation();
 	}
 
+	public EntityType getEntityType() {
+		return this.entityType;
+	}
+	
+	public int getEntityId() {
+		return this.entityId;
+	}
+	
+	public Location getEntityLocation() {
+		return this.entityLocation;
+	}
+	
 	@Override
 	public void pack(byte[] data) {
 		super.pack(data);
@@ -47,7 +59,7 @@ public class NewEntityPacket extends Packet {
 
 	@Override
 	public byte[] getByteArray() {
-		byte[] toReturn = new byte[17];
+		byte[] toReturn = new byte[18];
 		pack(toReturn);
 		return toReturn;
 	}

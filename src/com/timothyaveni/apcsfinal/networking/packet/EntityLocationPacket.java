@@ -56,7 +56,7 @@ public class EntityLocationPacket extends Packet {
 
 	@Override
 	public byte[] getByteArray() {
-		byte[] toReturn = new byte[17];
+		byte[] toReturn = new byte[18];
 		pack(toReturn);
 		return toReturn;
 	}

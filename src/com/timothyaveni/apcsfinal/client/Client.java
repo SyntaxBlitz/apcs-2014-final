@@ -4,15 +4,17 @@ import java.awt.event.KeyListener;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
 import com.timothyaveni.apcsfinal.client.gui.MenuPanel;
+import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 
 public class Client {
 	private static final double FPS = 30.0;
 	private static int lastLocalPacketId = 0;
 	private boolean[] keyboard = new boolean[4];
-	private ArrayList<Entity> entities = new ArrayList<Entity>();
+	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
 	private long frame = 0; // current frame number. Increments on each frame
 
 	private boolean inGame = false;
@@ -81,6 +83,7 @@ public class Client {
 														// acknowledge any
 														// packets, this is
 														// where we resend them
+			networkThread.sendPacket(new EntityLocationPacket(Client.getNextPacketId(), player.getId(), 1, player.getLocation()));
 
 			// get player input
 			// move sprites
@@ -114,7 +117,7 @@ public class Client {
 		this.player = player;
 	}
 
-	public ArrayList<Entity> getEntityList() {
+	public HashMap<Integer, Entity> getEntityList() {
 		return entities;
 	}
 
@@ -132,6 +135,8 @@ public class Client {
 
 	public void setNetworkThread(ClientNetworkThread thread) {
 		this.networkThread = thread;
+		Thread t = new Thread(networkThread);
+		t.start();
 	}
 
 	public void setCallbackListener(ClientCallbackListener listener) {

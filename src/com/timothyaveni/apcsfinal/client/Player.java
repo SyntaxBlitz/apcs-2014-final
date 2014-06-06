@@ -1,6 +1,7 @@
 package com.timothyaveni.apcsfinal.client;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class Player extends Entity {
 
@@ -35,10 +36,11 @@ public abstract class Player extends Entity {
 			setInCombat(false);
 	}
 
-	public void attack(ArrayList<Entity> entities, boolean inCombat) {
+	public void attack(HashMap<Integer, Entity> entities, boolean inCombat) {
 		Location enemyLoc;
 		if(this.isInCombat()){
-			for (Entity a : entities) {
+			for (Integer i : entities.keySet()) {
+				Entity a = entities.get(i);
 				enemyLoc = a.getLocation();
 				if (enemyLoc.getDistanceTo(getLocation()) <= getAttackRadius()) {
 					switch (getLocation().getDirection()) {

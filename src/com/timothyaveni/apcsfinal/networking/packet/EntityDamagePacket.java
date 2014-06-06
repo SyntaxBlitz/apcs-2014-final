@@ -44,7 +44,7 @@ public class EntityDamagePacket extends Packet {
 
 	@Override
 	public byte[] getByteArray() {
-		byte[] toReturn = new byte[10];
+		byte[] toReturn = new byte[11];
 		pack(toReturn);
 		return toReturn;
 	}

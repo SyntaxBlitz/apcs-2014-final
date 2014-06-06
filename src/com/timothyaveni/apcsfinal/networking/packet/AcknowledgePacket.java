@@ -32,7 +32,7 @@ public class AcknowledgePacket extends Packet {
 
 	@Override
 	public byte[] getByteArray() {
-		byte[] toReturn = new byte[8];
+		byte[] toReturn = new byte[9];
 		pack(toReturn);
 		return toReturn;
 	}

@@ -8,11 +8,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.PacketProcessor;
+import com.timothyaveni.apcsfinal.networking.PacketType;
 import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
 
@@ -33,6 +36,8 @@ public class ClientNetworkThread implements Runnable {
 	private ArrayList<Integer> alreadyAcknowledgedPackets = new ArrayList<Integer>();
 	private Client client;
 
+	private boolean hasBeenAccepted = false;
+
 	public ClientNetworkThread(DatagramSocket socket, ClientCallbackListener listener, Client client) {
 		this.socket = socket;
 		this.listener = listener;
@@ -41,10 +46,16 @@ public class ClientNetworkThread implements Runnable {
 
 	@Override
 	public void run() {
+		System.out.println("Starting network thread");
 		if (listener == null) {
 			System.out.println("Cannot run client thread without assigning callback listener");
 			return;
 		}
+
+		sendPacket(new NewClientPacket(Client.getNextPacketId(), EntityType.TANK));
+		/*
+		 * while (!hasBeenAccepted) { // TODO: add resend code }
+		 */
 
 		boolean keepRunning = true;
 
@@ -64,7 +75,9 @@ public class ClientNetworkThread implements Runnable {
 	}
 
 	private void callAppropriateCallback(Packet packet) {
+		//System.out.println("got a packet: " + packet.getPacketType());
 		if (packet.isMustAcknowledge()) {
+			//System.out.println("gotta acknowledge");
 			sendPacket(new AcknowledgePacket(Client.getNextPacketId(), packet.getId()));
 
 			// now if we've already received this packet (and the server
@@ -87,8 +100,10 @@ public class ClientNetworkThread implements Runnable {
 				break;
 			case NEW_ENTITY:
 				listener.newEntity((NewEntityPacket) packet);
+				break;
 			case NEW_CLIENT_ACKNOWLDEGEMENT:
 				listener.clientConnectionAcknowldged((NewClientAcknowledgementPacket) packet);
+				break;
 			case NEW_CLIENT: // server-only packet
 				break;
 		}
@@ -113,6 +128,8 @@ public class ClientNetworkThread implements Runnable {
 
 	public void sendPacket(Packet packet) {
 		byte[] data = packet.getByteArray();
+		if (packet.getPacketType() == PacketType.ACKNOWLEDGE)
+			return; // ohgod
 		DatagramPacket sendPacket = new DatagramPacket(data, data.length, client.getRemoteInetAddress(), PORT);
 		try {
 			socket.send(sendPacket);

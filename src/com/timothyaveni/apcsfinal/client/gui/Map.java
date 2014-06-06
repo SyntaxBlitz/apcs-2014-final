@@ -32,4 +32,9 @@ public class Map {
 	public boolean isPointValid(int x, int y) {
 		return (collision.getRGB(x, y) & 0xFFFFFF) == 0xFFFFFF;
 	}
+
+	public MapMetadata getMetadata() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
