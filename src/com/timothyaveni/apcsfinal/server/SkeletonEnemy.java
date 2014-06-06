@@ -7,31 +7,31 @@ import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
-import com.timothyaveni.apcsfinal.networking.server.ServerThread;
 
 public class SkeletonEnemy extends Entity implements EnemyAI {
 	private int baseDmg = 30;
+	private int goldValue = 40;
 	
 	public SkeletonEnemy(int id, Location loc) {
 		super(id, loc);
 	}
 
-	public EntityDamagePacket attack(EntityDamagePacket e) { // Test
-		return e;
-
+	public void attack(Player track) { // Test
+		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(),
+				baseDmg + getStrength()));
 	}
 
 	public void move(int distance, int direction, String plane) {
 		if (plane.equals("X")) {
 			if (direction > 0)
-				setLocation(new Location(this.getLocation().getX() + 16, this.getLocation().getY(), Location.SOUTH));
+				setLocation(new Location(this.getLocation().getX() + getVelocity(), this.getLocation().getY(), Location.SOUTH));
 			else
-				setLocation(new Location(this.getLocation().getX() - 16, this.getLocation().getY(), Location.NORTH));
+				setLocation(new Location(this.getLocation().getX() - getVelocity(), this.getLocation().getY(), Location.NORTH));
 		} else {
 			if (direction > 0)
-				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() + 16, Location.EAST));
+				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() + getVelocity(), Location.EAST));
 			else
-				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() - 16, Location.WEST));
+				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() - getVelocity(), Location.WEST));
 		}
 
 	}
@@ -59,8 +59,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 		if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 32
 				|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 48) {
-			 Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(),
-						baseDmg + getSpeed()));
+			 	attack(track);
 		} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY()
 				- getLocation().getY()) {
 			move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation()
@@ -118,7 +117,12 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public int getVelocity() {
-		return 10;
+		return 16;
 	}
+	
+	public int getGoldValue(){
+		return goldValue;
+	}
+	
 
 }
