@@ -44,4 +44,8 @@ public class Location {
 		return "[Location x=" + x + "  y=" + y + " facing=" + direction + "]";
 	}
 	
+	public boolean equals(Location other) {
+		return this.x == other.x && this.y == other.y && this.direction == other.direction;
+	}
+	
 }
