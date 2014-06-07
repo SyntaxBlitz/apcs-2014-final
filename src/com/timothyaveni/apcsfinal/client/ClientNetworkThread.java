@@ -128,8 +128,6 @@ public class ClientNetworkThread implements Runnable {
 
 	public void sendPacket(Packet packet) {
 		byte[] data = packet.getByteArray();
-		if (packet.getPacketType() == PacketType.ACKNOWLEDGE)
-			return; // ohgod
 		DatagramPacket sendPacket = new DatagramPacket(data, data.length, client.getRemoteInetAddress(), PORT);
 		try {
 			socket.send(sendPacket);
