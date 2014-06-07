@@ -37,9 +37,9 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 		this.frame = frame;
 
 		// constructs buttons for inside the Panel
-		joinServer = new MenuButton("JoinServerButton.png", "JoinServerButtonHighlighted.png");
-		options = new MenuButton("OptionButton.png", "OptionButtonHighlighted.png");
-		exit = new MenuButton("ExitButton.png", "ExitButtonHighlighted.png");
+		joinServer = new MenuButton("JoinServerButton");
+		options = new MenuButton("OptionButton");
+		exit = new MenuButton("ExitButton");
 
 		// assigns the Background Image of the Panel
 		try {
@@ -87,57 +87,10 @@ public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == joinServer) {
-			InetAddress address = null;
-
-			do {
-				String serverIP = JOptionPane.showInputDialog(frame, "Enter Server IP:");
-
-				if (serverIP == null)
-					return;
-
-				try {
-					address = InetAddress.getByName(serverIP);
-				} catch (UnknownHostException e2) {
-					JOptionPane.showMessageDialog(frame, "Not a valid Server IP");
-				}
-
-			} while (address == null);
-
-			/*
-			 * while (serverIP == null || serverIP.equals("")) { if (serverIP ==
-			 * null) { return; } JOptionPane.showMessageDialog(frame,
-			 * "Not a valid Server IP"); serverIP =
-			 * JOptionPane.showInputDialog(frame, "Enter Server IP:"); }
-			 */
-
-			String characterName = "";
-
-			do {
-				characterName = JOptionPane.showInputDialog(frame, "Enter Character Name:");
-				if (characterName == null) {
-					return;
-				}
-				if (characterName.equals("")) {
-					JOptionPane.showMessageDialog(frame, "Not a valid name");
-				}
-			} while (characterName.equals(""));
-
-			DatagramSocket s = null;
-			try {
-				s = new DatagramSocket();
-			} catch (SocketException e1) {
-				e1.printStackTrace();
-				System.exit(1);
-			}
-			client.setSocket(s);
-			client.setRemoteInetAddress(address);
-			
-			client.setNetworkThread(new ClientNetworkThread(s, new PrimaryCallbackListener(client), client));
-			
 			frame.close();
-			frame.changeFrame(new LobbyPanel(frame, characterName));
+			frame.changeFrame(new ChooseCharacterPanel(frame));
 		} else if (e.getSource() == options) {
-			JOptionPane.showMessageDialog(frame, "Sorry, not implemented yet", "Options",
+			JOptionPane.showMessageDialog(this, "Sorry, not implemented yet", "Options",
 					JOptionPane.INFORMATION_MESSAGE);
 		} else if (e.getSource() == exit) {
 			frame.close();

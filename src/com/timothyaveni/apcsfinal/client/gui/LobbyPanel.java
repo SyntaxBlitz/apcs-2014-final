@@ -73,14 +73,14 @@ public class LobbyPanel extends JPanel implements ActionListener, UsesClient {
 		chatHistory = new JTextArea();
 
 		// this creates the buttons incorporated in the panel
-		pickTank = new MenuButton("PickTankButton.png", "PickTankButtonHighlighted.png");
-		pickHealer = new MenuButton("PickHealerButton.png", "PickHealerButtonHighlighted.png");
-		pickArcher = new MenuButton("PickArcherButton.png", "PickArcherButtonHighlighted.png");
-		pickMage = new MenuButton("PickMageButton.png", "PickMageButtonHighlighted.png");
-		pickRogue = new MenuButton("PickRogueButton.png", "PickRogueButtonHighlighted.png");
-		quitLobby = new MenuButton("QuitLobbyButton.png", "QuitLobbyButtonHighlighted.png");
-		startGame = new MenuButton("StartGameButton.png", "StartGameButtonHighlighted.png");
-		kickPlayer = new MenuButton("KickPlayerButton.png", "KickPlayerButtonHighlighted.png");
+		pickTank = new MenuButton("PickTankButton");
+		pickHealer = new MenuButton("PickHealerButton");
+		pickArcher = new MenuButton("PickArcherButton");
+		pickMage = new MenuButton("PickMageButton");
+		pickRogue = new MenuButton("PickRogueButton");
+		quitLobby = new MenuButton("QuitLobbyButton");
+		startGame = new MenuButton("StartGameButton");
+		kickPlayer = new MenuButton("KickPlayerButton");
 
 		// assigns the Background Image of the Panel
 		try {

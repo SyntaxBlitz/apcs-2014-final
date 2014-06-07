@@ -12,15 +12,15 @@ public class ClientMouseListener implements MouseListener {
 	}
 
 	/*
-	 * this will trigger the attack method but I have no idea what to call it
-	 * off of
+	 * this will trigger the attack method but I have no idea what to call it off of
 	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if (!client.getPlayer().isMoving()) {
-			client.getPlayer().setInCombat(true);
-			frameClicked = client.getFrame();
-		}
+		if (client.isInGame())
+			if (!client.getPlayer().isMoving()) {
+				client.getPlayer().setInCombat(true);
+				frameClicked = client.getFrame();
+			}
 	}
 
 	@Override

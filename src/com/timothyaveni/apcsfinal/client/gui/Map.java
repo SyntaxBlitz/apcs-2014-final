@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.FileReader;
 import com.timothyaveni.apcsfinal.client.Location;
 
@@ -25,7 +26,7 @@ public class Map {
 
 	// convenient accessor method
 	public BufferedImage getPic(Location playerLocation) {
-		return image.getSubimage(playerLocation.getX() - MapCanvas.WIDTH / 2, playerLocation.getY() - MapCanvas.HEIGHT
+		return image.getSubimage(playerLocation.getX() - Client.WIDTH / 2, playerLocation.getY() - Client.HEIGHT
 				/ 2, 1024, 768);
 	}
 

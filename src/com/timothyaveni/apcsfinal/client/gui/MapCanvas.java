@@ -12,11 +12,11 @@ import com.timothyaveni.apcsfinal.client.Location;
 
 public class MapCanvas extends Canvas implements UsesClient {
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 1024;
-	public static final int HEIGHT = WIDTH / 4 * 3;
 	private Client client;
 
 	private BufferStrategy bs;
+	
+	private boolean readyToRender = false;
 
 	// Constructor :D
 	public MapCanvas() {
@@ -26,6 +26,8 @@ public class MapCanvas extends Canvas implements UsesClient {
 	public void init() {
 		this.createBufferStrategy(2);
 		bs = this.getBufferStrategy();
+		
+		this.setReadyToRender(true);
 	}
 
 	public void render() {
@@ -43,8 +45,8 @@ public class MapCanvas extends Canvas implements UsesClient {
 				for (Integer key: entities.keySet()) {
 					Entity thisEntity = entities.get(key);
 					g.drawImage(thisEntity.getImage(client.getFrame()), thisEntity.getLocation().getX()
-							- playerLocation.getX() + WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity.getLocation()
-							.getY() - playerLocation.getY() + HEIGHT / 2 - thisEntity.getHeight() / 2,
+							- playerLocation.getX() + Client.WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity.getLocation()
+							.getY() - playerLocation.getY() + Client.HEIGHT / 2 - thisEntity.getHeight() / 2,
 							thisEntity.getWidth(), thisEntity.getHeight(), null);
 				}
 
@@ -66,5 +68,13 @@ public class MapCanvas extends Canvas implements UsesClient {
 	@Override
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	public boolean isReadyToRender() {
+		return readyToRender;
+	}
+
+	public void setReadyToRender(boolean readyToRender) {
+		this.readyToRender = readyToRender;
 	}
 }

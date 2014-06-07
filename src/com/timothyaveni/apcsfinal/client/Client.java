@@ -9,10 +9,14 @@ import java.util.HashMap;
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
 import com.timothyaveni.apcsfinal.client.gui.Map;
 import com.timothyaveni.apcsfinal.client.gui.MenuPanel;
+import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 
 public class Client {
 	private static final double FPS = 30.0;
+	public static final int WIDTH = 1024;
+	public static final int HEIGHT = WIDTH / 4 * 3;
+
 	private static int lastLocalPacketId = 0;
 	private boolean[] keyboard = new boolean[4];
 	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
@@ -20,6 +24,8 @@ public class Client {
 
 	private boolean inGame = false;
 	private Player player;
+	private EntityType playerType;
+
 	private ClientMouseListener mouseListener;
 
 	private GameFrame gameFrame;
@@ -29,15 +35,15 @@ public class Client {
 	private InetAddress address;
 
 	private ClientNetworkThread networkThread;
-	
+
 	private Map currentMap;
 
 	public Client() {
 		KeyListener keyListener = new ClientKeyListener(this);
 		mouseListener = new ClientMouseListener(this);
 		gameFrame = new GameFrame("Saviors of Gundthor", this);
-		gameFrame.addKeyListener(keyListener);
-		gameFrame.addMouseListener(mouseListener);
+		gameFrame.setKeyListener(keyListener);
+		gameFrame.setMouseListener(mouseListener);
 		MenuPanel menu = new MenuPanel(gameFrame);
 		gameFrame.changeFrame(menu);
 	}
@@ -65,7 +71,7 @@ public class Client {
 			} catch (InterruptedException e) {
 			}
 
-			if (!inGame)
+			if (!inGame || gameFrame.getMapCanvas() == null || !gameFrame.getMapCanvas().isReadyToRender()) // not in game, or we haven't loaded the map yet
 				continue;
 			lastLoopTime = System.nanoTime();
 
@@ -86,7 +92,8 @@ public class Client {
 														// acknowledge any
 														// packets, this is
 														// where we resend them
-			networkThread.sendPacket(new EntityLocationPacket(Client.getNextPacketId(), player.getId(), 1, player.getLocation()));
+			networkThread.sendPacket(new EntityLocationPacket(Client.getNextPacketId(), player.getId(), 1, player
+					.getLocation()));
 
 			// get player input
 			// move sprites
@@ -131,7 +138,7 @@ public class Client {
 	public void setRemoteInetAddress(InetAddress address) {
 		this.address = address;
 	}
-	
+
 	public InetAddress getRemoteInetAddress() {
 		return address;
 	}
@@ -140,6 +147,10 @@ public class Client {
 		this.networkThread = thread;
 		Thread t = new Thread(networkThread);
 		t.start();
+	}
+
+	public ClientNetworkThread getNetworkThread() {
+		return networkThread;
 	}
 
 	public void setCallbackListener(ClientCallbackListener listener) {
@@ -159,5 +170,12 @@ public class Client {
 		this.currentMap = currentMap;
 	}
 
+	public void setPlayerType(EntityType playerType) {
+		this.playerType = playerType;
+	}
+
+	public EntityType getPlayerType() {
+		return this.playerType;
+	}
+
 }
-// testing something

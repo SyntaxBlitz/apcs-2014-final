@@ -49,11 +49,12 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 	}
 
 	@Override
-	public void clientConnectionAcknowldged(NewClientAcknowledgementPacket packet) {
-		System.out.println("My name is George and my id is " + packet.getPlayerEntityId());
-		Player player = new Tank(packet.getPlayerEntityId(), new Location(600, 600, 1));
+	public void clientConnectionAcknowldged(NewClientAcknowledgementPacket packet) {	
+		Player player = (Player) EntityTypeID.constructEntity(client.getPlayerType(), packet.getPlayerEntityId(), new Location(600, 600, 1));
 		client.setPlayer(player);
 		client.getEntityList().put(packet.getPlayerEntityId(), player);
+		
+		client.setInGame(true);
 	}
 
 	@Override

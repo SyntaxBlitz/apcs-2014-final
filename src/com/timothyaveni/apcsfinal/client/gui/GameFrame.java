@@ -1,26 +1,26 @@
 package com.timothyaveni.apcsfinal.client.gui;
 
 import java.awt.Component;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 
 import com.timothyaveni.apcsfinal.client.Client;
 
-public class GameFrame extends JFrame {
+public class GameFrame {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-
-	public final int WIDTH = 1024;
-	public final int HEIGHT = 768;
 
 	private String name;
 	private JFrame frame;
 	private Client client;
 
 	private MapCanvas mapCanvas = null;
+	private KeyListener keyListener;
+	private MouseListener mouseListener;
 
 	// ******When you construct a GameFrame object you must call changeFrame()
 	public GameFrame(String name, Client c) {
@@ -32,22 +32,25 @@ public class GameFrame extends JFrame {
 
 		// creates new frame and sets all attributes associated with it
 		// frame.getContentPane().removeAll();
+		
 		frame = new JFrame(name);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		component.setBounds(0, 0, WIDTH, HEIGHT);
 		frame.add(component);
+		component.setBounds(0, 0, Client.WIDTH, Client.HEIGHT);
+		frame.setSize(Client.WIDTH, Client.HEIGHT);
 		frame.setResizable(false);
+		frame.setVisible(true);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 		frame.update(frame.getGraphics());
 
 		component.requestFocus();
-		component.addKeyListener(this.getKeyListeners()[0]);
-		component.addMouseListener(this.getMouseListeners()[0]);
+		component.addKeyListener(keyListener);
+		component.addMouseListener(mouseListener);
 		component.setClient(client);
 
 		if (component instanceof MapCanvas) {
+			System.out.println("setting local map canvas");
 			this.mapCanvas = (MapCanvas) component;
 			mapCanvas.init();
 		}
@@ -57,10 +60,13 @@ public class GameFrame extends JFrame {
 	public void close() {
 		frame.dispose();
 	}
-
-	@Override
-	public void setDefaultCloseOperation(int operation) {
-		super.setDefaultCloseOperation(operation);
+	
+	public void setKeyListener(KeyListener keyListener) {
+		this.keyListener = keyListener;
+	}
+	
+	public void setMouseListener(MouseListener mouseListener) {
+		this.mouseListener = mouseListener;
 	}
 
 	public Client getClient() {

@@ -2,44 +2,46 @@ package com.timothyaveni.apcsfinal.client;
 
 import com.timothyaveni.apcsfinal.networking.EntityType;
 
-public class Rogue extends Player {
+public class Archer extends Player {
 
-	public Rogue(int id, Location loc) {
+	public Archer(int id, Location loc) {
 		super(id, loc);
-		setHP(50);
+		setHP(100);
+	}
+
+	@Override
+	public double getAttackRadius() {
+		return this.getHeight();
 	}
 
 	@Override
 	public int getBaseDamage() {
-		return 35;
+		return 25;
 	}
 
 	@Override
 	public int getHeight() {
-
 		return 48;
 	}
 
 	@Override
 	public int getWidth() {
-
 		return 32;
 	}
 
 	@Override
 	public String getFileLocation() {
-
-		return "Rogue.png";
+		return "Archer.png";
 	}
 
 	@Override
 	public int getStrength() {
-		return 10 + getLevel();
+		return 20 + getLevel() * 2;
 	}
 
 	@Override
 	public int getSpeed() {
-		return 10 + getLevel();
+		return 10 + getLevel() * 4;
 	}
 
 	@Override
@@ -49,16 +51,12 @@ public class Rogue extends Player {
 
 	@Override
 	public int getVelocity() {
-		return 8;
+		return 6;
 	}
 
 	@Override
 	public EntityType getType() {
-		return EntityType.ROGUE;
-	}
-
-	public double getAttackRadius() {
-		return this.getHeight();
+		return EntityType.ARCHER;
 	}
 
 }

@@ -36,8 +36,6 @@ public class ClientNetworkThread implements Runnable {
 	private ArrayList<Integer> alreadyAcknowledgedPackets = new ArrayList<Integer>();
 	private Client client;
 
-	private boolean hasBeenAccepted = false;
-
 	public ClientNetworkThread(DatagramSocket socket, ClientCallbackListener listener, Client client) {
 		this.socket = socket;
 		this.listener = listener;
@@ -52,10 +50,7 @@ public class ClientNetworkThread implements Runnable {
 			return;
 		}
 
-		sendPacket(new NewClientPacket(Client.getNextPacketId(), EntityType.TANK));
-		/*
-		 * while (!hasBeenAccepted) { // TODO: add resend code }
-		 */
+		sendPacket(new NewClientPacket(Client.getNextPacketId(), client.getPlayerType()));
 
 		boolean keepRunning = true;
 
@@ -71,7 +66,6 @@ public class ClientNetworkThread implements Runnable {
 		} catch (IOException e) {
 			listener.receiveFailure();
 		}
-
 	}
 
 	private void callAppropriateCallback(Packet packet) {
@@ -139,5 +133,5 @@ public class ClientNetworkThread implements Runnable {
 	public ArrayList<Integer> getAlreadyAcknowledgedPackets() {
 		return alreadyAcknowledgedPackets;
 	}
-
+	
 }
