@@ -39,4 +39,9 @@ public class Location {
 				* (other.getY() - this.getY()));
 	}
 
+	@Override
+	public String toString() {
+		return "[Location x=" + x + "  y=" + y + " facing=" + direction + "]";
+	}
+	
 }
