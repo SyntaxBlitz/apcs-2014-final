@@ -83,7 +83,6 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 
 		ArrayList<Entity> entities = server.getEntityList();
 		int newEntityId = entities.size();
-		System.out.println("Entity id is " + newEntityId);
 		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, new Location(600, 600, 1));
 		// entities.add(EntityTypeID.constructEntity(packet.getEntityType(),
 		// entities.size(), server.getMap(0).getMetadata().getSpawnPoint()));

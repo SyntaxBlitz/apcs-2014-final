@@ -33,14 +33,11 @@ public class NewClientAcknowledgementPacket extends Packet {
 		super.pack(data);
 		ByteArrayTools.setBytes(data, this.newClientId, 6, 1);
 		ByteArrayTools.setBytes(data, this.playerEntityId, 7, 2);
-		System.out.println(Integer.toBinaryString(this.playerEntityId));
-		System.out.println(Integer.toBinaryString(ByteArrayTools.readBytes(data, 7, 2, false)));
 	}
 
 	@Override
 	public void unpack(byte[] data) {
 		super.unpack(data);
-		System.out.println(ByteArrayTools.readBytes(data, 7, 2, false));
 		this.newClientId = ByteArrayTools.readBytes(data, 6, 1, false);
 		this.playerEntityId = ByteArrayTools.readBytes(data, 7, 2, false);
 	}
