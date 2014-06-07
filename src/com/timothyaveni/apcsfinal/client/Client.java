@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
+import com.timothyaveni.apcsfinal.client.gui.Map;
 import com.timothyaveni.apcsfinal.client.gui.MenuPanel;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 
@@ -28,6 +29,8 @@ public class Client {
 	private InetAddress address;
 
 	private ClientNetworkThread networkThread;
+	
+	private Map currentMap;
 
 	public Client() {
 		KeyListener keyListener = new ClientKeyListener(this);
@@ -76,7 +79,7 @@ public class Client {
 
 			player.attack(entities, player.isInCombat());
 
-			player.characterMove(keyboard);
+			player.characterMove(keyboard, currentMap);
 
 			networkThread.checkUnacknowledgedPackets(); // if the server has
 														// taken too long to
@@ -146,6 +149,14 @@ public class Client {
 	public synchronized static int getNextPacketId() {
 		return lastLocalPacketId++; // starts at 0, so we can just
 									// increment afterwards
+	}
+
+	public Map getCurrentMap() {
+		return currentMap;
+	}
+
+	public void setCurrentMap(Map currentMap) {
+		this.currentMap = currentMap;
 	}
 
 }

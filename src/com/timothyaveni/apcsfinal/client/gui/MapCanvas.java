@@ -16,14 +16,11 @@ public class MapCanvas extends Canvas implements UsesClient {
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	private Client client;
 
-	private Map map;
 	private BufferStrategy bs;
 
 	// Constructor :D
 	public MapCanvas() {
 		super();
-		map = new Map("Map1", ".png");
-		// render();
 	}
 
 	public void init() {
@@ -39,7 +36,7 @@ public class MapCanvas extends Canvas implements UsesClient {
 
 				Location playerLocation = client.getPlayer().getLocation();
 				// Location playerLocation = t.getLocation();
-				g.drawImage(map.getPic(playerLocation), 0, 0, 1024, 768, null);
+				g.drawImage(client.getCurrentMap().getPic(playerLocation), 0, 0, 1024, 768, null);
 
 				HashMap<Integer, Entity> entities = client.getEntityList();
 

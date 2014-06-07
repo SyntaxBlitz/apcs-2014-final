@@ -3,6 +3,8 @@ package com.timothyaveni.apcsfinal.client;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.timothyaveni.apcsfinal.client.gui.Map;
+
 public abstract class Player extends Entity {
 
 	private int level;
@@ -17,19 +19,23 @@ public abstract class Player extends Entity {
 	public void move(int distance, int direction, String plane) {
 	}
 
-	public void characterMove(boolean[] keyboard) {
+	public void characterMove(boolean[] keyboard, Map currentMap) {
 		if (!isInCombat()) {
-			if (keyboard[0]) {
+			if (keyboard[0]) { // right
 				if (!keyboard[2])
-					setLocation(new Location(getLocation().getX() + getVelocity(), getLocation().getY(), Location.EAST));
-			} else if (keyboard[1]) {
+					if (currentMap.isPointValid(getLocation().getX() + getVelocity() + getWidth() / 2, getLocation().getY()))
+						setLocation(new Location(getLocation().getX() + getVelocity(), getLocation().getY(),
+								Location.EAST));
+			} else if (keyboard[1]) { // down
 				if (!keyboard[3])
-					setLocation(new Location(getLocation().getX(), getLocation().getY() + getVelocity(), Location.SOUTH));
-			} else if (keyboard[2]) {
-				if (!keyboard[0])
+					if (currentMap.isPointValid(getLocation().getX(), getLocation().getY() + getVelocity() + getHeight() / 2))
+						setLocation(new Location(getLocation().getX(), getLocation().getY() + getVelocity(),
+								Location.SOUTH));
+			} else if (keyboard[2]) { // left
+				if (currentMap.isPointValid(getLocation().getX() - getVelocity() - getWidth() / 2, getLocation().getY()))
 					setLocation(new Location(getLocation().getX() - getVelocity(), getLocation().getY(), Location.WEST));
-			} else if (keyboard[3]) {
-				if (!keyboard[1])
+			} else if (keyboard[3]) { // up
+				if (currentMap.isPointValid(getLocation().getX(), getLocation().getY() - getVelocity() - getHeight() / 2))
 					setLocation(new Location(getLocation().getX(), getLocation().getY() - getVelocity(), Location.NORTH));
 			}
 		} else if (keyboard[0] || keyboard[1] || keyboard[2] || keyboard[3])
@@ -38,7 +44,7 @@ public abstract class Player extends Entity {
 
 	public void attack(HashMap<Integer, Entity> entities, boolean inCombat) {
 		Location enemyLoc;
-		if(this.isInCombat()){
+		if (this.isInCombat()) {
 			for (Integer i : entities.keySet()) {
 				Entity a = entities.get(i);
 				enemyLoc = a.getLocation();
@@ -57,7 +63,7 @@ public abstract class Player extends Entity {
 							}
 							break;
 					}
-	
+
 				}
 			}
 		}

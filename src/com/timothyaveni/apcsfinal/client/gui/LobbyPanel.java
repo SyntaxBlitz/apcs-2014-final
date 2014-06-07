@@ -183,9 +183,8 @@ public class LobbyPanel extends JPanel implements ActionListener, UsesClient {
 			frame.close();
 			frame.changeFrame(new MenuPanel(frame));
 		} else if (e.getSource() == startGame) {
-			// when you move this code, make sure you change the player entity
-			// id.
-
+			client.setCurrentMap(new Map("Map1"));
+			
 			frame.close();
 			frame.changeFrame(new MapCanvas());
 

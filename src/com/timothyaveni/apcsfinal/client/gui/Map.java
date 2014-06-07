@@ -12,12 +12,12 @@ public class Map {
 	private BufferedImage image = null; // image to be used in render method
 	private BufferedImage collision;
 
-	public Map(String fileLocation, String ext) {
+	public Map(String fileLocation) {
 
 		// assigns Image of the map background to the field
 		try {
-			image = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + ext));
-			collision = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + "_Collision" + ext));
+			image = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + ".png"));
+			collision = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + "_Collision.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
