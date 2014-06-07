@@ -37,8 +37,16 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 			return;
 
 		lastEntityLocationId.put(entityId, packet.getRemoteId());
+
 		if (client.getEntityList().containsKey(entityId)) {
-			client.getEntityList().get(entityId).setLocation(packet.getLocation());
+			Entity entity = client.getEntityList().get(entityId);
+			if (packet.getLocation().equals(entity.getLocation())) {
+				entity.setMoving(false);
+			} else {
+				entity.setLocation(packet.getLocation());
+				entity.setMoving(true);
+			}
+
 		}
 	}
 
@@ -49,11 +57,12 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 	}
 
 	@Override
-	public void clientConnectionAcknowldged(NewClientAcknowledgementPacket packet) {	
-		Player player = (Player) EntityTypeID.constructEntity(client.getPlayerType(), packet.getPlayerEntityId(), new Location(600, 600, 1));
+	public void clientConnectionAcknowldged(NewClientAcknowledgementPacket packet) {
+		Player player = (Player) EntityTypeID.constructEntity(client.getPlayerType(), packet.getPlayerEntityId(),
+				new Location(600, 600, 1));
 		client.setPlayer(player);
 		client.getEntityList().put(packet.getPlayerEntityId(), player);
-		
+
 		client.setInGame(true);
 	}
 
