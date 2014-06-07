@@ -16,7 +16,7 @@ public class Map {
 
 		// assigns Image of the map background to the field
 		try {
-			image = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + ".png"));
+			image = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + "_Collision.png"));
 			collision = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + "_Collision.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
