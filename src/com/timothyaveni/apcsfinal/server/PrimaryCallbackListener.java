@@ -68,12 +68,6 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 	}
 
 	@Override
-	public void packetAcknowledged(AcknowledgePacket packet) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public synchronized void newClientConnected(NewClientPacket packet, InetAddress address, int port) {
 		int newClientId = server.getClientList().size();
 		if (newClientId > 255) { // uh we can't fit you bro

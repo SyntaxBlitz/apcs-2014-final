@@ -84,9 +84,7 @@ public class ServerThread implements Runnable {
 		
 		switch (packet.getPacketType()) {
 			case ACKNOWLEDGE:
-				// TODO: instead of forcing this on the listener, keep track in
-				// ServerThread
-				listener.packetAcknowledged((AcknowledgePacket) packet);
+				packetAcknowledged((AcknowledgePacket) packet);
 				break;
 			case ENTITY_LOCATION:
 				listener.entityMoved((EntityLocationPacket) packet);
@@ -102,6 +100,10 @@ public class ServerThread implements Runnable {
 			case NEW_CLIENT_ACKNOWLDEGEMENT:
 				break;
 		}
+	}
+
+	private void packetAcknowledged(AcknowledgePacket packet) {
+		this.unacknowledgedPackets.remove(packet.getRemoteId());
 	}
 
 	public synchronized void checkUnacknowledgedPackets() {
