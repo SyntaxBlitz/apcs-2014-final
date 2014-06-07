@@ -1,5 +1,6 @@
 package com.timothyaveni.apcsfinal.networking;
 
 public enum EntityType {
-	TANK, SKELETON_ENEMY, GOBLIN_ENEMY
+	// IMPORTANT: when adding entities, make sure to also modify all three methods in EntityTypeID
+	TANK, SKELETON_ENEMY, GOBLIN_ENEMY, ROGUE
 }

@@ -54,8 +54,7 @@ public class Rogue extends Player {
 
 	@Override
 	public EntityType getType() {
-		// return EntityType.ROGUE;
-		return null;
+		return EntityType.ROGUE;
 	}
 
 	public double getAttackRadius() {
