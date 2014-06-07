@@ -5,11 +5,10 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.gui.Map;
-import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
 import com.timothyaveni.apcsfinal.networking.server.ServerThread;
 
@@ -20,13 +19,14 @@ public class Server {
 
 	private ArrayList<ConnectedClient> clientList = new ArrayList<ConnectedClient>();
 	private static ArrayList<Packet> packetQueue = new ArrayList<Packet>();
-	
-	private ArrayList<Entity> entities = new ArrayList<Entity>();
+
+	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
+	int lastEntityId = -1;
 
 	private ServerThread thread;
 
 	private DatagramSocket socket;
-	
+
 	private long currentTick = 0;
 
 	private static int lastLocalPacketId = 0;
@@ -62,7 +62,7 @@ public class Server {
 		long tickStart;
 		while (true) {
 			tickStart = System.nanoTime();
-			
+
 			Packet[] sendPackets = packetQueue.toArray(new Packet[packetQueue.size()]);
 			packetQueue.clear();
 			for (int i = 0; i < sendPackets.length; i++) {
@@ -78,9 +78,9 @@ public class Server {
 					}
 				}
 			}
-			
-			packetQueue.clear();	// yeah so initially I forgot this code. it was really ugly
-			
+
+			packetQueue.clear(); // yeah so initially I forgot this code. it was really ugly
+
 			thread.checkUnacknowledgedPackets();
 
 			try {
@@ -112,7 +112,7 @@ public class Server {
 		return currentTick;
 	}
 
-	public ArrayList<Entity> getEntityList() {
+	public HashMap<Integer, Entity> getEntityList() {
 		return this.entities;
 	}
 

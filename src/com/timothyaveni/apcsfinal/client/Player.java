@@ -51,7 +51,6 @@ public abstract class Player extends Entity {
 	}
 
 	private Location getClosestValidLocation(int direction, Map currentMap) {
-		System.out.println("call");
 		if (direction == Location.NORTH) {
 			int good = getLocation().getY() - getHeight() / 2;
 			int bad = getLocation().getY() - getHeight() / 2 - getVelocity();

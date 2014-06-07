@@ -1,8 +1,9 @@
 package com.timothyaveni.apcsfinal.server;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
@@ -52,10 +53,10 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 			return;
 
 		lastPlayerLocationId.put(entityId, packet.getRemoteId());
-		if (server.getEntityList().contains(entityId)) {
+		if (server.getEntityList().containsKey(entityId)) {
 			server.getEntityList().get(entityId).setLocation(packet.getLocation());
 		}
-
+		
 		Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), entityId,
 				packet.getWorldSectionId(), packet.getLocation()));
 	}
@@ -81,12 +82,12 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		}
 		System.out.println("New client connected. Assigning id " + newClientId);
 
-		ArrayList<Entity> entities = server.getEntityList();
-		int newEntityId = entities.size();
+		HashMap<Integer, Entity> entities = server.getEntityList();
+		int newEntityId = ++server.lastEntityId;
 		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, new Location(600, 600, 1));
 		// entities.add(EntityTypeID.constructEntity(packet.getEntityType(),
 		// entities.size(), server.getMap(0).getMetadata().getSpawnPoint()));
-		entities.add(newEntity);
+		entities.put(newEntityId, newEntity);
 
 		server.getClientList().add(new ConnectedClient(newClientId, address, port));
 		server.getThread().sendIndividualPacket(
@@ -94,9 +95,9 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 
 		Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), newEntity));
 
-		Entity[] entityArray = entities.toArray(new Entity[entities.size()]);
-		for (int i = 0; i < entityArray.length; i++) { // have to send the new client all the entities we already have in memory
-			server.getThread().sendIndividualPacket(new NewEntityPacket(Server.getNextPacketId(), entityArray[i]), address,
+		Iterator<Entry<Integer, Entity>> i = entities.entrySet().iterator();
+		while (i.hasNext()) {
+			server.getThread().sendIndividualPacket(new NewEntityPacket(Server.getNextPacketId(), i.next().getValue()), address,
 					port);
 		}
 	}
