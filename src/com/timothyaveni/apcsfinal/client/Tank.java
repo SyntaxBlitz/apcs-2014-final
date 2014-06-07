@@ -50,7 +50,7 @@ public class Tank extends Player {
 	}
 
 	public int getVelocity() {
-		return 8;
+		return 4;
 	}
 
 	public double getAttackRadius() {
