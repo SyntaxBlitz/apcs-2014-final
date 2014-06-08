@@ -15,11 +15,13 @@ public class Location {
 	 * North.
 	 */
 	private int direction;
+	private int worldSectionId;
 
-	public Location(int x, int y, int direction) {
+	public Location(int x, int y, int direction, int worldSectionId) {
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
+		this.worldSectionId = worldSectionId;
 	}
 
 	public int getX() {
@@ -34,7 +36,13 @@ public class Location {
 		return direction;
 	}
 
+	public int getWorldSectionId() {
+		return worldSectionId;
+	}
+	
 	public double getDistanceTo(Location other) {
+		if (this.worldSectionId != other.worldSectionId)
+			return -1;
 		return Math.sqrt((other.getX() - this.getX()) * (other.getX() - this.getX()) + (other.getY() - this.getY())
 				* (other.getY() - this.getY()));
 	}

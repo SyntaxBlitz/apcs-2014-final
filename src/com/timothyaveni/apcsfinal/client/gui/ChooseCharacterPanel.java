@@ -125,7 +125,7 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 
 		client.setNetworkThread(new ClientNetworkThread(s, new PrimaryCallbackListener(client), client));
 		
-		client.setCurrentMap(new Map("Map1"));
+		client.setCurrentMap(new Map(1));
 		
 		frame.close();
 		frame.changeFrame(new MapCanvas());

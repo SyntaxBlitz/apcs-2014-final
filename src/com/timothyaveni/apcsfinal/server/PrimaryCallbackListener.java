@@ -57,8 +57,7 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 			server.getEntityList().get(entityId).setLocation(packet.getLocation());
 		}
 		
-		Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), entityId,
-				packet.getWorldSectionId(), packet.getLocation()));
+		Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), entityId, packet.getLocation()));
 	}
 
 	@Override
@@ -78,7 +77,8 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 
 		HashMap<Integer, Entity> entities = server.getEntityList();
 		int newEntityId = ++server.lastEntityId;
-		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, new Location(600, 600, 1));
+		//TODO: should use spawn point here
+		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, new Location(600, 600, 1, 1));
 		// entities.add(EntityTypeID.constructEntity(packet.getEntityType(),
 		// entities.size(), server.getMap(0).getMetadata().getSpawnPoint()));
 		entities.put(newEntityId, newEntity);

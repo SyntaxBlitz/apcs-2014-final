@@ -43,9 +43,10 @@ public class NewEntityPacket extends Packet {
 		super.pack(data);
 		ByteArrayTools.setBytes(data, EntityTypeID.getID(entityType), 6, 1);
 		ByteArrayTools.setBytes(data, entityId, 7, 2);
-		ByteArrayTools.setBytes(data, entityLocation.getX(), 9, 4);
-		ByteArrayTools.setBytes(data, entityLocation.getY(), 13, 4);
-		ByteArrayTools.setBytes(data, entityLocation.getDirection(), 17, 1);
+		ByteArrayTools.setBytes(data, entityLocation.getWorldSectionId(), 9, 1);
+		ByteArrayTools.setBytes(data, entityLocation.getX(), 10, 4);
+		ByteArrayTools.setBytes(data, entityLocation.getY(), 14, 4);
+		ByteArrayTools.setBytes(data, entityLocation.getDirection(), 18, 1);
 	}
 
 	@Override
@@ -53,14 +54,14 @@ public class NewEntityPacket extends Packet {
 		super.unpack(data);
 		this.entityType = EntityTypeID.getType(ByteArrayTools.readBytes(data, 6, 1, false));
 		this.entityId = ByteArrayTools.readBytes(data, 7, 2, false);
-		this.entityLocation = new Location(ByteArrayTools.readBytes(data, 9, 4, true), ByteArrayTools.readBytes(data,
-				13, 4, true), ByteArrayTools.readBytes(data, 17, 1, false));
+		this.entityLocation = new Location(ByteArrayTools.readBytes(data, 10, 4, true), ByteArrayTools.readBytes(data,
+				14, 4, true), ByteArrayTools.readBytes(data, 18, 1, false), ByteArrayTools.readBytes(data, 9, 1, false));
 		System.out.println(entityLocation);
 	}
 
 	@Override
 	public byte[] getByteArray() {
-		byte[] toReturn = new byte[18];
+		byte[] toReturn = new byte[19];
 		pack(toReturn);
 		return toReturn;
 	}

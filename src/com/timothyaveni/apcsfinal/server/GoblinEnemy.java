@@ -11,7 +11,7 @@ import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 public class GoblinEnemy extends Entity implements EnemyAI {
 	private int baseDmg = 10;
 	private int goldValue = 25;
-	
+
 	public GoblinEnemy(int id, Location loc) {
 		super(id, loc);
 	}
@@ -23,14 +23,18 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 	public void move(int distance, int direction, String plane) {
 		if (plane.equals("X")) {
 			if (direction > 0)
-				setLocation(new Location(this.getLocation().getX() + getVelocity(), this.getLocation().getY(), Location.SOUTH));
+				setLocation(new Location(this.getLocation().getX() + getVelocity(), this.getLocation().getY(),
+						Location.SOUTH, this.getLocation().getWorldSectionId()));
 			else
-				setLocation(new Location(this.getLocation().getX() - getVelocity(), this.getLocation().getY(), Location.NORTH));
+				setLocation(new Location(this.getLocation().getX() - getVelocity(), this.getLocation().getY(),
+						Location.NORTH, this.getLocation().getWorldSectionId()));
 		} else {
 			if (direction > 0)
-				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() + getVelocity(), Location.EAST));
+				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() + getVelocity(),
+						Location.EAST, this.getLocation().getWorldSectionId()));
 			else
-				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() - getVelocity(), Location.WEST));
+				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() - getVelocity(),
+						Location.WEST, this.getLocation().getWorldSectionId()));
 		}
 
 	}
@@ -58,8 +62,8 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 
 		if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 32
 				|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 48) {
-			 Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(),
-						baseDmg + getSpeed()));
+			Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg
+					+ getSpeed()));
 		} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY()
 				- getLocation().getY()) {
 			move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation()
@@ -119,8 +123,8 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 	public int getVelocity() {
 		return 20;
 	}
-	
-	public int getGoldValue(){
+
+	public int getGoldValue() {
 		return goldValue;
 	}
 }

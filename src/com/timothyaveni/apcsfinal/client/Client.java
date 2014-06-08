@@ -91,7 +91,7 @@ public class Client {
 														// acknowledge any
 														// packets, this is
 														// where we resend them
-			networkThread.sendPacket(new EntityLocationPacket(Client.getNextPacketId(), player.getId(), 1, player
+			networkThread.sendPacket(new EntityLocationPacket(Client.getNextPacketId(), player.getId(), player
 					.getLocation()));
 
 			// get player input

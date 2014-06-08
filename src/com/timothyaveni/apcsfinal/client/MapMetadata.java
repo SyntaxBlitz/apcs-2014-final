@@ -18,7 +18,7 @@ public class MapMetadata {
 	private ArrayList<EntityInfo> loadedEntityInfo;
 	private Location spawnPoint;
 
-	public MapMetadata(File file) {
+	public MapMetadata(File file, Map map) {
 		JSONObject jsonObject = null;
 		try {
 			jsonObject = new JSONObject(new JSONTokener(new FileInputStream(file)));
@@ -37,12 +37,12 @@ public class MapMetadata {
 			JSONObject entityObject = entityArray.getJSONObject(i);
 			JSONObject locationObject = entityObject.getJSONObject("location");
 			loadedEntityInfo.add(new EntityInfo(EntityTypeID.getType(entityObject.getInt("type")), new Location(
-					locationObject.getInt("x"), locationObject.getInt("y"), locationObject.getInt("direction"))));
+					locationObject.getInt("x"), locationObject.getInt("y"), locationObject.getInt("direction"), map.getWorldSectionId())));
 		}
 
 		JSONObject spawnPointLocationObject = jsonObject.getJSONObject("spawnPoint");
 		this.spawnPoint = new Location(spawnPointLocationObject.getInt("x"), spawnPointLocationObject.getInt("y"),
-				spawnPointLocationObject.getInt("direction"));
+				spawnPointLocationObject.getInt("direction"), map.getWorldSectionId());
 	}
 
 	public List<EntityInfo> getEntityInfo() {

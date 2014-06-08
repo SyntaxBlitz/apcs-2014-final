@@ -37,12 +37,13 @@ EntityDamagePacket must-acknowledge (total size=11 bytes):
 	bytes 6-7: entity id
 	bytes 8-10: damage amount (signed int)
 
-NewEntityPacket must-acknowledge (total size=18 bytes):
+NewEntityPacket must-acknowledge (total size=19 bytes):
 	byte 6: entity type		(Entity enum)
 	bytes 7-8: entity id	(unsigned int)
-	bytes 9-12: location-x	(signed int)
-	bytes 13-16: location-y	(signed int)
-	byte 17: facing (Direction enum)
+	byte 9: world section ID	(unsigned int)
+	bytes 10-13: location-x	(signed int)
+	bytes 14-17: location-y	(signed int)
+	byte 18: facing (Direction enum)
 	
 NewClientPacket (total size=7 bytes):	NOT must-acknowledge, because the server sends a different sort of acknowldgement.
 	byte 4's value is ignored
