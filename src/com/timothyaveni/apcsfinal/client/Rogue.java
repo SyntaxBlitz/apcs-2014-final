@@ -6,7 +6,6 @@ public class Rogue extends Player {
 
 	public Rogue(int id, Location loc) {
 		super(id, loc);
-		setHP(50);
 	}
 
 	@Override
@@ -53,10 +52,16 @@ public class Rogue extends Player {
 	}
 
 	@Override
+	public int getMaxHP() {
+		return 50;
+	}
+
+	@Override
 	public EntityType getType() {
 		return EntityType.ROGUE;
 	}
 
+	@Override
 	public double getAttackRadius() {
 		return this.getHeight();
 	}

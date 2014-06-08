@@ -6,7 +6,6 @@ public class Healer extends Player {
 
 	public Healer(int id, Location loc) {
 		super(id, loc);
-		setHP(75);
 	}
 
 	@Override
@@ -52,6 +51,11 @@ public class Healer extends Player {
 	@Override
 	public int getVelocity() {
 		return 6;
+	}
+
+	@Override
+	public int getMaxHP() {
+		return 75;
 	}
 
 	@Override

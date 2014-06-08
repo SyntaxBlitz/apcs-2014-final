@@ -6,7 +6,6 @@ public class Mage extends Player {
 
 	public Mage(int id, Location loc) {
 		super(id, loc);
-		setHP(75);
 	}
 
 	@Override
@@ -52,6 +51,11 @@ public class Mage extends Player {
 	@Override
 	public int getVelocity() {
 		return 6;
+	}
+
+	@Override
+	public int getMaxHP() {
+		return 75;
 	}
 
 	@Override

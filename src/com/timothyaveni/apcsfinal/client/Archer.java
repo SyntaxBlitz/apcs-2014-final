@@ -6,7 +6,6 @@ public class Archer extends Player {
 
 	public Archer(int id, Location loc) {
 		super(id, loc);
-		setHP(100);
 	}
 
 	@Override
@@ -52,6 +51,11 @@ public class Archer extends Player {
 	@Override
 	public int getVelocity() {
 		return 6;
+	}
+
+	@Override
+	public int getMaxHP() {
+		return 100;
 	}
 
 	@Override

@@ -6,7 +6,6 @@ public class Tank extends Player {
 
 	public Tank(int id, Location loc) {
 		super(id, loc);
-		setHP(75);
 	}
 
 	@Override
@@ -49,10 +48,17 @@ public class Tank extends Player {
 		return EntityType.TANK;
 	}
 
+	@Override
+	public int getMaxHP() {
+		return 250;
+	}
+
+	@Override
 	public int getVelocity() {
 		return 4;
 	}
 
+	@Override
 	public double getAttackRadius() {
 		return this.getHeight();
 	}
