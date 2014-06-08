@@ -6,9 +6,11 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import com.timothyaveni.apcsfinal.client.Entity;
+import com.timothyaveni.apcsfinal.client.FileReader;
 import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.networking.EntityTypeID;
-import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
+import com.timothyaveni.apcsfinal.networking.WorldSectionID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
@@ -56,7 +58,14 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		if (server.getEntityList().containsKey(entityId)) {
 			server.getEntityList().get(entityId).setLocation(packet.getLocation());
 		}
-		
+
+		if (!server.getLoadedMaps().containsKey(packet.getLocation().getWorldSectionId())) {
+			server.getLoadedMaps().put(
+					packet.getLocation().getWorldSectionId(),
+					new MapMetadata(FileReader.getFileFromResourceString(WorldSectionID.getMapNameFromID(packet
+							.getLocation().getWorldSectionId())), packet.getLocation().getWorldSectionId()));
+		}
+
 		Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), entityId, packet.getLocation()));
 	}
 
@@ -77,8 +86,9 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 
 		HashMap<Integer, Entity> entities = server.getEntityList();
 		int newEntityId = ++server.lastEntityId;
-		//TODO: should use spawn point here
-		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, new Location(600, 600, 1, 1));
+		// TODO: should use spawn point here
+		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, new Location(600, 600, 1,
+				1));
 		// entities.add(EntityTypeID.constructEntity(packet.getEntityType(),
 		// entities.size(), server.getMap(0).getMetadata().getSpawnPoint()));
 		entities.put(newEntityId, newEntity);
@@ -91,8 +101,8 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 
 		Iterator<Entry<Integer, Entity>> i = entities.entrySet().iterator();
 		while (i.hasNext()) {
-			server.getThread().sendIndividualPacket(new NewEntityPacket(Server.getNextPacketId(), i.next().getValue()), address,
-					port);
+			server.getThread().sendIndividualPacket(new NewEntityPacket(Server.getNextPacketId(), i.next().getValue()),
+					address, port);
 		}
 	}
 

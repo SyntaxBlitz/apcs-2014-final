@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.client.Entity;
+import com.timothyaveni.apcsfinal.client.FileReader;
 import com.timothyaveni.apcsfinal.client.Map;
+import com.timothyaveni.apcsfinal.client.MapMetadata;
+import com.timothyaveni.apcsfinal.networking.WorldSectionID;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
 import com.timothyaveni.apcsfinal.networking.server.ServerThread;
 
@@ -21,6 +24,7 @@ public class Server {
 	private static ArrayList<Packet> packetQueue = new ArrayList<Packet>();
 
 	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
+	private HashMap<Integer, MapMetadata> loadedMaps = new HashMap<Integer, MapMetadata>();
 	int lastEntityId = -1;
 
 	private ServerThread thread;
@@ -60,6 +64,10 @@ public class Server {
 
 	private void mainLoop() {
 		long tickStart;
+		
+		// load in first map
+		loadedMaps.put(1, new MapMetadata(FileReader.getFileFromResourceString(WorldSectionID.getMapNameFromID(1)), 1));
+		
 		while (true) {
 			tickStart = System.nanoTime();
 
@@ -114,6 +122,14 @@ public class Server {
 
 	public HashMap<Integer, Entity> getEntityList() {
 		return this.entities;
+	}
+	
+	public HashMap<Integer, MapMetadata> getLoadedMaps() {
+		return this.loadedMaps;
+	}
+	
+	public void loadMap() {
+		
 	}
 
 	public Map getMap(int id) {
