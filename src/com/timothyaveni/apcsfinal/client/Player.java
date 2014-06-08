@@ -7,13 +7,11 @@ import java.util.Iterator;
 public abstract class Player extends Entity {
 
 	private int level;
-	private int hp;
 
 	public Player(int id, Location loc) {
 		super(id, loc);
 		level = 1; // this may need to be changed depending on how players are
 					// sent in packets
-		hp = getMaxHP();
 	}
 
 	public void move(int distance, int direction, String plane) {
@@ -185,16 +183,6 @@ public abstract class Player extends Entity {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-
-	public void setHP(int hp) {
-		this.hp = hp;
-	}
-
-	public int getHP() {
-		return hp;
-	}
-
-	public abstract int getMaxHP();
 
 	public abstract double getAttackRadius();
 

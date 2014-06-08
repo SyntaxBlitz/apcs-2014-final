@@ -127,4 +127,9 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		return goldValue;
 	}
 
+	@Override
+	public int getMaxHP() {
+		return 30;
+	}
+
 }

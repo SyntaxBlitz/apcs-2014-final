@@ -72,8 +72,20 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 
 	@Override
 	public void entityDamaged(EntityDamagePacket packet) {
-		// TODO Auto-generated method stub
-
+		Entity entity = server.getEntityList().get(packet.getEntityId());
+		if (entity != null) {
+			int entityHP = entity.getHP();
+			int damageAmount = packet.getDamageAmount();
+			if (entityHP - damageAmount > entity.getMaxHP())
+				entity.setHP(entity.getMaxHP());
+			else
+				entity.setHP(entityHP - damageAmount);
+			
+			if (entity instanceof Player) {
+				// just send it to everyone
+				Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), packet.getEntityId(), damageAmount));
+			}
+		}
 	}
 
 	@Override

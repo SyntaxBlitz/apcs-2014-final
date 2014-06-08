@@ -19,7 +19,7 @@ public class ByteArrayTools {
 	 * @param length
 	 *            the length, in bytes, of the integer to analyze. MUST BE in the range 1..4.
 	 * @param signed
-	 *            TODO
+	 *            whether or not the integer being read should be signed. if length == 4 and you're on a 32-bit computer, this has no effect.
 	 * @return the computed integer, or -1 if the length is > 4 or < 1 or (startIndex + length) > data.length
 	 */
 	public static int readBytes(byte[] data, int startIndex, int length, boolean signed) {

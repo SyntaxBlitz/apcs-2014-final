@@ -15,6 +15,8 @@ public abstract class Entity {
 	private BufferedImage currentSubImage;
 	private int lastDirection;
 	private int currentFrameOffset;
+	
+	private int hp;
 
 	private boolean inCombat;
 	private boolean moving;
@@ -25,6 +27,8 @@ public abstract class Entity {
 		lastDirection = loc.getDirection();
 		currentFrameOffset = 0;
 
+		this.hp = getMaxHP();
+		
 		try {
 			image = ImageIO.read(FileReader.getFileFromResourceString(getFileLocation()));
 		} catch (IOException e) {
@@ -45,6 +49,8 @@ public abstract class Entity {
 	public abstract int getIntelligence();
 
 	public abstract int getVelocity();
+	
+	public abstract int getMaxHP();
 
 	public int getId() {
 		return this.id;
@@ -58,6 +64,14 @@ public abstract class Entity {
 		this.loc = loc;
 	}
 
+	public void setHP(int hp) {
+		this.hp = hp;
+	}
+
+	public int getHP() {
+		return hp;
+	}
+	
 	public BufferedImage getImage(long frame) {
 		if (!moving) {
 			currentSubImage = image

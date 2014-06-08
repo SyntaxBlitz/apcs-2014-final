@@ -54,8 +54,15 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 
 	@Override
 	public void entityDamaged(EntityDamagePacket packet) {
-		// TODO Auto-generated method stub
-
+		Entity entity = client.getEntityList().get(packet.getEntityId());
+		if (entity == client.getPlayer()) { // otherwise we don't care.
+			int playerHP = client.getPlayer().getHP();
+			int damageAmount = packet.getDamageAmount();
+			if (playerHP - damageAmount > client.getPlayer().getMaxHP())
+				client.getPlayer().setHP(client.getPlayer().getMaxHP());
+			else
+				client.getPlayer().setHP(playerHP - damageAmount);
+		}
 	}
 
 	@Override

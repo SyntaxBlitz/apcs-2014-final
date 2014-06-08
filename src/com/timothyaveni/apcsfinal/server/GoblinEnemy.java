@@ -127,4 +127,9 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 	public int getGoldValue() {
 		return goldValue;
 	}
+
+	@Override
+	public int getMaxHP() {
+		return 25;
+	}
 }
