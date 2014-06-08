@@ -85,7 +85,7 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		System.out.println("New client connected. Assigning id " + newClientId);
 
 		HashMap<Integer, Entity> entities = server.getEntityList();
-		int newEntityId = ++server.lastEntityId;
+		int newEntityId = Server.getNextEntityId();
 		// TODO: should use spawn point here
 		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, new Location(600, 600, 1,
 				1));

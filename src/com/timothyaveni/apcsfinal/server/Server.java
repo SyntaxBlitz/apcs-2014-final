@@ -6,11 +6,14 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.timothyaveni.apcsfinal.client.Entity;
+import com.timothyaveni.apcsfinal.client.EntityInfo;
 import com.timothyaveni.apcsfinal.client.FileReader;
 import com.timothyaveni.apcsfinal.client.Map;
 import com.timothyaveni.apcsfinal.client.MapMetadata;
+import com.timothyaveni.apcsfinal.networking.EntityTypeID;
 import com.timothyaveni.apcsfinal.networking.WorldSectionID;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
 import com.timothyaveni.apcsfinal.networking.server.ServerThread;
@@ -28,9 +31,9 @@ public class Server {
 	private HashMap<Integer, Entity> visibleEntities = new HashMap<Integer, Entity>();
 	// entities that have not
 	private ArrayList<Entity> invisibleEntities = new ArrayList<Entity>();
-	
+
 	private HashMap<Integer, MapMetadata> loadedMaps = new HashMap<Integer, MapMetadata>();
-	int lastEntityId = -1;
+	private static int lastEntityId = -1;
 
 	private ServerThread thread;
 
@@ -69,10 +72,10 @@ public class Server {
 
 	private void mainLoop() {
 		long tickStart;
-		
+
 		// load in first map
-		loadedMaps.put(1, new MapMetadata(FileReader.getFileFromResourceString(WorldSectionID.getMapNameFromID(1)), 1));
-		
+		loadMap(1);
+
 		while (true) {
 			tickStart = System.nanoTime();
 
@@ -112,9 +115,24 @@ public class Server {
 		Server server = new Server(port);
 	}
 
+	public void loadMap(int worldSectionId) {
+		MapMetadata metadata = new MapMetadata(FileReader.getFileFromResourceString(WorldSectionID
+				.getMapNameFromID(worldSectionId)), worldSectionId);
+		loadedMaps.put(worldSectionId, metadata);
+		List<EntityInfo> entityInfo = metadata.getEntityInfo();
+		for (EntityInfo thisEntity : entityInfo) {
+			this.invisibleEntities.add(EntityTypeID.constructEntity(thisEntity.getType(), Server.getNextEntityId(),
+					thisEntity.getLocation()));
+		}
+	}
+
+	// really I have no clue why these two methods are synchronized
 	public synchronized static int getNextPacketId() {
-		return lastLocalPacketId++; // starts at 0, so we can just
-									// increment afterwards
+		return lastLocalPacketId++; // starts at 0, so we can just increment afterwards
+	}
+
+	public synchronized static int getNextEntityId() {
+		return lastEntityId++;
 	}
 
 	public static void addPacketToQueue(Packet packet) {
@@ -128,21 +146,21 @@ public class Server {
 	public HashMap<Integer, Entity> getEntityList() {
 		return this.entities;
 	}
-	
+
 	public HashMap<Integer, Entity> getVisibleEntityList() {
 		return this.visibleEntities;
 	}
-	
+
 	public ArrayList<Entity> getInvisibleEntityList() {
 		return this.invisibleEntities;
 	}
-	
+
 	public HashMap<Integer, MapMetadata> getLoadedMaps() {
 		return this.loadedMaps;
 	}
-	
+
 	public void loadMap() {
-		
+
 	}
 
 	public Map getMap(int id) {
