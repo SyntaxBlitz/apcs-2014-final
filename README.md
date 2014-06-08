@@ -26,3 +26,10 @@ Our Java final
 
   Contacts
   --------
+
+
+What I learned writing this project (by Timothy):
+
+1\. Things get done a lot quicker if you throw out all your design principles and just throw references to everything around everywhere.  
+3\. It's really fun to play with anyway.  
+2\. Multithreading is hard.
