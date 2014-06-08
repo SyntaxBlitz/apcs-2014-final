@@ -93,7 +93,6 @@ public class ServerThread implements Runnable {
 				listener.entityDamaged((EntityDamagePacket) packet);
 				break;
 			case NEW_CLIENT:
-				System.out.println("new client packet!");
 				listener.newClientConnected((NewClientPacket) packet, address, port);
 				break;
 			case NEW_ENTITY: // client-only packets

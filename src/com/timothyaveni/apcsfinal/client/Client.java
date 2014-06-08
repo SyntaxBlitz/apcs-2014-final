@@ -84,13 +84,9 @@ public class Client {
 
 			player.attack(entities, player.isInCombat());
 
-			player.characterMove(keyboard, currentMap);
+			player.characterMove(keyboard, currentMap, entities);
 
-			networkThread.checkUnacknowledgedPackets(); // if the server has
-														// taken too long to
-														// acknowledge any
-														// packets, this is
-														// where we resend them
+			networkThread.checkUnacknowledgedPackets(); // if the server has taken too long to acknowledge any packets, this is where we resend them
 			networkThread.sendPacket(new EntityLocationPacket(Client.getNextPacketId(), player.getId(), player
 					.getLocation()));
 

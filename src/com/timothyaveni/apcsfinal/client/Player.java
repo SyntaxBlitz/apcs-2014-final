@@ -1,7 +1,8 @@
 package com.timothyaveni.apcsfinal.client;
 
-import java.util.ArrayList;
+import java.awt.Rectangle;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public abstract class Player extends Entity {
 
@@ -17,50 +18,61 @@ public abstract class Player extends Entity {
 	public void move(int distance, int direction, String plane) {
 	}
 
-	public void characterMove(boolean[] keyboard, Map currentMap) {
+	// welcome to the ugliest code in the project.
+
+	public void characterMove(boolean[] keyboard, Map currentMap, HashMap<Integer, Entity> entityList) {
 		if (!isInCombat()) {
 			if (keyboard[0]) { // right
 				if (!keyboard[2])
 					if (currentMap.isPointValid(getLocation().getX() + getVelocity() + getWidth() / 2, getLocation()
-							.getY()))
+							.getY())
+							&& !playerCollidesWithEntity(getLocation().getX() + getVelocity(), getLocation().getY(),
+									currentMap, entityList))
 						setLocation(new Location(getLocation().getX() + getVelocity(), getLocation().getY(),
 								Location.EAST, getLocation().getWorldSectionId()));
 					else
-						setLocation(getClosestValidLocation(Location.EAST, currentMap));
+						setLocation(getClosestValidLocation(Location.EAST, currentMap, entityList));
 			} else if (keyboard[1]) { // down
 				if (!keyboard[3])
 					if (currentMap.isPointValid(getLocation().getX(), getLocation().getY() + getVelocity()
-							+ getHeight() / 2))
+							+ getHeight() / 2)
+							&& !playerCollidesWithEntity(getLocation().getX(), getLocation().getY() + getVelocity(),
+									currentMap, entityList))
 						setLocation(new Location(getLocation().getX(), getLocation().getY() + getVelocity(),
 								Location.SOUTH, getLocation().getWorldSectionId()));
 					else
-						setLocation(getClosestValidLocation(Location.SOUTH, currentMap));
+						setLocation(getClosestValidLocation(Location.SOUTH, currentMap, entityList));
 			} else if (keyboard[2]) { // left
 				if (currentMap
-						.isPointValid(getLocation().getX() - getVelocity() - getWidth() / 2, getLocation().getY()))
+						.isPointValid(getLocation().getX() - getVelocity() - getWidth() / 2, getLocation().getY())
+						&& !playerCollidesWithEntity(getLocation().getX() - getVelocity(), getLocation().getY(),
+								currentMap, entityList))
 					setLocation(new Location(getLocation().getX() - getVelocity(), getLocation().getY(), Location.WEST,
 							getLocation().getWorldSectionId()));
 				else
-					setLocation(getClosestValidLocation(Location.WEST, currentMap));
+					setLocation(getClosestValidLocation(Location.WEST, currentMap, entityList));
 			} else if (keyboard[3]) { // up
 				if (currentMap.isPointValid(getLocation().getX(), getLocation().getY() - getVelocity() - getHeight()
-						/ 2))
+						/ 2)
+						&& !playerCollidesWithEntity(getLocation().getX(), getLocation().getY() - getVelocity(),
+								currentMap, entityList))
 					setLocation(new Location(getLocation().getX(), getLocation().getY() - getVelocity(),
 							Location.NORTH, getLocation().getWorldSectionId()));
 				else
-					setLocation(getClosestValidLocation(Location.NORTH, currentMap));
+					setLocation(getClosestValidLocation(Location.NORTH, currentMap, entityList));
 			}
 		} else if (keyboard[0] || keyboard[1] || keyboard[2] || keyboard[3])
 			setInCombat(false);
 	}
 
-	private Location getClosestValidLocation(int direction, Map currentMap) {
+	private Location getClosestValidLocation(int direction, Map currentMap, HashMap<Integer, Entity> entityList) {
 		if (direction == Location.NORTH) {
 			int good = getLocation().getY() - getHeight() / 2;
 			int bad = getLocation().getY() - getHeight() / 2 - getVelocity();
 			int mid = (good + bad) / 2;
 			while (bad != mid) {
-				if (currentMap.isPointValid(getLocation().getX(), mid)) {
+				if (currentMap.isPointValid(getLocation().getX(), mid)
+						&& !playerCollidesWithEntity(getLocation().getX(), mid + getHeight() / 2, currentMap, entityList)) {
 					good = mid;
 				} else {
 					bad = mid;
@@ -73,7 +85,8 @@ public abstract class Player extends Entity {
 			int bad = getLocation().getY() + getHeight() / 2 + getVelocity();
 			int mid = (good + bad) / 2;
 			while (good != mid) {
-				if (currentMap.isPointValid(getLocation().getX(), mid)) {
+				if (currentMap.isPointValid(getLocation().getX(), mid)
+						&& !playerCollidesWithEntity(getLocation().getX(), mid - getHeight() / 2, currentMap, entityList)) {
 					good = mid;
 				} else {
 					bad = mid;
@@ -86,7 +99,8 @@ public abstract class Player extends Entity {
 			int bad = getLocation().getX() + getWidth() / 2 + getVelocity();
 			int mid = (good + bad) / 2;
 			while (good != mid) {
-				if (currentMap.isPointValid(mid, getLocation().getY())) {
+				if (currentMap.isPointValid(mid, getLocation().getY())
+						&& !playerCollidesWithEntity(mid - getWidth() / 2, getLocation().getY(), currentMap, entityList)) {
 					good = mid;
 				} else {
 					bad = mid;
@@ -99,7 +113,8 @@ public abstract class Player extends Entity {
 			int bad = getLocation().getX() - getWidth() / 2 - getVelocity();
 			int mid = (good + bad) / 2;
 			while (bad != mid) {
-				if (currentMap.isPointValid(mid, getLocation().getY())) {
+				if (currentMap.isPointValid(mid, getLocation().getY())
+						&& !playerCollidesWithEntity(mid + getWidth() / 2, getLocation().getY(), currentMap, entityList)) {
 					good = mid;
 				} else {
 					bad = mid;
@@ -108,6 +123,28 @@ public abstract class Player extends Entity {
 			}
 			return new Location(good + getWidth() / 2, getLocation().getY(), direction, currentMap.getWorldSectionId());
 		}
+	}
+
+	private boolean playerCollidesWithEntity(int centerX, int centerY, Map currentMap,
+			HashMap<Integer, Entity> entityList) {
+		Iterator<Entity> i = entityList.values().iterator();
+		while (i.hasNext()) {
+			Entity entity = i.next();
+			if (entity == this)
+				continue;
+			Location myLocation = getLocation();
+			Location entityLocation = entity.getLocation();
+			if (entityLocation.getWorldSectionId() == myLocation.getWorldSectionId()) {
+				// brace for rectangle overlap code *shudder*
+				if (centerX - getWidth() / 2 < entityLocation.getX() + entity.getWidth() / 2
+						&& centerX + getWidth() / 2 > entityLocation.getX() - entity.getWidth() / 2
+						&& centerY - getHeight() / 2 < entityLocation.getY() + entity.getHeight() / 2
+						&& centerY + getHeight() / 2 > entityLocation.getY() - entity.getHeight() / 2) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public void attack(HashMap<Integer, Entity> entities, boolean inCombat) {
