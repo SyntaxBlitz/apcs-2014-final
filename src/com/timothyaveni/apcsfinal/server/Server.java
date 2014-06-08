@@ -185,9 +185,4 @@ public class Server {
 		return this.players;
 	}
 
-	public Map getMap(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

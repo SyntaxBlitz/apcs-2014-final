@@ -1,10 +1,12 @@
 package com.timothyaveni.apcsfinal.client.gui;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.Entity;
@@ -42,8 +44,9 @@ public class MapCanvas extends Canvas implements UsesClient {
 
 				HashMap<Integer, Entity> entities = client.getEntityList();
 
-				for (Integer key : entities.keySet()) {
-					Entity thisEntity = entities.get(key);
+				Iterator<Entry<Integer, Entity>> i = entities.entrySet().iterator();
+				while(i.hasNext()) {
+					Entity thisEntity = i.next().getValue();
 					g.drawImage(thisEntity.getImage(client.getFrame()), thisEntity.getLocation().getX()
 							- playerLocation.getX() + Client.WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity
 							.getLocation().getY()
@@ -53,20 +56,20 @@ public class MapCanvas extends Canvas implements UsesClient {
 							- thisEntity.getHeight()
 							/ 2, thisEntity.getWidth(), thisEntity.getHeight(), null);
 				}
-
-				// pull arraylist down off client
-				// misc comment so I'm able to commit
-				// g.dispose(); // releases system resources the graphics
-				// object
-				// is
+				
+				renderHPBar(g);
+				
+				g.dispose();
 			} while (bs.contentsRestored());
 		} while (bs.contentsLost());
 		bs.show();
 	}
 
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
+	private void renderHPBar(Graphics g) {
+		g.setColor(new Color(96, 96, 96));
+		g.fillRoundRect(30, Client.HEIGHT - 60, Client.WIDTH / 3, 16, 10, 10);
+		g.setColor(new Color(128, 0, 0));
+		g.fillRoundRect(30, Client.HEIGHT - 60, (Client.WIDTH / 3) * (client.getPlayer().getHP() / client.getPlayer().getMaxHP()), 16, 10, 10);
 	}
 
 	@Override

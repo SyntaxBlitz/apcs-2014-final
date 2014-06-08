@@ -1,9 +1,11 @@
 package com.timothyaveni.apcsfinal.client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import com.timothyaveni.apcsfinal.networking.EntityTypeID;
-import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
@@ -69,6 +71,7 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 
 		Player player = (Player) EntityTypeID.constructEntity(client.getPlayerType(), packet.getPlayerEntityId(),
 				client.getCurrentMap().getMetadata().getSpawnPoint());
+		
 		client.setPlayer(player);
 		client.getEntityList().put(packet.getPlayerEntityId(), player);
 

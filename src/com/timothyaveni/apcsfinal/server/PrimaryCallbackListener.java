@@ -87,9 +87,7 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 
 		HashMap<Integer, Entity> entities = server.getEntityList();
 		int newEntityId = Server.getNextEntityId();
-		// TODO: should use spawn point here
-		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, new Location(600, 600, 1,
-				1));
+		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, server.getLoadedMaps().get(1).getSpawnPoint());
 		entities.put(newEntityId, newEntity);
 		server.getVisibleEntityList().put(newEntityId, newEntity);
 		server.getPlayerList().add((Player) newEntity);
