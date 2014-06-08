@@ -38,6 +38,7 @@ public class MapMetadata {
 		}
 
 		this.loadedEntityInfo = new ArrayList<EntityInfo>();
+		this.exitAreas = new ArrayList<ExitArea>();
 
 		JSONArray entityArray = jsonObject.getJSONArray("entities");
 		for (int i = 0; i < entityArray.length(); i++) {

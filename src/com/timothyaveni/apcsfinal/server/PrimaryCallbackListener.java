@@ -9,6 +9,7 @@ import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.FileReader;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.MapMetadata;
+import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.networking.EntityTypeID;
 import com.timothyaveni.apcsfinal.networking.WorldSectionID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
@@ -91,6 +92,7 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 				1));
 		entities.put(newEntityId, newEntity);
 		server.getVisibleEntityList().put(newEntityId, newEntity);
+		server.getPlayerList().add((Player) newEntity);
 
 		server.getClientList().add(new ConnectedClient(newClientId, address, port));
 		server.getThread().sendIndividualPacket(
@@ -98,7 +100,7 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 
 		Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), newEntity));
 
-		Iterator<Entry<Integer, Entity>> i = entities.entrySet().iterator();
+		Iterator<Entry<Integer, Entity>> i = server.getVisibleEntityList().entrySet().iterator();
 		while (i.hasNext()) {
 			server.getThread().sendIndividualPacket(new NewEntityPacket(Server.getNextPacketId(), i.next().getValue()),
 					address, port);
