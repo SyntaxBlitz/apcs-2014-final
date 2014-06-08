@@ -89,9 +89,8 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		// TODO: should use spawn point here
 		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, new Location(600, 600, 1,
 				1));
-		// entities.add(EntityTypeID.constructEntity(packet.getEntityType(),
-		// entities.size(), server.getMap(0).getMetadata().getSpawnPoint()));
 		entities.put(newEntityId, newEntity);
+		server.getVisibleEntityList().put(newEntityId, newEntity);
 
 		server.getClientList().add(new ConnectedClient(newClientId, address, port));
 		server.getThread().sendIndividualPacket(

@@ -24,6 +24,11 @@ public class Server {
 	private static ArrayList<Packet> packetQueue = new ArrayList<Packet>();
 
 	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
+	// entities that have been within the distance threshold of some player at some point
+	private HashMap<Integer, Entity> visibleEntities = new HashMap<Integer, Entity>();
+	// entities that have not
+	private ArrayList<Entity> invisibleEntities = new ArrayList<Entity>();
+	
 	private HashMap<Integer, MapMetadata> loadedMaps = new HashMap<Integer, MapMetadata>();
 	int lastEntityId = -1;
 
@@ -122,6 +127,14 @@ public class Server {
 
 	public HashMap<Integer, Entity> getEntityList() {
 		return this.entities;
+	}
+	
+	public HashMap<Integer, Entity> getVisibleEntityList() {
+		return this.visibleEntities;
+	}
+	
+	public ArrayList<Entity> getInvisibleEntityList() {
+		return this.invisibleEntities;
 	}
 	
 	public HashMap<Integer, MapMetadata> getLoadedMaps() {
