@@ -19,11 +19,11 @@ public class NewClientAcknowledgementPacket extends Packet {
 		this.newClientId = newClientId;
 		this.playerEntityId = playerEntityId;
 	}
-	
+
 	public int getNewClientId() {
 		return this.newClientId;
 	}
-	
+
 	public int getPlayerEntityId() {
 		return this.playerEntityId;
 	}

@@ -23,7 +23,7 @@ public class NewClientPacket extends Packet {
 	public EntityType getEntityType() {
 		return this.type;
 	}
-	
+
 	@Override
 	public void pack(byte[] data) {
 		super.pack(data);

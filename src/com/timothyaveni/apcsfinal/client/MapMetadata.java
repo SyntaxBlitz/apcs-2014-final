@@ -45,7 +45,8 @@ public class MapMetadata {
 			JSONObject entityObject = entityArray.getJSONObject(i);
 			JSONObject locationObject = entityObject.getJSONObject("location");
 			loadedEntityInfo.add(new EntityInfo(EntityTypeID.getType(entityObject.getInt("type")), new Location(
-					locationObject.getInt("x"), locationObject.getInt("y"), locationObject.getInt("direction"), worldSectionId)));
+					locationObject.getInt("x"), locationObject.getInt("y"), locationObject.getInt("direction"),
+					worldSectionId)));
 		}
 
 		JSONObject spawnPointLocationObject = jsonObject.getJSONObject("spawnPoint");
@@ -72,7 +73,7 @@ public class MapMetadata {
 	 * @return -1 if the point is not in any exit zone, else the new map world section id
 	 */
 	public int getNextMap(int x, int y) {
-		for (ExitArea area: exitAreas) {
+		for (ExitArea area : exitAreas) {
 			if (area.rectangle.contains(x, y))
 				return area.nextMap;
 		}

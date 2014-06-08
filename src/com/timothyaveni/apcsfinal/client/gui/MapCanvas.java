@@ -15,7 +15,7 @@ public class MapCanvas extends Canvas implements UsesClient {
 	private Client client;
 
 	private BufferStrategy bs;
-	
+
 	private boolean readyToRender = false;
 
 	// Constructor :D
@@ -26,7 +26,7 @@ public class MapCanvas extends Canvas implements UsesClient {
 	public void init() {
 		this.createBufferStrategy(2);
 		bs = this.getBufferStrategy();
-		
+
 		this.setReadyToRender(true);
 	}
 
@@ -42,12 +42,16 @@ public class MapCanvas extends Canvas implements UsesClient {
 
 				HashMap<Integer, Entity> entities = client.getEntityList();
 
-				for (Integer key: entities.keySet()) {
+				for (Integer key : entities.keySet()) {
 					Entity thisEntity = entities.get(key);
 					g.drawImage(thisEntity.getImage(client.getFrame()), thisEntity.getLocation().getX()
-							- playerLocation.getX() + Client.WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity.getLocation()
-							.getY() - playerLocation.getY() + Client.HEIGHT / 2 - thisEntity.getHeight() / 2,
-							thisEntity.getWidth(), thisEntity.getHeight(), null);
+							- playerLocation.getX() + Client.WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity
+							.getLocation().getY()
+							- playerLocation.getY()
+							+ Client.HEIGHT
+							/ 2
+							- thisEntity.getHeight()
+							/ 2, thisEntity.getWidth(), thisEntity.getHeight(), null);
 				}
 
 				// pull arraylist down off client

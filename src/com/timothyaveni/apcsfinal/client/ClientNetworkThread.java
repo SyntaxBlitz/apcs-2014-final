@@ -69,9 +69,9 @@ public class ClientNetworkThread implements Runnable {
 	}
 
 	private void callAppropriateCallback(Packet packet) {
-		//System.out.println("got a packet: " + packet.getPacketType());
+		// System.out.println("got a packet: " + packet.getPacketType());
 		if (packet.isMustAcknowledge()) {
-			//System.out.println("gotta acknowledge");
+			// System.out.println("gotta acknowledge");
 			sendPacket(new AcknowledgePacket(Client.getNextPacketId(), packet.getId()));
 
 			// now if we've already received this packet (and the server
@@ -133,5 +133,5 @@ public class ClientNetworkThread implements Runnable {
 	public ArrayList<Integer> getAlreadyAcknowledgedPackets() {
 		return alreadyAcknowledgedPackets;
 	}
-	
+
 }

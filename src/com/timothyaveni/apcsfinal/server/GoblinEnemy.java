@@ -96,7 +96,7 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public String getFileLocation() {
-		return "Healer.png";	// TODO: change
+		return "Healer.png"; // TODO: change
 	}
 
 	@Override

@@ -81,7 +81,7 @@ public class ServerThread implements Runnable {
 				return;
 			alreadyAcknowledgedPackets.add(packet.getId());
 		}
-		
+
 		switch (packet.getPacketType()) {
 			case ACKNOWLEDGE:
 				packetAcknowledged((AcknowledgePacket) packet);

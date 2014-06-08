@@ -67,13 +67,13 @@ public abstract class Entity {
 
 		} else if (frame % 4 == 0 || this.getLocation().getDirection() != lastDirection) {
 
-			//if (isInCombat() == false) {
-				currentSubImage = image.getSubimage((int) (currentFrameOffset * 32), getLocation().getDirection() * 48,
-						this.getWidth(), this.getHeight());
-			/*} else {
-				currentSubImage = image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128), getLocation()
-						.getDirection() * 48, this.getWidth(), this.getHeight());
-			}*/
+			// if (isInCombat() == false) {
+			currentSubImage = image.getSubimage((int) (currentFrameOffset * 32), getLocation().getDirection() * 48,
+					this.getWidth(), this.getHeight());
+			/*
+			 * } else { currentSubImage = image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128), getLocation() .getDirection() * 48, this.getWidth(),
+			 * this.getHeight()); }
+			 */
 			lastDirection = this.getLocation().getDirection();
 			currentFrameOffset = (currentFrameOffset + 1) % 4;
 		} else if (!moving && isInCombat()) {

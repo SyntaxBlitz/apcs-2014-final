@@ -38,7 +38,7 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 	private MenuButton connectButton;
 
 	private JLabel characterView;
-	
+
 	private JLabel serverIpLabel;
 	private JTextField serverIpField;
 
@@ -54,7 +54,7 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 		this.setLayout(null);
 
 		characterView = new JLabel();
-		
+
 		updateCharacterView();
 
 		pickTank = new MenuButton("PickTankButton");
@@ -65,7 +65,7 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 
 		serverIpLabel = new JLabel("Server IP:");
 		serverIpField = new JTextField();
-		
+
 		connectButton = new MenuButton("ConnectButton");
 
 		try {
@@ -84,7 +84,7 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 
 		serverIpLabel.setBounds(Client.WIDTH / 2 - 128 / 2, 466, 128, 16);
 		serverIpField.setBounds(Client.WIDTH / 2 - 128 / 2, 484, 128, 32);
-		
+
 		connectButton.setBounds(Client.WIDTH / 2 - 256 / 2, 572, 256, 64);
 
 		pickTank.addActionListener(this);
@@ -92,9 +92,9 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 		pickArcher.addActionListener(this);
 		pickMage.addActionListener(this);
 		pickRogue.addActionListener(this);
-		
+
 		connectButton.addActionListener(this);
-		
+
 		this.add(characterView);
 
 		this.add(pickTank);
@@ -102,7 +102,7 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 		this.add(pickArcher);
 		this.add(pickMage);
 		this.add(pickRogue);
-		
+
 		this.add(serverIpLabel);
 		this.add(serverIpField);
 
@@ -117,19 +117,19 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 			e1.printStackTrace();
 			System.exit(1);
 		}
-		
+
 		client.setSocket(s);
 		client.setRemoteInetAddress(address);
 
 		client.setPlayerType(playerType);
 
 		client.setNetworkThread(new ClientNetworkThread(s, new PrimaryCallbackListener(client), client));
-		
+
 		client.setCurrentMap(new Map(1));
-		
+
 		frame.close();
 		frame.changeFrame(new MapCanvas());
-		
+
 		frame.getMapCanvas().setReadyToRender(true);
 	}
 
@@ -159,10 +159,11 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 		} else if (event.getSource() == connectButton) {
 			try {
 				InetAddress address = InetAddress.getByName(serverIpField.getText());
-				
+
 				loadIntoGame(address, selectedPlayerType);
 			} catch (UnknownHostException e) {
-				JOptionPane.showMessageDialog(this, "That's not a valid server IP.", "Invalid Server IP", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "That's not a valid server IP.", "Invalid Server IP",
+						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
@@ -171,19 +172,24 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 		try {
 			switch (selectedPlayerType) {
 				case TANK:
-					characterView.setIcon(new ImageIcon(ImageIO.read(FileReader.getFileFromResourceString("Tank.png")).getSubimage(0, 0, 32, 48)));
+					characterView.setIcon(new ImageIcon(ImageIO.read(FileReader.getFileFromResourceString("Tank.png"))
+							.getSubimage(0, 0, 32, 48)));
 					break;
 				case ROGUE:
-					characterView.setIcon(new ImageIcon(ImageIO.read(FileReader.getFileFromResourceString("Rogue.png")).getSubimage(0, 0, 32, 48)));
+					characterView.setIcon(new ImageIcon(ImageIO.read(FileReader.getFileFromResourceString("Rogue.png"))
+							.getSubimage(0, 0, 32, 48)));
 					break;
 				case ARCHER:
-					characterView.setIcon(new ImageIcon(ImageIO.read(FileReader.getFileFromResourceString("Archer.png")).getSubimage(0, 0, 32, 48)));
+					characterView.setIcon(new ImageIcon(ImageIO
+							.read(FileReader.getFileFromResourceString("Archer.png")).getSubimage(0, 0, 32, 48)));
 					break;
 				case HEALER:
-					characterView.setIcon(new ImageIcon(ImageIO.read(FileReader.getFileFromResourceString("Healer.png")).getSubimage(0, 0, 32, 48)));
+					characterView.setIcon(new ImageIcon(ImageIO
+							.read(FileReader.getFileFromResourceString("Healer.png")).getSubimage(0, 0, 32, 48)));
 					break;
 				case MAGE:
-					characterView.setIcon(new ImageIcon(ImageIO.read(FileReader.getFileFromResourceString("Mage.png")).getSubimage(0, 0, 32, 48)));
+					characterView.setIcon(new ImageIcon(ImageIO.read(FileReader.getFileFromResourceString("Mage.png"))
+							.getSubimage(0, 0, 32, 48)));
 					break;
 			}
 		} catch (IOException e) {

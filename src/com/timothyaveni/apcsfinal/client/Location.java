@@ -11,8 +11,7 @@ public class Location {
 	public static final int SOUTH = 0;
 
 	/*
-	 * 1 represents South | 2 represents West | 3 represents East | 4 represents
-	 * North.
+	 * 1 represents South | 2 represents West | 3 represents East | 4 represents North.
 	 */
 	private int direction;
 	private int worldSectionId;
@@ -39,7 +38,7 @@ public class Location {
 	public int getWorldSectionId() {
 		return worldSectionId;
 	}
-	
+
 	public double getDistanceTo(Location other) {
 		if (this.worldSectionId != other.worldSectionId)
 			return -1;
@@ -51,9 +50,9 @@ public class Location {
 	public String toString() {
 		return "[Location x=" + x + "  y=" + y + " facing=" + direction + "]";
 	}
-	
+
 	public boolean equals(Location other) {
 		return this.x == other.x && this.y == other.y && this.direction == other.direction;
 	}
-	
+
 }

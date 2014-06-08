@@ -39,9 +39,9 @@ public class ByteArrayToolsTest {
 		ByteArrayTools.setBytes(data1, 12345678, 0, 4);
 
 		assertArrayEquals("byte 1", data1Expected, data1);
-		
-		byte[] data = {0,0,0,0,0,0,0,0};
-		
+
+		byte[] data = { 0, 0, 0, 0, 0, 0, 0, 0 };
+
 		ByteArrayTools.setBytes(data, 0, 7, 2);
 		System.out.println(data[0]);
 		System.out.println(data[1]);

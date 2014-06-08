@@ -95,7 +95,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public String getFileLocation() {
-		return "Rogue.png";	// TODO: change
+		return "Rogue.png"; // TODO: change
 	}
 
 	@Override

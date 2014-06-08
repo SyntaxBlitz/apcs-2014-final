@@ -32,7 +32,7 @@ public class GameFrame {
 
 		// creates new frame and sets all attributes associated with it
 		// frame.getContentPane().removeAll();
-		
+
 		frame = new JFrame(name);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(component);
@@ -60,11 +60,11 @@ public class GameFrame {
 	public void close() {
 		frame.dispose();
 	}
-	
+
 	public void setKeyListener(KeyListener keyListener) {
 		this.keyListener = keyListener;
 	}
-	
+
 	public void setMouseListener(MouseListener mouseListener) {
 		this.mouseListener = mouseListener;
 	}

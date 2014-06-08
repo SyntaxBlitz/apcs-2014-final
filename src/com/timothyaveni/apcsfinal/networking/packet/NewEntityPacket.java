@@ -29,15 +29,15 @@ public class NewEntityPacket extends Packet {
 	public EntityType getEntityType() {
 		return this.entityType;
 	}
-	
+
 	public int getEntityId() {
 		return this.entityId;
 	}
-	
+
 	public Location getEntityLocation() {
 		return this.entityLocation;
 	}
-	
+
 	@Override
 	public void pack(byte[] data) {
 		super.pack(data);
