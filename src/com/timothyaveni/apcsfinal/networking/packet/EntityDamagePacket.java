@@ -39,7 +39,7 @@ public class EntityDamagePacket extends Packet {
 	protected void unpack(byte[] data) {
 		super.unpack(data);
 		this.entityId = ByteArrayTools.readBytes(data, 6, 2, false);
-		this.damageAmount = ByteArrayTools.readBytes(data, 6, 3, true);
+		this.damageAmount = ByteArrayTools.readBytes(data, 8, 3, true);
 	}
 
 	@Override

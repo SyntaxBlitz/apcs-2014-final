@@ -1,5 +1,7 @@
 package com.timothyaveni.apcsfinal.client;
 
+import java.util.HashMap;
+
 import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class Archer extends Player {
@@ -61,6 +63,12 @@ public class Archer extends Player {
 	@Override
 	public EntityType getType() {
 		return EntityType.ARCHER;
+	}
+
+	@Override
+	public void attack(Client client) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

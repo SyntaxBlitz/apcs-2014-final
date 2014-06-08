@@ -143,8 +143,10 @@ public class Server {
 		loadedMaps.put(worldSectionId, metadata);
 		List<EntityInfo> entityInfo = metadata.getEntityInfo();
 		for (EntityInfo thisEntity : entityInfo) {
-			this.invisibleEntities.add(EntityTypeID.constructEntity(thisEntity.getType(), Server.getNextEntityId(),
-					thisEntity.getLocation()));
+			Entity entity = EntityTypeID.constructEntity(thisEntity.getType(), Server.getNextEntityId(),
+					thisEntity.getLocation());
+			this.entities.put(entity.getId(), entity);
+			this.invisibleEntities.add(entity);
 		}
 	}
 

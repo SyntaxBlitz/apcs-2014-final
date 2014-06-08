@@ -15,11 +15,11 @@ public abstract class Entity {
 	private BufferedImage currentSubImage;
 	private int lastDirection;
 	private int currentFrameOffset;
-	
+
 	private int hp;
 
-	private boolean inCombat;
 	private boolean moving;
+	private boolean startedAttack = false;
 
 	public Entity(int id, Location loc) {
 		this.id = id;
@@ -28,7 +28,7 @@ public abstract class Entity {
 		currentFrameOffset = 0;
 
 		this.hp = getMaxHP();
-		
+
 		try {
 			image = ImageIO.read(FileReader.getFileFromResourceString(getFileLocation()));
 		} catch (IOException e) {
@@ -49,7 +49,7 @@ public abstract class Entity {
 	public abstract int getIntelligence();
 
 	public abstract int getVelocity();
-	
+
 	public abstract int getMaxHP();
 
 	public int getId() {
@@ -71,29 +71,28 @@ public abstract class Entity {
 	public int getHP() {
 		return hp;
 	}
-	
+
 	public BufferedImage getImage(long frame) {
 		if (!moving) {
-			currentSubImage = image
-					.getSubimage(0, getLocation().getDirection() * 48, this.getWidth(), this.getHeight());
-			currentFrameOffset = 1;
+			if (startedAttack) {
+				currentSubImage = image.getSubimage((int) (5 * 32), getLocation().getDirection() * 48, this.getWidth(),
+						this.getHeight());
+			} else {
+				currentSubImage = image.getSubimage(0, getLocation().getDirection() * 48, this.getWidth(),
+						this.getHeight());
+				currentFrameOffset = 1;
+			}
 			return currentSubImage;
 
 		} else if (frame % 4 == 0 || this.getLocation().getDirection() != lastDirection) {
-
-			// if (isInCombat() == false) {
 			currentSubImage = image.getSubimage((int) (currentFrameOffset * 32), getLocation().getDirection() * 48,
 					this.getWidth(), this.getHeight());
-			/*
-			 * } else { currentSubImage = image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128), getLocation() .getDirection() * 48, this.getWidth(),
-			 * this.getHeight()); }
-			 */
 			lastDirection = this.getLocation().getDirection();
 			currentFrameOffset = (currentFrameOffset + 1) % 4;
-		} else if (!moving && isInCombat()) {
-			currentSubImage = image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128), getLocation()
-					.getDirection() * 48, this.getWidth(), this.getHeight());
-		}
+		}/*
+		 * else if (!moving && isInCombat()) { currentSubImage = image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128), getLocation() .getDirection() *
+		 * 48, this.getWidth(), this.getHeight()); }
+		 */
 		return currentSubImage;
 	}
 
@@ -107,12 +106,12 @@ public abstract class Entity {
 		this.moving = moving;
 	}
 
-	protected boolean isInCombat() {
-		return inCombat;
+	public boolean isStartedAttack() {
+		return startedAttack;
 	}
 
-	protected void setInCombat(boolean inCombat) {
-		this.inCombat = inCombat;
+	public void setStartedAttack(boolean startedAttack) {
+		this.startedAttack = startedAttack;
 	}
 
 }

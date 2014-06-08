@@ -80,10 +80,19 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 				entity.setHP(entity.getMaxHP());
 			else
 				entity.setHP(entityHP - damageAmount);
-			
+
 			if (entity instanceof Player) {
 				// just send it to everyone
-				Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), packet.getEntityId(), damageAmount));
+				Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), packet.getEntityId(),
+						damageAmount));
+			} else if (entity.getHP() < 0) {
+				EntityLocationPacket toSend = new EntityLocationPacket(Server.getNextPacketId(), packet.getEntityId(),
+						new Location(0, 0, 0, 0));
+				toSend.setMustAcknowledge(true); // this is a particularly important location packet because this is how the client knows to remove the entity
+				Server.addPacketToQueue(toSend);
+				
+				server.getEntityList().remove(packet.getEntityId());
+				server.getVisibleEntityList().remove(packet.getEntityId());
 			}
 		}
 	}
@@ -99,7 +108,8 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 
 		HashMap<Integer, Entity> entities = server.getEntityList();
 		int newEntityId = Server.getNextEntityId();
-		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, server.getLoadedMaps().get(1).getSpawnPoint());
+		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, server.getLoadedMaps()
+				.get(1).getSpawnPoint());
 		entities.put(newEntityId, newEntity);
 		server.getVisibleEntityList().put(newEntityId, newEntity);
 		server.getPlayerList().add((Player) newEntity);

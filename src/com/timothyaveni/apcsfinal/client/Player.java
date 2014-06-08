@@ -20,48 +20,43 @@ public abstract class Player extends Entity {
 	// welcome to the ugliest code in the project.
 
 	public void characterMove(boolean[] keyboard, Map currentMap, HashMap<Integer, Entity> entityList) {
-		if (!isInCombat()) {
-			if (keyboard[0]) { // right
-				if (!keyboard[2])
-					if (currentMap.isPointValid(getLocation().getX() + getVelocity() + getWidth() / 2, getLocation()
-							.getY())
-							&& !playerCollidesWithEntity(getLocation().getX() + getVelocity(), getLocation().getY(),
-									currentMap, entityList))
-						setLocation(new Location(getLocation().getX() + getVelocity(), getLocation().getY(),
-								Location.EAST, getLocation().getWorldSectionId()));
-					else
-						setLocation(getClosestValidLocation(Location.EAST, currentMap, entityList));
-			} else if (keyboard[1]) { // down
-				if (!keyboard[3])
-					if (currentMap.isPointValid(getLocation().getX(), getLocation().getY() + getVelocity()
-							+ getHeight() / 2)
-							&& !playerCollidesWithEntity(getLocation().getX(), getLocation().getY() + getVelocity(),
-									currentMap, entityList))
-						setLocation(new Location(getLocation().getX(), getLocation().getY() + getVelocity(),
-								Location.SOUTH, getLocation().getWorldSectionId()));
-					else
-						setLocation(getClosestValidLocation(Location.SOUTH, currentMap, entityList));
-			} else if (keyboard[2]) { // left
+		if (keyboard[0]) { // right
+			if (!keyboard[2])
 				if (currentMap
-						.isPointValid(getLocation().getX() - getVelocity() - getWidth() / 2, getLocation().getY())
-						&& !playerCollidesWithEntity(getLocation().getX() - getVelocity(), getLocation().getY(),
+						.isPointValid(getLocation().getX() + getVelocity() + getWidth() / 2, getLocation().getY())
+						&& !playerCollidesWithEntity(getLocation().getX() + getVelocity(), getLocation().getY(),
 								currentMap, entityList))
-					setLocation(new Location(getLocation().getX() - getVelocity(), getLocation().getY(), Location.WEST,
+					setLocation(new Location(getLocation().getX() + getVelocity(), getLocation().getY(), Location.EAST,
 							getLocation().getWorldSectionId()));
 				else
-					setLocation(getClosestValidLocation(Location.WEST, currentMap, entityList));
-			} else if (keyboard[3]) { // up
-				if (currentMap.isPointValid(getLocation().getX(), getLocation().getY() - getVelocity() - getHeight()
+					setLocation(getClosestValidLocation(Location.EAST, currentMap, entityList));
+		} else if (keyboard[1]) { // down
+			if (!keyboard[3])
+				if (currentMap.isPointValid(getLocation().getX(), getLocation().getY() + getVelocity() + getHeight()
 						/ 2)
-						&& !playerCollidesWithEntity(getLocation().getX(), getLocation().getY() - getVelocity(),
+						&& !playerCollidesWithEntity(getLocation().getX(), getLocation().getY() + getVelocity(),
 								currentMap, entityList))
-					setLocation(new Location(getLocation().getX(), getLocation().getY() - getVelocity(),
-							Location.NORTH, getLocation().getWorldSectionId()));
+					setLocation(new Location(getLocation().getX(), getLocation().getY() + getVelocity(),
+							Location.SOUTH, getLocation().getWorldSectionId()));
 				else
-					setLocation(getClosestValidLocation(Location.NORTH, currentMap, entityList));
-			}
-		} else if (keyboard[0] || keyboard[1] || keyboard[2] || keyboard[3])
-			setInCombat(false);
+					setLocation(getClosestValidLocation(Location.SOUTH, currentMap, entityList));
+		} else if (keyboard[2]) { // left
+			if (currentMap.isPointValid(getLocation().getX() - getVelocity() - getWidth() / 2, getLocation().getY())
+					&& !playerCollidesWithEntity(getLocation().getX() - getVelocity(), getLocation().getY(),
+							currentMap, entityList))
+				setLocation(new Location(getLocation().getX() - getVelocity(), getLocation().getY(), Location.WEST,
+						getLocation().getWorldSectionId()));
+			else
+				setLocation(getClosestValidLocation(Location.WEST, currentMap, entityList));
+		} else if (keyboard[3]) { // up
+			if (currentMap.isPointValid(getLocation().getX(), getLocation().getY() - getVelocity() - getHeight() / 2)
+					&& !playerCollidesWithEntity(getLocation().getX(), getLocation().getY() - getVelocity(),
+							currentMap, entityList))
+				setLocation(new Location(getLocation().getX(), getLocation().getY() - getVelocity(), Location.NORTH,
+						getLocation().getWorldSectionId()));
+			else
+				setLocation(getClosestValidLocation(Location.NORTH, currentMap, entityList));
+		}
 	}
 
 	private Location getClosestValidLocation(int direction, Map currentMap, HashMap<Integer, Entity> entityList) {
@@ -148,34 +143,6 @@ public abstract class Player extends Entity {
 		return false;
 	}
 
-	public void attack(HashMap<Integer, Entity> entities, boolean inCombat) {
-		Location enemyLoc;
-		if (this.isInCombat()) {
-			for (Integer i : entities.keySet()) {
-				Entity a = entities.get(i);
-				enemyLoc = a.getLocation();
-				if (enemyLoc.getDistanceTo(getLocation()) <= getAttackRadius()) {
-					switch (getLocation().getDirection()) {
-						case Location.NORTH:
-						case Location.SOUTH:
-							if (Math.abs(getLocation().getX() - enemyLoc.getX()) <= a.getWidth()) {
-								// notify server
-							}
-							break;
-						case Location.EAST:
-						case Location.WEST:
-							if (Math.abs(getLocation().getY() - enemyLoc.getY()) <= a.getHeight()) {
-								// notify server
-							}
-							break;
-					}
-
-				}
-			}
-		}
-
-	}
-
 	public int getLevel() {
 		return level;
 	}
@@ -187,4 +154,6 @@ public abstract class Player extends Entity {
 	public abstract double getAttackRadius();
 
 	public abstract int getBaseDamage();
+
+	public abstract void attack(Client client);
 }

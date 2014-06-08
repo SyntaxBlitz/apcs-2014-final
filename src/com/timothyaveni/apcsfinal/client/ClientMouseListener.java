@@ -5,7 +5,6 @@ import java.awt.event.MouseListener;
 
 public class ClientMouseListener implements MouseListener {
 	private Client client;
-	private long frameClicked;
 
 	public ClientMouseListener(Client c) {
 		this.client = c;
@@ -16,11 +15,6 @@ public class ClientMouseListener implements MouseListener {
 	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if (client.isInGame())
-			if (!client.getPlayer().isMoving()) {
-				client.getPlayer().setInCombat(true);
-				frameClicked = client.getFrame();
-			}
 	}
 
 	@Override
@@ -33,14 +27,17 @@ public class ClientMouseListener implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
+		if (client.isInGame())
+			if (!client.getPlayer().isMoving()) {
+				client.getPlayer().setStartedAttack(true);
+				client.getPlayer().attack(client);
+			}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-	}
-
-	public long getFrameClicked() {
-		return frameClicked;
+		if (client.isInGame())
+			client.getPlayer().setStartedAttack(false);
 	}
 
 }
