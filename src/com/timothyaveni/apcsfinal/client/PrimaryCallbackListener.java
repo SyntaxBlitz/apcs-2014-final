@@ -58,8 +58,17 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 
 	@Override
 	public void clientConnectionAcknowldged(NewClientAcknowledgementPacket packet) {
+		// can't load in until the map is loaded.
+		System.out.println("client connection acknowledged");
+		while (client.getGameFrame().getMapCanvas() == null || !client.getGameFrame().getMapCanvas().isReadyToRender())
+			try {
+				Thread.sleep(10);	// busy wait; this is ugly but I don't have time to rework the entire project
+			} catch (InterruptedException e) {
+			}
+		System.out.println("finished loading, about to load in map");
+
 		Player player = (Player) EntityTypeID.constructEntity(client.getPlayerType(), packet.getPlayerEntityId(),
-				new Location(600, 600, 1));
+				client.getCurrentMap().getMetadata().getSpawnPoint());
 		client.setPlayer(player);
 		client.getEntityList().put(packet.getPlayerEntityId(), player);
 

@@ -1,17 +1,16 @@
-package com.timothyaveni.apcsfinal.client.gui;
+package com.timothyaveni.apcsfinal.client;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.timothyaveni.apcsfinal.client.Client;
-import com.timothyaveni.apcsfinal.client.FileReader;
-import com.timothyaveni.apcsfinal.client.Location;
 
 public class Map {
 	private BufferedImage image = null; // image to be used in render method
 	private BufferedImage collision;
+	
+	private MapMetadata metadata;
 
 	public Map(String fileLocation) {
 
@@ -19,6 +18,8 @@ public class Map {
 		try {
 			image = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + ".png"));
 			collision = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + "_Collision.png"));
+			
+			metadata = new MapMetadata(FileReader.getFileFromResourceString(fileLocation + "_metadata.json"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -35,7 +36,6 @@ public class Map {
 	}
 
 	public MapMetadata getMetadata() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.metadata;
 	}
 }

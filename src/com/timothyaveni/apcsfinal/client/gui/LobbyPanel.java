@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.FileReader;
 import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.Map;
 import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.client.Tank;
 

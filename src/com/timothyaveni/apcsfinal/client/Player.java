@@ -3,7 +3,6 @@ package com.timothyaveni.apcsfinal.client;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.timothyaveni.apcsfinal.client.gui.Map;
 
 public abstract class Player extends Entity {
 

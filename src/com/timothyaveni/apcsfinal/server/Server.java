@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.client.Entity;
-import com.timothyaveni.apcsfinal.client.gui.Map;
+import com.timothyaveni.apcsfinal.client.Map;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
 import com.timothyaveni.apcsfinal.networking.server.ServerThread;
 

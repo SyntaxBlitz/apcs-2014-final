@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
-import com.timothyaveni.apcsfinal.client.gui.Map;
 import com.timothyaveni.apcsfinal.client.gui.MenuPanel;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
@@ -71,7 +70,7 @@ public class Client {
 			} catch (InterruptedException e) {
 			}
 
-			if (!inGame || gameFrame.getMapCanvas() == null || !gameFrame.getMapCanvas().isReadyToRender()) // not in game, or we haven't loaded the map yet
+			if (!inGame)
 				continue;
 			lastLoopTime = System.nanoTime();
 
@@ -176,6 +175,10 @@ public class Client {
 
 	public EntityType getPlayerType() {
 		return this.playerType;
+	}
+
+	public GameFrame getGameFrame() {
+		return this.gameFrame;
 	}
 
 }

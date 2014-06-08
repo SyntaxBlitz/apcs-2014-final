@@ -1,0 +1,30 @@
+{
+	"entities": [
+		{
+			"type": 1,
+			"location": {
+				"x": 1000,
+				"y": 1000,
+				"direction": 1
+			}
+		},
+		{
+			"type": 2,
+			"location": {
+				"x": 1000,
+				"y": 1100,
+				"direction": 3
+			}
+		}
+	],
+	"spawnPoint": {
+		"x": 1000,
+		"y": 600,
+		"direction": 2
+	},
+	"exitAreas": [
+		{
+
+		}
+	]
+}

@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.ClientNetworkThread;
 import com.timothyaveni.apcsfinal.client.FileReader;
+import com.timothyaveni.apcsfinal.client.Map;
 import com.timothyaveni.apcsfinal.client.PrimaryCallbackListener;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 
