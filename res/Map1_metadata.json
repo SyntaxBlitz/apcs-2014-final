@@ -24,7 +24,11 @@
 	},
 	"exitAreas": [
 		{
-
+			"x": 1500,
+			"y": 1500,
+			"width": 500,
+			"height": 500,
+			"newMapId": 2
 		}
 	]
 }
