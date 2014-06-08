@@ -25,7 +25,7 @@ public class Map {
 			image = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + ".png"));
 			collision = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + "_Collision.png"));
 			
-			metadata = new MapMetadata(FileReader.getFileFromResourceString(fileLocation + "_metadata.json"), this);
+			metadata = new MapMetadata(FileReader.getFileFromResourceString(fileLocation + "_metadata.json"), worldSectionId);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
