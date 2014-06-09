@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Player;
+import com.timothyaveni.apcsfinal.client.Tank;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 
-public class SkeletonEnemy extends Entity implements EnemyAI {
-	private int baseDmg = 30;
+public class GolemEnemy extends Entity implements EnemyAI {
+	private int baseDmg = 50;
 	private int goldValue = 40;
 
-	public SkeletonEnemy(int id, Location loc) {
+	public GolemEnemy(int id, Location loc) {
 		super(id, loc);
 	}
 
@@ -44,13 +45,14 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 	public void trackPlayer(ArrayList<Player> players) {
 		if (players.size() == 0)
 			return;
-		Player track;
+		Player track = null;
 
 		double smallestDistance = getLocation().getDistanceTo(players.get(0).getLocation());
 		int smallestIndex = 0;
 
 		for (int i = 0; i < players.size(); i++) {
 			double thisDistance = getLocation().getDistanceTo(players.get(i).getLocation());
+			
 
 			if (thisDistance < smallestDistance) {
 				smallestDistance = thisDistance;
@@ -58,20 +60,34 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 			}
 		}
 
-		track = players.get(smallestIndex);
-
-		if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 32
-				|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 48) {
-			attack(track);
-		} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY()
-				- getLocation().getY()) {
-			move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation()
-					.getX()), "X");
-		} else if (track.getLocation().getY() - getLocation().getY() < track.getLocation().getY()
-				- getLocation().getY()) {
-			move((track.getLocation().getY() - getLocation().getY()), (getLocation().getY() - track.getLocation()
-					.getY()), "Y");
+		for(Player p : players){
+			if(p instanceof Tank){
+				track = p;
+				break;
+			}
+			else
+				track = players.get(smallestIndex);
 		}
+		
+		
+
+		if(track != null){
+		
+			if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 32
+					|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 48) {
+				attack(track);
+			} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY()
+					- getLocation().getY()) {
+				move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation()
+						.getX()), "X");
+			} else if (track.getLocation().getY() - getLocation().getY() < track.getLocation().getY()
+					- getLocation().getY()) {
+				move((track.getLocation().getY() - getLocation().getY()), (getLocation().getY() - track.getLocation()
+						.getY()), "Y");
+			}
+		}
+		else
+			return;
 
 	}
 
@@ -91,12 +107,12 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public String getFileLocation() {
-		return "Skeleton.png";
+		return "Skeleton.png"; //Needs to be fixed
 	}
 
 	@Override
 	public int getStrength() {
-		return 6;
+		return 100;
 	}
 
 	@Override
@@ -111,12 +127,12 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public EntityType getType() {
-		return EntityType.SKELETON_ENEMY;
+		return EntityType.GOLEM_ENEMY;
 	}
 
 	@Override
 	public int getVelocity() {
-		return 16;
+		return 10;
 	}
 
 	public int getGoldValue() {
@@ -125,7 +141,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public int getMaxHP() {
-		return 30;
+		return 500;
 	}
 
 }

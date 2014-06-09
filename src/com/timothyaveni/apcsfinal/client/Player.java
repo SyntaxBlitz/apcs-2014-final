@@ -1,6 +1,5 @@
 package com.timothyaveni.apcsfinal.client;
 
-import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -156,4 +155,6 @@ public abstract class Player extends Entity {
 	public abstract int getBaseDamage();
 
 	public abstract void attack(Client client);
+	
+	public abstract void useAbility();
 }

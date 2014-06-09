@@ -23,17 +23,17 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 	public void move(int distance, int direction, String plane) {
 		if (plane.equals("X")) {
 			if (direction > 0)
-				setLocation(new Location(this.getLocation().getX() + getVelocity(), this.getLocation().getY(),
+				Server.addPacketToQueue(new Location(this.getLocation().getX() + getVelocity(), this.getLocation().getY(),
 						Location.SOUTH, this.getLocation().getWorldSectionId()));
 			else
-				setLocation(new Location(this.getLocation().getX() - getVelocity(), this.getLocation().getY(),
+				Server.addPacketToQueue(new Location(this.getLocation().getX() - getVelocity(), this.getLocation().getY(),
 						Location.NORTH, this.getLocation().getWorldSectionId()));
 		} else {
 			if (direction > 0)
-				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() + getVelocity(),
+				Server.addPacketToQueue(new Location(this.getLocation().getX(), this.getLocation().getY() + getVelocity(),
 						Location.EAST, this.getLocation().getWorldSectionId()));
 			else
-				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() - getVelocity(),
+				Server.addPacketToQueue(new Location(this.getLocation().getX(), this.getLocation().getY() - getVelocity(),
 						Location.WEST, this.getLocation().getWorldSectionId()));
 		}
 
@@ -78,10 +78,6 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 
 	public Location getLocation() {
 		return super.getLocation();
-	}
-
-	public Location getPlayerLocation(Location playerLoc) {
-		return playerLoc; // This might not be needed.
 	}
 
 	@Override

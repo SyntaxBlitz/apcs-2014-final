@@ -12,7 +12,6 @@ import java.util.List;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.EntityInfo;
 import com.timothyaveni.apcsfinal.client.FileReader;
-import com.timothyaveni.apcsfinal.client.Map;
 import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.networking.EntityTypeID;
@@ -33,7 +32,8 @@ public class Server {
 	private static ArrayList<Packet> packetQueue = new ArrayList<Packet>();
 
 	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
-	// entities that have been within the distance threshold of some player at some point
+	// entities that have been within the distance threshold of some player at
+	// some point
 	private HashMap<Integer, Entity> visibleEntities = new HashMap<Integer, Entity>();
 	// entities that have not
 	private ArrayList<Entity> invisibleEntities = new ArrayList<Entity>();
@@ -154,7 +154,8 @@ public class Server {
 
 	// really I have no clue why these two methods are synchronized
 	public synchronized static int getNextPacketId() {
-		return lastLocalPacketId++; // starts at 0, so we can just increment afterwards
+		return lastLocalPacketId++; // starts at 0, so we can just increment
+									// afterwards
 	}
 
 	public synchronized static int getNextEntityId() {
