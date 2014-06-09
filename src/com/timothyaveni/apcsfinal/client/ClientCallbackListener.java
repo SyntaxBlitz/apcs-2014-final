@@ -1,6 +1,5 @@
 package com.timothyaveni.apcsfinal.client;
 
-import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
@@ -20,5 +19,5 @@ public abstract class ClientCallbackListener {
 	public abstract void newEntity(NewEntityPacket packet);
 
 	public abstract void simpleAttackAnimationUpdated(SimpleAttackPacket packet);
-	
+
 }

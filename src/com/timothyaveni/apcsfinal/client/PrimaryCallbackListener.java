@@ -1,9 +1,6 @@
 package com.timothyaveni.apcsfinal.client;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 
 import com.timothyaveni.apcsfinal.networking.EntityTypeID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
@@ -75,7 +72,8 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 		System.out.println("client connection acknowledged");
 		while (client.getGameFrame().getMapCanvas() == null || !client.getGameFrame().getMapCanvas().isReadyToRender())
 			try {
-				Thread.sleep(10); // busy wait; this is ugly but I don't have time to rework the entire project
+				Thread.sleep(10); // busy wait; this is ugly but I don't have
+									// time to rework the entire project
 			} catch (InterruptedException e) {
 			}
 		System.out.println("finished loading, about to load in map");

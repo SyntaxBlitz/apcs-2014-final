@@ -3,7 +3,6 @@ package com.timothyaveni.apcsfinal.client;
 import java.awt.event.KeyListener;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
@@ -81,7 +80,11 @@ public class Client {
 
 			player.characterMove(keyboard, currentMap, entities);
 
-			networkThread.checkUnacknowledgedPackets(); // if the server has taken too long to acknowledge any packets, this is where we resend them
+			networkThread.checkUnacknowledgedPackets(); // if the server has
+														// taken too long to
+														// acknowledge any
+														// packets, this is
+														// where we resend them
 			networkThread.sendPacket(new EntityLocationPacket(Client.getNextPacketId(), player.getId(), player
 					.getLocation()));
 
