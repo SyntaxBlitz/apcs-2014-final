@@ -79,7 +79,7 @@ public class Client {
 				player.setMoving(false);
 
 			player.characterMove(keyboard, currentMap, entities);
-			upDatePlayerAbility();
+			updatePlayerAbility();
 
 			networkThread.checkUnacknowledgedPackets(); // if the server has
 														// taken too long to
@@ -176,19 +176,8 @@ public class Client {
 		return this.gameFrame;
 	}
 	
-	public void upDatePlayerAbility(){
-		long lastCall;
-		if(player instanceof Tank){
-			lastCall = ((Tank) player).getLastAbilityCall();
-			if(System.nanoTime() - lastCall >= 3 * Math.pow(10, 9)){
-				((Tank) player).setAbilityActive(false);
-				if(player.getHP() >= 100)  //checks to make sure resetting HP will not kill player
-					player.setHP(player.getHP() - 100);
-				else
-					player.setHP(1);
-			}
-		}
-		
+	public void updatePlayerAbility(){
+
 	}
 
 }

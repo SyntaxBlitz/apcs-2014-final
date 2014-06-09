@@ -13,15 +13,8 @@ public class ClientMouseListener implements MouseListener {
 		this.client = c;
 	}
 
-	/*
-	 * this will trigger the attack method but I have no idea what to call it
-	 * off of
-	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getButton() == MouseEvent.BUTTON2){
-			client.getPlayer().useAbility();
-		}
 	}
 
 	@Override
@@ -35,11 +28,15 @@ public class ClientMouseListener implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (client.isInGame()) {
-			if (!client.getPlayer().isMoving()) {
-				client.getPlayer().setStartedAttack(true);
-				client.getNetworkThread().sendPacket(
-						new SimpleAttackPacket(Client.getNextPacketId(), client.getPlayer().getId(), true));
-				client.getPlayer().attack(client);
+			if (e.getButton() == MouseEvent.BUTTON2) {
+				client.getPlayer().useAbility(client.getFrame());
+			} else {
+				if (!client.getPlayer().isMoving()) {
+					client.getPlayer().setStartedAttack(true);
+					client.getNetworkThread().sendPacket(
+							new SimpleAttackPacket(Client.getNextPacketId(), client.getPlayer().getId(), true));
+					client.getPlayer().attack(client);
+				}
 			}
 		}
 	}

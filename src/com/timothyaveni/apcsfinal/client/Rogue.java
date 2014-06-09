@@ -103,7 +103,13 @@ public class Rogue extends Player {
 	}
 
 	@Override
-	public void useAbility() {
+	public void useAbility(long frame) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateAbility(long frame) {
 		// TODO Auto-generated method stub
 		
 	}
