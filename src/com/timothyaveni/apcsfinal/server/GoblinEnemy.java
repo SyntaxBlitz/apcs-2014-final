@@ -86,7 +86,7 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public int getHeight() {
-		return 48;
+		return 32;
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public String getFileLocation() {
-		return "Healer.png"; // TODO: change
+		return "Goblin.png";
 	}
 
 	@Override
