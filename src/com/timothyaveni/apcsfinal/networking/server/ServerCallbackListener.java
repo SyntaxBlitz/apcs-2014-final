@@ -3,8 +3,8 @@ package com.timothyaveni.apcsfinal.networking.server;
 import java.net.InetAddress;
 
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
-import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 
 public abstract class ServerCallbackListener {
