@@ -75,7 +75,7 @@ public abstract class Entity {
 	public BufferedImage getImage(long frame) {
 		if (!moving) {
 			if (startedAttack) {
-				currentSubImage = image.getSubimage((int) (5 * 32), getLocation().getDirection() * 48, this.getWidth(),
+				currentSubImage = image.getSubimage((int) (4 * 32), getLocation().getDirection() * 48, this.getWidth(),
 						this.getHeight());
 			} else {
 				currentSubImage = image.getSubimage(0, getLocation().getDirection() * 48, this.getWidth(),
