@@ -62,9 +62,12 @@ public class ArcanusEnemy extends Entity implements BossAI {
 		track = players.get(smallestIndex);
 		
 		
-			if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 32
-					|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 48) {
-				attack(track);
+			if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 250
+					|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 250) {
+				if(this.getHP() < 1000)
+					summonMinions();
+				else
+					projectileAttack();
 			} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY()
 					- getLocation().getY()) {
 				move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation()
@@ -74,7 +77,6 @@ public class ArcanusEnemy extends Entity implements BossAI {
 				move((track.getLocation().getY() - getLocation().getY()), (getLocation().getY() - track.getLocation()
 						.getY()), "Y");
 			}
-
 	}
 	
 	public void summonMinions(){ //This method adds enemy entities to the server list of invisible entities
