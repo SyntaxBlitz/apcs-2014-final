@@ -105,7 +105,9 @@ public class Server {
 			}
 
 			try {
-				Thread.sleep(((long) (1000000000 / TPS) - (System.nanoTime() - tickStart)) / 1000000);
+				long tryDelay = ((long) (1000000000 / TPS) - (System.nanoTime() - tickStart)) / 1000000;
+				if (tryDelay > 0)
+					Thread.sleep(tryDelay);
 			} catch (InterruptedException e) {
 			}
 			currentTick++;

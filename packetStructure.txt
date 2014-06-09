@@ -52,3 +52,7 @@ NewClientPacket (total size=7 bytes):	NOT must-acknowledge, because the server s
 NewClientAcknowledgementPacket (total size=9 bytes):
 	byte 6: assigned client ID (unsigned int)
 	bytes 7-8: assigned player entity ID (unsigned int)
+	
+SimpleAttackPacket (total size=9 bytes):
+	bytes 6-7: entity id	(unsigned int)
+	byte 8: is currently attacking?	boolean (unsigned int 0-1)
