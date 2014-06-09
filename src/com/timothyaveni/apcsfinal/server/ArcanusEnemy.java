@@ -16,7 +16,7 @@ public class ArcanusEnemy extends Entity implements BossAI {
 		super(id, loc);
 	}
 
-	public void attack(Player track) { // Test
+	public void attack(Player track) { 
 		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getStrength()));
 	}
 
@@ -100,7 +100,7 @@ public class ArcanusEnemy extends Entity implements BossAI {
 
 	@Override
 	public String getFileLocation() {
-		return "Skeleton.png"; //Needs to be fixed
+		return "Arcanus.png"; //Needs to be fixed
 	}
 
 	@Override
