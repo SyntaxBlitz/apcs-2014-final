@@ -62,27 +62,21 @@ public class ArcanusEnemy extends Entity implements BossAI {
 		track = players.get(smallestIndex);
 		
 		
-			if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 250
-					|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 250) {
+			if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 300
+					|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 300) {
 				if(this.getHP() < 1000)
 					summonMinions();
 				else
 					projectileAttack();
-			} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY()
-					- getLocation().getY()) {
-				move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation()
-						.getX()), "X");
-			} else if (track.getLocation().getY() - getLocation().getY() < track.getLocation().getY()
-					- getLocation().getY()) {
-				move((track.getLocation().getY() - getLocation().getY()), (getLocation().getY() - track.getLocation()
-						.getY()), "Y");
-			}
 	}
 	
 	public void summonMinions(){ //This method adds enemy entities to the server list of invisible entities
 		server.getInvisibleEntities().add(new GolemEnemy(Server.getNextEntityId(), null)); //I need to figure out how
 		server.getInvisibleEntities().add(new GolemEnemy(Server.getNextEntityId(), null));
 		server.getInvisibleEntities().add(new GolemEnemy(Server.getNextEntityId(), null)); 
+		server.getInvisibleEntities().add(new SkeletonEnemy(Server.getNextEntityId(), null));
+		server.getInvisibleEntities().add(new SkeletonEnemy(Server.getNextEntityId(), null));
+		server.getInvisibleEntities().add(new SkeletonEnemy(Server.getNextEntityId(), null));
 		
 	}
 	
