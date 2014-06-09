@@ -8,6 +8,8 @@ import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.client.Tank;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
+import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+
 
 public class GolemEnemy extends Entity implements EnemyAI {
 	private int baseDmg = 50;
@@ -24,18 +26,18 @@ public class GolemEnemy extends Entity implements EnemyAI {
 	public void move(int distance, int direction, String plane) {
 		if (plane.equals("X")) {
 			if (direction > 0)
-				setLocation(new Location(this.getLocation().getX() + getVelocity(), this.getLocation().getY(),
-						Location.SOUTH, this.getLocation().getWorldSectionId()));
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(),new Location(this.getLocation().getX() + getVelocity(), this.getLocation().getY(),
+						Location.SOUTH, this.getLocation().getWorldSectionId())));
 			else
-				setLocation(new Location(this.getLocation().getX() - getVelocity(), this.getLocation().getY(),
-						Location.NORTH, this.getLocation().getWorldSectionId()));
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(),new Location(this.getLocation().getX() - getVelocity(), this.getLocation().getY(),
+						Location.NORTH, this.getLocation().getWorldSectionId())));
 		} else {
 			if (direction > 0)
-				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() + getVelocity(),
-						Location.EAST, this.getLocation().getWorldSectionId()));
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(),new Location(this.getLocation().getX(), this.getLocation().getY() + getVelocity(),
+						Location.EAST, this.getLocation().getWorldSectionId())));
 			else
-				setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() - getVelocity(),
-						Location.WEST, this.getLocation().getWorldSectionId()));
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(),new Location(this.getLocation().getX(), this.getLocation().getY() - getVelocity(),
+						Location.WEST, this.getLocation().getWorldSectionId())));
 		}
 
 	}
