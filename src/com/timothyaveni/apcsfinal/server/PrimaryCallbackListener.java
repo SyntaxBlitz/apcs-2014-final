@@ -17,6 +17,7 @@ import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
+import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 import com.timothyaveni.apcsfinal.networking.server.ServerCallbackListener;
 
 public class PrimaryCallbackListener extends ServerCallbackListener {
@@ -125,6 +126,15 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 			server.getThread().sendIndividualPacket(new NewEntityPacket(Server.getNextPacketId(), i.next().getValue()),
 					address, port);
 		}
+	}
+
+	@Override
+	public void simpleAttackAnimationUpdated(SimpleAttackPacket packet) {
+		Entity entity = server.getEntityList().get(packet.getEntityId());
+		if (entity != null) {
+			entity.setStartedAttack(packet.isAttacking());
+		}
+		Server.addPacketToQueue(new SimpleAttackPacket(Server.getNextPacketId(), packet.getEntityId(), packet.isAttacking()));
 	}
 
 }

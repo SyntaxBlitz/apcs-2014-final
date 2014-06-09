@@ -10,6 +10,7 @@ import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
+import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 
 public class PrimaryCallbackListener extends ClientCallbackListener {
 
@@ -95,6 +96,14 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 			return;
 		client.getEntityList().put(packet.getEntityId(),
 				EntityTypeID.constructEntity(packet.getEntityType(), packet.getEntityId(), packet.getEntityLocation()));
+	}
+
+	@Override
+	public void simpleAttackAnimationUpdated(SimpleAttackPacket packet) {
+		Entity entity = client.getEntityList().get(packet.getEntityId());
+		if (entity != null) {
+			entity.setStartedAttack(packet.isAttacking());
+		}
 	}
 
 }

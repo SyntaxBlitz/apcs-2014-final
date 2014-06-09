@@ -7,6 +7,7 @@ import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPack
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
+import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 
 public class PacketProcessor {
 
@@ -41,6 +42,9 @@ public class PacketProcessor {
 				break;
 			case NEW_CLIENT_ACKNOWLDEGEMENT:
 				toReturn = new NewClientAcknowledgementPacket(localPacketId, data);
+				break;
+			case SIMPLE_ATTACK:
+				toReturn = new SimpleAttackPacket(localPacketId, data);
 				break;
 		}
 

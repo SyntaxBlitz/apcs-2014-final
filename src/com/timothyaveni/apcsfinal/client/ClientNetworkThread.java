@@ -18,6 +18,7 @@ import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPack
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
+import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 
 public class ClientNetworkThread implements Runnable {
 
@@ -97,6 +98,9 @@ public class ClientNetworkThread implements Runnable {
 				break;
 			case NEW_CLIENT_ACKNOWLDEGEMENT:
 				listener.clientConnectionAcknowldged((NewClientAcknowledgementPacket) packet);
+				break;
+			case SIMPLE_ATTACK:
+				listener.simpleAttackAnimationUpdated((SimpleAttackPacket) packet);
 				break;
 			case NEW_CLIENT: // server-only packet
 				break;
