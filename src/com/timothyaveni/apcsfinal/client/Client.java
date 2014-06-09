@@ -167,6 +167,7 @@ public class Client {
 	public void setPlayerType(EntityType playerType) {
 		this.playerType = playerType;
 	}
+	
 
 	public EntityType getPlayerType() {
 		return this.playerType;
