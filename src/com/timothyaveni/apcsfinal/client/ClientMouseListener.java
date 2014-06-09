@@ -1,5 +1,6 @@
 package com.timothyaveni.apcsfinal.client;
 
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -17,19 +18,22 @@ public class ClientMouseListener implements MouseListener {
 	 * off of
 	 */
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent e) {
+		if(e.getButton() == MouseEvent.BUTTON2){
+			client.getPlayer().useAbility();
+		}
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent e) {
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
+	public void mouseExited(MouseEvent e) {
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
+	public void mousePressed(MouseEvent e) {
 		if (client.isInGame()) {
 			if (!client.getPlayer().isMoving()) {
 				client.getPlayer().setStartedAttack(true);

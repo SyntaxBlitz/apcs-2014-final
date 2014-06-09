@@ -7,6 +7,9 @@ import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 
 public class Tank extends Player {
+	
+	private boolean abilityActive = false;
+	private long lastAbilityCall;
 
 	public Tank(int id, Location loc) {
 		super(id, loc);
@@ -54,7 +57,10 @@ public class Tank extends Player {
 
 	@Override
 	public int getMaxHP() {
-		return 250;
+		if(abilityActive)
+			return 350;
+		else
+			return 250;
 	}
 
 	@Override
@@ -103,4 +109,24 @@ public class Tank extends Player {
 			}
 		}
 	}
+	
+	public void useAbility(){
+		setLastAbilityCall(System.nanoTime());
+		setAbilityActive(true);
+		setHP(getHP() + 100);
+	}
+	
+	public void setLastAbilityCall(long frame){
+		lastAbilityCall =  frame;
+	}
+	
+	public long getLastAbilityCall(){
+		return lastAbilityCall;
+	}
+	
+	public void setAbilityActive(boolean active){
+		abilityActive = active;
+	}
+	
+	
 }

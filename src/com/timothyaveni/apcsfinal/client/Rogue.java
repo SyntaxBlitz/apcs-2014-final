@@ -1,6 +1,11 @@
 package com.timothyaveni.apcsfinal.client;
 
+import java.awt.Rectangle;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import com.timothyaveni.apcsfinal.networking.EntityType;
+import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 
 public class Rogue extends Player {
 
@@ -68,8 +73,35 @@ public class Rogue extends Player {
 
 	@Override
 	public void attack(Client client) {
-		// TODO Auto-generated method stub
-
+		Rectangle attackArea = null;
+		switch (getLocation().getDirection()) {
+			case Location.NORTH:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() - getHeight() / 2 - getHeight(), getWidth(), getHeight());
+				break;
+			case Location.SOUTH:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() + getHeight() / 2, getWidth(), getHeight());
+				break;
+			case Location.EAST:
+				attackArea = new Rectangle(getLocation().getX() + getWidth() / 2, getLocation().getY() - getHeight() / 2, getWidth(), getHeight());
+				break;
+			case Location.WEST:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2 - getWidth(), getLocation().getY() - getHeight() / 2, getWidth(), getHeight());
+				break;
+		}
+		
+		Iterator<Entity> i = client.getEntityList().values().iterator();
+		while (i.hasNext()) {
+			Entity entity = i.next();
+			if (entity instanceof Player)
+				continue;
+			Location entityLoc = entity.getLocation();
+			if (attackArea.intersects(entityLoc.getX() - entity.getWidth() / 2, entityLoc.getY() - entity.getHeight() / 2, entity.getWidth(), entity.getHeight())) {
+				System.out.println(entity.getId());
+				client.getNetworkThread().sendPacket(new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage()));
+			}
+		}
 	}
-
+		
+	
+	
 }

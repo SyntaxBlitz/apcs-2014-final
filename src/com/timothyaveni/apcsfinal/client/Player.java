@@ -155,4 +155,6 @@ public abstract class Player extends Entity {
 	public abstract int getBaseDamage();
 
 	public abstract void attack(Client client);
+	
+	public abstract void useAbility();
 }
