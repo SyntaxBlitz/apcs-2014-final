@@ -7,6 +7,7 @@ import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
+import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 
 public class GoblinEnemy extends Entity implements EnemyAI {
 	private int baseDmg = 10;
