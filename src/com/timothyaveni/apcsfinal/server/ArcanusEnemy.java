@@ -16,7 +16,7 @@ public class ArcanusEnemy extends Entity implements BossAI {
 		super(id, loc);
 	}
 
-	public void attack(Player track) { 
+	public void attack(Player track) {
 		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getStrength()));
 	}
 
@@ -41,7 +41,8 @@ public class ArcanusEnemy extends Entity implements BossAI {
 
 	// Tracks player based off the player's location; might want all player
 	// locations to determine closest?
-	public void trackPlayer(ArrayList<Player> players) {
+	public void trackPlayer(Server server) {
+		ArrayList<Player> players = server.getPlayerList();
 		if (players.size() == 0)
 			return;
 		Player track = null;
@@ -51,7 +52,6 @@ public class ArcanusEnemy extends Entity implements BossAI {
 
 		for (int i = 0; i < players.size(); i++) {
 			double thisDistance = getLocation().getDistanceTo(players.get(i).getLocation());
-			
 
 			if (thisDistance < smallestDistance) {
 				smallestDistance = thisDistance;
@@ -60,28 +60,28 @@ public class ArcanusEnemy extends Entity implements BossAI {
 		}
 
 		track = players.get(smallestIndex);
-		
-		
-			if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 300
-					|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 300) {
-				if(this.getHP() < 1000)
-					summonMinions();
-				else
-					projectileAttack();
+
+		if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 300
+				|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 300) {
+			if (this.getHP() < 1000)
+				summonMinions(server);
+			else
+				projectileAttack();
+		}
 	}
-	
-	public void summonMinions(){ //This method adds enemy entities to the server list of invisible entities
-		server.getInvisibleEntities().add(new GolemEnemy(Server.getNextEntityId(), null)); //I need to figure out how
-		server.getInvisibleEntities().add(new GolemEnemy(Server.getNextEntityId(), null));
-		server.getInvisibleEntities().add(new GolemEnemy(Server.getNextEntityId(), null)); 
-		server.getInvisibleEntities().add(new SkeletonEnemy(Server.getNextEntityId(), null));
-		server.getInvisibleEntities().add(new SkeletonEnemy(Server.getNextEntityId(), null));
-		server.getInvisibleEntities().add(new SkeletonEnemy(Server.getNextEntityId(), null));
-		
+
+	public void summonMinions(Server server) { // This method adds enemy entities to the server list of invisible entities
+		server.getInvisibleEntityList().add(new GolemEnemy(Server.getNextEntityId(), null)); // I need to figure out how
+		server.getInvisibleEntityList().add(new GolemEnemy(Server.getNextEntityId(), null));
+		server.getInvisibleEntityList().add(new GolemEnemy(Server.getNextEntityId(), null));
+		server.getInvisibleEntityList().add(new SkeletonEnemy(Server.getNextEntityId(), null));
+		server.getInvisibleEntityList().add(new SkeletonEnemy(Server.getNextEntityId(), null));
+		server.getInvisibleEntityList().add(new SkeletonEnemy(Server.getNextEntityId(), null));
+
 	}
-	
-	public void projectileAttack(){ //This method creates new projectiles to send to the server
-		
+
+	public void projectileAttack() { // This method creates new projectiles to send to the server
+
 	}
 
 	public Location getLocation() {
@@ -100,7 +100,7 @@ public class ArcanusEnemy extends Entity implements BossAI {
 
 	@Override
 	public String getFileLocation() {
-		return "Arcanus.png"; //Needs to be fixed
+		return "Arcanus.png"; // Needs to be fixed
 	}
 
 	@Override

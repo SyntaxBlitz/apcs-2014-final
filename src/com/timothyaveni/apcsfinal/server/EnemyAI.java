@@ -7,7 +7,7 @@ import com.timothyaveni.apcsfinal.client.Player;
 
 public interface EnemyAI {
 
-	public void trackPlayer(ArrayList<Player> players);
+	public void trackPlayer(Server server);
 
 	public Location getLocation();
 

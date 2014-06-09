@@ -44,7 +44,8 @@ public class GolemEnemy extends Entity implements EnemyAI {
 
 	// Tracks player based off the player's location; might want all player
 	// locations to determine closest?
-	public void trackPlayer(ArrayList<Player> players) {
+	public void trackPlayer(Server server) {
+		ArrayList<Player> players = server.getPlayerList();
 		if (players.size() == 0)
 			return;
 		Player track = null;
