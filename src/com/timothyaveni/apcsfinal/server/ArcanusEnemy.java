@@ -9,11 +9,11 @@ import com.timothyaveni.apcsfinal.client.Tank;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 
-public class GolemEnemy extends Entity implements EnemyAI {
-	private int baseDmg = 50;
+public class ArcanusEnemy extends Entity implements BossAI {
+	private int baseDmg = 30;
 	private int goldValue = 40;
 
-	public GolemEnemy(int id, Location loc) {
+	public ArcanusEnemy(int id, Location loc) {
 		super(id, loc);
 	}
 
@@ -60,18 +60,8 @@ public class GolemEnemy extends Entity implements EnemyAI {
 			}
 		}
 
-		for(Player p : players){
-			if(p instanceof Tank){
-				track = p;
-				break;
-			}
-			else
-				track = players.get(smallestIndex);
-		}
+		track = players.get(smallestIndex);
 		
-		
-
-		if(track != null){
 		
 			if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 32
 					|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 48) {
@@ -85,10 +75,15 @@ public class GolemEnemy extends Entity implements EnemyAI {
 				move((track.getLocation().getY() - getLocation().getY()), (getLocation().getY() - track.getLocation()
 						.getY()), "Y");
 			}
-		}
-		else
-			return;
 
+	}
+	
+	public void summonMinions(){ //This method adds enemy entities to the server list of invisible entities
+		
+	}
+	
+	public void projectileAttack(){ //This method creates new projectiles to send to the server
+		
 	}
 
 	public Location getLocation() {
@@ -112,22 +107,22 @@ public class GolemEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public int getStrength() {
-		return 100;
+		return 300;
 	}
 
 	@Override
 	public int getSpeed() {
-		return 5;
+		return 25;
 	}
 
 	@Override
 	public int getIntelligence() {
-		return 0;
+		return 100;
 	}
 
 	@Override
 	public EntityType getType() {
-		return EntityType.GOLEM_ENEMY;
+		return EntityType.ARCANUS_ENEMY;
 	}
 
 	@Override
@@ -141,7 +136,7 @@ public class GolemEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public int getMaxHP() {
-		return 500;
+		return 1500;
 	}
 
 }

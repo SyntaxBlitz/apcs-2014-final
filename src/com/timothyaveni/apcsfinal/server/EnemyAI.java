@@ -11,6 +11,4 @@ public interface EnemyAI {
 
 	public Location getLocation();
 
-	public Location getPlayerLocation(Location playerLoc);
-
 }

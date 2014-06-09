@@ -80,10 +80,6 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 		return super.getLocation();
 	}
 
-	public Location getPlayerLocation(Location playerLoc) {
-		return playerLoc; // This might not be needed.
-	}
-
 	@Override
 	public int getHeight() {
 		return 32;
