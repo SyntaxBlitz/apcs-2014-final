@@ -4,21 +4,18 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
 import com.timothyaveni.apcsfinal.networking.PacketProcessor;
-import com.timothyaveni.apcsfinal.networking.PacketType;
 import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
+import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
-import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
-import com.timothyaveni.apcsfinal.server.ConnectedClient;
 import com.timothyaveni.apcsfinal.server.Server;
 
 public class ServerThread implements Runnable {

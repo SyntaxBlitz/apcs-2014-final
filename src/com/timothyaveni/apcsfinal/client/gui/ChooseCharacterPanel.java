@@ -27,6 +27,7 @@ import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class ChooseCharacterPanel extends JPanel implements ActionListener, UsesClient {
 
+	private static final long serialVersionUID = 7258173020280356581L;
 	private Client client;
 	private GameFrame frame;
 
@@ -168,7 +169,9 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 		}
 	}
 
-	private void updateCharacterView() { // can't make abstract methods static, so it's awkward to get the file location from the entity's class
+	private void updateCharacterView() { // can't make abstract methods static,
+											// so it's awkward to get the file
+											// location from the entity's class
 		try {
 			switch (selectedPlayerType) {
 				case TANK:

@@ -6,10 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -17,9 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.timothyaveni.apcsfinal.client.Client;
-import com.timothyaveni.apcsfinal.client.ClientNetworkThread;
 import com.timothyaveni.apcsfinal.client.FileReader;
-import com.timothyaveni.apcsfinal.client.PrimaryCallbackListener;
 
 public class MenuPanel extends JPanel implements ActionListener, UsesClient {
 
