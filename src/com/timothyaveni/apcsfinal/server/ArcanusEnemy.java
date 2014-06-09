@@ -80,6 +80,9 @@ public class ArcanusEnemy extends Entity implements BossAI {
 	}
 	
 	public void summonMinions(){ //This method adds enemy entities to the server list of invisible entities
+		server.getInvisibleEntities().add(new GolemEnemy(Server.getNextEntityId(), null)); //I need to figure out how
+		server.getInvisibleEntities().add(new GolemEnemy(Server.getNextEntityId(), null));
+		server.getInvisibleEntities().add(new GolemEnemy(Server.getNextEntityId(), null)); 
 		
 	}
 	
