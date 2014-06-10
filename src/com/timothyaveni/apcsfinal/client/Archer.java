@@ -6,6 +6,8 @@ import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 public class Archer extends Player {
 
 	private long lastAttackFrame = 0;
+	private boolean abilityActive = false;
+	private long lastAbilityCall;
 
 	public Archer(int id, Location loc) {
 		super(id, loc);
