@@ -90,12 +90,13 @@ public class Mage extends Player {
 			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 			for (Entity entity : entities) {
 				if (!(entity instanceof Player)
-						&& getLocation().getDistanceTo(entity.getLocation()) <= getAttackRadius() * 3)
+						&& getLocation().getDistanceTo(entity.getLocation()) <= getAttackRadius() * 3) {
 					client.getNetworkThread().sendPacket(
 							new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage() + 10));
-				client.getNetworkThread().sendPacket(
-						new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.DAMAGE_NUMBER, entity
-								.getLocation(), getBaseDamage() + 10));
+					client.getNetworkThread().sendPacket(
+							new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.DAMAGE_NUMBER,
+									entity.getLocation(), getBaseDamage() + 10));
+				}
 			}
 			lastAbilityCall = frame;
 		}

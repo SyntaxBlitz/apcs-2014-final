@@ -121,12 +121,13 @@ public class Rogue extends Player {
 			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 			for (Entity entity : entities) {
 				if (!(entity instanceof Player)
-						&& getLocation().getDistanceTo(entity.getLocation()) <= getAttackRadius() * 1.5)
+						&& getLocation().getDistanceTo(entity.getLocation()) <= getAttackRadius() * 1.5) {
 					client.getNetworkThread().sendPacket(
 							new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage() + 5));
-				client.getNetworkThread().sendPacket(
-						new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.DAMAGE_NUMBER, entity
-								.getLocation(), getBaseDamage() + 5));
+					client.getNetworkThread().sendPacket(
+							new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.DAMAGE_NUMBER,
+									entity.getLocation(), getBaseDamage() + 5));
+				}
 			}
 			lastAbilityCall = frame;
 		}
