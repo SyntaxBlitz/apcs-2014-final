@@ -46,7 +46,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 	// Tracks player based off the player's location; might want all player
 	// locations to determine closest?
-	public void trackPlayer(Server server) {
+	public void act(Server server) {
 		ArrayList<Player> players = server.getPlayerList();
 		if (players.size() == 0)
 			return;

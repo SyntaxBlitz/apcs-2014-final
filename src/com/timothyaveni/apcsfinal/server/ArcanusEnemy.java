@@ -41,7 +41,7 @@ public class ArcanusEnemy extends Entity implements BossAI {
 
 	// Tracks player based off the player's location; might want all player
 	// locations to determine closest?
-	public void trackPlayer(Server server) {
+	public void act(Server server) {
 		ArrayList<Player> players = server.getPlayerList();
 		if (players.size() == 0)
 			return;
@@ -63,10 +63,13 @@ public class ArcanusEnemy extends Entity implements BossAI {
 
 		if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 300
 				|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 300) {
-			if (this.getHP() < 1000)
-				summonMinions(server);
-			else
-				projectileAttack();
+			if(server.getCurrentTick() % 150 == 0)
+			{
+				if (this.getHP() < 1000)
+					summonMinions(server);
+				else
+					projectileAttack();
+			}
 		}
 	}
 
