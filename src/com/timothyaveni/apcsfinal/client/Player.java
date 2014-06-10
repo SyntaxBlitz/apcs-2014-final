@@ -156,7 +156,7 @@ public abstract class Player extends Entity {
 
 	public abstract void attack(Client client);
 	
-	public abstract void useAbility(long frame);
+	public abstract void useAbility(long frame, Client client);
 	
 	public abstract void updateAbility(long frame);
 	

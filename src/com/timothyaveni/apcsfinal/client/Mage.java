@@ -78,14 +78,21 @@ public class Mage extends Player {
 	}
 
 	@Override
-	public void useAbility(long frame) {
-		// TODO Auto-generated method stub
-
-	}
+	public void useAbility(long frame, Client client) {
+		if(abilityAvailable){
+			for(Entity a : client.getEntityList()){
+				if(!(a instanceof player) && getLocation().getDistanceTo(a.getLocation()) <= getAttackRadius() * 3)
+						client.getNetworkThread().sendPacket(new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage() + 10));
+			}
+			lastAbilityCall = frame;
+		}
+	}	
 
 	@Override
 	public void updateAbility(long frame) {
-		// TODO Auto-generated method stub
-
+		if(frame - lastAbilityCall < 600)
+			abilityAvailable = false;
+		else
+			abilityAvailable = true;
 	}
 }

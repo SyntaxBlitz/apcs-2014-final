@@ -113,15 +113,22 @@ public class Rogue extends Player {
 	}
 
 	@Override
-	public void useAbility(long frame) {
-		// TODO Auto-generated method stub
-
-	}
+	public void useAbility(long frame, Client client) {
+		if(abilityAvailable){
+			for(Entity a : client.getEntityList()){
+				if(!(a instanceof player) && getLocation().getDistanceTo(a.getLocation()) <= getAttackRadius() * 1.5)
+						client.getNetworkThread().sendPacket(new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage() + 5));
+			}
+			lastAbilityCall = frame;
+		}
+	}	
 
 	@Override
 	public void updateAbility(long frame) {
-		// TODO Auto-generated method stub
-
+		if(frame - lastAbilityCall < 300)
+			abilityAvailable = false;
+		else
+			abilityAvailable = true;
 	}
 
 }
