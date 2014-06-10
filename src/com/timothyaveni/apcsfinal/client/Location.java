@@ -48,11 +48,11 @@ public class Location {
 
 	@Override
 	public String toString() {
-		return "[Location x=" + x + "  y=" + y + " facing=" + direction + "]";
+		return "[Location x=" + x + "  y=" + y + " facing=" + direction + " world=" + worldSectionId + "]";
 	}
 
 	public boolean equals(Location other) {
-		return this.x == other.x && this.y == other.y && this.direction == other.direction;
+		return this.x == other.x && this.y == other.y && this.direction == other.direction && this.worldSectionId == other.worldSectionId;
 	}
 
 }

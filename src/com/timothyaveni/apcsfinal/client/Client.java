@@ -108,72 +108,7 @@ public class Client {
 		Projectile[] projectiles = myProjectiles.toArray(new Projectile[0]);
 		for (int i = 0; i < projectiles.length; i++) {
 			Projectile projectile = projectiles[i];
-			if (projectile.getDistanceTravelled() + projectile.getVelocity() > projectile.getMaxDistance()) {
-				getNetworkThread()
-						.sendPacket(
-								new EntityLocationPacket(Client.getNextPacketId(), projectile.getId(), new Location(0,
-										0, 0, 0)));
-				myProjectiles.remove(projectile);
-			} else {
-				Location currentLocation = projectile.getLocation();
-				Location newLocation = null;
-				switch (currentLocation.getDirection()) {
-				// TODO: make projectiles collide with things
-					case Location.NORTH:
-						if (currentMap.isPointValid(currentLocation.getX(),
-								currentLocation.getY() - projectile.getVelocity() - projectile.getWidth() / 2)) {
-							newLocation = new Location(currentLocation.getX(), currentLocation.getY()
-									- projectile.getVelocity(), currentLocation.getDirection(),
-									currentLocation.getWorldSectionId());
-						} else {
-							newLocation = new Location(0, 0, 0, 0);
-							myProjectiles.remove(projectile);
-						}
-						break;
-					case Location.SOUTH:
-						if (currentMap.isPointValid(currentLocation.getX(),
-								currentLocation.getY() + projectile.getVelocity() + projectile.getHeight() / 2)) {
-							newLocation = new Location(currentLocation.getX(), currentLocation.getY()
-									+ projectile.getVelocity(), currentLocation.getDirection(),
-									currentLocation.getWorldSectionId());
-						} else {
-							newLocation = new Location(0, 0, 0, 0);
-							myProjectiles.remove(projectile);
-						}
-						break;
-					case Location.EAST:
-						if (currentMap.isPointValid(
-								currentLocation.getX() + projectile.getVelocity() + projectile.getWidth() / 2,
-								currentLocation.getY())) {
-							newLocation = new Location(currentLocation.getX() + projectile.getVelocity(),
-									currentLocation.getY(), currentLocation.getDirection(),
-									currentLocation.getWorldSectionId());
-						} else {
-							newLocation = new Location(0, 0, 0, 0);
-							myProjectiles.remove(projectile);
-						}
-						break;
-					case Location.WEST:
-						if (currentMap.isPointValid(
-								currentLocation.getX() - projectile.getVelocity() - projectile.getWidth() / 2,
-								currentLocation.getY())) {
-							newLocation = new Location(currentLocation.getX() - projectile.getVelocity(),
-									currentLocation.getY(), currentLocation.getDirection(),
-									currentLocation.getWorldSectionId());
-						} else {
-							newLocation = new Location(0, 0, 0, 0);
-							myProjectiles.remove(projectile);
-						}
-						break;
-				}
-
-				projectile.setLocation(newLocation);
-				projectile.setDistanceTravelled(projectile.getDistanceTravelled() + projectile.getVelocity());
-				getNetworkThread()
-						.sendPacket(
-								new EntityLocationPacket(Client.getNextPacketId(), projectile.getId(), projectile
-										.getLocation()));
-			}
+			projectile.update(this);
 		}
 	}
 
