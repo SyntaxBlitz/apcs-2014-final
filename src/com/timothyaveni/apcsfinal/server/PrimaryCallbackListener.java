@@ -1,5 +1,6 @@
 package com.timothyaveni.apcsfinal.server;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -62,13 +63,18 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		lastPlayerLocationId.put(entityId, packet.getRemoteId());
 		if (server.getEntityList().containsKey(entityId)) {
 			server.getEntityList().get(entityId).setLocation(packet.getLocation());
-		}		
-		
-		if (packet.getLocation().getWorldSectionId() != 0 && !server.getLoadedMaps().containsKey(packet.getLocation().getWorldSectionId())) {
-			server.getLoadedMaps().put(
-					packet.getLocation().getWorldSectionId(),
-					new MapMetadata(FileReader.getFileFromResourceString(WorldSectionID.getMapNameFromID(packet
-							.getLocation().getWorldSectionId())), packet.getLocation().getWorldSectionId()));
+		}
+
+		if (packet.getLocation().getWorldSectionId() != 0
+				&& !server.getLoadedMaps().containsKey(packet.getLocation().getWorldSectionId())) {
+			try {
+				server.getLoadedMaps().put(
+						packet.getLocation().getWorldSectionId(),
+						new MapMetadata(WorldSectionID.getMapNameFromID(packet.getLocation().getWorldSectionId()), packet
+								.getLocation().getWorldSectionId()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), entityId, packet.getLocation()));
@@ -152,7 +158,8 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		System.out.println("projectile entity id is truly " + projectile.getId());
 
 		server.getThread().sendIndividualPacket(
-				new NewProjectileAcknowledgePacket(Server.getNextPacketId(), packet.getRemoteId(), entityId), address, port);
+				new NewProjectileAcknowledgePacket(Server.getNextPacketId(), packet.getRemoteId(), entityId), address,
+				port);
 		Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), projectile));
 	}
 
