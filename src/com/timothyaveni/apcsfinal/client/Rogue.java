@@ -10,6 +10,9 @@ import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 
 public class Rogue extends Player {
+	
+	private boolean abilityAvailable = true;
+	private long lastAbilityCall;
 
 	public Rogue(int id, Location loc) {
 		super(id, loc);
