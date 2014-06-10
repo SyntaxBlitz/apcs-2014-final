@@ -40,8 +40,6 @@ public class NewProjectileAcknowledgePacket extends Packet {
 		super.unpack(data);
 		acknowledgePacketId = ByteArrayTools.readBytes(data, 6, 3, false);
 		newProjectileId = ByteArrayTools.readBytes(data, 9, 2, false);
-		
-		System.out.println("postpack " + acknowledgePacketId);
 	}
 
 	@Override

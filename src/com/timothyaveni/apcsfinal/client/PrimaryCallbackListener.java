@@ -107,7 +107,6 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 
 	@Override
 	public void newProjectileAcknowledged(NewProjectileAcknowledgePacket packet) {
-		System.out.println("postcall " + packet.getAcknowledgePacketId());
 		Projectile projectile = client.getUnacknowledgedProjectiles().get(packet.getAcknowledgePacketId());
 		if (projectile != null) {
 			projectile.setId(packet.getNewProjectileId());

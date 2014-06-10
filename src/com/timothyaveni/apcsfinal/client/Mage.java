@@ -73,7 +73,6 @@ public class Mage extends Player {
 			int packetId = Client.getNextPacketId();
 			client.getUnacknowledgedProjectiles().put(packetId, projectile);
 			client.getNetworkThread().sendPacket(new NewProjectilePacket(packetId, EntityType.MAGIC_BALL, getLocation()));
-			System.out.println(packetId);
 			lastAttackFrame = client.getFrame();
 		}
 	}
