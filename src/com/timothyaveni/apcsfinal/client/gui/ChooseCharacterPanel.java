@@ -169,9 +169,7 @@ public class ChooseCharacterPanel extends JPanel implements ActionListener, Uses
 		}
 	}
 
-	private void updateCharacterView() { // can't make abstract methods static,
-											// so it's awkward to get the file
-											// location from the entity's class
+	private void updateCharacterView() { // can't make abstract methods static, so it's awkward to get the file location from the entity's class
 		try {
 			switch (selectedPlayerType) {
 				case TANK:

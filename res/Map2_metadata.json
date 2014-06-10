@@ -3,24 +3,24 @@
 		{
 			"type": 1,
 			"location": {
-				"x": 1000,
-				"y": 2000,
+				"x": 1300,
+				"y": 650,
 				"direction": 1
 			}
 		}
 	],
 	"spawnPoint": {
-		"x": 1000,
-		"y": 600,
+		"x": 610,
+		"y": 1089,
 		"direction": 2
 	},
 	"exitAreas": [
 		{
-			"x": 1100,
-			"y": 600,
-			"width": 500,
-			"height": 500,
-			"newMapId": 2
+			"x": 4286,
+			"y": 1149,
+			"width": 227,
+			"height": 184,
+			"newMapId": 3
 		}
 	]
 }

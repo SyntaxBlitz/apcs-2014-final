@@ -10,6 +10,7 @@ import com.timothyaveni.apcsfinal.client.environmentanimation.EnvironmentAnimati
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
 import com.timothyaveni.apcsfinal.client.gui.MenuPanel;
 import com.timothyaveni.apcsfinal.networking.EntityType;
+import com.timothyaveni.apcsfinal.networking.WorldSectionID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 
 public class Client {
@@ -84,17 +85,20 @@ public class Client {
 				player.setMoving(false);
 
 			player.characterMove(keyboard, currentMap, entities);
+			networkThread.sendPacket(new EntityLocationPacket(Client.getNextPacketId(), player.getId(), player
+					.getLocation()));
+
+			int nextMap = currentMap.getMetadata().getNextMap(player.getLocation().getX(), player.getLocation().getY());
+			if (nextMap != -1) {
+				this.currentMap = new Map(nextMap);
+				player.setLocation(currentMap.getMetadata().getSpawnPoint()); // I think this is awkward if the player has active projectiles but whatever
+			}
+
 			updateMyProjectiles();
 
 			getPlayer().updateAbility(frame);
 
-			networkThread.checkUnacknowledgedPackets(); // if the server has
-														// taken too long to
-														// acknowledge any
-														// packets, this is
-														// where we resend them
-			networkThread.sendPacket(new EntityLocationPacket(Client.getNextPacketId(), player.getId(), player
-					.getLocation()));
+			networkThread.checkUnacknowledgedPackets(); // if the server has taken too long to acknowledge any packets, this is where we resend them
 
 			// get player input
 			// move sprites
@@ -198,7 +202,7 @@ public class Client {
 	public HashMap<Integer, Projectile> getUnacknowledgedProjectiles() {
 		return this.unacknowledgedProjectiles;
 	}
-	
+
 	public ArrayList<EnvironmentAnimation> getEnvironmentAnimations() {
 		return environmentAnimations;
 	}

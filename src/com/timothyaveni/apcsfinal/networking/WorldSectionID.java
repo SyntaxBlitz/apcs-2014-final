@@ -6,6 +6,8 @@ public class WorldSectionID {
 		switch (id) {
 			case 1:
 				return "Map1";
+			case 2:
+				return "Map2";
 			default:
 				return "";
 		}
