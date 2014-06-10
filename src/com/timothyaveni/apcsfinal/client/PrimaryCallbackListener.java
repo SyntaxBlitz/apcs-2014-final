@@ -2,6 +2,7 @@ package com.timothyaveni.apcsfinal.client;
 
 import java.util.HashMap;
 
+import com.timothyaveni.apcsfinal.networking.AnimationTypeID;
 import com.timothyaveni.apcsfinal.networking.EntityTypeID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
@@ -118,8 +119,9 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 
 	@Override
 	public void environmentAnimationStarted(EnvironmentAnimationPacket packet) {
-		// TODO Auto-generated method stub
-		
+		client.getEnvironmentAnimations().add(
+				AnimationTypeID.constructAnimation(packet.getAnimationType(), client.getFrame(), packet.getLocation(),
+						packet.getData()));
 	}
-	
+
 }
