@@ -80,15 +80,19 @@ public class Archer extends Player {
 	}
 
 	@Override
-	public void useAbility(long frame, Client client) {
-		// TODO Auto-generated method stub
-		
+	public void updateAbility(long frame) {
+		if (frame - lastAbilityCall > 300 && abilityActive) { // it has been more than 300 frames (=10 seconds)
+			abilityActive = false;
+			if (getHP() >= 100) // checks to make sure resetting HP will not kill player
+				setHP(getHP() - 100);
+			else
+				setHP(1);
+		}
 	}
 
-	@Override
-	public void updateAbility(long frame) {
-		// TODO Auto-generated method stub
-		
+	public boolean isAbilityActive() {
+		return this.abilityActive;
 	}
+
 
 }
