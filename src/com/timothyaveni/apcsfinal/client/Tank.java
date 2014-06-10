@@ -115,23 +115,27 @@ public class Tank extends Player {
 	}
 
 	@Override
-	public void useAbility(long frame, client Client) {
-		if(frame - lastAbilityCall > 600){ //600 frames = 20 seconds after last ability call (10 seconds after ability ended)
+	public void useAbility(long frame, Client client) {
+		if (frame - lastAbilityCall > 600) { // 600 frames = 20 seconds after last ability call (10 seconds after ability ended)
 			abilityActive = true;
 			lastAbilityCall = frame;
 			setHP(getHP() + 100);
-		}	
+		}
 	}
 
 	@Override
 	public void updateAbility(long frame) {
-		if (frame - lastAbilityCall > 300 && abilityActive) {	// it has been more than 300 frames (=10 seconds)
+		if (frame - lastAbilityCall > 300 && abilityActive) { // it has been more than 300 frames (=10 seconds)
 			abilityActive = false;
 			if (getHP() >= 100) // checks to make sure resetting HP will not kill player
 				setHP(getHP() - 100);
 			else
 				setHP(1);
 		}
+	}
+
+	public boolean isAbilityActive() {
+		return this.abilityActive;
 	}
 
 }
