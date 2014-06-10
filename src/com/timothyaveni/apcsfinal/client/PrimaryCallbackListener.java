@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.timothyaveni.apcsfinal.networking.EntityTypeID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewProjectileAcknowledgePacket;
@@ -113,6 +114,12 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 			client.getUnacknowledgedProjectiles().remove(packet.getAcknowledgePacketId());
 			client.getMyProjectiles().add(projectile);
 		}
+	}
+
+	@Override
+	public void environmentAnimationStarted(EnvironmentAnimationPacket packet) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

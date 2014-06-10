@@ -16,6 +16,7 @@ import com.timothyaveni.apcsfinal.networking.EntityTypeID;
 import com.timothyaveni.apcsfinal.networking.WorldSectionID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
@@ -161,6 +162,12 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 				new NewProjectileAcknowledgePacket(Server.getNextPacketId(), packet.getRemoteId(), entityId), address,
 				port);
 		Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), projectile));
+	}
+
+	@Override
+	public void environmentAnimationStarted(EnvironmentAnimationPacket packet) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

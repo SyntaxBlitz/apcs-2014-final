@@ -3,6 +3,7 @@ package com.timothyaveni.apcsfinal.networking;
 import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
@@ -53,6 +54,9 @@ public class PacketProcessor {
 				break;
 			case NEW_PROJECTILE_ACKNOWLEDGE:
 				toReturn = new NewProjectileAcknowledgePacket(localPacketId, data);
+				break;
+			case ENVIRONMENT_ANIMATION_PACKET:
+				toReturn = new EnvironmentAnimationPacket(localPacketId, data);
 				break;
 		}
 

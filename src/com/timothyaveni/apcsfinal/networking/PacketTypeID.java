@@ -22,6 +22,8 @@ public class PacketTypeID {
 				return 7;
 			case NEW_PROJECTILE_ACKNOWLEDGE:
 				return 8;
+			case ENVIRONMENT_ANIMATION_PACKET:
+				return 9;
 			default:
 				return -1;
 		}
@@ -47,6 +49,8 @@ public class PacketTypeID {
 				return PacketType.NEW_PROJECTILE;
 			case 8:
 				return PacketType.NEW_PROJECTILE_ACKNOWLEDGE;
+			case 9:
+				return PacketType.ENVIRONMENT_ANIMATION_PACKET;
 			default:
 				return null;
 		}
