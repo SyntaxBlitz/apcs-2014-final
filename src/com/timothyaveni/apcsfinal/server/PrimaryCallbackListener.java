@@ -67,7 +67,7 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		}
 
 		if (packet.getLocation().getWorldSectionId() != 0
-				&& !server.getLoadedMaps().containsKey(packet.getLocation().getWorldSectionId())) {
+				&& !server.getLoadedMaps().containsKey(packet.getLocation().getWorldSectionId())) {	// will probably never happen.
 			try {
 				server.getLoadedMaps().put(
 						packet.getLocation().getWorldSectionId(),

@@ -84,8 +84,10 @@ public class Server {
 	private void mainLoop() {
 		long tickStart;
 
-		// load in first map
+		// easiest to just load in all the maps at once
 		loadMap(1);
+		loadMap(2);
+		loadMap(3);
 
 		while (true) {
 			tickStart = System.nanoTime();
