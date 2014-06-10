@@ -1,5 +1,6 @@
 package com.timothyaveni.apcsfinal.networking;
 
+import com.timothyaveni.apcsfinal.client.ArcanusBall;
 import com.timothyaveni.apcsfinal.client.Archer;
 import com.timothyaveni.apcsfinal.client.Arrow;
 import com.timothyaveni.apcsfinal.client.Entity;
@@ -39,6 +40,8 @@ public class EntityTypeID {
 				return 9;
 			case ARROW:
 				return 10;
+			case ARCANUS_BALL:
+				return 11;
 			default:
 				return -1;
 		}
@@ -68,6 +71,8 @@ public class EntityTypeID {
 				return EntityType.MAGIC_BALL;
 			case 10:
 				return EntityType.ARROW;
+			case 11:
+				return EntityType.ARCANUS_BALL;
 			default:
 				return null;
 		}
@@ -97,6 +102,8 @@ public class EntityTypeID {
 				return new MagicBall(entityId, location);
 			case ARROW:
 				return new Arrow(entityId, location);
+			case ARCANUS_BALL:
+				return new ArcanusBall(entityId, location);
 		}
 		return null;
 	}
