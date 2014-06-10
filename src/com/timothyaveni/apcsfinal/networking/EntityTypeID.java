@@ -1,6 +1,7 @@
 package com.timothyaveni.apcsfinal.networking;
 
 import com.timothyaveni.apcsfinal.client.Archer;
+import com.timothyaveni.apcsfinal.client.Arrow;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Healer;
 import com.timothyaveni.apcsfinal.client.Location;
@@ -36,6 +37,8 @@ public class EntityTypeID {
 				return 8;
 			case MAGIC_BALL:
 				return 9;
+			case ARROW:
+				return 10;
 			default:
 				return -1;
 		}
@@ -63,6 +66,8 @@ public class EntityTypeID {
 				return EntityType.GOLEM_ENEMY;
 			case 9:
 				return EntityType.MAGIC_BALL;
+			case 10:
+				return EntityType.ARROW;
 			default:
 				return null;
 		}
@@ -90,6 +95,8 @@ public class EntityTypeID {
 				return new GolemEnemy(entityId, location);
 			case MAGIC_BALL:
 				return new MagicBall(entityId, location);
+			case ARROW:
+				return new Arrow(entityId, location);
 		}
 		return null;
 	}

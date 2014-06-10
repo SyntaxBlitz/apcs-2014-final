@@ -1,8 +1,11 @@
 package com.timothyaveni.apcsfinal.client;
 
 import com.timothyaveni.apcsfinal.networking.EntityType;
+import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 
 public class Archer extends Player {
+
+	private long lastAttackFrame = 0;
 
 	public Archer(int id, Location loc) {
 		super(id, loc);
@@ -65,8 +68,13 @@ public class Archer extends Player {
 
 	@Override
 	public void attack(Client client) {
-		// TODO Auto-generated method stub
-
+		if (client.getFrame() - lastAttackFrame > 15) {	// 2 arrows/sec
+			Arrow projectile = new Arrow(-1, getLocation());
+			int packetId = Client.getNextPacketId();
+			client.getUnacknowledgedProjectiles().put(packetId, projectile);
+			client.getNetworkThread().sendPacket(new NewProjectilePacket(packetId, EntityType.ARROW, getLocation()));
+			lastAttackFrame = client.getFrame();
+		}
 	}
 
 	@Override
