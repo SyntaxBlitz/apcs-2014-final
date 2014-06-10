@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.server.Server;
 
 public abstract class Projectile extends Entity {
 
@@ -106,5 +107,10 @@ public abstract class Projectile extends Entity {
 	}
 	
 	public abstract int getBaseDamage();
+
+	public void update(Server server) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

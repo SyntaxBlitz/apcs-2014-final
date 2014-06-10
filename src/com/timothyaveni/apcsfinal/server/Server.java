@@ -14,6 +14,7 @@ import com.timothyaveni.apcsfinal.client.EntityInfo;
 import com.timothyaveni.apcsfinal.client.FileReader;
 import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
+import com.timothyaveni.apcsfinal.client.Projectile;
 import com.timothyaveni.apcsfinal.networking.EntityTypeID;
 import com.timothyaveni.apcsfinal.networking.WorldSectionID;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
@@ -40,6 +41,8 @@ public class Server {
 
 	private ArrayList<Player> players = new ArrayList<Player>();
 
+	private ArrayList<Projectile> myProjectiles = new ArrayList<Projectile>();
+	
 	private HashMap<Integer, MapMetadata> loadedMaps = new HashMap<Integer, MapMetadata>();
 	private static int lastEntityId = 0;
 
@@ -103,7 +106,17 @@ public class Server {
 					}
 				}
 			}
+			
+			Entity[] visibleEntityArray = visibleEntities.values().toArray(new Entity[0]);
+			for(int i = 0; i < visibleEntityArray.length; i++) {
+				if (visibleEntityArray[i] instanceof EnemyAI) {
+					EnemyAI thisEnemy = (EnemyAI) visibleEntityArray[i];
+					thisEnemy.act(this);
+				}
+			}
 
+			updateMyProjectiles();
+			
 			try {
 				long tryDelay = ((long) (1000000000 / TPS) - (System.nanoTime() - tickStart)) / 1000000;
 				if (tryDelay > 0)
@@ -128,6 +141,14 @@ public class Server {
 					// cry
 				}
 			}
+		}
+	}
+	
+	private void updateMyProjectiles() {
+		Projectile[] projectiles = myProjectiles.toArray(new Projectile[0]);
+		for (int i = 0; i < projectiles.length; i++) {
+			Projectile projectile = projectiles[i];
+			projectile.update(this);
 		}
 	}
 
