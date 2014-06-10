@@ -68,7 +68,7 @@ public class ArcanusEnemy extends Entity implements BossAI {
 				if (this.getHP() < 1000)
 					summonMinions(server);
 				else
-					projectileAttack();
+					projectileAttack(server);
 			}
 		}
 	}
