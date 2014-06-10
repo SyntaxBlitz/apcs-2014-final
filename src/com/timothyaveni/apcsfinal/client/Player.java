@@ -159,4 +159,9 @@ public abstract class Player extends Entity {
 	public abstract void useAbility(long frame);
 	
 	public abstract void updateAbility(long frame);
+	
+	public void setHP(int hp) {
+		super.setHP(hp);
+		System.out.println("set hp to " + hp);
+	}
 }

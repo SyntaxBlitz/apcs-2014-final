@@ -70,8 +70,8 @@ public class MapCanvas extends Canvas implements UsesClient {
 		g.setColor(new Color(96, 96, 96));
 		g.fillRoundRect(30, Client.HEIGHT - 60, Client.WIDTH / 3, 16, 10, 10);
 		g.setColor(new Color(128, 0, 0));
-		g.fillRoundRect(30, Client.HEIGHT - 60, (Client.WIDTH / 3)
-				* (client.getPlayer().getHP() / client.getPlayer().getMaxHP()), 16, 10, 10);
+		g.fillRoundRect(30, Client.HEIGHT - 60, (int) ((Client.WIDTH / 3)
+				* ((double)client.getPlayer().getHP() / client.getPlayer().getMaxHP())), 16, 10, 10);
 	}
 
 	@Override

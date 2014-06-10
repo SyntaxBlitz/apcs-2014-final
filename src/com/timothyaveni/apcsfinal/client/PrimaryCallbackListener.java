@@ -60,6 +60,7 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 	public void entityDamaged(EntityDamagePacket packet) {
 		Entity entity = client.getEntityList().get(packet.getEntityId());
 		if (entity == client.getPlayer()) { // otherwise we don't care.
+			System.out.println("took " + packet.getDamageAmount() + " damage");
 			int playerHP = client.getPlayer().getHP();
 			int damageAmount = packet.getDamageAmount();
 			if (playerHP - damageAmount > client.getPlayer().getMaxHP())

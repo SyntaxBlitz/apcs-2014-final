@@ -7,14 +7,6 @@
 				"y": 2000,
 				"direction": 1
 			}
-		},
-		{
-			"type": 2,
-			"location": {
-				"x": 1010,
-				"y": 2100,
-				"direction": 3
-			}
 		}
 	],
 	"spawnPoint": {
