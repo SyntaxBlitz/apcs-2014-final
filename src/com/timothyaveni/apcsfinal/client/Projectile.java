@@ -1,5 +1,8 @@
 package com.timothyaveni.apcsfinal.client;
 
+import java.awt.Rectangle;
+
+import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 
 public abstract class Projectile extends Entity {
@@ -75,15 +78,33 @@ public abstract class Projectile extends Entity {
 					}
 					break;
 			}
+
+			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
+			for (int i = 0; i < entities.length; i++) {
+				Entity thisEntity = entities[i];
+				if (thisEntity == client.getPlayer() || thisEntity instanceof Projectile)	// doesn't collide with this player or other projectiles
+					continue;
+				// rectangle collision code provided by java.awt.Rectangle this time
+				if (new Rectangle(thisEntity.getLocation().getX() - thisEntity.getWidth() / 2, thisEntity.getLocation()
+						.getY() - thisEntity.getHeight() / 2, thisEntity.getWidth(), thisEntity.getHeight())
+						.intersects(new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY()
+								- getHeight() / 2, getWidth(), getHeight()))) {
+					newLocation = new Location(0, 0, 0, 0);	// get rid of the projectile because it collided with someone
+					if (!(thisEntity instanceof Player)) {
+						client.getNetworkThread().sendPacket(new EntityDamagePacket(Client.getNextPacketId(), thisEntity.getId(), getBaseDamage()));
+					}
+				}
+			}
 		}
 		setLocation(newLocation);
-		client.getNetworkThread().sendPacket(
-				new EntityLocationPacket(Client.getNextPacketId(), getId(), newLocation));
+		client.getNetworkThread().sendPacket(new EntityLocationPacket(Client.getNextPacketId(), getId(), newLocation));
 		if (newLocation.equals(new Location(0, 0, 0, 0))) {
 			client.getMyProjectiles().remove(this);
 		} else {
 			distanceTravelled += getVelocity();
 		}
 	}
+	
+	public abstract int getBaseDamage();
 
 }
