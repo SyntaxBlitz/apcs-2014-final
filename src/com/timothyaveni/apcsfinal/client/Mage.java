@@ -4,6 +4,9 @@ import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 
 public class Mage extends Player {
+	
+	private boolean abilityAvailable = true;
+	private long lastAbilityCall;
 
 	long lastAttackFrame = 0;
 	
