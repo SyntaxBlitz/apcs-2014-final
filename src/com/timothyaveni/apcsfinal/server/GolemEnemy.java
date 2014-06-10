@@ -19,7 +19,7 @@ public class GolemEnemy extends Entity implements EnemyAI {
 		super(id, loc);
 	}
 
-	public void attack(Player track) { // Test
+	public void attack(Player track) {
 		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getStrength()));
 	}
 

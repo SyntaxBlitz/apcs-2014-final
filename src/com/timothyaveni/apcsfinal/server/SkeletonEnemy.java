@@ -1,7 +1,10 @@
 package com.timothyaveni.apcsfinal.server;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Player;
@@ -18,27 +21,28 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 	}
 
 	public void attack(Player track) { // Test
-		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getStrength()));
+		System.out.println("attacking player");
+		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg));
 	}
 
 	public void move(int distance, int direction, String plane) {
 		if (plane.equals("X")) {
 			if (direction > 0)
 				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(
-						this.getLocation().getX() + getVelocity(), this.getLocation().getY(), Location.SOUTH, this
+						this.getLocation().getX() - getVelocity(), this.getLocation().getY(), Location.SOUTH, this
 								.getLocation().getWorldSectionId())));
 			else
 				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(
-						this.getLocation().getX() - getVelocity(), this.getLocation().getY(), Location.NORTH, this
+						this.getLocation().getX() + getVelocity(), this.getLocation().getY(), Location.NORTH, this
 								.getLocation().getWorldSectionId())));
 		} else {
 			if (direction > 0)
 				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(
-						this.getLocation().getX(), this.getLocation().getY() + getVelocity(), Location.EAST, this
+						this.getLocation().getX(), this.getLocation().getY() - getVelocity(), Location.EAST, this
 								.getLocation().getWorldSectionId())));
 			else
 				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(
-						this.getLocation().getX(), this.getLocation().getY() - getVelocity(), Location.WEST, this
+						this.getLocation().getX(), this.getLocation().getY() + getVelocity(), Location.WEST, this
 								.getLocation().getWorldSectionId())));
 		}
 
@@ -66,16 +70,39 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 		track = players.get(smallestIndex);
 
-		if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 32
-				|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 48) {
+		Rectangle attackArea = null;
+		switch (getLocation().getDirection()) {
+			case Location.NORTH:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() - getHeight()
+						/ 2 - getHeight(), getWidth(), getHeight());
+				break;
+			case Location.SOUTH:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() + getHeight()
+						/ 2, getWidth(), getHeight());
+				break;
+			case Location.EAST:
+				attackArea = new Rectangle(getLocation().getX() + getWidth() / 2, getLocation().getY() - getHeight()
+						/ 2, getWidth(), getHeight());
+				break;
+			case Location.WEST:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2 - getWidth(), getLocation().getY()
+						- getHeight() / 2, getWidth(), getHeight());
+				break;
+		}
+
+		if (server.getCurrentTick() % 15 == 0
+				&& attackArea.intersects(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track
+						.getLocation().getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()))) {
+			System.out.println(attackArea);
+			System.out.println(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track.getLocation()
+					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
 			attack(track);
-		} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY()
-				- getLocation().getY()) {
-			move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation()
+		} else if (Math.abs(track.getLocation().getX() - getLocation().getX()) < Math.abs(track.getLocation().getY()
+				- getLocation().getY())) {
+			move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), (getLocation().getX() - track.getLocation()
 					.getX()), "X");
-		} else if (track.getLocation().getY() - getLocation().getY() < track.getLocation().getY()
-				- getLocation().getY()) {
-			move((track.getLocation().getY() - getLocation().getY()), (getLocation().getY() - track.getLocation()
+		} else {
+			move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), (getLocation().getY() - track.getLocation()
 					.getY()), "Y");
 		}
 
@@ -122,7 +149,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public int getVelocity() {
-		return 16;
+		return 6;
 	}
 
 	public int getGoldValue() {

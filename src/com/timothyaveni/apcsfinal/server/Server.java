@@ -218,5 +218,4 @@ public class Server {
 	public ArrayList<Projectile> getMyProjectiles() {
 		return myProjectiles;
 	}
-
 }

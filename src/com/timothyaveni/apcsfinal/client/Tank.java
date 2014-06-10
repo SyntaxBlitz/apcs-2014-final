@@ -119,7 +119,7 @@ public class Tank extends Player {
 
 	@Override
 	public void updateAbility(long frame) {
-		if (frame - lastAbilityCall > 300) {	// it has been more than 300 frames (=10 seconds)
+		if (abilityActive && frame - lastAbilityCall > 300) {	// it has been more than 300 frames (=10 seconds)
 			abilityActive = false;
 			if (getHP() >= 100) // checks to make sure resetting HP will not kill player
 				setHP(getHP() - 100);
