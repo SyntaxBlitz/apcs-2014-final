@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Player;
+import com.timothyaveni.apcsfinal.client.ArcanusBall;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 
@@ -115,7 +116,7 @@ public class ArcanusEnemy extends Entity implements BossAI {
 	}
 
 	public void projectileAttack(Server server) { // This method creates new projectiles to send to the server
-		//server.getProjectileList().add(new MagicBall())
+		server.getMyProjectiles().add(new ArcanusBall(Server.getNextEntityId(), new Location(this.getLocation().getX() + 10, this.getLocation().getY(), Location.EAST, this.getLocation().getWorldSectionId())));
 	}
 
 	public Location getLocation() {
