@@ -21,7 +21,7 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 	public EntityDamagePacket attack(EntityDamagePacket e) { // Test
 		return e;
 	}
-	
+
 	public void attack(Player track) {
 		System.out.println("attacking player");
 		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getSpeed()));
@@ -29,19 +29,31 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 
 	public void move(int distance, int direction, String plane) {
 		if (plane.equals("X")) {
-			if (direction > 0)
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX() + distance, this.getLocation().getY(),
-						Location.EAST, this.getLocation().getWorldSectionId())));
-			else
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX() - distance, this.getLocation().getY(),
-						Location.WEST, this.getLocation().getWorldSectionId())));
+			if (direction > 0) {
+				Location newLocation = new Location(this.getLocation().getX() + distance, this.getLocation().getY(),
+						Location.EAST, this.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			} else {
+				Location newLocation = new Location(this.getLocation().getX() - distance, this.getLocation().getY(),
+						Location.WEST, this.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			}
 		} else {
-			if (direction > 0)
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX(), this.getLocation().getY() + distance,
-						Location.SOUTH, this.getLocation().getWorldSectionId())));
-			else
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX(), this.getLocation().getY() - distance,
-						Location.NORTH, this.getLocation().getWorldSectionId())));
+			if (direction > 0) {
+				Location newLocation = new Location(
+						this.getLocation().getX(), this.getLocation().getY() + distance, Location.SOUTH, this
+						.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			} else {
+				Location newLocation = new Location(
+						this.getLocation().getX(), this.getLocation().getY() - distance, Location.NORTH, this
+						.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			}
 		}
 
 	}
@@ -96,16 +108,17 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
 			attack(track);
 		}
-		
-		if(server.getCurrentTick() % 1 == 0){
-			if(this.getLocation().getDistanceTo(track.getLocation()) < 700){
-				if ((track.getLocation().getX() - this.getLocation().getX() != 0) &&
-						Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track.getLocation().getY() - this.getLocation().getY())) {
-					move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track.getLocation().getX() - getLocation()
-							.getX(), "X");
+
+		if (server.getCurrentTick() % 1 == 0) {
+			if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
+				if ((track.getLocation().getX() - this.getLocation().getX() != 0)
+						&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
+								.getLocation().getY() - this.getLocation().getY())) {
+					move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
+							.getLocation().getX() - getLocation().getX(), "X");
 				} else {
-					move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track.getLocation().getY() - getLocation()
-							.getY(), "Y");
+					move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
+							.getLocation().getY() - getLocation().getY(), "Y");
 				}
 			}
 		}
