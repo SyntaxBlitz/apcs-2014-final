@@ -211,4 +211,7 @@ public class Server {
 		return this.players;
 	}
 
+	public ArrayList<Projectile> getProjectileList(){
+		return this.myProjectiles;
+	}
 }

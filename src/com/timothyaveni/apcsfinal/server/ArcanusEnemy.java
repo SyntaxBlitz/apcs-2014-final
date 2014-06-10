@@ -114,8 +114,8 @@ public class ArcanusEnemy extends Entity implements BossAI {
 
 	}
 
-	public void projectileAttack() { // This method creates new projectiles to send to the server
-		
+	public void projectileAttack(Server server) { // This method creates new projectiles to send to the server
+		//server.getProjectileList().add(new MagicBall())
 	}
 
 	public Location getLocation() {
