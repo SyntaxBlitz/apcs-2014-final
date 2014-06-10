@@ -6,6 +6,8 @@ import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 public class Archer extends Player {
 
 	private long lastAttackFrame = 0;
+	private boolean abilityActive = false;
+	private long lastAbilityCall;
 
 	public Archer(int id, Location loc) {
 		super(id, loc);
@@ -18,7 +20,12 @@ public class Archer extends Player {
 
 	@Override
 	public int getBaseDamage() {
-		return 25;
+		if(abilityActive){
+			return 50;
+		}else{
+			return 35;
+		}
+		
 	}
 
 	@Override
@@ -78,15 +85,15 @@ public class Archer extends Player {
 	}
 
 	@Override
-	public void useAbility(long frame, Client client) {
-		// TODO Auto-generated method stub
-		
+	public void updateAbility(long frame) {
+		if (frame - lastAbilityCall > 300 && abilityActive) { // it has been more than 300 frames (=10 seconds)
+			abilityActive = false;
+		}
 	}
 
-	@Override
-	public void updateAbility(long frame) {
-		// TODO Auto-generated method stub
-		
+	public boolean isAbilityActive() {
+		return this.abilityActive;
 	}
+
 
 }
