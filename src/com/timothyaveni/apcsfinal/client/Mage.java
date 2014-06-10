@@ -1,15 +1,18 @@
 package com.timothyaveni.apcsfinal.client;
 
+import com.timothyaveni.apcsfinal.networking.AnimationType;
 import com.timothyaveni.apcsfinal.networking.EntityType;
+import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 
 public class Mage extends Player {
-	
+
 	private boolean abilityAvailable = true;
 	private long lastAbilityCall;
 
 	long lastAttackFrame = 0;
-	
+
 	public Mage(int id, Location loc) {
 		super(id, loc);
 	}
@@ -71,31 +74,35 @@ public class Mage extends Player {
 
 	@Override
 	public void attack(Client client) {
-		if (client.getFrame() - lastAttackFrame > 60) {	// 1 magic ball every 2 seconds
+		if (client.getFrame() - lastAttackFrame > 60) { // 1 magic ball every 2 seconds
 			MagicBall projectile = new MagicBall(-1, getLocation());
 			int packetId = Client.getNextPacketId();
 			client.getUnacknowledgedProjectiles().put(packetId, projectile);
-			client.getNetworkThread().sendPacket(new NewProjectilePacket(packetId, EntityType.MAGIC_BALL, getLocation()));
+			client.getNetworkThread().sendPacket(
+					new NewProjectilePacket(packetId, EntityType.MAGIC_BALL, getLocation()));
 			lastAttackFrame = client.getFrame();
 		}
 	}
 
 	@Override
 	public void useAbility(long frame, Client client) {
-		if(abilityAvailable){
-			for(Entity a : client.getEntityList()){
-				if(!(a instanceof player) && getLocation().getDistanceTo(a.getLocation()) <= getAttackRadius() * 3)
-						client.getNetworkThread().sendPacket(new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage() + 10));
+		if (frame - lastAbilityCall < 600) {
+			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
+			for (Entity entity : entities) {
+				if (!(entity instanceof Player)
+						&& getLocation().getDistanceTo(entity.getLocation()) <= getAttackRadius() * 3)
+					client.getNetworkThread().sendPacket(
+							new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage() + 10));
+				client.getNetworkThread().sendPacket(
+						new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.DAMAGE_NUMBER, entity
+								.getLocation(), getBaseDamage() + 10));
 			}
 			lastAbilityCall = frame;
 		}
-	}	
+	}
 
 	@Override
 	public void updateAbility(long frame) {
-		if(frame - lastAbilityCall < 600)
-			abilityAvailable = false;
-		else
-			abilityAvailable = true;
+
 	}
 }

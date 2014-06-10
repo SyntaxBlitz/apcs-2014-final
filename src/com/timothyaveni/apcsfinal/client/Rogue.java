@@ -10,7 +10,7 @@ import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 
 public class Rogue extends Player {
-	
+
 	private boolean abilityAvailable = true;
 	private long lastAbilityCall;
 
@@ -117,18 +117,24 @@ public class Rogue extends Player {
 
 	@Override
 	public void useAbility(long frame, Client client) {
-		if(abilityAvailable){
-			for(Entity a : client.getEntityList()){
-				if(!(a instanceof player) && getLocation().getDistanceTo(a.getLocation()) <= getAttackRadius() * 1.5)
-						client.getNetworkThread().sendPacket(new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage() + 5));
+		if (abilityAvailable) {
+			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
+			for (Entity entity : entities) {
+				if (!(entity instanceof Player)
+						&& getLocation().getDistanceTo(entity.getLocation()) <= getAttackRadius() * 1.5)
+					client.getNetworkThread().sendPacket(
+							new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage() + 5));
+				client.getNetworkThread().sendPacket(
+						new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.DAMAGE_NUMBER, entity
+								.getLocation(), getBaseDamage() + 5));
 			}
 			lastAbilityCall = frame;
 		}
-	}	
+	}
 
 	@Override
 	public void updateAbility(long frame) {
-		if(frame - lastAbilityCall < 300)
+		if (frame - lastAbilityCall < 300)
 			abilityAvailable = false;
 		else
 			abilityAvailable = true;
