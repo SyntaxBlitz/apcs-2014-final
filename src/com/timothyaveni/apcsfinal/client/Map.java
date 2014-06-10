@@ -9,7 +9,6 @@ import com.timothyaveni.apcsfinal.networking.WorldSectionID;
 
 public class Map {
 	private BufferedImage image = null; // image to be used in render method
-	private BufferedImage collision;
 
 	private int worldSectionId;
 
@@ -22,10 +21,8 @@ public class Map {
 		// assigns Image of the map background to the field
 		try {
 			image = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + ".png"));
-			collision = ImageIO.read(FileReader.getFileFromResourceString(fileLocation + "_Collision.png"));
 
-			metadata = new MapMetadata(FileReader.getFileFromResourceString(fileLocation + "_metadata.json"),
-					worldSectionId);
+			metadata = new MapMetadata(fileLocation, worldSectionId);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -35,10 +32,6 @@ public class Map {
 	public BufferedImage getPic(Location playerLocation) {
 		return image.getSubimage(playerLocation.getX() - Client.WIDTH / 2, playerLocation.getY() - Client.HEIGHT / 2,
 				1024, 768);
-	}
-
-	public boolean isPointValid(int x, int y) {
-		return (collision.getRGB(x, y) & 0xFFFFFF) == 0xFFFFFF;
 	}
 
 	public MapMetadata getMetadata() {
