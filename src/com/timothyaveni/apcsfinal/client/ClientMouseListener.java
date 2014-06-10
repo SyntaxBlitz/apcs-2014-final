@@ -29,7 +29,7 @@ public class ClientMouseListener implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		if (client.isInGame()) {
 			if (e.getButton() == MouseEvent.BUTTON2) {
-				client.getPlayer().useAbility(client.getFrame());
+				client.getPlayer().useAbility(client.getFrame(), client);
 			} else {
 				if (!client.getPlayer().isMoving()) {
 					client.getPlayer().setStartedAttack(true);
