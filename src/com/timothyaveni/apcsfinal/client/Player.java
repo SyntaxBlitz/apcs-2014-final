@@ -125,7 +125,7 @@ public abstract class Player extends Entity {
 		Iterator<Entity> i = entityList.values().iterator();
 		while (i.hasNext()) {
 			Entity entity = i.next();
-			if (entity == this)
+			if (entity == this || entity instanceof Projectile)
 				continue;
 			Location myLocation = getLocation();
 			Location entityLocation = entity.getLocation();

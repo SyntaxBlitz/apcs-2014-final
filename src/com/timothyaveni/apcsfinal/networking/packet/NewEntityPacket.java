@@ -56,7 +56,6 @@ public class NewEntityPacket extends Packet {
 		this.entityId = ByteArrayTools.readBytes(data, 7, 2, false);
 		this.entityLocation = new Location(ByteArrayTools.readBytes(data, 10, 4, true), ByteArrayTools.readBytes(data,
 				14, 4, true), ByteArrayTools.readBytes(data, 18, 1, false), ByteArrayTools.readBytes(data, 9, 1, false));
-		System.out.println(entityLocation);
 	}
 
 	@Override

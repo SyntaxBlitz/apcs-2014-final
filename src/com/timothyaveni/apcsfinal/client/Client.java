@@ -3,8 +3,11 @@ package com.timothyaveni.apcsfinal.client;
 import java.awt.event.KeyListener;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
+import com.sun.jmx.remote.internal.ClientListenerInfo;
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
 import com.timothyaveni.apcsfinal.client.gui.MenuPanel;
 import com.timothyaveni.apcsfinal.networking.EntityType;
@@ -18,6 +21,8 @@ public class Client {
 	private static int lastLocalPacketId = 0;
 	private boolean[] keyboard = new boolean[4];
 	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
+	private ArrayList<Projectile> myProjectiles = new ArrayList<Projectile>();
+	private HashMap<Integer, Projectile> unacknowledgedProjectiles = new HashMap<Integer, Projectile>();
 	private long frame = 0; // current frame number. Increments on each frame
 
 	private boolean inGame = false;
@@ -79,6 +84,8 @@ public class Client {
 				player.setMoving(false);
 
 			player.characterMove(keyboard, currentMap, entities);
+			updateMyProjectiles();
+
 			updatePlayerAbility();
 
 			networkThread.checkUnacknowledgedPackets(); // if the server has
@@ -94,6 +101,53 @@ public class Client {
 			gameFrame.getMapCanvas().render();
 
 			frame++;
+		}
+	}
+
+	private void updateMyProjectiles() {
+		Projectile[] projectiles = myProjectiles.toArray(new Projectile[0]);
+		for(int i = 0; i < projectiles.length; i++) {
+			Projectile projectile = projectiles[i];
+			if (projectile.getDistanceTravelled() + projectile.getVelocity() > projectile.getMaxDistance()) {
+				getNetworkThread()
+						.sendPacket(
+								new EntityLocationPacket(Client.getNextPacketId(), projectile.getId(), new Location(0,
+										0, 0, 0)));
+				myProjectiles.remove(projectile);
+			} else {
+				Location currentLocation = projectile.getLocation();
+				Location newLocation = null;
+				switch (currentLocation.getDirection()) {
+				// TODO: make projectiles collide with things
+					case Location.NORTH:
+						newLocation = new Location(currentLocation.getX(), currentLocation.getY()
+								- projectile.getVelocity(), currentLocation.getDirection(),
+								currentLocation.getWorldSectionId());
+						break;
+					case Location.SOUTH:
+						newLocation = new Location(currentLocation.getX(), currentLocation.getY()
+								+ projectile.getVelocity(), currentLocation.getDirection(),
+								currentLocation.getWorldSectionId());
+						break;
+					case Location.EAST:
+						newLocation = new Location(currentLocation.getX() + projectile.getVelocity(),
+								currentLocation.getY(), currentLocation.getDirection(),
+								currentLocation.getWorldSectionId());
+						break;
+					case Location.WEST:
+						newLocation = new Location(currentLocation.getX() - projectile.getVelocity(),
+								currentLocation.getY(), currentLocation.getDirection(),
+								currentLocation.getWorldSectionId());
+						break;
+				}
+
+				projectile.setLocation(newLocation);
+				projectile.setDistanceTravelled(projectile.getDistanceTravelled() + projectile.getVelocity());
+				getNetworkThread()
+						.sendPacket(
+								new EntityLocationPacket(Client.getNextPacketId(), projectile.getId(), projectile
+										.getLocation()));
+			}
 		}
 	}
 
@@ -167,7 +221,6 @@ public class Client {
 	public void setPlayerType(EntityType playerType) {
 		this.playerType = playerType;
 	}
-	
 
 	public EntityType getPlayerType() {
 		return this.playerType;
@@ -176,9 +229,17 @@ public class Client {
 	public GameFrame getGameFrame() {
 		return this.gameFrame;
 	}
-	
-	public void updatePlayerAbility(){
 
+	public void updatePlayerAbility() {
+
+	}
+
+	public ArrayList<Projectile> getMyProjectiles() {
+		return this.myProjectiles;
+	}
+
+	public HashMap<Integer, Projectile> getUnacknowledgedProjectiles() {
+		return this.unacknowledgedProjectiles;
 	}
 
 }

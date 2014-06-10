@@ -10,6 +10,7 @@ import com.timothyaveni.apcsfinal.client.FileReader;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
+import com.timothyaveni.apcsfinal.client.Projectile;
 import com.timothyaveni.apcsfinal.networking.EntityTypeID;
 import com.timothyaveni.apcsfinal.networking.WorldSectionID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
@@ -17,6 +18,8 @@ import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewProjectileAcknowledgePacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 import com.timothyaveni.apcsfinal.networking.server.ServerCallbackListener;
 
@@ -59,9 +62,9 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		lastPlayerLocationId.put(entityId, packet.getRemoteId());
 		if (server.getEntityList().containsKey(entityId)) {
 			server.getEntityList().get(entityId).setLocation(packet.getLocation());
-		}
-
-		if (!server.getLoadedMaps().containsKey(packet.getLocation().getWorldSectionId())) {
+		}		
+		
+		if (packet.getLocation().getWorldSectionId() != 0 && !server.getLoadedMaps().containsKey(packet.getLocation().getWorldSectionId())) {
 			server.getLoadedMaps().put(
 					packet.getLocation().getWorldSectionId(),
 					new MapMetadata(FileReader.getFileFromResourceString(WorldSectionID.getMapNameFromID(packet
@@ -91,7 +94,7 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 						new Location(0, 0, 0, 0));
 				toSend.setMustAcknowledge(true); // this is a particularly important location packet because this is how the client knows to remove the entity
 				Server.addPacketToQueue(toSend);
-				
+
 				server.getEntityList().remove(packet.getEntityId());
 				server.getVisibleEntityList().remove(packet.getEntityId());
 			}
@@ -134,7 +137,23 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		if (entity != null) {
 			entity.setStartedAttack(packet.isAttacking());
 		}
-		Server.addPacketToQueue(new SimpleAttackPacket(Server.getNextPacketId(), packet.getEntityId(), packet.isAttacking()));
+		Server.addPacketToQueue(new SimpleAttackPacket(Server.getNextPacketId(), packet.getEntityId(), packet
+				.isAttacking()));
+	}
+
+	@Override
+	public void projectileIdRequested(NewProjectilePacket packet, InetAddress address, int port) {
+		int entityId = Server.getNextEntityId();
+		System.out.println("projectile entity id is " + entityId);
+		Projectile projectile = (Projectile) EntityTypeID.constructEntity(packet.getType(), entityId,
+				packet.getLocation());
+		server.getVisibleEntityList().put(entityId, projectile);
+		server.getEntityList().put(entityId, projectile);
+		System.out.println("projectile entity id is truly " + projectile.getId());
+
+		server.getThread().sendIndividualPacket(
+				new NewProjectileAcknowledgePacket(Server.getNextPacketId(), packet.getRemoteId(), entityId), address, port);
+		Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), projectile));
 	}
 
 }

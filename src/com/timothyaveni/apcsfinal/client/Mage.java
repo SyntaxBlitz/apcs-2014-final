@@ -1,9 +1,12 @@
 package com.timothyaveni.apcsfinal.client;
 
 import com.timothyaveni.apcsfinal.networking.EntityType;
+import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 
 public class Mage extends Player {
 
+	long lastAttackFrame = 0;
+	
 	public Mage(int id, Location loc) {
 		super(id, loc);
 	}
@@ -65,8 +68,14 @@ public class Mage extends Player {
 
 	@Override
 	public void attack(Client client) {
-		// TODO Auto-generated method stub
-
+		if (client.getFrame() - lastAttackFrame > 60) {	// 1 magic ball every 2 seconds
+			MagicBall projectile = new MagicBall(-1, getLocation());
+			int packetId = Client.getNextPacketId();
+			client.getUnacknowledgedProjectiles().put(packetId, projectile);
+			client.getNetworkThread().sendPacket(new NewProjectilePacket(packetId, EntityType.MAGIC_BALL, getLocation()));
+			System.out.println(packetId);
+			lastAttackFrame = client.getFrame();
+		}
 	}
 
 	@Override

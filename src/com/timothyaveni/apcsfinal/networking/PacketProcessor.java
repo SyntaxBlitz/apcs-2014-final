@@ -6,6 +6,8 @@ import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewProjectileAcknowledgePacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
 import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 
@@ -45,6 +47,12 @@ public class PacketProcessor {
 				break;
 			case SIMPLE_ATTACK:
 				toReturn = new SimpleAttackPacket(localPacketId, data);
+				break;
+			case NEW_PROJECTILE:
+				toReturn = new NewProjectilePacket(localPacketId, data);
+				break;
+			case NEW_PROJECTILE_ACKNOWLEDGE:
+				toReturn = new NewProjectileAcknowledgePacket(localPacketId, data);
 				break;
 		}
 

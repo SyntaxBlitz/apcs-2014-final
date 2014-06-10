@@ -4,6 +4,7 @@ import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewProjectileAcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 
 public abstract class ClientCallbackListener {
@@ -20,4 +21,6 @@ public abstract class ClientCallbackListener {
 
 	public abstract void simpleAttackAnimationUpdated(SimpleAttackPacket packet);
 
+	public abstract void newProjectileAcknowledged(NewProjectileAcknowledgePacket packet);
+	
 }

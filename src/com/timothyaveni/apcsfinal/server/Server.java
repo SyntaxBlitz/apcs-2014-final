@@ -115,7 +115,7 @@ public class Server {
 	}
 
 	public void sendOutPackets() {
-		Packet[] sendPackets = packetQueue.toArray(new Packet[packetQueue.size()]);
+		Packet[] sendPackets = packetQueue.toArray(new Packet[0]);
 		packetQueue.clear();
 		for (int i = 0; i < sendPackets.length; i++) {
 			Packet packet = sendPackets[i];

@@ -18,6 +18,10 @@ public class PacketTypeID {
 				return 5;
 			case SIMPLE_ATTACK:
 				return 6;
+			case NEW_PROJECTILE:
+				return 7;
+			case NEW_PROJECTILE_ACKNOWLEDGE:
+				return 8;
 			default:
 				return -1;
 		}
@@ -39,6 +43,10 @@ public class PacketTypeID {
 				return PacketType.NEW_CLIENT_ACKNOWLDEGEMENT;
 			case 6:
 				return PacketType.SIMPLE_ATTACK;
+			case 7:
+				return PacketType.NEW_PROJECTILE;
+			case 8:
+				return PacketType.NEW_PROJECTILE_ACKNOWLEDGE;
 			default:
 				return null;
 		}

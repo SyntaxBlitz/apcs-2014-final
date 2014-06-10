@@ -7,6 +7,7 @@ import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewProjectileAcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 
 public class PrimaryCallbackListener extends ClientCallbackListener {
@@ -104,4 +105,15 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 		}
 	}
 
+	@Override
+	public void newProjectileAcknowledged(NewProjectileAcknowledgePacket packet) {
+		System.out.println("postcall " + packet.getAcknowledgePacketId());
+		Projectile projectile = client.getUnacknowledgedProjectiles().get(packet.getAcknowledgePacketId());
+		if (projectile != null) {
+			projectile.setId(packet.getNewProjectileId());
+			client.getUnacknowledgedProjectiles().remove(packet.getAcknowledgePacketId());
+			client.getMyProjectiles().add(projectile);
+		}
+	}
+	
 }

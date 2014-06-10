@@ -5,9 +5,12 @@ import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Healer;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Mage;
+import com.timothyaveni.apcsfinal.client.MagicBall;
 import com.timothyaveni.apcsfinal.client.Rogue;
 import com.timothyaveni.apcsfinal.client.Tank;
+import com.timothyaveni.apcsfinal.server.ArcanusEnemy;
 import com.timothyaveni.apcsfinal.server.GoblinEnemy;
+import com.timothyaveni.apcsfinal.server.GolemEnemy;
 import com.timothyaveni.apcsfinal.server.SkeletonEnemy;
 
 public class EntityTypeID {
@@ -27,6 +30,12 @@ public class EntityTypeID {
 				return 5;
 			case MAGE:
 				return 6;
+			case ARCANUS_ENEMY:
+				return 7;
+			case GOLEM_ENEMY:
+				return 8;
+			case MAGIC_BALL:
+				return 9;
 			default:
 				return -1;
 		}
@@ -48,6 +57,12 @@ public class EntityTypeID {
 				return EntityType.ARCHER;
 			case 6:
 				return EntityType.MAGE;
+			case 7:
+				return EntityType.ARCANUS_ENEMY;
+			case 8:
+				return EntityType.GOLEM_ENEMY;
+			case 9:
+				return EntityType.MAGIC_BALL;
 			default:
 				return null;
 		}
@@ -69,6 +84,12 @@ public class EntityTypeID {
 				return new Archer(entityId, location);
 			case MAGE:
 				return new Mage(entityId, location);
+			case ARCANUS_ENEMY:
+				return new ArcanusEnemy(entityId, location);
+			case GOLEM_ENEMY:
+				return new GolemEnemy(entityId, location);
+			case MAGIC_BALL:
+				return new MagicBall(entityId, location);
 		}
 		return null;
 	}

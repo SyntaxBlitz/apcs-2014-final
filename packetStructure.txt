@@ -12,8 +12,7 @@ enum definitions:
 		Direction.SOUTH : 0
 		Direction.WEST  : 1
 	Entity:
-		Tank			: 0
-		SkeletonEnemy	: 1
+		defined in com.timothyaveni.apcsfinal.networking.EntityTypeID
 
 all Packets:
 	byte 0: packet type		(PacketType enum)
@@ -56,3 +55,14 @@ NewClientAcknowledgementPacket (total size=9 bytes):
 SimpleAttackPacket (total size=9 bytes):
 	bytes 6-7: entity id	(unsigned int)
 	byte 8: is currently attacking?	boolean (unsigned int 0-1)
+
+NewProjectilePacket must-acknowledge (total size=17 bytes):
+	byte 6: entity type	(Entity enum)
+	byte 7: world section ID	(unsigned int)
+	bytes 8-11: location-x	(unsigned int)
+	bytes 12-15: location-y	(unsigned int)
+	byte 16: facing	(Direction enum)
+	
+NewProjectileAcknowledgePacket must-acknowledge (total size=11 bytes):
+	bytes 6-8: clientside ID of packet being acknowledged	(unsigned int)
+	bytes 9-10: id of projectile entity	(unsigned int)

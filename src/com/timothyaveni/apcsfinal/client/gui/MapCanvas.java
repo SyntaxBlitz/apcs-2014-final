@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.Projectile;
 
 public class MapCanvas extends Canvas implements UsesClient {
 	private static final long serialVersionUID = 1L;
@@ -44,9 +45,11 @@ public class MapCanvas extends Canvas implements UsesClient {
 
 				HashMap<Integer, Entity> entities = client.getEntityList();
 
-				Iterator<Entry<Integer, Entity>> i = entities.entrySet().iterator();
-				while(i.hasNext()) {
-					Entity thisEntity = i.next().getValue();
+				Entity[] entityArray = entities.values().toArray(new Entity[0]);
+				for(int i = 0; i < entityArray.length; i++) {
+					Entity thisEntity = entityArray[i];
+					if (thisEntity instanceof Projectile)
+						continue;
 					g.drawImage(thisEntity.getImage(client.getFrame()), thisEntity.getLocation().getX()
 							- playerLocation.getX() + Client.WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity
 							.getLocation().getY()
@@ -56,9 +59,23 @@ public class MapCanvas extends Canvas implements UsesClient {
 							- thisEntity.getHeight()
 							/ 2, thisEntity.getWidth(), thisEntity.getHeight(), null);
 				}
-				
+
+				for(int i = 0; i < entityArray.length; i++) {
+					Entity thisEntity = entityArray[i];
+					if (!(thisEntity instanceof Projectile))
+						continue;
+					g.drawImage(thisEntity.getImage(client.getFrame()), thisEntity.getLocation().getX()
+							- playerLocation.getX() + Client.WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity
+							.getLocation().getY()
+							- playerLocation.getY()
+							+ Client.HEIGHT
+							/ 2
+							- thisEntity.getHeight()
+							/ 2, thisEntity.getWidth(), thisEntity.getHeight(), null);
+				}
+
 				renderHPBar(g);
-				
+
 				g.dispose();
 			} while (bs.contentsRestored());
 		} while (bs.contentsLost());
@@ -69,7 +86,8 @@ public class MapCanvas extends Canvas implements UsesClient {
 		g.setColor(new Color(96, 96, 96));
 		g.fillRoundRect(30, Client.HEIGHT - 60, Client.WIDTH / 3, 16, 10, 10);
 		g.setColor(new Color(128, 0, 0));
-		g.fillRoundRect(30, Client.HEIGHT - 60, (Client.WIDTH / 3) * (client.getPlayer().getHP() / client.getPlayer().getMaxHP()), 16, 10, 10);
+		g.fillRoundRect(30, Client.HEIGHT - 60, (Client.WIDTH / 3)
+				* (client.getPlayer().getHP() / client.getPlayer().getMaxHP()), 16, 10, 10);
 	}
 
 	@Override

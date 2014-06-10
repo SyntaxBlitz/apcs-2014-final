@@ -14,6 +14,7 @@ import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
 import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 import com.timothyaveni.apcsfinal.server.Server;
@@ -96,8 +97,11 @@ public class ServerThread implements Runnable {
 			case SIMPLE_ATTACK:
 				listener.simpleAttackAnimationUpdated((SimpleAttackPacket) packet);
 				break;
+			case NEW_PROJECTILE:
+				listener.projectileIdRequested((NewProjectilePacket) packet, address, port);
 			case NEW_ENTITY: // client-only packets
 			case NEW_CLIENT_ACKNOWLDEGEMENT:
+			case NEW_PROJECTILE_ACKNOWLEDGE:
 				break;
 		}
 	}

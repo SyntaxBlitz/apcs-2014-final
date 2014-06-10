@@ -78,7 +78,6 @@ public abstract class Entity {
 				currentSubImage = image.getSubimage((int) (4 * getWidth()), getLocation().getDirection() * getHeight(), this.getWidth(),
 						this.getHeight());
 			} else {
-				System.out.println(this.getType());
 				currentSubImage = image.getSubimage(0, getLocation().getDirection() * getHeight(), this.getWidth(),
 						this.getHeight());
 				currentFrameOffset = 1;
