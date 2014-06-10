@@ -12,6 +12,7 @@ import com.timothyaveni.apcsfinal.networking.PacketProcessor;
 import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
@@ -104,6 +105,8 @@ public class ClientNetworkThread implements Runnable {
 			case NEW_PROJECTILE_ACKNOWLEDGE:
 				listener.newProjectileAcknowledged((NewProjectileAcknowledgePacket) packet);
 				break;
+			case ENVIRONMENT_ANIMATION_PACKET:
+				listener.environmentAnimationStarted((EnvironmentAnimationPacket) packet);
 			case NEW_PROJECTILE:
 			case NEW_CLIENT: // server-only packet
 				break;

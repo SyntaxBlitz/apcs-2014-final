@@ -42,7 +42,7 @@ public class Server {
 	private ArrayList<Player> players = new ArrayList<Player>();
 
 	private ArrayList<Projectile> myProjectiles = new ArrayList<Projectile>();
-	
+
 	private HashMap<Integer, MapMetadata> loadedMaps = new HashMap<Integer, MapMetadata>();
 	private static int lastEntityId = 0;
 
@@ -106,9 +106,9 @@ public class Server {
 					}
 				}
 			}
-			
+
 			Entity[] visibleEntityArray = visibleEntities.values().toArray(new Entity[0]);
-			for(int i = 0; i < visibleEntityArray.length; i++) {
+			for (int i = 0; i < visibleEntityArray.length; i++) {
 				if (visibleEntityArray[i] instanceof EnemyAI) {
 					EnemyAI thisEnemy = (EnemyAI) visibleEntityArray[i];
 					thisEnemy.act(this);
@@ -116,7 +116,7 @@ public class Server {
 			}
 
 			updateMyProjectiles();
-			
+
 			try {
 				long tryDelay = ((long) (1000000000 / TPS) - (System.nanoTime() - tickStart)) / 1000000;
 				if (tryDelay > 0)
@@ -143,7 +143,7 @@ public class Server {
 			}
 		}
 	}
-	
+
 	private void updateMyProjectiles() {
 		Projectile[] projectiles = myProjectiles.toArray(new Projectile[0]);
 		for (int i = 0; i < projectiles.length; i++) {
@@ -161,8 +161,12 @@ public class Server {
 	}
 
 	public void loadMap(int worldSectionId) {
-		MapMetadata metadata = new MapMetadata(FileReader.getFileFromResourceString(WorldSectionID
-				.getMapNameFromID(worldSectionId) + "_metadata.json"), worldSectionId);
+		MapMetadata metadata = null;
+		try {
+			metadata = new MapMetadata(WorldSectionID.getMapNameFromID(worldSectionId), worldSectionId);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		loadedMaps.put(worldSectionId, metadata);
 		List<EntityInfo> entityInfo = metadata.getEntityInfo();
 		for (EntityInfo thisEntity : entityInfo) {
@@ -211,7 +215,7 @@ public class Server {
 		return this.players;
 	}
 
-	public ArrayList<Projectile> getProjectileList(){
-		return this.myProjectiles;
+	public ArrayList<Projectile> getMyProjectiles() {
+		return myProjectiles;
 	}
 }

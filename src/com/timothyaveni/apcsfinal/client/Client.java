@@ -5,9 +5,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
-import com.sun.jmx.remote.internal.ClientListenerInfo;
+import com.timothyaveni.apcsfinal.client.environmentanimation.EnvironmentAnimation;
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
 import com.timothyaveni.apcsfinal.client.gui.MenuPanel;
 import com.timothyaveni.apcsfinal.networking.EntityType;
@@ -23,6 +22,7 @@ public class Client {
 	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
 	private ArrayList<Projectile> myProjectiles = new ArrayList<Projectile>();
 	private HashMap<Integer, Projectile> unacknowledgedProjectiles = new HashMap<Integer, Projectile>();
+	private ArrayList<EnvironmentAnimation> environmentAnimations = new ArrayList<EnvironmentAnimation>();
 	private long frame = 0; // current frame number. Increments on each frame
 
 	private boolean inGame = false;
@@ -86,7 +86,7 @@ public class Client {
 			player.characterMove(keyboard, currentMap, entities);
 			updateMyProjectiles();
 
-			updatePlayerAbility();
+			getPlayer().updateAbility(frame);
 
 			networkThread.checkUnacknowledgedPackets(); // if the server has
 														// taken too long to
@@ -191,16 +191,16 @@ public class Client {
 		return this.gameFrame;
 	}
 
-	public void updatePlayerAbility() {
-
-	}
-
 	public ArrayList<Projectile> getMyProjectiles() {
 		return this.myProjectiles;
 	}
 
 	public HashMap<Integer, Projectile> getUnacknowledgedProjectiles() {
 		return this.unacknowledgedProjectiles;
+	}
+	
+	public ArrayList<EnvironmentAnimation> getEnvironmentAnimations() {
+		return environmentAnimations;
 	}
 
 }

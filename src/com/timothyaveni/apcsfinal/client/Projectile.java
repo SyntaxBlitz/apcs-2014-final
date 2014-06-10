@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.server.GolemEnemy;
 import com.timothyaveni.apcsfinal.server.Server;
 
 public abstract class Projectile extends Entity {
@@ -41,9 +42,8 @@ public abstract class Projectile extends Entity {
 			newLocation = new Location(0, 0, 0, 0);
 		} else {
 			switch (currentLocation.getDirection()) {
-			// TODO: make projectiles collide with things
 				case Location.NORTH:
-					if (client.getCurrentMap().isPointValid(currentLocation.getX(),
+					if (client.getCurrentMap().getMetadata().isPointValid(currentLocation.getX(),
 							currentLocation.getY() - getVelocity() - getWidth() / 2)) {
 						newLocation = new Location(currentLocation.getX(), currentLocation.getY() - getVelocity(),
 								currentLocation.getDirection(), currentLocation.getWorldSectionId());
@@ -52,7 +52,7 @@ public abstract class Projectile extends Entity {
 					}
 					break;
 				case Location.SOUTH:
-					if (client.getCurrentMap().isPointValid(currentLocation.getX(),
+					if (client.getCurrentMap().getMetadata().isPointValid(currentLocation.getX(),
 							currentLocation.getY() + getVelocity() + getHeight() / 2)) {
 						newLocation = new Location(currentLocation.getX(), currentLocation.getY() + getVelocity(),
 								currentLocation.getDirection(), currentLocation.getWorldSectionId());
@@ -61,7 +61,7 @@ public abstract class Projectile extends Entity {
 					}
 					break;
 				case Location.EAST:
-					if (client.getCurrentMap().isPointValid(currentLocation.getX() + getVelocity() + getWidth() / 2,
+					if (client.getCurrentMap().getMetadata().isPointValid(currentLocation.getX() + getVelocity() + getWidth() / 2,
 							currentLocation.getY())) {
 						newLocation = new Location(currentLocation.getX() + getVelocity(), currentLocation.getY(),
 								currentLocation.getDirection(), currentLocation.getWorldSectionId());
@@ -70,7 +70,7 @@ public abstract class Projectile extends Entity {
 					}
 					break;
 				case Location.WEST:
-					if (client.getCurrentMap().isPointValid(currentLocation.getX() - getVelocity() - getWidth() / 2,
+					if (client.getCurrentMap().getMetadata().isPointValid(currentLocation.getX() - getVelocity() - getWidth() / 2,
 							currentLocation.getY())) {
 						newLocation = new Location(currentLocation.getX() - getVelocity(), currentLocation.getY(),
 								currentLocation.getDirection(), currentLocation.getWorldSectionId());
@@ -109,8 +109,76 @@ public abstract class Projectile extends Entity {
 	public abstract int getBaseDamage();
 
 	public void update(Server server) {
-		// TODO Auto-generated method stub
-		
+		// yup, most of this is repeated. too lazy to pick out the samey bits.
+		Location currentLocation = getLocation();
+		MapMetadata currentMap = server.getLoadedMaps().get(currentLocation.getWorldSectionId());
+		Location newLocation = null;
+		if (distanceTravelled + getVelocity() > getMaxDistance()) {
+			newLocation = new Location(0, 0, 0, 0);
+		} else {
+			switch (currentLocation.getDirection()) {
+				case Location.NORTH:
+					if (currentMap.isPointValid(currentLocation.getX(),
+							currentLocation.getY() - getVelocity() - getWidth() / 2)) {
+						newLocation = new Location(currentLocation.getX(), currentLocation.getY() - getVelocity(),
+								currentLocation.getDirection(), currentLocation.getWorldSectionId());
+					} else {
+						newLocation = new Location(0, 0, 0, 0);
+					}
+					break;
+				case Location.SOUTH:
+					if (currentMap.isPointValid(currentLocation.getX(),
+							currentLocation.getY() + getVelocity() + getHeight() / 2)) {
+						newLocation = new Location(currentLocation.getX(), currentLocation.getY() + getVelocity(),
+								currentLocation.getDirection(), currentLocation.getWorldSectionId());
+					} else {
+						newLocation = new Location(0, 0, 0, 0);
+					}
+					break;
+				case Location.EAST:
+					if (currentMap.isPointValid(currentLocation.getX() + getVelocity() + getWidth() / 2,
+							currentLocation.getY())) {
+						newLocation = new Location(currentLocation.getX() + getVelocity(), currentLocation.getY(),
+								currentLocation.getDirection(), currentLocation.getWorldSectionId());
+					} else {
+						newLocation = new Location(0, 0, 0, 0);
+					}
+					break;
+				case Location.WEST:
+					if (currentMap.isPointValid(currentLocation.getX() - getVelocity() - getWidth() / 2,
+							currentLocation.getY())) {
+						newLocation = new Location(currentLocation.getX() - getVelocity(), currentLocation.getY(),
+								currentLocation.getDirection(), currentLocation.getWorldSectionId());
+					} else {
+						newLocation = new Location(0, 0, 0, 0);
+					}
+					break;
+			}
+
+			Entity[] entities = server.getEntityList().values().toArray(new Entity[0]);
+			for (int i = 0; i < entities.length; i++) {
+				Entity thisEntity = entities[i];
+				if (!((thisEntity instanceof GolemEnemy) || (thisEntity instanceof Player)))	// doesn't collide with this player or other projectiles
+					continue;
+				// rectangle collision code provided by java.awt.Rectangle this time
+				if (new Rectangle(thisEntity.getLocation().getX() - thisEntity.getWidth() / 2, thisEntity.getLocation()
+						.getY() - thisEntity.getHeight() / 2, thisEntity.getWidth(), thisEntity.getHeight())
+						.intersects(new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY()
+								- getHeight() / 2, getWidth(), getHeight()))) {
+					newLocation = new Location(0, 0, 0, 0);	// get rid of the projectile because it collided with someone
+					if (thisEntity instanceof Player) {
+						Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), thisEntity.getId(), getBaseDamage()));
+					}
+				}
+			}
+		}
+		setLocation(newLocation);
+		Server.addPacketToQueue(new EntityLocationPacket(Client.getNextPacketId(), getId(), newLocation));
+		if (newLocation.equals(new Location(0, 0, 0, 0))) {
+			server.getMyProjectiles().remove(this);
+		} else {
+			distanceTravelled += getVelocity();
+		}
 	}
 
 }

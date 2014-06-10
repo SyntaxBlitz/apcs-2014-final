@@ -1,11 +1,15 @@
 package com.timothyaveni.apcsfinal.client;
 
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,15 +24,20 @@ public class MapMetadata {
 		Rectangle rectangle;
 		int nextMap;
 	}
+	
+	private BufferedImage collisionMap;
 
 	private ArrayList<EntityInfo> loadedEntityInfo;
 	private Location spawnPoint;
 	private ArrayList<ExitArea> exitAreas;
 
-	public MapMetadata(File file, int worldSectionId) {
+	public MapMetadata(String mapName, int worldSectionId) throws IOException {
+		collisionMap = ImageIO.read(FileReader.getFileFromResourceString(mapName + "_Collision.png"));
+		
+		File jsonFile = FileReader.getFileFromResourceString(mapName + "_metadata.json");
 		JSONObject jsonObject = null;
 		try {
-			jsonObject = new JSONObject(new JSONTokener(new FileInputStream(file)));
+			jsonObject = new JSONObject(new JSONTokener(new FileInputStream(jsonFile)));
 		} catch (JSONException e) {
 			System.out.println("Failed to load map metadata - JSONException");
 			System.exit(1);
@@ -82,5 +91,9 @@ public class MapMetadata {
 
 	public Location getSpawnPoint() {
 		return this.spawnPoint;
+	}
+	
+	public boolean isPointValid(int x, int y) {
+		return (collisionMap.getRGB(x, y) & 0xFFFFFF) == 0xFFFFFF;
 	}
 }

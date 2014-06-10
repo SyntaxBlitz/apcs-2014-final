@@ -2,6 +2,7 @@ package com.timothyaveni.apcsfinal.client;
 
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewProjectileAcknowledgePacket;
@@ -22,5 +23,7 @@ public abstract class ClientCallbackListener {
 	public abstract void simpleAttackAnimationUpdated(SimpleAttackPacket packet);
 
 	public abstract void newProjectileAcknowledged(NewProjectileAcknowledgePacket packet);
+
+	public abstract void environmentAnimationStarted(EnvironmentAnimationPacket packet);
 	
 }

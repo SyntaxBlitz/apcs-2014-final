@@ -13,6 +13,7 @@ import com.timothyaveni.apcsfinal.networking.PacketProcessor;
 import com.timothyaveni.apcsfinal.networking.packet.AcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 import com.timothyaveni.apcsfinal.networking.packet.Packet;
@@ -99,6 +100,8 @@ public class ServerThread implements Runnable {
 				break;
 			case NEW_PROJECTILE:
 				listener.projectileIdRequested((NewProjectilePacket) packet, address, port);
+			case ENVIRONMENT_ANIMATION_PACKET:
+				listener.environmentAnimationStarted((EnvironmentAnimationPacket) packet);
 			case NEW_ENTITY: // client-only packets
 			case NEW_CLIENT_ACKNOWLDEGEMENT:
 			case NEW_PROJECTILE_ACKNOWLEDGE:

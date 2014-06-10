@@ -2,9 +2,11 @@ package com.timothyaveni.apcsfinal.client;
 
 import java.util.HashMap;
 
+import com.timothyaveni.apcsfinal.networking.AnimationTypeID;
 import com.timothyaveni.apcsfinal.networking.EntityTypeID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewProjectileAcknowledgePacket;
@@ -114,5 +116,12 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 			client.getMyProjectiles().add(projectile);
 		}
 	}
-	
+
+	@Override
+	public void environmentAnimationStarted(EnvironmentAnimationPacket packet) {
+		client.getEnvironmentAnimations().add(
+				AnimationTypeID.constructAnimation(packet.getAnimationType(), client.getFrame(), packet.getLocation(),
+						packet.getData()));
+	}
+
 }

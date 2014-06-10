@@ -4,6 +4,7 @@ import java.net.InetAddress;
 
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
@@ -25,5 +26,7 @@ public abstract class ServerCallbackListener {
 	public abstract void simpleAttackAnimationUpdated(SimpleAttackPacket packet);
 
 	public abstract void projectileIdRequested(NewProjectilePacket packet, InetAddress address, int port);
+	
+	public abstract void environmentAnimationStarted(EnvironmentAnimationPacket packet);
 	
 }

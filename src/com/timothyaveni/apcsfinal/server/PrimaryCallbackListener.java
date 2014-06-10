@@ -1,5 +1,6 @@
 package com.timothyaveni.apcsfinal.server;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import com.timothyaveni.apcsfinal.networking.EntityTypeID;
 import com.timothyaveni.apcsfinal.networking.WorldSectionID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewClientPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
@@ -62,13 +64,18 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		lastPlayerLocationId.put(entityId, packet.getRemoteId());
 		if (server.getEntityList().containsKey(entityId)) {
 			server.getEntityList().get(entityId).setLocation(packet.getLocation());
-		}		
-		
-		if (packet.getLocation().getWorldSectionId() != 0 && !server.getLoadedMaps().containsKey(packet.getLocation().getWorldSectionId())) {
-			server.getLoadedMaps().put(
-					packet.getLocation().getWorldSectionId(),
-					new MapMetadata(FileReader.getFileFromResourceString(WorldSectionID.getMapNameFromID(packet
-							.getLocation().getWorldSectionId())), packet.getLocation().getWorldSectionId()));
+		}
+
+		if (packet.getLocation().getWorldSectionId() != 0
+				&& !server.getLoadedMaps().containsKey(packet.getLocation().getWorldSectionId())) {
+			try {
+				server.getLoadedMaps().put(
+						packet.getLocation().getWorldSectionId(),
+						new MapMetadata(WorldSectionID.getMapNameFromID(packet.getLocation().getWorldSectionId()), packet
+								.getLocation().getWorldSectionId()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), entityId, packet.getLocation()));
@@ -152,8 +159,15 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		System.out.println("projectile entity id is truly " + projectile.getId());
 
 		server.getThread().sendIndividualPacket(
-				new NewProjectileAcknowledgePacket(Server.getNextPacketId(), packet.getRemoteId(), entityId), address, port);
+				new NewProjectileAcknowledgePacket(Server.getNextPacketId(), packet.getRemoteId(), entityId), address,
+				port);
 		Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), projectile));
+	}
+
+	@Override
+	public void environmentAnimationStarted(EnvironmentAnimationPacket packet) {
+		// just let everyone know. it's an animation, so we don't care
+		Server.addPacketToQueue(new EnvironmentAnimationPacket(Server.getNextPacketId(), packet.getAnimationType(), packet.getLocation(), packet.getData()));
 	}
 
 }
