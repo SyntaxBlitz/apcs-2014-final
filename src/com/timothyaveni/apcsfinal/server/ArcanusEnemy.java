@@ -105,13 +105,22 @@ public class ArcanusEnemy extends Entity implements BossAI {
 		
 		server.getInvisibleEntityList().add(golem1);
 		server.getInvisibleEntityList().add(golem2);
-		
 		server.getInvisibleEntityList().add(skelly1);
 		server.getInvisibleEntityList().add(skelly2);
 		server.getInvisibleEntityList().add(skelly3);
 		server.getInvisibleEntityList().add(skelly4);
 		server.getInvisibleEntityList().add(skelly5);
 		server.getInvisibleEntityList().add(skelly6);
+		
+		server.getEntityList().put(golem1.getId(), golem1);
+		server.getEntityList().put(golem2.getId(), golem2);
+		server.getEntityList().put(skelly1.getId(), skelly1);
+		server.getEntityList().put(skelly2.getId(), skelly2);
+		server.getEntityList().put(skelly3.getId(), skelly3);
+		server.getEntityList().put(skelly4.getId(), skelly4);
+		server.getEntityList().put(skelly5.getId(), skelly5);
+		server.getEntityList().put(skelly6.getId(), skelly6);
+		
 
 	}
 
