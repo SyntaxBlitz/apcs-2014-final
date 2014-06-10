@@ -21,17 +21,17 @@ public class Arrow extends Projectile {
 
 	@Override
 	public int getHeight() {
-		return 32;
+		return 24;
 	}
 
 	@Override
 	public int getWidth() {
-		return 32;
+		return 24;
 	}
 
 	@Override
 	public String getFileLocation() {
-		return "Goblin.png";	//TODO
+		return "Arrow.png";
 	}
 
 	@Override
