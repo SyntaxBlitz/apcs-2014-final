@@ -66,3 +66,11 @@ NewProjectilePacket must-acknowledge (total size=17 bytes):
 NewProjectileAcknowledgePacket must-acknowledge (total size=11 bytes):
 	bytes 6-8: clientside ID of packet being acknowledged	(unsigned int)
 	bytes 9-10: id of projectile entity	(unsigned int)
+
+EnvironmentAnimationPacket (total size=20 bytes):
+	byte 6: animation type	(EnvironmentAnimation enum)
+	byte 7: world section ID	(unsigned int)
+	bytes 8-11: location-x	(unsigned int)
+	bytes 12-15: location-y	(unsigned int)
+	byte 16: facing	(Direction enum)
+	bytes 17-19: data	(signed int, used for damage numbers)
