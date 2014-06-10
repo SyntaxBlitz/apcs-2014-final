@@ -166,8 +166,8 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 
 	@Override
 	public void environmentAnimationStarted(EnvironmentAnimationPacket packet) {
-		// TODO Auto-generated method stub
-		
+		// just let everyone know. it's an animation, so we don't care
+		Server.addPacketToQueue(new EnvironmentAnimationPacket(Server.getNextPacketId(), packet.getAnimationType(), packet.getLocation(), packet.getData()));
 	}
 
 }
