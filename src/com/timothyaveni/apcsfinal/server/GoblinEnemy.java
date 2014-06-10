@@ -1,5 +1,6 @@
 package com.timothyaveni.apcsfinal.server;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import com.timothyaveni.apcsfinal.client.Entity;
@@ -20,22 +21,27 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 	public EntityDamagePacket attack(EntityDamagePacket e) { // Test
 		return e;
 	}
+	
+	public void attack(Player track) {
+		System.out.println("attacking player");
+		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getSpeed()));
+	}
 
 	public void move(int distance, int direction, String plane) {
 		if (plane.equals("X")) {
 			if (direction > 0)
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX() + getVelocity(), this.getLocation().getY(),
-						Location.SOUTH, this.getLocation().getWorldSectionId())));
-			else
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX() - getVelocity(), this.getLocation().getY(),
-						Location.NORTH, this.getLocation().getWorldSectionId())));
-		} else {
-			if (direction > 0)
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX(), this.getLocation().getY() + getVelocity(),
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX() + distance, this.getLocation().getY(),
 						Location.EAST, this.getLocation().getWorldSectionId())));
 			else
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX(), this.getLocation().getY() - getVelocity(),
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX() - distance, this.getLocation().getY(),
 						Location.WEST, this.getLocation().getWorldSectionId())));
+		} else {
+			if (direction > 0)
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX(), this.getLocation().getY() + distance,
+						Location.SOUTH, this.getLocation().getWorldSectionId())));
+			else
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(this.getLocation().getX(), this.getLocation().getY() - distance,
+						Location.NORTH, this.getLocation().getWorldSectionId())));
 		}
 
 	}
@@ -62,18 +68,46 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 
 		track = players.get(smallestIndex);
 
-		if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 32
-				|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 48) {
-			Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg
-					+ getSpeed()));
-		} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY()
-				- getLocation().getY()) {
-			move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation()
-					.getX()), "X");
-		} else if (track.getLocation().getY() - getLocation().getY() < track.getLocation().getY()
-				- getLocation().getY()) {
-			move((track.getLocation().getY() - getLocation().getY()), (getLocation().getY() - track.getLocation()
-					.getY()), "Y");
+		Rectangle attackArea = null;
+		switch (getLocation().getDirection()) {
+			case Location.NORTH:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() - getHeight()
+						/ 2 - getHeight(), getWidth(), getHeight());
+				break;
+			case Location.SOUTH:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() + getHeight()
+						/ 2, getWidth(), getHeight());
+				break;
+			case Location.EAST:
+				attackArea = new Rectangle(getLocation().getX() + getWidth() / 2, getLocation().getY() - getHeight()
+						/ 2, getWidth(), getHeight());
+				break;
+			case Location.WEST:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2 - getWidth(), getLocation().getY()
+						- getHeight() / 2, getWidth(), getHeight());
+				break;
+		}
+
+		if (server.getCurrentTick() % 10 == 0
+				&& attackArea.intersects(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track
+						.getLocation().getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()))) {
+			System.out.println(attackArea);
+			System.out.println(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track.getLocation()
+					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
+			attack(track);
+		}
+		
+		if(server.getCurrentTick() % 1 == 0){
+			if(this.getLocation().getDistanceTo(track.getLocation()) < 700){
+				if ((track.getLocation().getX() - this.getLocation().getX() != 0) &&
+						Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track.getLocation().getY() - this.getLocation().getY())) {
+					move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track.getLocation().getX() - getLocation()
+							.getX(), "X");
+				} else {
+					move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track.getLocation().getY() - getLocation()
+							.getY(), "Y");
+				}
+			}
 		}
 
 	}

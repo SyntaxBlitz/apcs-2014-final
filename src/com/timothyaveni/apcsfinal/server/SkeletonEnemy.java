@@ -20,9 +20,9 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		super(id, loc);
 	}
 
-	public void attack(Player track) { // Test
+	public void attack(Player track) {
 		System.out.println("attacking player");
-		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg));
+		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getStrength()));
 	}
 
 	public void move(int distance, int direction, String plane) {
@@ -97,13 +97,17 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 			System.out.println(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track.getLocation()
 					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
 			attack(track);
-		} else if (Math.abs(track.getLocation().getX() - getLocation().getX()) < Math.abs(track.getLocation().getY()
-				- getLocation().getY())) {
-			move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), (getLocation().getX() - track.getLocation()
-					.getX()), "X");
-		} else {
-			move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), (getLocation().getY() - track.getLocation()
-					.getY()), "Y");
+		}
+		if(this.getLocation().getDistanceTo(track.getLocation()) <= 700)
+		{
+			if (Math.abs(track.getLocation().getX() - getLocation().getX()) < Math.abs(track.getLocation().getY()
+					- getLocation().getY())) {
+				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), (getLocation().getX() - track.getLocation()
+						.getX()), "X");
+			} else {
+				move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), (getLocation().getY() - track.getLocation()
+						.getY()), "Y");
+			}
 		}
 
 	}
