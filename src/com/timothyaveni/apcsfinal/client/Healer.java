@@ -10,10 +10,10 @@ import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 
 public class Healer extends Player {
-	
+
 	private boolean abilityAvailable = true;
 	private long lastAbilityCall;
-	
+
 	public Healer(int id, Location loc) {
 		super(id, loc);
 	}
@@ -114,22 +114,20 @@ public class Healer extends Player {
 
 	@Override
 	public void useAbility(long frame, Client client) {
-		if(abilityAvailable){
-			for(Entity a : client.getEntityList()){
-				if(a instanceof Player && getLocation().getDistanceTo(a.getLocation()) <= getAttackRadius * 3)
-					client.getNetworkThread().sendPacket(new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), -30));
+		if (frame - lastAbilityCall < 300) {
+			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
+			for (Entity entity : entities) {
+				if (entity instanceof Player
+						&& getLocation().getDistanceTo(entity.getLocation()) <= getAttackRadius() * 3)
+					client.getNetworkThread().sendPacket(
+							new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), -30));
 			}
-		lastAbilityCall = frame;	
+			lastAbilityCall = frame;
 		}
 	}
 
 	@Override
 	public void updateAbility(long frame) {
-		if(frame - lastAbilityCall < 300)
-			abilityAvailable = false;
-		else
-			abilityAvailable = true
-		
-	}	
 
+	}
 }
