@@ -28,13 +28,8 @@ public class ClientMouseListener implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (client.isInGame()) {
-<<<<<<< HEAD
-			if (e.getButton() == MouseEvent.BUTTON3) {
-				client.getPlayer().useAbility(client.getFrame());
-=======
 			if (e.getButton() == MouseEvent.BUTTON2) {
 				client.getPlayer().useAbility(client.getFrame(), client);
->>>>>>> branch 'master' of https://github.com/SyntaxBlitz/apcs-2014-final.git
 			} else {
 				if (!client.getPlayer().isMoving()) {
 					client.getPlayer().setStartedAttack(true);

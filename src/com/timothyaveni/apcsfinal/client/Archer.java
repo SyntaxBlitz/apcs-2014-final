@@ -78,7 +78,7 @@ public class Archer extends Player {
 	}
 
 	@Override
-	public void useAbility(long frame) {
+	public void useAbility(long frame, Client client) {
 		// TODO Auto-generated method stub
 		
 	}
