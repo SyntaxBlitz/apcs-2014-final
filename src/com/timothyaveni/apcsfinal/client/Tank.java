@@ -3,8 +3,10 @@ package com.timothyaveni.apcsfinal.client;
 import java.awt.Rectangle;
 import java.util.Iterator;
 
+import com.timothyaveni.apcsfinal.networking.AnimationType;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 
 public class Tank extends Player {
 
@@ -103,9 +105,11 @@ public class Tank extends Player {
 			Location entityLoc = entity.getLocation();
 			if (attackArea.intersects(entityLoc.getX() - entity.getWidth() / 2, entityLoc.getY() - entity.getHeight()
 					/ 2, entity.getWidth(), entity.getHeight())) {
-				System.out.println(entity.getId());
 				client.getNetworkThread().sendPacket(
 						new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage()));
+				client.getNetworkThread().sendPacket(
+						new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.DAMAGE_NUMBER, entity
+								.getLocation(), getBaseDamage()));
 			}
 		}
 	}
@@ -119,7 +123,7 @@ public class Tank extends Player {
 
 	@Override
 	public void updateAbility(long frame) {
-		if (abilityActive && frame - lastAbilityCall > 300) {	// it has been more than 300 frames (=10 seconds)
+		if (abilityActive && frame - lastAbilityCall > 300) { // it has been more than 300 frames (=10 seconds)
 			abilityActive = false;
 			if (getHP() >= 100) // checks to make sure resetting HP will not kill player
 				setHP(getHP() - 100);

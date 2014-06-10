@@ -4,14 +4,13 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
-import com.timothyaveni.apcsfinal.client.Projectile;
+import com.timothyaveni.apcsfinal.client.environmentanimation.EnvironmentAnimation;
 
 public class MapCanvas extends Canvas implements UsesClient {
 	private static final long serialVersionUID = 1L;
@@ -46,7 +45,7 @@ public class MapCanvas extends Canvas implements UsesClient {
 				HashMap<Integer, Entity> entities = client.getEntityList();
 
 				Entity[] entityArray = entities.values().toArray(new Entity[0]);
-				for(int i = 0; i < entityArray.length; i++) {
+				for (int i = 0; i < entityArray.length; i++) {
 					Entity thisEntity = entityArray[i];
 					g.drawImage(thisEntity.getImage(client.getFrame()), thisEntity.getLocation().getX()
 							- playerLocation.getX() + Client.WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity
@@ -56,6 +55,24 @@ public class MapCanvas extends Canvas implements UsesClient {
 							/ 2
 							- thisEntity.getHeight()
 							/ 2, thisEntity.getWidth(), thisEntity.getHeight(), null);
+				}
+
+				EnvironmentAnimation[] environmentAnimations = client.getEnvironmentAnimations().toArray(
+						new EnvironmentAnimation[0]);
+				for (int i = 0; i < environmentAnimations.length; i++) {
+					EnvironmentAnimation thisAnimation = environmentAnimations[i];
+					BufferedImage renderImage = thisAnimation.getImage(client.getFrame());
+					g.drawImage(thisAnimation.getImage(client.getFrame()), thisAnimation.getLocation().getX()
+							- playerLocation.getX() + Client.WIDTH / 2 - renderImage.getWidth() / 2, thisAnimation
+							.getLocation().getY()
+							- playerLocation.getY()
+							+ Client.HEIGHT
+							/ 2
+							- renderImage.getHeight()
+							/ 2, renderImage.getWidth(), renderImage.getHeight(), null);
+					if (!thisAnimation.stillRelevant(client.getFrame())) {
+						client.getEnvironmentAnimations().remove(thisAnimation);
+					}
 				}
 
 				renderHPBar(g);
@@ -70,8 +87,9 @@ public class MapCanvas extends Canvas implements UsesClient {
 		g.setColor(new Color(96, 96, 96));
 		g.fillRoundRect(30, Client.HEIGHT - 60, Client.WIDTH / 3, 16, 10, 10);
 		g.setColor(new Color(128, 0, 0));
-		g.fillRoundRect(30, Client.HEIGHT - 60, (int) ((Client.WIDTH / 3)
-				* ((double)client.getPlayer().getHP() / client.getPlayer().getMaxHP())), 16, 10, 10);
+		g.fillRoundRect(30, Client.HEIGHT - 60,
+				(int) ((Client.WIDTH / 3) * ((double) client.getPlayer().getHP() / client.getPlayer().getMaxHP())), 16,
+				10, 10);
 	}
 
 	@Override

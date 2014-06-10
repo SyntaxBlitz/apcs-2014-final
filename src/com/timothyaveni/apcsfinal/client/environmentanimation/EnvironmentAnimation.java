@@ -23,5 +23,7 @@ public abstract class EnvironmentAnimation {
 	}
 
 	public abstract BufferedImage getImage(long frame);
+
+	public abstract boolean stillRelevant(long frame);
 	
 }

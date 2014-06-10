@@ -4,8 +4,10 @@ import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.timothyaveni.apcsfinal.networking.AnimationType;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 
 public class Rogue extends Player {
 
@@ -76,28 +78,36 @@ public class Rogue extends Player {
 		Rectangle attackArea = null;
 		switch (getLocation().getDirection()) {
 			case Location.NORTH:
-				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() - getHeight() / 2 - getHeight(), getWidth(), getHeight());
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() - getHeight()
+						/ 2 - getHeight(), getWidth(), getHeight());
 				break;
 			case Location.SOUTH:
-				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() + getHeight() / 2, getWidth(), getHeight());
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() + getHeight()
+						/ 2, getWidth(), getHeight());
 				break;
 			case Location.EAST:
-				attackArea = new Rectangle(getLocation().getX() + getWidth() / 2, getLocation().getY() - getHeight() / 2, getWidth(), getHeight());
+				attackArea = new Rectangle(getLocation().getX() + getWidth() / 2, getLocation().getY() - getHeight()
+						/ 2, getWidth(), getHeight());
 				break;
 			case Location.WEST:
-				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2 - getWidth(), getLocation().getY() - getHeight() / 2, getWidth(), getHeight());
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2 - getWidth(), getLocation().getY()
+						- getHeight() / 2, getWidth(), getHeight());
 				break;
 		}
-		
+
 		Iterator<Entity> i = client.getEntityList().values().iterator();
 		while (i.hasNext()) {
 			Entity entity = i.next();
 			if (entity instanceof Player)
 				continue;
 			Location entityLoc = entity.getLocation();
-			if (attackArea.intersects(entityLoc.getX() - entity.getWidth() / 2, entityLoc.getY() - entity.getHeight() / 2, entity.getWidth(), entity.getHeight())) {
-				System.out.println(entity.getId());
-				client.getNetworkThread().sendPacket(new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage()));
+			if (attackArea.intersects(entityLoc.getX() - entity.getWidth() / 2, entityLoc.getY() - entity.getHeight()
+					/ 2, entity.getWidth(), entity.getHeight())) {
+				client.getNetworkThread().sendPacket(
+						new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage()));
+				client.getNetworkThread().sendPacket(
+						new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.DAMAGE_NUMBER, entity
+								.getLocation(), getBaseDamage()));
 			}
 		}
 	}
@@ -105,15 +115,13 @@ public class Rogue extends Player {
 	@Override
 	public void useAbility(long frame) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void updateAbility(long frame) {
 		// TODO Auto-generated method stub
-		
+
 	}
-		
-	
-	
+
 }

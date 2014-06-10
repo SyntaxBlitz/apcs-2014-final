@@ -100,8 +100,10 @@ public class ServerThread implements Runnable {
 				break;
 			case NEW_PROJECTILE:
 				listener.projectileIdRequested((NewProjectilePacket) packet, address, port);
+				break;
 			case ENVIRONMENT_ANIMATION_PACKET:
 				listener.environmentAnimationStarted((EnvironmentAnimationPacket) packet);
+				break;
 			case NEW_ENTITY: // client-only packets
 			case NEW_CLIENT_ACKNOWLDEGEMENT:
 			case NEW_PROJECTILE_ACKNOWLEDGE:

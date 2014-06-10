@@ -16,4 +16,10 @@ public class Rage extends EnvironmentAnimation {
 		return null;
 	}
 
+	@Override
+	public boolean stillRelevant(long frame) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
