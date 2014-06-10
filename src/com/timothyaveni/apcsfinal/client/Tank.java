@@ -132,4 +132,8 @@ public class Tank extends Player {
 		}
 	}
 
+	public boolean isAbilityActive() {
+		return this.abilityActive;
+	}
+	
 }

@@ -28,7 +28,7 @@ public class ClientMouseListener implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (client.isInGame()) {
-			if (e.getButton() == MouseEvent.BUTTON2) {
+			if (e.getButton() == MouseEvent.BUTTON3) {
 				client.getPlayer().useAbility(client.getFrame());
 			} else {
 				if (!client.getPlayer().isMoving()) {

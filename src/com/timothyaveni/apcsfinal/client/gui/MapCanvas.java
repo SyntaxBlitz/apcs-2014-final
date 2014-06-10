@@ -2,6 +2,8 @@ package com.timothyaveni.apcsfinal.client.gui;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -10,6 +12,7 @@ import java.util.HashMap;
 import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.Tank;
 import com.timothyaveni.apcsfinal.client.environmentanimation.EnvironmentAnimation;
 
 public class MapCanvas extends Canvas implements UsesClient {
@@ -17,6 +20,7 @@ public class MapCanvas extends Canvas implements UsesClient {
 	private Client client;
 
 	private BufferStrategy bs;
+	private Font font = new Font("Arial", Font.PLAIN, 12);
 
 	private boolean readyToRender = false;
 
@@ -90,6 +94,15 @@ public class MapCanvas extends Canvas implements UsesClient {
 		g.fillRoundRect(30, Client.HEIGHT - 60,
 				(int) ((Client.WIDTH / 3) * ((double) client.getPlayer().getHP() / client.getPlayer().getMaxHP())), 16,
 				10, 10);
+		
+		String renderString = client.getPlayer().getHP() + "/" + client.getPlayer().getMaxHP();
+		g.setColor(Color.WHITE);
+		if ((client.getPlayer() instanceof Tank) && ((Tank)client.getPlayer()).isAbilityActive())
+			g.setColor(new Color(128, 255, 255));	
+		g.setFont(font);
+
+		g.drawString(renderString, Client.WIDTH / 3 - 40, Client.HEIGHT - 47);
+		
 	}
 
 	@Override
