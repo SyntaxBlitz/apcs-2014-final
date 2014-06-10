@@ -78,7 +78,7 @@ public class Mage extends Player {
 	}
 
 	@Override
-	public void useAbility(long frame, client Client) {
+	public void useAbility(long frame, Client client) {
 		// TODO Auto-generated method stub
 
 	}
