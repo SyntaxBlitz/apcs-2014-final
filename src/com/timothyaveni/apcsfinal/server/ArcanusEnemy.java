@@ -71,17 +71,48 @@ public class ArcanusEnemy extends Entity implements BossAI {
 	}
 
 	public void summonMinions(Server server) { // This method adds enemy entities to the server list of invisible entities
-		server.getInvisibleEntityList().add(new GolemEnemy(Server.getNextEntityId(), null)); // I need to figure out how
-		server.getInvisibleEntityList().add(new GolemEnemy(Server.getNextEntityId(), null));
-		server.getInvisibleEntityList().add(new GolemEnemy(Server.getNextEntityId(), null));
-		server.getInvisibleEntityList().add(new SkeletonEnemy(Server.getNextEntityId(), null));
-		server.getInvisibleEntityList().add(new SkeletonEnemy(Server.getNextEntityId(), null));
-		server.getInvisibleEntityList().add(new SkeletonEnemy(Server.getNextEntityId(), null));
+		
+		GolemEnemy golem1 = new GolemEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
+		GolemEnemy golem2 = new GolemEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
+		SkeletonEnemy skelly1 = new SkeletonEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
+		SkeletonEnemy skelly2 = new SkeletonEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
+		SkeletonEnemy skelly3 = new SkeletonEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
+		SkeletonEnemy skelly4 = new SkeletonEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
+		SkeletonEnemy skelly5 = new SkeletonEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
+		SkeletonEnemy skelly6 = new SkeletonEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
+		
+		golem1.setLocation(new Location(this.getLocation().getX() + (this.getWidth() / 2 + golem1.getWidth() /2), this.getLocation().getY(), Location.EAST, this.getLocation().getWorldSectionId()));
+		
+		golem2.setLocation(new Location(this.getLocation().getX() - (this.getWidth() / 2 + golem1.getWidth() /2), this.getLocation().getY(), Location.WEST, this.getLocation().getWorldSectionId()));
+		
+		skelly1.setLocation(new Location(this.getLocation().getX() - (this.getWidth() / 2 + skelly1.getWidth() / 2), this.getLocation().getY() - (this.getHeight() / 2 + skelly1.getHeight() / 2), Location.WEST, this.getLocation().getWorldSectionId()));
+		
+		skelly2.setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() - (this.getHeight() / 2 + skelly2.getHeight() / 2), Location.SOUTH, this.getLocation().getWorldSectionId()));
+		
+		skelly3.setLocation(new Location(this.getLocation().getX() + (this.getWidth() / 2 + skelly3.getWidth() / 2), this.getLocation().getY() - (this.getHeight() / 2 + skelly3.getHeight() / 2), Location.EAST, this.getLocation().getWorldSectionId()));
+		
+		skelly4.setLocation(new Location(this.getLocation().getX() - (this.getWidth() / 2 + skelly4.getWidth() / 2), this.getLocation().getY() + (this.getHeight() / 2 + skelly4.getHeight() / 2), Location.WEST, this.getLocation().getWorldSectionId()));
+		
+		skelly5.setLocation(new Location(this.getLocation().getX(), this.getLocation().getY() + (this.getHeight() / 2 + skelly5.getHeight() / 2), Location.SOUTH, this.getLocation().getWorldSectionId()));
+		
+		skelly6.setLocation(new Location(this.getLocation().getX() + (this.getWidth() / 2 + skelly6.getWidth() / 2), this.getLocation().getY() + (this.getHeight() / 2 + skelly6.getHeight() / 2), Location.EAST, this.getLocation().getWorldSectionId()));
+
+		
+		
+		server.getInvisibleEntityList().add(golem1);
+		server.getInvisibleEntityList().add(golem2);
+		
+		server.getInvisibleEntityList().add(skelly1);
+		server.getInvisibleEntityList().add(skelly2);
+		server.getInvisibleEntityList().add(skelly3);
+		server.getInvisibleEntityList().add(skelly4);
+		server.getInvisibleEntityList().add(skelly5);
+		server.getInvisibleEntityList().add(skelly6);
 
 	}
 
 	public void projectileAttack() { // This method creates new projectiles to send to the server
-
+		
 	}
 
 	public Location getLocation() {
