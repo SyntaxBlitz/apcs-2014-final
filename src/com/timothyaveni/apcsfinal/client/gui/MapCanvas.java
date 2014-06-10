@@ -48,22 +48,6 @@ public class MapCanvas extends Canvas implements UsesClient {
 				Entity[] entityArray = entities.values().toArray(new Entity[0]);
 				for(int i = 0; i < entityArray.length; i++) {
 					Entity thisEntity = entityArray[i];
-					if (thisEntity instanceof Projectile)
-						continue;
-					g.drawImage(thisEntity.getImage(client.getFrame()), thisEntity.getLocation().getX()
-							- playerLocation.getX() + Client.WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity
-							.getLocation().getY()
-							- playerLocation.getY()
-							+ Client.HEIGHT
-							/ 2
-							- thisEntity.getHeight()
-							/ 2, thisEntity.getWidth(), thisEntity.getHeight(), null);
-				}
-
-				for(int i = 0; i < entityArray.length; i++) {
-					Entity thisEntity = entityArray[i];
-					if (!(thisEntity instanceof Projectile))
-						continue;
 					g.drawImage(thisEntity.getImage(client.getFrame()), thisEntity.getLocation().getX()
 							- playerLocation.getX() + Client.WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity
 							.getLocation().getY()
