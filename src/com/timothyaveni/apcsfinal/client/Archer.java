@@ -20,7 +20,12 @@ public class Archer extends Player {
 
 	@Override
 	public int getBaseDamage() {
-		return 25;
+		if(abilityActive){
+			return 50;
+		}else{
+			return 35;
+		}
+		
 	}
 
 	@Override
@@ -83,10 +88,6 @@ public class Archer extends Player {
 	public void updateAbility(long frame) {
 		if (frame - lastAbilityCall > 300 && abilityActive) { // it has been more than 300 frames (=10 seconds)
 			abilityActive = false;
-			if (getHP() >= 100) // checks to make sure resetting HP will not kill player
-				setHP(getHP() - 100);
-			else
-				setHP(1);
 		}
 	}
 
