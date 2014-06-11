@@ -8,6 +8,207 @@
 				"direction": 1
 			}
 		}
+		{
+			"type": 2,
+			"location": {
+				"x": 700,
+				"y": 900,
+				"direction": 2
+			}
+		}
+		{
+			"type": 2,
+			"location": {
+				"x": 700,
+				"y": 1000,
+				"direction": 3
+			}
+		}
+		{
+			"type": 2,
+			"location": {
+				"x": 700,
+				"y": 1300,
+				"direction": 0
+			}
+		}
+		{
+			"type": 2,
+			"location": {
+				"x": 1150,
+				"y": 1600,
+				"direction": 1
+			}
+		}
+		{
+			"type": 2,
+			"location": {
+				"x": 1150,
+				"y": 1000,
+				"direction": 2
+			}
+		}
+		{
+			"type": 2,
+			"location": {
+				"x": 1150,
+				"y": 900,
+				"direction": 1
+			}
+		}
+		{
+			"type": 2,
+			"location": {
+				"x": 2000,
+				"y": 800,
+				"direction": 3
+			}
+		}
+		{
+			"type": 2,
+			"location": {
+				"x": 700,
+				"y": 950,
+				"direction": 1
+			}
+		}
+		{
+			"type": 2,
+			"location": {
+				"x": 700,
+				"y": 1200,
+				"direction": 0
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3200,
+				"y": 1100,
+				"direction": 1
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3200,
+				"y": 1150,
+				"direction": 2
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3200,
+				"y": 1200,
+				"direction": 1
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3200,
+				"y": 1250,
+				"direction": 3
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3200,
+				"y": 1300,
+				"direction": 3
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3500,
+				"y": 1300,
+				"direction": 1
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3500,
+				"y": 1100,
+				"direction": 2
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3500,
+				"y": 1150,
+				"direction": 1
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3500,
+				"y": 1200,
+				"direction": 0
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3500,
+				"y": 1250,
+				"direction": 1
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3500,
+				"y": 1300,
+				"direction": 1
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3500,
+				"y": 1300,
+				"direction": 1
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3800,
+				"y": 1100,
+				"direction": 3
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3800,
+				"y": 1150,
+				"direction": 2
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3800,
+				"y": 1200,
+				"direction": 1
+			}
+		}
+		{
+			"type": 1,
+			"location": {
+				"x": 3800,
+				"y": 1250,
+				"direction": 0
+			}
+		}
+		
 	],
 	"spawnPoint": {
 		"x": 655,
