@@ -148,9 +148,7 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 		}
 
 		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
-			if ((track.getLocation().getX() - this.getLocation().getX() != 0)
-					&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track.getLocation()
-							.getY() - this.getLocation().getY())) {
+			if ((track.getLocation().getY() - this.getLocation().getY() == 0)){
 				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
 						.getLocation().getX() - getLocation().getX(), "X",
 						server.getLoadedMaps().get(getLocation().getWorldSectionId()), server.getEntityList(),
