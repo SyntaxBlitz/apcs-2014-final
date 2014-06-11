@@ -67,7 +67,7 @@ public class MapCanvas extends Canvas implements UsesClient {
 				for (int i = 0; i < environmentAnimations.length; i++) {
 					EnvironmentAnimation thisAnimation = environmentAnimations[i];
 					if (!thisAnimation.stillRelevant(client.getFrame())) {
-						System.out.println(client.getEnvironmentAnimations().remove(thisAnimation));
+						client.getEnvironmentAnimations().remove(thisAnimation);
 						continue;
 					}
 					BufferedImage renderImage = thisAnimation.getImage(client.getFrame());

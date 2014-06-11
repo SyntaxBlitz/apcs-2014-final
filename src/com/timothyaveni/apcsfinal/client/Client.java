@@ -10,7 +10,6 @@ import com.timothyaveni.apcsfinal.client.environmentanimation.EnvironmentAnimati
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
 import com.timothyaveni.apcsfinal.client.gui.MenuPanel;
 import com.timothyaveni.apcsfinal.networking.EntityType;
-import com.timothyaveni.apcsfinal.networking.WorldSectionID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 
 public class Client {

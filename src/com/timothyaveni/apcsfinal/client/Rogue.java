@@ -1,7 +1,6 @@
 package com.timothyaveni.apcsfinal.client;
 
 import java.awt.Rectangle;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import com.timothyaveni.apcsfinal.networking.AnimationType;

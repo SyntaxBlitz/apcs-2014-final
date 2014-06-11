@@ -1,6 +1,5 @@
 package com.timothyaveni.apcsfinal.client;
 
-import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 

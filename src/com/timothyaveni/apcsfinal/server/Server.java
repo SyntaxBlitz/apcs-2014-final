@@ -11,7 +11,6 @@ import java.util.List;
 
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.EntityInfo;
-import com.timothyaveni.apcsfinal.client.FileReader;
 import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.client.Projectile;

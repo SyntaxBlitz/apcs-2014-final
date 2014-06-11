@@ -1,14 +1,6 @@
 package com.timothyaveni.apcsfinal.networking;
 
-import com.timothyaveni.apcsfinal.client.Archer;
-import com.timothyaveni.apcsfinal.client.Arrow;
-import com.timothyaveni.apcsfinal.client.Entity;
-import com.timothyaveni.apcsfinal.client.Healer;
 import com.timothyaveni.apcsfinal.client.Location;
-import com.timothyaveni.apcsfinal.client.Mage;
-import com.timothyaveni.apcsfinal.client.MagicBall;
-import com.timothyaveni.apcsfinal.client.Rogue;
-import com.timothyaveni.apcsfinal.client.Tank;
 import com.timothyaveni.apcsfinal.client.environmentanimation.DamageNumber;
 import com.timothyaveni.apcsfinal.client.environmentanimation.EnvironmentAnimation;
 import com.timothyaveni.apcsfinal.client.environmentanimation.FireArrows;
@@ -16,10 +8,6 @@ import com.timothyaveni.apcsfinal.client.environmentanimation.Heal;
 import com.timothyaveni.apcsfinal.client.environmentanimation.LightningBolt;
 import com.timothyaveni.apcsfinal.client.environmentanimation.Rage;
 import com.timothyaveni.apcsfinal.client.environmentanimation.SwordSpin;
-import com.timothyaveni.apcsfinal.server.ArcanusEnemy;
-import com.timothyaveni.apcsfinal.server.GoblinEnemy;
-import com.timothyaveni.apcsfinal.server.GolemEnemy;
-import com.timothyaveni.apcsfinal.server.SkeletonEnemy;
 
 public class AnimationTypeID {
 	public static int getID(AnimationType type) {

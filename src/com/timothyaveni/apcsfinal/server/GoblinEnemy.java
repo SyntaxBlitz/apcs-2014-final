@@ -9,7 +9,6 @@ import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
-import com.timothyaveni.apcsfinal.client.Projectile;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
@@ -141,9 +140,6 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 		if (server.getCurrentTick() % 10 == 0
 				&& attackArea.intersects(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track
 						.getLocation().getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()))) {
-			System.out.println(attackArea);
-			System.out.println(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track.getLocation()
-					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
 			attack(track);
 		}
 

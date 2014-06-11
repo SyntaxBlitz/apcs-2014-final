@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import com.timothyaveni.apcsfinal.client.Entity;
-import com.timothyaveni.apcsfinal.client.FileReader;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
