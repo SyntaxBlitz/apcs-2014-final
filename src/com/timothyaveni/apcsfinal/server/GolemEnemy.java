@@ -125,17 +125,17 @@ public class GolemEnemy extends Entity implements EnemyAI {
 					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
 			attack(track);
 		}
-			if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
-				if ((track.getLocation().getX() - this.getLocation().getX() != 0)
-						&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
-								.getLocation().getY() - this.getLocation().getY())) {
-					move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
-							.getLocation().getX() - getLocation().getX(), "X", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
-				} else {
-					move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
-							.getLocation().getY() - getLocation().getY(), "Y", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
-				}
+		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
+			if ((track.getLocation().getX() - this.getLocation().getX() != 0)
+					&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
+							.getLocation().getY() - this.getLocation().getY())) {
+				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
+						.getLocation().getX() - getLocation().getX(), "X", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
+			} else {
+				move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
+						.getLocation().getY() - getLocation().getY(), "Y", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
 			}
+		}
 	
 
 	}

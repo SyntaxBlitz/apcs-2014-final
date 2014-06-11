@@ -59,7 +59,6 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 			}
 		}
 
-
 	}
 
 	// Tracks player based off the player's location; might want all player
@@ -104,7 +103,7 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 				break;
 		}
 
-		if (server.getCurrentTick() % 15 == 0
+		if (server.getCurrentTick() % 10 == 0
 				&& attackArea.intersects(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track
 						.getLocation().getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()))) {
 			System.out.println(attackArea);
@@ -112,15 +111,16 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
 			attack(track);
 		}
-		if(this.getLocation().getDistanceTo(track.getLocation()) <= 700)
-		{
-			if (Math.abs(track.getLocation().getX() - getLocation().getX()) < Math.abs(track.getLocation().getY()
-					- getLocation().getY())) {
-				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), (getLocation().getX() - track.getLocation()
-						.getX()), "X", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
+		
+		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
+			if ((track.getLocation().getX() - this.getLocation().getX() != 0)
+					&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
+							.getLocation().getY() - this.getLocation().getY())) {
+				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
+						.getLocation().getX() - getLocation().getX(), "X", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
 			} else {
-				move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), (getLocation().getY() - track.getLocation()
-						.getY()), "Y", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
+				move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
+						.getLocation().getY() - getLocation().getY(), "Y", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
 			}
 		}
 
