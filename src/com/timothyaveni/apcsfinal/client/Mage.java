@@ -73,7 +73,7 @@ public class Mage extends Player {
 
 	@Override
 	public void attack(Client client) {
-		if (client.getFrame() - lastAttackFrame > 60) { // 1 magic ball every 2 seconds
+		if (client.getFrame() - lastAttackFrame > 30) { // 1 magic ball every second
 			MagicBall projectile = new MagicBall(-1, getLocation());
 			int packetId = Client.getNextPacketId();
 			client.getUnacknowledgedProjectiles().put(packetId, projectile);
@@ -85,7 +85,7 @@ public class Mage extends Player {
 
 	@Override
 	public void useAbility(long frame, Client client) {
-		if (frame - lastAbilityCall > 600) {
+		if (frame - lastAbilityCall > 150) {
 			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 			for (Entity entity : entities) {
 				if (!(entity instanceof Player)
