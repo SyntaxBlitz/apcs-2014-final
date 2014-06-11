@@ -131,6 +131,8 @@ public abstract class Player extends Entity {
 				continue;
 			Location myLocation = getLocation();
 			Location entityLocation = entity.getLocation();
+			if (entity instanceof Player && myLocation.getDistanceTo(currentMap.getMetadata().getSpawnPoint()) < 200)
+				continue;	// if we're close to spawn, phase through other players
 			if (entityLocation.getWorldSectionId() == myLocation.getWorldSectionId()) {
 				// brace for rectangle overlap code *shudder*
 				if (centerX - getWidth() / 2 < entityLocation.getX() + entity.getWidth() / 2
