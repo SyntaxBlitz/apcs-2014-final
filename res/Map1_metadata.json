@@ -8,6 +8,38 @@
 				"direction": 1
 			}
 		}
+		{
+			"type": 2,
+			"location": {
+				"x": 700,
+				"y": 1300,
+				"direction": 1
+			}
+		}
+		{
+			"type":L 2,
+			"location": {
+				"x": 700,
+				"y": 1300,
+				"direction": 1
+			}
+		}
+		{
+			"type": 2,
+			"location": {
+				"x": 700,
+				"y": 1300,
+				"direction": 1
+			}
+		}
+		{
+			"type": 2,
+			"location": {
+				"x": 700,
+				"y": 1300,
+				"direction": 1
+			}
+		}
 	],
 	"spawnPoint": {
 		"x": 655,
