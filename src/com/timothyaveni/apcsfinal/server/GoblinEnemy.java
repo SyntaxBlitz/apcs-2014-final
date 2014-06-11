@@ -61,6 +61,7 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 	// Tracks player based off the player's location; might want all player
 	// locations to determine closest?
 	public void act(Server server) {
+		
 		ArrayList<Player> players = server.getPlayerList();
 		if (players.size() == 0)
 			return;
@@ -108,15 +109,18 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
 			attack(track);
 		}
-		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
-			if ((track.getLocation().getX() - this.getLocation().getX() != 0)
-					&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
-							.getLocation().getY() - this.getLocation().getY())) {
-				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
-						.getLocation().getX() - getLocation().getX(), "X");
-			} else {
-				move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
-						.getLocation().getY() - getLocation().getY(), "Y");
+		if(server.getLoadedMaps().get(getLocation().getWorldSectionId()).isPointValid(track.getLocation().getX() - this.getLocation().getX(), track.getLocation().getY() - getLocation().getY()))
+		{
+			if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
+				if ((track.getLocation().getX() - this.getLocation().getX() != 0)
+						&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
+								.getLocation().getY() - this.getLocation().getY())) {
+					move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
+							.getLocation().getX() - getLocation().getX(), "X");
+				} else {
+					move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
+							.getLocation().getY() - getLocation().getY(), "Y");
+				}
 			}
 		}
 	}

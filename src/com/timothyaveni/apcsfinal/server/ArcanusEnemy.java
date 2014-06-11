@@ -40,8 +40,7 @@ public class ArcanusEnemy extends Entity implements BossAI {
 
 	}
 
-	// Tracks player based off the player's location; might want all player
-	// locations to determine closest?
+	//This method determines if the boss fires projectiles or if the boss spawns enemies as his act every 5 seconds
 	public void act(Server server) {
 		ArrayList<Player> players = server.getPlayerList();
 		if (players.size() == 0)
@@ -74,7 +73,8 @@ public class ArcanusEnemy extends Entity implements BossAI {
 		}
 	}
 
-	public void summonMinions(Server server) { // This method adds enemy entities to the server list of invisible entities
+	// This method adds enemy entities to the server list of invisible entities
+	public void summonMinions(Server server) { 
 		
 		GolemEnemy golem1 = new GolemEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
 		GolemEnemy golem2 = new GolemEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
