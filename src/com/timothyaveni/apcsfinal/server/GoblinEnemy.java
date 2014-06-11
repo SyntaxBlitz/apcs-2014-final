@@ -2,11 +2,14 @@ package com.timothyaveni.apcsfinal.server;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
+import com.timothyaveni.apcsfinal.client.Projectile;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
@@ -28,48 +31,74 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getSpeed()));
 	}
 
-	public void move(int distance, int direction, String plane, MapMetadata map) {
-		
+	public void move(int distance, int direction, String plane, MapMetadata map, HashMap<Integer, Entity> entities,
+			ArrayList<Player> players) {
+		Location newLocation = null;
 		if (plane.equals("X")) {
 			if (direction > 0) {
-				Location newLocation = new Location(this.getLocation().getX() + distance, this.getLocation().getY(),
+				newLocation = new Location(this.getLocation().getX() + distance, this.getLocation().getY(),
 						Location.EAST, this.getLocation().getWorldSectionId());
-				if(map.isPointValid(newLocation.getX(), newLocation.getY()))
-				{
-					Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
-					setLocation(newLocation);
-				}
 			} else {
-				Location newLocation = new Location(this.getLocation().getX() - distance, this.getLocation().getY(),
+				newLocation = new Location(this.getLocation().getX() - distance, this.getLocation().getY(),
 						Location.WEST, this.getLocation().getWorldSectionId());
-				if(map.isPointValid(newLocation.getX(), newLocation.getY()))
-				{
-					Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
-					setLocation(newLocation);
-				}
 			}
 		} else {
 			if (direction > 0) {
-				Location newLocation = new Location(
-						this.getLocation().getX(), this.getLocation().getY() + distance, Location.SOUTH, this
-						.getLocation().getWorldSectionId());
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
-				setLocation(newLocation);
+				newLocation = new Location(this.getLocation().getX(), this.getLocation().getY() + distance,
+						Location.SOUTH, this.getLocation().getWorldSectionId());
 			} else {
-				Location newLocation = new Location(
-						this.getLocation().getX(), this.getLocation().getY() - distance, Location.NORTH, this
-						.getLocation().getWorldSectionId());
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
-				setLocation(newLocation);
+				newLocation = new Location(this.getLocation().getX(), this.getLocation().getY() - distance,
+						Location.NORTH, this.getLocation().getWorldSectionId());
 			}
 		}
 
+		if (map.isPointValid(newLocation.getX(), newLocation.getY()) && !collidesWith(newLocation, entities)
+				&& !collidesWith(newLocation, players)) {
+			Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+			setLocation(newLocation);
+		}
+	}
+
+	private boolean collidesWith(Location newLocation, HashMap<Integer, Entity> entities) {
+		Iterator<Entity> i = entities.values().iterator();
+		while (i.hasNext()) {
+			Entity entity = i.next();
+			if (entity == this)
+				continue;
+			Location myLocation = getLocation();
+			Location entityLocation = entity.getLocation();
+			if (entityLocation.getWorldSectionId() == myLocation.getWorldSectionId()) {
+				Rectangle entityRect = new Rectangle(entityLocation.getX() - entity.getWidth() / 2,
+						entityLocation.getY() - entity.getHeight() / 2, entity.getWidth(), entity.getHeight());
+				if (entityRect.intersects(new Rectangle(myLocation.getX() - getWidth() / 2, myLocation.getY()
+						- getHeight() / 2, getWidth(), getHeight())))
+					return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean collidesWith(Location newLocation, ArrayList<Player> players) {
+		Iterator<Player> i = players.iterator();
+		while (i.hasNext()) {
+			Player player = i.next();
+			Location myLocation = getLocation();
+			Location playerLocation = player.getLocation();
+			if (playerLocation.getWorldSectionId() == myLocation.getWorldSectionId()) {
+				Rectangle entityRect = new Rectangle(playerLocation.getX() - player.getWidth() / 2,
+						playerLocation.getY() - player.getHeight() / 2, player.getWidth(), player.getHeight());
+				if (entityRect.intersects(new Rectangle(myLocation.getX() - getWidth() / 2, myLocation.getY()
+						- getHeight() / 2, getWidth(), getHeight())))
+					return true;
+			}
+		}
+		return false;
 	}
 
 	// Tracks player based off the player's location; might want all player
 	// locations to determine closest?
 	public void act(Server server) {
-		
+
 		ArrayList<Player> players = server.getPlayerList();
 		if (players.size() == 0)
 			return;
@@ -117,19 +146,23 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
 			attack(track);
 		}
-		
+
 		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
 			if ((track.getLocation().getX() - this.getLocation().getX() != 0)
-					&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
-							.getLocation().getY() - this.getLocation().getY())) {
+					&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track.getLocation()
+							.getY() - this.getLocation().getY())) {
 				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
-						.getLocation().getX() - getLocation().getX(), "X", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
+						.getLocation().getX() - getLocation().getX(), "X",
+						server.getLoadedMaps().get(getLocation().getWorldSectionId()), server.getEntityList(),
+						server.getPlayerList());
 			} else {
 				move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
-						.getLocation().getY() - getLocation().getY(), "Y", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
+						.getLocation().getY() - getLocation().getY(), "Y",
+						server.getLoadedMaps().get(getLocation().getWorldSectionId()), server.getEntityList(),
+						server.getPlayerList());
 			}
 		}
-			
+
 	}
 
 	public Location getLocation() {
