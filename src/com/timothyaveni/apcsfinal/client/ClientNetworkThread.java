@@ -27,7 +27,7 @@ public class ClientNetworkThread implements Runnable {
 		long frame;
 	}
 
-	private static final int MAX_PACKET_LENGTH = 512;
+	private static final int MAX_PACKET_LENGTH = 20;
 	private static final int PORT = 21102;
 
 	private DatagramSocket socket;

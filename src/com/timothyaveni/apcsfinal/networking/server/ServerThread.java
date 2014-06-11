@@ -27,7 +27,7 @@ public class ServerThread implements Runnable {
 		long tick;
 	}
 
-	private final int MAX_PACKET_LENGTH = 512; // in bytes
+	private final int MAX_PACKET_LENGTH = 20; // in bytes
 
 	private int port;
 	private ServerCallbackListener listener;
