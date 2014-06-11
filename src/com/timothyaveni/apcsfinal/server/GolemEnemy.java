@@ -60,7 +60,7 @@ public class GolemEnemy extends Entity implements EnemyAI {
 			Entity entity = i.next();
 			if (entity == this)
 				continue;
-			Location myLocation = getLocation();
+			Location myLocation = newLocation;
 			Location entityLocation = entity.getLocation();
 			if (entityLocation.getWorldSectionId() == myLocation.getWorldSectionId()) {
 				Rectangle entityRect = new Rectangle(entityLocation.getX() - entity.getWidth() / 2,
@@ -77,7 +77,7 @@ public class GolemEnemy extends Entity implements EnemyAI {
 		Iterator<Player> i = players.iterator();
 		while (i.hasNext()) {
 			Player player = i.next();
-			Location myLocation = getLocation();
+			Location myLocation = newLocation;
 			Location playerLocation = player.getLocation();
 			if (playerLocation.getWorldSectionId() == myLocation.getWorldSectionId()) {
 				Rectangle entityRect = new Rectangle(playerLocation.getX() - player.getWidth() / 2,

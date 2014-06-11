@@ -115,7 +115,7 @@ public class Rogue extends Player {
 
 	@Override
 	public void useAbility(long frame, Client client) {
-		if (frame - lastAbilityCall < 300) {
+		if (frame - lastAbilityCall > 300) {
 			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 			for (Entity entity : entities) {
 				if (!(entity instanceof Player)
