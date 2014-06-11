@@ -13,19 +13,19 @@ public class ClientKeyListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
-			case KeyEvent.VK_RIGHT:
+			case KeyEvent.VK_D:
 				client.setKey(0, true);
 				client.getPlayer().setMoving(true);
 				break;
-			case KeyEvent.VK_DOWN:
+			case KeyEvent.VK_S:
 				client.setKey(1, true);
 				client.getPlayer().setMoving(true);
 				break;
-			case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_A:
 				client.setKey(2, true);
 				client.getPlayer().setMoving(true);
 				break;
-			case KeyEvent.VK_UP:
+			case KeyEvent.VK_W:
 				client.setKey(3, true);
 				client.getPlayer().setMoving(true);
 				break;
@@ -36,19 +36,19 @@ public class ClientKeyListener implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 
 		switch (e.getKeyCode()) {
-			case KeyEvent.VK_RIGHT:
+			case KeyEvent.VK_D:
 				client.setKey(0, false);
 				client.getPlayer().setMoving(false);
 				break;
-			case KeyEvent.VK_DOWN:
+			case KeyEvent.VK_S:
 				client.setKey(1, false);
 				client.getPlayer().setMoving(false);
 				break;
-			case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_A:
 				client.setKey(2, false);
 				client.getPlayer().setMoving(false);
 				break;
-			case KeyEvent.VK_UP:
+			case KeyEvent.VK_W:
 				client.setKey(3, false);
 				client.getPlayer().setMoving(false);
 				break;
