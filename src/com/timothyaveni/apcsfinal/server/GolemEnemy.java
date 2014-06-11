@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.client.Tank;
 import com.timothyaveni.apcsfinal.networking.EntityType;
@@ -24,18 +25,25 @@ public class GolemEnemy extends Entity implements EnemyAI {
 		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getStrength()));
 	}
 
-	public void move(int distance, int direction, String plane) {
+	public void move(int distance, int direction, String plane, MapMetadata map) {
+
 		if (plane.equals("X")) {
 			if (direction > 0) {
 				Location newLocation = new Location(this.getLocation().getX() + distance, this.getLocation().getY(),
 						Location.EAST, this.getLocation().getWorldSectionId());
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
-				setLocation(newLocation);
+				if(map.isPointValid(newLocation.getX(), newLocation.getY()))
+				{
+					Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+					setLocation(newLocation);
+				}
 			} else {
 				Location newLocation = new Location(this.getLocation().getX() - distance, this.getLocation().getY(),
 						Location.WEST, this.getLocation().getWorldSectionId());
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
-				setLocation(newLocation);
+				if(map.isPointValid(newLocation.getX(), newLocation.getY()))
+				{
+					Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+					setLocation(newLocation);
+				}
 			}
 		} else {
 			if (direction > 0) {
@@ -52,6 +60,7 @@ public class GolemEnemy extends Entity implements EnemyAI {
 				setLocation(newLocation);
 			}
 		}
+
 
 	}
 
@@ -121,10 +130,10 @@ public class GolemEnemy extends Entity implements EnemyAI {
 						&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
 								.getLocation().getY() - this.getLocation().getY())) {
 					move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
-							.getLocation().getX() - getLocation().getX(), "X");
+							.getLocation().getX() - getLocation().getX(), "X", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
 				} else {
 					move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
-							.getLocation().getY() - getLocation().getY(), "Y");
+							.getLocation().getY() - getLocation().getY(), "Y", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
 				}
 			}
 	

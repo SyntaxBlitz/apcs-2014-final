@@ -2,11 +2,10 @@ package com.timothyaveni.apcsfinal.server;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
@@ -25,18 +24,24 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getStrength()));
 	}
 
-	public void move(int distance, int direction, String plane) {
+	public void move(int distance, int direction, String plane, MapMetadata map) {
 		if (plane.equals("X")) {
 			if (direction > 0) {
 				Location newLocation = new Location(this.getLocation().getX() + distance, this.getLocation().getY(),
 						Location.EAST, this.getLocation().getWorldSectionId());
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
-				setLocation(newLocation);
+				if(map.isPointValid(newLocation.getX(), newLocation.getY()))
+				{
+					Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+					setLocation(newLocation);
+				}
 			} else {
 				Location newLocation = new Location(this.getLocation().getX() - distance, this.getLocation().getY(),
 						Location.WEST, this.getLocation().getWorldSectionId());
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
-				setLocation(newLocation);
+				if(map.isPointValid(newLocation.getX(), newLocation.getY()))
+				{
+					Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+					setLocation(newLocation);
+				}
 			}
 		} else {
 			if (direction > 0) {
@@ -112,10 +117,10 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 			if (Math.abs(track.getLocation().getX() - getLocation().getX()) < Math.abs(track.getLocation().getY()
 					- getLocation().getY())) {
 				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), (getLocation().getX() - track.getLocation()
-						.getX()), "X");
+						.getX()), "X", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
 			} else {
 				move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), (getLocation().getY() - track.getLocation()
-						.getY()), "Y");
+						.getY()), "Y", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
 			}
 		}
 

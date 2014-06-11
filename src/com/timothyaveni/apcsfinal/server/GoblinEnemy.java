@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
+import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
@@ -27,18 +28,25 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getSpeed()));
 	}
 
-	public void move(int distance, int direction, String plane) {
+	public void move(int distance, int direction, String plane, MapMetadata map) {
+		
 		if (plane.equals("X")) {
 			if (direction > 0) {
 				Location newLocation = new Location(this.getLocation().getX() + distance, this.getLocation().getY(),
 						Location.EAST, this.getLocation().getWorldSectionId());
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
-				setLocation(newLocation);
+				if(map.isPointValid(newLocation.getX(), newLocation.getY()))
+				{
+					Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+					setLocation(newLocation);
+				}
 			} else {
 				Location newLocation = new Location(this.getLocation().getX() - distance, this.getLocation().getY(),
 						Location.WEST, this.getLocation().getWorldSectionId());
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
-				setLocation(newLocation);
+				if(map.isPointValid(newLocation.getX(), newLocation.getY()))
+				{
+					Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+					setLocation(newLocation);
+				}
 			}
 		} else {
 			if (direction > 0) {
@@ -109,20 +117,19 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
 			attack(track);
 		}
-		if(server.getLoadedMaps().get(getLocation().getWorldSectionId()).isPointValid(track.getLocation().getX() - this.getLocation().getX(), track.getLocation().getY() - getLocation().getY()))
-		{
-			if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
-				if ((track.getLocation().getX() - this.getLocation().getX() != 0)
-						&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
-								.getLocation().getY() - this.getLocation().getY())) {
-					move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
-							.getLocation().getX() - getLocation().getX(), "X");
-				} else {
-					move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
-							.getLocation().getY() - getLocation().getY(), "Y");
-				}
+		
+		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
+			if ((track.getLocation().getX() - this.getLocation().getX() != 0)
+					&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
+							.getLocation().getY() - this.getLocation().getY())) {
+				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
+						.getLocation().getX() - getLocation().getX(), "X", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
+			} else {
+				move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
+						.getLocation().getY() - getLocation().getY(), "Y", server.getLoadedMaps().get(getLocation().getWorldSectionId()));
 			}
 		}
+			
 	}
 
 	public Location getLocation() {
