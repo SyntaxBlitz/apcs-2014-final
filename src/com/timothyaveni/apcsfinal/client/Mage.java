@@ -85,7 +85,7 @@ public class Mage extends Player {
 
 	@Override
 	public void useAbility(long frame, Client client) {
-		if (frame - lastAbilityCall < 600) {
+		if (frame - lastAbilityCall > 600) {
 			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 			for (Entity entity : entities) {
 				if (!(entity instanceof Player)
@@ -97,6 +97,9 @@ public class Mage extends Player {
 									entity.getLocation(), getBaseDamage() + 10));
 				}
 			}
+			client.getNetworkThread().sendPacket(
+					new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.LIGHTNING_BOLT,
+							getLocation(), 00));
 			lastAbilityCall = frame;
 		}
 	}

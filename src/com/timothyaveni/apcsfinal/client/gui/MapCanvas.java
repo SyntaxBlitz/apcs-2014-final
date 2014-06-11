@@ -66,6 +66,10 @@ public class MapCanvas extends Canvas implements UsesClient {
 						new EnvironmentAnimation[0]);
 				for (int i = 0; i < environmentAnimations.length; i++) {
 					EnvironmentAnimation thisAnimation = environmentAnimations[i];
+					if (!thisAnimation.stillRelevant(client.getFrame())) {
+						System.out.println(client.getEnvironmentAnimations().remove(thisAnimation));
+						continue;
+					}
 					BufferedImage renderImage = thisAnimation.getImage(client.getFrame());
 					g.drawImage(thisAnimation.getImage(client.getFrame()), thisAnimation.getLocation().getX()
 							- playerLocation.getX() + Client.WIDTH / 2 - renderImage.getWidth() / 2, thisAnimation
@@ -75,9 +79,6 @@ public class MapCanvas extends Canvas implements UsesClient {
 							/ 2
 							- renderImage.getHeight()
 							/ 2, renderImage.getWidth(), renderImage.getHeight(), null);
-					if (!thisAnimation.stillRelevant(client.getFrame())) {
-						client.getEnvironmentAnimations().remove(thisAnimation);
-					}
 				}
 
 				renderHPBar(g);
