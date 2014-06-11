@@ -26,7 +26,7 @@ public class MagicBall extends Projectile {
 
 	@Override
 	public String getFileLocation() {
-		return "Goblin.png"; // TODO: write this
+		return "MagicBall.png"; // TODO: write this
 	}
 
 	@Override
