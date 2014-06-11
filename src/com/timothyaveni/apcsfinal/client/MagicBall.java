@@ -16,17 +16,17 @@ public class MagicBall extends Projectile {
 
 	@Override
 	public int getHeight() {
-		return 32; // TODO: check this
+		return 32;
 	}
 
 	@Override
 	public int getWidth() {
-		return 32; // TODO: check this
+		return 32;
 	}
 
 	@Override
 	public String getFileLocation() {
-		return "MagicBall.png"; // TODO: write this
+		return "MagicBall.png";
 	}
 
 	@Override
