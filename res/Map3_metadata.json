@@ -1,0 +1,26 @@
+{
+	"entities": [
+		{
+			"type": 7,
+			"location": {
+				"x": 1046,
+				"y": 540,
+				"direction": 0
+			}
+		}
+	],
+	"spawnPoint": {
+		"x": 1069,
+		"y": 1074,
+		"direction": 2
+	},
+	"exitAreas": [
+		{
+			"x": 0,
+			"y": 0,
+			"width": 0,
+			"height": 0,
+			"newMapId": 0
+		}
+	]
+}
