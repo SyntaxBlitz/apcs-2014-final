@@ -108,21 +108,17 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
 			attack(track);
 		}
-
-		if (server.getCurrentTick() % 1 == 0) {
-			if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
-				if ((track.getLocation().getX() - this.getLocation().getX() != 0)
-						&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
-								.getLocation().getY() - this.getLocation().getY())) {
-					move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
-							.getLocation().getX() - getLocation().getX(), "X");
-				} else {
-					move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
-							.getLocation().getY() - getLocation().getY(), "Y");
-				}
+		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
+			if ((track.getLocation().getX() - this.getLocation().getX() != 0)
+					&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
+							.getLocation().getY() - this.getLocation().getY())) {
+				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
+						.getLocation().getX() - getLocation().getX(), "X");
+			} else {
+				move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
+						.getLocation().getY() - getLocation().getY(), "Y");
 			}
 		}
-
 	}
 
 	public Location getLocation() {
@@ -166,7 +162,7 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public int getVelocity() {
-		return 20;
+		return 8;
 	}
 
 	public int getGoldValue() {
