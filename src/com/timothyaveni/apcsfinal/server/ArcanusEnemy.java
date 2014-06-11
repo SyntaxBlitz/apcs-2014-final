@@ -2,12 +2,13 @@ package com.timothyaveni.apcsfinal.server;
 
 import java.util.ArrayList;
 
+import com.timothyaveni.apcsfinal.client.ArcanusBall;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.Player;
-import com.timothyaveni.apcsfinal.client.ArcanusBall;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
+import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
 
 public class ArcanusEnemy extends Entity implements BossAI {
 	private int baseDmg = 30;
@@ -127,10 +128,18 @@ public class ArcanusEnemy extends Entity implements BossAI {
 	// This method creates new projectiles to send to the server
 	public void projectileAttack(Server server) {
 		for(int i = 0; i < 3; i++){
-		server.getMyProjectiles().add(new ArcanusBall(Server.getNextEntityId(), new Location(this.getLocation().getX(), this.getLocation().getY(), Location.NORTH, this.getLocation().getWorldSectionId())));
-		server.getMyProjectiles().add(new ArcanusBall(Server.getNextEntityId(), new Location(this.getLocation().getX(), this.getLocation().getY(), Location.EAST, this.getLocation().getWorldSectionId())));
-		server.getMyProjectiles().add(new ArcanusBall(Server.getNextEntityId(), new Location(this.getLocation().getX(), this.getLocation().getY(), Location.SOUTH, this.getLocation().getWorldSectionId())));
-		server.getMyProjectiles().add(new ArcanusBall(Server.getNextEntityId(), new Location(this.getLocation().getX(), this.getLocation().getY(), Location.WEST, this.getLocation().getWorldSectionId())));
+			ArcanusBall ball1 = new ArcanusBall(Server.getNextEntityId(), new Location(this.getLocation().getX(), this.getLocation().getY(), Location.NORTH, this.getLocation().getWorldSectionId()));
+			ArcanusBall ball2 = new ArcanusBall(Server.getNextEntityId(), new Location(this.getLocation().getX(), this.getLocation().getY(), Location.EAST, this.getLocation().getWorldSectionId()));
+			ArcanusBall ball3 = new ArcanusBall(Server.getNextEntityId(), new Location(this.getLocation().getX(), this.getLocation().getY(), Location.SOUTH, this.getLocation().getWorldSectionId()));
+			ArcanusBall ball4 = new ArcanusBall(Server.getNextEntityId(), new Location(this.getLocation().getX(), this.getLocation().getY(), Location.WEST, this.getLocation().getWorldSectionId()));
+			server.getMyProjectiles().add(ball1);
+			server.getMyProjectiles().add(ball2);
+			server.getMyProjectiles().add(ball3);
+			server.getMyProjectiles().add(ball4);
+			Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), ball1));
+			Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), ball2));
+			Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), ball3));
+			Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), ball4));
 		}
 	}
 
