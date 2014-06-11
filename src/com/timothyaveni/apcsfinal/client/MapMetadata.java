@@ -32,7 +32,7 @@ public class MapMetadata {
 	private ArrayList<ExitArea> exitAreas;
 
 	public MapMetadata(String mapName, int worldSectionId) throws IOException {
-		collisionMap = ImageIO.read(FileReader.getFileFromResourceString(mapName + "_Collision.png"));
+		collisionMap = ImageIO.read(FileReader.getFileFromResourceString(mapName + "_collision.png"));
 		
 		File jsonFile = FileReader.getFileFromResourceString(mapName + "_metadata.json");
 		JSONObject jsonObject = null;

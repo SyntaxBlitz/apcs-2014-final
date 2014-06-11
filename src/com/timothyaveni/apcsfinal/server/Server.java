@@ -87,7 +87,7 @@ public class Server {
 		// easiest to just load in all the maps at once
 		loadMap(1);
 		loadMap(2);
-		//loadMap(3);
+		loadMap(3);
 
 		while (true) {
 			tickStart = System.nanoTime();
@@ -163,6 +163,7 @@ public class Server {
 	}
 
 	public void loadMap(int worldSectionId) {
+		System.out.println(worldSectionId);
 		MapMetadata metadata = null;
 		try {
 			metadata = new MapMetadata(WorldSectionID.getMapNameFromID(worldSectionId), worldSectionId);

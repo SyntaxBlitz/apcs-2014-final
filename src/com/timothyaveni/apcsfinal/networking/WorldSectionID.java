@@ -8,6 +8,8 @@ public class WorldSectionID {
 				return "Map1";
 			case 2:
 				return "Map2";
+			case 3:
+				return "Map3";
 			default:
 				return "";
 		}
