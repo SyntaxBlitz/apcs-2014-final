@@ -184,7 +184,7 @@ public class ArcanusEnemy extends Entity implements BossAI {
 
 	@Override
 	public int getMaxHP() {
-		return 999;
+		return 1500;
 	}
 
 }
