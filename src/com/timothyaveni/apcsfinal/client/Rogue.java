@@ -11,7 +11,6 @@ import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 
 public class Rogue extends Player {
 
-	private boolean abilityAvailable = true;
 	private long lastAbilityCall;
 
 	public Rogue(int id, Location loc) {
@@ -117,7 +116,7 @@ public class Rogue extends Player {
 
 	@Override
 	public void useAbility(long frame, Client client) {
-		if (abilityAvailable) {
+		if (frame - lastAbilityCall < 300) {
 			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 			for (Entity entity : entities) {
 				if (!(entity instanceof Player)
@@ -134,11 +133,6 @@ public class Rogue extends Player {
 	}
 
 	@Override
-	public void updateAbility(long frame) {
-		if (frame - lastAbilityCall < 300)
-			abilityAvailable = false;
-		else
-			abilityAvailable = true;
-	}
+	public void updateAbility(long frame) {}
 
 }

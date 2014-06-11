@@ -83,6 +83,14 @@ public class Archer extends Player {
 			lastAttackFrame = client.getFrame();
 		}
 	}
+	
+	@Override
+	public void useAbility(long frame, Client client) {
+		if (frame - lastAbilityCall > 600) { // 600 frames = 20 seconds after last ability call (10 seconds after ability ended)
+			abilityActive = true;
+			lastAbilityCall = frame;
+		}
+	}
 
 	@Override
 	public void updateAbility(long frame) {

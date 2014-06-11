@@ -27,24 +27,33 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 
 	public void move(int distance, int direction, String plane) {
 		if (plane.equals("X")) {
-			if (direction > 0)
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(
-						this.getLocation().getX() - getVelocity(), this.getLocation().getY(), Location.SOUTH, this
-								.getLocation().getWorldSectionId())));
-			else
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(
-						this.getLocation().getX() + getVelocity(), this.getLocation().getY(), Location.NORTH, this
-								.getLocation().getWorldSectionId())));
+			if (direction > 0) {
+				Location newLocation = new Location(this.getLocation().getX() + distance, this.getLocation().getY(),
+						Location.EAST, this.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			} else {
+				Location newLocation = new Location(this.getLocation().getX() - distance, this.getLocation().getY(),
+						Location.WEST, this.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			}
 		} else {
-			if (direction > 0)
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(
-						this.getLocation().getX(), this.getLocation().getY() - getVelocity(), Location.EAST, this
-								.getLocation().getWorldSectionId())));
-			else
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), new Location(
-						this.getLocation().getX(), this.getLocation().getY() + getVelocity(), Location.WEST, this
-								.getLocation().getWorldSectionId())));
+			if (direction > 0) {
+				Location newLocation = new Location(
+						this.getLocation().getX(), this.getLocation().getY() + distance, Location.SOUTH, this
+						.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			} else {
+				Location newLocation = new Location(
+						this.getLocation().getX(), this.getLocation().getY() - distance, Location.NORTH, this
+						.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			}
 		}
+
 
 	}
 

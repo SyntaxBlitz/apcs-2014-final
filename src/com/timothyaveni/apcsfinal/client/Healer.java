@@ -11,7 +11,6 @@ import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 
 public class Healer extends Player {
 
-	private boolean abilityAvailable = true;
 	private long lastAbilityCall;
 
 	public Healer(int id, Location loc) {

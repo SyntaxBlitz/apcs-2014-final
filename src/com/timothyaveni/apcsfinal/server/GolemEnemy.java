@@ -1,5 +1,6 @@
 package com.timothyaveni.apcsfinal.server;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import com.timothyaveni.apcsfinal.client.Entity;
@@ -25,19 +26,31 @@ public class GolemEnemy extends Entity implements EnemyAI {
 
 	public void move(int distance, int direction, String plane) {
 		if (plane.equals("X")) {
-			if (direction > 0)
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(),new Location(this.getLocation().getX() + getVelocity(), this.getLocation().getY(),
-						Location.SOUTH, this.getLocation().getWorldSectionId())));
-			else
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(),new Location(this.getLocation().getX() - getVelocity(), this.getLocation().getY(),
-						Location.NORTH, this.getLocation().getWorldSectionId())));
+			if (direction > 0) {
+				Location newLocation = new Location(this.getLocation().getX() + distance, this.getLocation().getY(),
+						Location.EAST, this.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			} else {
+				Location newLocation = new Location(this.getLocation().getX() - distance, this.getLocation().getY(),
+						Location.WEST, this.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			}
 		} else {
-			if (direction > 0)
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(),new Location(this.getLocation().getX(), this.getLocation().getY() + getVelocity(),
-						Location.EAST, this.getLocation().getWorldSectionId())));
-			else
-				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(),new Location(this.getLocation().getX(), this.getLocation().getY() - getVelocity(),
-						Location.WEST, this.getLocation().getWorldSectionId())));
+			if (direction > 0) {
+				Location newLocation = new Location(
+						this.getLocation().getX(), this.getLocation().getY() + distance, Location.SOUTH, this
+						.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			} else {
+				Location newLocation = new Location(
+						this.getLocation().getX(), this.getLocation().getY() - distance, Location.NORTH, this
+						.getLocation().getWorldSectionId());
+				Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
+				setLocation(newLocation);
+			}
 		}
 
 	}
@@ -48,20 +61,43 @@ public class GolemEnemy extends Entity implements EnemyAI {
 		ArrayList<Player> players = server.getPlayerList();
 		if (players.size() == 0)
 			return;
-		Player track = null;
+		Player track;
 
 		double smallestDistance = getLocation().getDistanceTo(players.get(0).getLocation());
 		int smallestIndex = 0;
 
 		for (int i = 0; i < players.size(); i++) {
 			double thisDistance = getLocation().getDistanceTo(players.get(i).getLocation());
-			
 
 			if (thisDistance < smallestDistance) {
 				smallestDistance = thisDistance;
 				smallestIndex = i;
 			}
 		}
+
+		track = players.get(smallestIndex);
+
+		Rectangle attackArea = null;
+		switch (getLocation().getDirection()) {
+			case Location.NORTH:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() - getHeight()
+						/ 2 - getHeight(), getWidth(), getHeight());
+				break;
+			case Location.SOUTH:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2, getLocation().getY() + getHeight()
+						/ 2, getWidth(), getHeight());
+				break;
+			case Location.EAST:
+				attackArea = new Rectangle(getLocation().getX() + getWidth() / 2, getLocation().getY() - getHeight()
+						/ 2, getWidth(), getHeight());
+				break;
+			case Location.WEST:
+				attackArea = new Rectangle(getLocation().getX() - getWidth() / 2 - getWidth(), getLocation().getY()
+						- getHeight() / 2, getWidth(), getHeight());
+				break;
+		}
+
+		
 
 		for(Player p : players){
 			if(p instanceof Tank){
@@ -72,25 +108,26 @@ public class GolemEnemy extends Entity implements EnemyAI {
 				track = players.get(smallestIndex);
 		}
 		
-		
-
-		if(track != null){
-		
-			if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 32
-					|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 48) {
-				attack(track);
-			} else if (track.getLocation().getX() - getLocation().getX() < track.getLocation().getY()
-					- getLocation().getY()) {
-				move((track.getLocation().getX() - getLocation().getX()), (getLocation().getX() - track.getLocation()
-						.getX()), "X");
-			} else if (track.getLocation().getY() - getLocation().getY() < track.getLocation().getY()
-					- getLocation().getY()) {
-				move((track.getLocation().getY() - getLocation().getY()), (getLocation().getY() - track.getLocation()
-						.getY()), "Y");
-			}
+		if (server.getCurrentTick() % 10 == 0
+				&& attackArea.intersects(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track
+						.getLocation().getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()))) {
+			System.out.println(attackArea);
+			System.out.println(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track.getLocation()
+					.getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()));
+			attack(track);
 		}
-		else
-			return;
+			if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
+				if ((track.getLocation().getX() - this.getLocation().getX() != 0)
+						&& Math.abs(track.getLocation().getX() - this.getLocation().getX()) < Math.abs(track
+								.getLocation().getY() - this.getLocation().getY())) {
+					move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
+							.getLocation().getX() - getLocation().getX(), "X");
+				} else {
+					move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
+							.getLocation().getY() - getLocation().getY(), "Y");
+				}
+			}
+	
 
 	}
 
@@ -100,17 +137,17 @@ public class GolemEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public int getHeight() {
-		return 48;
+		return 80;
 	}
 
 	@Override
 	public int getWidth() {
-		return 32;
+		return 112;
 	}
 
 	@Override
 	public String getFileLocation() {
-		return "Skeleton.png"; //Needs to be fixed
+		return "Golem.png";
 	}
 
 	@Override
@@ -135,7 +172,7 @@ public class GolemEnemy extends Entity implements EnemyAI {
 
 	@Override
 	public int getVelocity() {
-		return 10;
+		return 4;
 	}
 
 	public int getGoldValue() {
