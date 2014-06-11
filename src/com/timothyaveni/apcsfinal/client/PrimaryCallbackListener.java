@@ -1,5 +1,6 @@
 package com.timothyaveni.apcsfinal.client;
 
+import java.awt.Rectangle;
 import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.networking.AnimationTypeID;
@@ -60,13 +61,18 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 	public void entityDamaged(EntityDamagePacket packet) {
 		Entity entity = client.getEntityList().get(packet.getEntityId());
 		if (entity == client.getPlayer()) { // otherwise we don't care.
-			System.out.println("took " + packet.getDamageAmount() + " damage");
 			int playerHP = client.getPlayer().getHP();
 			int damageAmount = packet.getDamageAmount();
 			if (playerHP - damageAmount > client.getPlayer().getMaxHP())
 				client.getPlayer().setHP(client.getPlayer().getMaxHP());
 			else
 				client.getPlayer().setHP(playerHP - damageAmount);
+
+			if (client.getPlayer().getHP() <= 0) {
+				client.getPlayer().setLocation(client.getCurrentMap().getMetadata().getSpawnPoint());
+				client.getPlayer().setHP(client.getPlayer().getMaxHP());
+				client.getNetworkThread().sendPacket(new EntityLocationPacket(Client.getNextPacketId(), client.getPlayer().getId(), client.getPlayer().getLocation()));
+			}
 		}
 	}
 
