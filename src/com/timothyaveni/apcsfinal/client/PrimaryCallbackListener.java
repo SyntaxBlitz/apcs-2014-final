@@ -1,5 +1,6 @@
 package com.timothyaveni.apcsfinal.client;
 
+import java.awt.Rectangle;
 import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.networking.AnimationTypeID;
@@ -60,13 +61,54 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 	public void entityDamaged(EntityDamagePacket packet) {
 		Entity entity = client.getEntityList().get(packet.getEntityId());
 		if (entity == client.getPlayer()) { // otherwise we don't care.
-			System.out.println("took " + packet.getDamageAmount() + " damage");
 			int playerHP = client.getPlayer().getHP();
 			int damageAmount = packet.getDamageAmount();
 			if (playerHP - damageAmount > client.getPlayer().getMaxHP())
 				client.getPlayer().setHP(client.getPlayer().getMaxHP());
 			else
 				client.getPlayer().setHP(playerHP - damageAmount);
+
+			if (client.getPlayer().getHP() <= 0) {
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						Location spawnPoint = client.getCurrentMap().getMetadata().getSpawnPoint();
+						boolean canSpawn = false;
+
+						while (!canSpawn) {
+							try {
+								Thread.sleep(50);
+							} catch (InterruptedException e) {
+								// cry
+								e.printStackTrace();
+							}
+
+							Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
+							boolean legit = true;
+							for (Entity entity : entities) {
+								Rectangle thisEntityRectangle = new Rectangle(entity.getLocation().getX()
+										- entity.getWidth() / 2, entity.getLocation().getY() - entity.getHeight() / 2,
+										entity.getWidth(), entity.getHeight());
+								if (thisEntityRectangle.intersects(new Rectangle(spawnPoint.getX()
+										- client.getPlayer().getWidth(), spawnPoint.getY()
+										- client.getPlayer().getHeight(), client.getPlayer().getWidth(), client
+										.getPlayer().getHeight()))) {
+									legit = false;
+									break;
+								}
+							}
+							
+							if (legit)
+								canSpawn = true;
+						}
+
+						client.getPlayer().setLocation(spawnPoint);
+
+					}
+				});
+
+				t.start();
+			}
 		}
 	}
 
