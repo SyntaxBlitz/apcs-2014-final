@@ -85,9 +85,9 @@ public class ArcanusEnemy extends Entity implements BossAI {
 		SkeletonEnemy skelly5 = new SkeletonEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
 		SkeletonEnemy skelly6 = new SkeletonEnemy(Server.getNextEntityId(), new Location(0,0,0,0));
 		
-		golem1.setLocation(new Location(this.getLocation().getX() + (this.getWidth() / 2 + golem1.getWidth() /2), this.getLocation().getY(), Location.EAST, this.getLocation().getWorldSectionId()));
+		golem1.setLocation(new Location(this.getLocation().getX() + (this.getWidth() / 2 + golem1.getWidth()), this.getLocation().getY(), Location.EAST, this.getLocation().getWorldSectionId()));
 		
-		golem2.setLocation(new Location(this.getLocation().getX() - (this.getWidth() / 2 + golem1.getWidth() /2), this.getLocation().getY(), Location.WEST, this.getLocation().getWorldSectionId()));
+		golem2.setLocation(new Location(this.getLocation().getX() - (this.getWidth() / 2 + golem1.getWidth()), this.getLocation().getY(), Location.WEST, this.getLocation().getWorldSectionId()));
 		
 		skelly1.setLocation(new Location(this.getLocation().getX() - (this.getWidth() / 2 + skelly1.getWidth() / 2), this.getLocation().getY() - (this.getHeight() / 2 + skelly1.getHeight() / 2), Location.WEST, this.getLocation().getWorldSectionId()));
 		
