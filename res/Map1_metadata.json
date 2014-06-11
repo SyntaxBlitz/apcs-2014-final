@@ -10,16 +10,16 @@
 		}
 	],
 	"spawnPoint": {
-		"x": 1000,
-		"y": 600,
-		"direction": 2
+		"x": 655,
+		"y": 489,
+		"direction": 0
 	},
 	"exitAreas": [
 		{
-			"x": 1100,
-			"y": 600,
-			"width": 500,
-			"height": 500,
+			"x": 4353,
+			"y": 830,
+			"width": 120,
+			"height": 50,
 			"newMapId": 2
 		}
 	]
