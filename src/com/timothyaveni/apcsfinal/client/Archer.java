@@ -20,12 +20,12 @@ public class Archer extends Player {
 
 	@Override
 	public int getBaseDamage() {
-		if(abilityActive){
+		if (abilityActive) {
 			return 50;
-		}else{
+		} else {
 			return 35;
 		}
-		
+
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class Archer extends Player {
 
 	@Override
 	public void attack(Client client) {
-		if (client.getFrame() - lastAttackFrame > 15) {	// 2 arrows/sec
+		if (client.getFrame() - lastAttackFrame > 15) { // 2 arrows/sec
 			Arrow projectile = new Arrow(-1, getLocation());
 			int packetId = Client.getNextPacketId();
 			client.getUnacknowledgedProjectiles().put(packetId, projectile);
@@ -83,7 +83,7 @@ public class Archer extends Player {
 			lastAttackFrame = client.getFrame();
 		}
 	}
-	
+
 	@Override
 	public void useAbility(long frame, Client client) {
 		if (frame - lastAbilityCall > 600) { // 600 frames = 20 seconds after last ability call (10 seconds after ability ended)
@@ -102,6 +102,5 @@ public class Archer extends Player {
 	public boolean isAbilityActive() {
 		return this.abilityActive;
 	}
-
 
 }

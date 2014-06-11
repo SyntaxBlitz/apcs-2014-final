@@ -14,7 +14,6 @@ import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 
-
 public class GolemEnemy extends Entity implements EnemyAI {
 	private int baseDmg = 50;
 	private int goldValue = 40;
@@ -54,7 +53,7 @@ public class GolemEnemy extends Entity implements EnemyAI {
 			setLocation(newLocation);
 		}
 	}
-	
+
 	private boolean collidesWith(Location newLocation, HashMap<Integer, Entity> entities) {
 		Iterator<Entity> i = entities.values().iterator();
 		while (i.hasNext()) {
@@ -90,8 +89,6 @@ public class GolemEnemy extends Entity implements EnemyAI {
 		}
 		return false;
 	}
-	
-	
 
 	// Tracks player based off the player's location; might want all player
 	// locations to determine closest?
@@ -135,17 +132,14 @@ public class GolemEnemy extends Entity implements EnemyAI {
 				break;
 		}
 
-		
-
-		for(Player p : players){
-			if(p instanceof Tank){
+		for (Player p : players) {
+			if (p instanceof Tank) {
 				track = p;
 				break;
-			}
-			else
+			} else
 				track = players.get(smallestIndex);
 		}
-		
+
 		if (server.getCurrentTick() % 10 == 0
 				&& attackArea.intersects(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track
 						.getLocation().getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()))) {
@@ -155,7 +149,7 @@ public class GolemEnemy extends Entity implements EnemyAI {
 			attack(track);
 		}
 		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
-			if ((track.getLocation().getY() - this.getLocation().getY() == 0)){
+			if ((track.getLocation().getY() - this.getLocation().getY() == 0)) {
 				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
 						.getLocation().getX() - getLocation().getX(), "X",
 						server.getLoadedMaps().get(getLocation().getWorldSectionId()), server.getEntityList(),
@@ -167,7 +161,6 @@ public class GolemEnemy extends Entity implements EnemyAI {
 						server.getPlayerList());
 			}
 		}
-	
 
 	}
 

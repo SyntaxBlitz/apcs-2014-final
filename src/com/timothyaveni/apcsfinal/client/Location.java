@@ -52,7 +52,8 @@ public class Location {
 	}
 
 	public boolean equals(Location other) {
-		return this.x == other.x && this.y == other.y && this.direction == other.direction && this.worldSectionId == other.worldSectionId;
+		return this.x == other.x && this.y == other.y && this.direction == other.direction
+				&& this.worldSectionId == other.worldSectionId;
 	}
 
 }

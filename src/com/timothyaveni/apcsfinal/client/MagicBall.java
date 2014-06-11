@@ -53,7 +53,7 @@ public class MagicBall extends Projectile {
 	public int getMaxHP() {
 		return -1;
 	}
-	
+
 	@Override
 	public int getBaseDamage() {
 		return 35;
@@ -63,5 +63,5 @@ public class MagicBall extends Projectile {
 	public EntityType getType() {
 		return EntityType.MAGIC_BALL;
 	}
-	
+
 }

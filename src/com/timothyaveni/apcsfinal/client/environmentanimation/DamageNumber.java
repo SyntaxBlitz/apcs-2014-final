@@ -24,9 +24,9 @@ public class DamageNumber extends EnvironmentAnimation {
 
 		int yVal = (int) (32 - (frame - getStartFrame()));
 		int alpha = yVal * 255 / 32;
-		
+
 		Graphics g = image.getGraphics();
-		
+
 		String renderString;
 		if (damageAmount > 0) {
 			renderString = "" + damageAmount;

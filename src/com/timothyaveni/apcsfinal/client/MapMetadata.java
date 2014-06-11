@@ -24,7 +24,7 @@ public class MapMetadata {
 		Rectangle rectangle;
 		int nextMap;
 	}
-	
+
 	private BufferedImage collisionMap;
 
 	private ArrayList<EntityInfo> loadedEntityInfo;
@@ -33,7 +33,7 @@ public class MapMetadata {
 
 	public MapMetadata(String mapName, int worldSectionId) throws IOException {
 		collisionMap = ImageIO.read(FileReader.getFileFromResourceString(mapName + "_collision.png"));
-		
+
 		File jsonFile = FileReader.getFileFromResourceString(mapName + "_metadata.json");
 		JSONObject jsonObject = null;
 		try {
@@ -92,7 +92,7 @@ public class MapMetadata {
 	public Location getSpawnPoint() {
 		return this.spawnPoint;
 	}
-	
+
 	public boolean isPointValid(int x, int y) {
 		return (collisionMap.getRGB(x, y) & 0xFFFFFF) == 0xFFFFFF;
 	}

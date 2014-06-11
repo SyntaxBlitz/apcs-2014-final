@@ -75,8 +75,8 @@ public abstract class Entity {
 	public BufferedImage getImage(long frame) {
 		if (!moving) {
 			if (startedAttack) {
-				currentSubImage = image.getSubimage((int) (4 * getWidth()), getLocation().getDirection() * getHeight(), this.getWidth(),
-						this.getHeight());
+				currentSubImage = image.getSubimage((int) (4 * getWidth()), getLocation().getDirection() * getHeight(),
+						this.getWidth(), this.getHeight());
 			} else {
 				currentSubImage = image.getSubimage(0, getLocation().getDirection() * getHeight(), this.getWidth(),
 						this.getHeight());
@@ -85,8 +85,8 @@ public abstract class Entity {
 			return currentSubImage;
 
 		} else if (frame % 4 == 0 || this.getLocation().getDirection() != lastDirection) {
-			currentSubImage = image.getSubimage((int) (currentFrameOffset * getWidth()), getLocation().getDirection() * getHeight(),
-					this.getWidth(), this.getHeight());
+			currentSubImage = image.getSubimage((int) (currentFrameOffset * getWidth()), getLocation().getDirection()
+					* getHeight(), this.getWidth(), this.getHeight());
 			lastDirection = this.getLocation().getDirection();
 			currentFrameOffset = (currentFrameOffset + 1) % 4;
 		}/*

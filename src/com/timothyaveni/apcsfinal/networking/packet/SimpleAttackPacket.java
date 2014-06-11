@@ -41,7 +41,7 @@ public class SimpleAttackPacket extends Packet {
 		this.entityId = ByteArrayTools.readBytes(data, 6, 2, false);
 		this.attacking = ByteArrayTools.readBytes(data, 8, 1, false) == 1;
 	}
-	
+
 	@Override
 	public byte[] getByteArray() {
 		byte[] toReturn = new byte[9];

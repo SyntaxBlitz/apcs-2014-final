@@ -11,7 +11,7 @@ import com.timothyaveni.apcsfinal.client.Location;
 public class LightningBolt extends EnvironmentAnimation {
 
 	BufferedImage image;
-	
+
 	public LightningBolt(long startFrame, Location location) {
 		super(startFrame, location);
 		try {
@@ -30,11 +30,11 @@ public class LightningBolt extends EnvironmentAnimation {
 	private int getWidth() {
 		return 288;
 	}
-	
+
 	private int getHeight() {
 		return 288;
 	}
-	
+
 	@Override
 	public boolean stillRelevant(long frame) {
 		return frame - getStartFrame() < 25;

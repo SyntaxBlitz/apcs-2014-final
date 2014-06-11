@@ -26,7 +26,7 @@ public abstract class ServerCallbackListener {
 	public abstract void simpleAttackAnimationUpdated(SimpleAttackPacket packet);
 
 	public abstract void projectileIdRequested(NewProjectilePacket packet, InetAddress address, int port);
-	
+
 	public abstract void environmentAnimationStarted(EnvironmentAnimationPacket packet);
-	
+
 }

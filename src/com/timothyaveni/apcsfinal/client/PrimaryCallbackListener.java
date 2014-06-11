@@ -71,7 +71,9 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 			if (client.getPlayer().getHP() <= 0) {
 				client.getPlayer().setLocation(client.getCurrentMap().getMetadata().getSpawnPoint());
 				client.getPlayer().setHP(client.getPlayer().getMaxHP());
-				client.getNetworkThread().sendPacket(new EntityLocationPacket(Client.getNextPacketId(), client.getPlayer().getId(), client.getPlayer().getLocation()));
+				client.getNetworkThread().sendPacket(
+						new EntityLocationPacket(Client.getNextPacketId(), client.getPlayer().getId(), client
+								.getPlayer().getLocation()));
 			}
 		}
 	}

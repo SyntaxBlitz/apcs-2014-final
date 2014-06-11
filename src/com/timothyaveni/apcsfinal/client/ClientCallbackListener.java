@@ -25,5 +25,5 @@ public abstract class ClientCallbackListener {
 	public abstract void newProjectileAcknowledged(NewProjectileAcknowledgePacket packet);
 
 	public abstract void environmentAnimationStarted(EnvironmentAnimationPacket packet);
-	
+
 }

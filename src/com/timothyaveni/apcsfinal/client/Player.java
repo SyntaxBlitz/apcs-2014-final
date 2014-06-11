@@ -21,8 +21,8 @@ public abstract class Player extends Entity {
 	public void characterMove(boolean[] keyboard, Map currentMap, HashMap<Integer, Entity> entityList) {
 		if (keyboard[0]) { // right
 			if (!keyboard[2])
-				if (currentMap.getMetadata()
-						.isPointValid(getLocation().getX() + getVelocity() + getWidth() / 2, getLocation().getY())
+				if (currentMap.getMetadata().isPointValid(getLocation().getX() + getVelocity() + getWidth() / 2,
+						getLocation().getY())
 						&& !playerCollidesWithEntity(getLocation().getX() + getVelocity(), getLocation().getY(),
 								currentMap, entityList))
 					setLocation(new Location(getLocation().getX() + getVelocity(), getLocation().getY(), Location.EAST,
@@ -31,8 +31,8 @@ public abstract class Player extends Entity {
 					setLocation(getClosestValidLocation(Location.EAST, currentMap, entityList));
 		} else if (keyboard[1]) { // down
 			if (!keyboard[3])
-				if (currentMap.getMetadata().isPointValid(getLocation().getX(), getLocation().getY() + getVelocity() + getHeight()
-						/ 2)
+				if (currentMap.getMetadata().isPointValid(getLocation().getX(),
+						getLocation().getY() + getVelocity() + getHeight() / 2)
 						&& !playerCollidesWithEntity(getLocation().getX(), getLocation().getY() + getVelocity(),
 								currentMap, entityList))
 					setLocation(new Location(getLocation().getX(), getLocation().getY() + getVelocity(),
@@ -40,7 +40,8 @@ public abstract class Player extends Entity {
 				else
 					setLocation(getClosestValidLocation(Location.SOUTH, currentMap, entityList));
 		} else if (keyboard[2]) { // left
-			if (currentMap.getMetadata().isPointValid(getLocation().getX() - getVelocity() - getWidth() / 2, getLocation().getY())
+			if (currentMap.getMetadata().isPointValid(getLocation().getX() - getVelocity() - getWidth() / 2,
+					getLocation().getY())
 					&& !playerCollidesWithEntity(getLocation().getX() - getVelocity(), getLocation().getY(),
 							currentMap, entityList))
 				setLocation(new Location(getLocation().getX() - getVelocity(), getLocation().getY(), Location.WEST,
@@ -48,7 +49,8 @@ public abstract class Player extends Entity {
 			else
 				setLocation(getClosestValidLocation(Location.WEST, currentMap, entityList));
 		} else if (keyboard[3]) { // up
-			if (currentMap.getMetadata().isPointValid(getLocation().getX(), getLocation().getY() - getVelocity() - getHeight() / 2)
+			if (currentMap.getMetadata().isPointValid(getLocation().getX(),
+					getLocation().getY() - getVelocity() - getHeight() / 2)
 					&& !playerCollidesWithEntity(getLocation().getX(), getLocation().getY() - getVelocity(),
 							currentMap, entityList))
 				setLocation(new Location(getLocation().getX(), getLocation().getY() - getVelocity(), Location.NORTH,
@@ -155,9 +157,9 @@ public abstract class Player extends Entity {
 	public abstract int getBaseDamage();
 
 	public abstract void attack(Client client);
-	
+
 	public abstract void useAbility(long frame, Client client);
-	
+
 	public abstract void updateAbility(long frame);
-	
+
 }

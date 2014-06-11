@@ -133,6 +133,7 @@ public class Rogue extends Player {
 	}
 
 	@Override
-	public void updateAbility(long frame) {}
+	public void updateAbility(long frame) {
+	}
 
 }

@@ -67,12 +67,12 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		}
 
 		if (packet.getLocation().getWorldSectionId() != 0
-				&& !server.getLoadedMaps().containsKey(packet.getLocation().getWorldSectionId())) {	// will probably never happen.
+				&& !server.getLoadedMaps().containsKey(packet.getLocation().getWorldSectionId())) { // will probably never happen.
 			try {
 				server.getLoadedMaps().put(
 						packet.getLocation().getWorldSectionId(),
-						new MapMetadata(WorldSectionID.getMapNameFromID(packet.getLocation().getWorldSectionId()), packet
-								.getLocation().getWorldSectionId()));
+						new MapMetadata(WorldSectionID.getMapNameFromID(packet.getLocation().getWorldSectionId()),
+								packet.getLocation().getWorldSectionId()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -167,7 +167,8 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 	@Override
 	public void environmentAnimationStarted(EnvironmentAnimationPacket packet) {
 		// just let everyone know. it's an animation, so we don't care
-		Server.addPacketToQueue(new EnvironmentAnimationPacket(Server.getNextPacketId(), packet.getAnimationType(), packet.getLocation(), packet.getData()));
+		Server.addPacketToQueue(new EnvironmentAnimationPacket(Server.getNextPacketId(), packet.getAnimationType(),
+				packet.getLocation(), packet.getData()));
 	}
 
 }
