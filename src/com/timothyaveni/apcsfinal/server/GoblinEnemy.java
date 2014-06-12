@@ -98,24 +98,29 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 	// locations to determine closest?
 	public void act(Server server) {
 
-		ArrayList<Player> players = server.getPlayerList();
-		if (players.size() == 0)
+		Player[] players = server.getPlayerList().toArray(new Player[0]);
+		if (players.length == 0)
 			return;
 		Player track;
 
-		double smallestDistance = getLocation().getDistanceTo(players.get(0).getLocation());
+		double smallestDistance = -1;
 		int smallestIndex = 0;
 
-		for (int i = 0; i < players.size(); i++) {
-			double thisDistance = getLocation().getDistanceTo(players.get(i).getLocation());
+		for (int i = 0; i < players.length; i++) {
+			Player player = players[i];
+			
+			if (getLocation().getWorldSectionId() != player.getLocation().getWorldSectionId())
+				continue;
+			
+			double thisDistance = getLocation().getDistanceTo(players[i].getLocation());
 
-			if (thisDistance < smallestDistance) {
+			if (thisDistance < smallestDistance || smallestDistance == -1) {
 				smallestDistance = thisDistance;
 				smallestIndex = i;
 			}
 		}
 
-		track = players.get(smallestIndex);
+		track = players[smallestIndex];
 
 		Rectangle attackArea = null;
 		switch (getLocation().getDirection()) {
