@@ -13,12 +13,28 @@ public abstract class Projectile extends Entity {
 
 	private int distanceTravelled;
 	private int id;
+	private int damageAmount;
+	private int damageVariance;
 
-	public Projectile(int id, Location loc) {
+	public Projectile(int id, Location loc, int damageAmount, int damageVariance) {
 		super(id, loc);
+		this.damageAmount = damageAmount;
+		this.damageVariance = damageVariance;
 		this.setDistanceTravelled(0);
 	}
+	
+	public int getBaseDamage() {
+		return this.damageAmount;
+	}
+	
+	protected int getDamageVariance() {
+		return this.damageVariance;
+	}
 
+	public int getDamageNumber() {
+		return getBaseDamage() + ((int)(Math.random() * getDamageVariance() * 2 - getDamageVariance()));
+	}
+	
 	public abstract int getMaxDistance();
 
 	public int getId() {
@@ -106,11 +122,12 @@ public abstract class Projectile extends Entity {
 								- getHeight() / 2, getWidth(), getHeight()))) {
 					newLocation = new Location(0, 0, 0, 0); // get rid of the projectile because it collided with someone
 					if (!(thisEntity instanceof Player)) {
+						int damageAmount = getDamageNumber();
 						client.getNetworkThread().sendPacket(
-								new EntityDamagePacket(Client.getNextPacketId(), thisEntity.getId(), getBaseDamage()));
+								new EntityDamagePacket(Client.getNextPacketId(), thisEntity.getId(), damageAmount));
 						client.getNetworkThread().sendPacket(
 								new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.DAMAGE_NUMBER,
-										thisEntity.getLocation(), getBaseDamage()));
+										thisEntity.getLocation(), damageAmount));
 					}
 				}
 			}
@@ -123,8 +140,6 @@ public abstract class Projectile extends Entity {
 			distanceTravelled += getVelocity();
 		}
 	}
-
-	public abstract int getBaseDamage();
 
 	public void update(Server server) {
 		// yup, most of this is repeated. too lazy to pick out the samey bits.

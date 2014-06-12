@@ -49,7 +49,12 @@ public class Tank extends Player {
 
 	@Override
 	public int getBaseDamage() {
-		return 12;
+		return 10;
+	}
+	
+	@Override
+	public int getDamageVariance() {
+		return 3;
 	}
 
 	@Override
@@ -105,11 +110,12 @@ public class Tank extends Player {
 			Location entityLoc = entity.getLocation();
 			if (attackArea.intersects(entityLoc.getX() - entity.getWidth() / 2, entityLoc.getY() - entity.getHeight()
 					/ 2, entity.getWidth(), entity.getHeight())) {
+				int damageAmount = getDamageNumber();
 				client.getNetworkThread().sendPacket(
-						new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), getBaseDamage()));
+						new EntityDamagePacket(Client.getNextPacketId(), entity.getId(), damageAmount));
 				client.getNetworkThread().sendPacket(
 						new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.DAMAGE_NUMBER, entity
-								.getLocation(), getBaseDamage()));
+								.getLocation(), damageAmount));
 			}
 		}
 	}

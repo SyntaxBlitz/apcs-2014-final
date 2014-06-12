@@ -25,6 +25,11 @@ public class Mage extends Player {
 	public int getBaseDamage() {
 		return 35;
 	}
+	
+	@Override
+	public int getDamageVariance() {
+		return 0;
+	}
 
 	@Override
 	public int getHeight() {
@@ -74,7 +79,7 @@ public class Mage extends Player {
 	@Override
 	public void attack(Client client) {
 		if (client.getFrame() - lastAttackFrame > 30) { // 1 magic ball every second
-			MagicBall projectile = new MagicBall(-1, getLocation());
+			MagicBall projectile = new MagicBall(-1, getLocation(), getDamageNumber(), getDamageVariance());
 			int packetId = Client.getNextPacketId();
 			client.getUnacknowledgedProjectiles().put(packetId, projectile);
 			client.getNetworkThread().sendPacket(

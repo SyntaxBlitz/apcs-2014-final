@@ -45,7 +45,7 @@ public class MapCanvas extends Canvas implements UsesClient {
 				// Location playerLocation = t.getLocation();
 				g.drawImage(client.getCurrentMap().getPic(playerLocation), 0, 0, 1024, 768, null);
 
-				HashMap<Integer, Entity> entities = client.getEntityList();
+				java.util.Map<Integer, Entity> entities = client.getEntityList();
 
 				Entity[] entityArray = entities.values().toArray(new Entity[0]);
 				for (int i = 0; i < entityArray.length; i++) {

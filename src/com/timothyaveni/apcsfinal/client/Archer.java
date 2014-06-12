@@ -27,6 +27,14 @@ public class Archer extends Player {
 		}
 
 	}
+	
+	@Override
+	public int getDamageVariance() {
+		if (abilityActive)
+			return 0;
+		else
+			return 10;
+	}
 
 	@Override
 	public int getHeight() {
@@ -76,7 +84,7 @@ public class Archer extends Player {
 	@Override
 	public void attack(Client client) {
 		if (client.getFrame() - lastAttackFrame > 15) { // 2 arrows/sec
-			Arrow projectile = new Arrow(-1, getLocation(), getBaseDamage());
+			Arrow projectile = new Arrow(-1, getLocation(), getBaseDamage(), getDamageNumber());
 			int packetId = Client.getNextPacketId();
 			client.getUnacknowledgedProjectiles().put(packetId, projectile);
 			client.getNetworkThread().sendPacket(new NewProjectilePacket(packetId, EntityType.ARROW, getLocation()));
