@@ -92,6 +92,10 @@ public class Client {
 				this.currentMap = new Map(nextMap);
 				player.setLocation(currentMap.getMetadata().getSpawnPoint()); // I think this is awkward if the player has active projectiles but whatever
 			}
+			
+			if (frame % 20 == 0 && player.getHP() < player.getMaxHP()) {
+				player.setHP(player.getHP() + 1);
+			}
 
 			updateMyProjectiles();
 
