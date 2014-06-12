@@ -9,9 +9,11 @@ import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
+import com.timothyaveni.apcsfinal.networking.AnimationType;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 
 public class SkeletonEnemy extends Entity implements EnemyAI {
 	private int baseDmg = 30;
@@ -22,8 +24,8 @@ public class SkeletonEnemy extends Entity implements EnemyAI {
 	}
 
 	public void attack(Player track) {
-		System.out.println("attacking player");
-		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getStrength()));
+		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg));
+		Server.addPacketToQueue(new EnvironmentAnimationPacket(Server.getNextPacketId(), AnimationType.DAMAGE_NUMBER, track.getLocation(), baseDmg));
 	}
 
 	public void move(int distance, int direction, String plane, MapMetadata map, HashMap<Integer, Entity> entities,

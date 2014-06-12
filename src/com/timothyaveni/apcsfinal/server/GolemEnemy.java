@@ -10,9 +10,11 @@ import com.timothyaveni.apcsfinal.client.Location;
 import com.timothyaveni.apcsfinal.client.MapMetadata;
 import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.client.Tank;
+import com.timothyaveni.apcsfinal.networking.AnimationType;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 
 public class GolemEnemy extends Entity implements EnemyAI {
 	private int baseDmg = 50;
@@ -23,7 +25,8 @@ public class GolemEnemy extends Entity implements EnemyAI {
 	}
 
 	public void attack(Player track) {
-		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg + getStrength()));
+		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg));
+		Server.addPacketToQueue(new EnvironmentAnimationPacket(Server.getNextPacketId(), AnimationType.DAMAGE_NUMBER, track.getLocation(), baseDmg));
 	}
 
 	public void move(int distance, int direction, String plane, MapMetadata map, HashMap<Integer, Entity> entities,
