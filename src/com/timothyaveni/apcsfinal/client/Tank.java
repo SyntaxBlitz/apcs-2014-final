@@ -11,7 +11,7 @@ import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 public class Tank extends Player {
 
 	private boolean abilityActive = false;
-	private long lastAbilityCall;
+	private long lastAbilityCall = -1;
 
 	public Tank(int id, Location loc) {
 		super(id, loc);
@@ -116,7 +116,7 @@ public class Tank extends Player {
 
 	@Override
 	public void useAbility(long frame, Client client) {
-		if (frame - lastAbilityCall > 600) { // 600 frames = 20 seconds after last ability call (10 seconds after ability ended)
+		if (lastAbilityCall == -1 || frame - lastAbilityCall > 600) { // 600 frames = 20 seconds after last ability call (10 seconds after ability ended)
 			abilityActive = true;
 			lastAbilityCall = frame;
 			setHP(getHP() + 100);

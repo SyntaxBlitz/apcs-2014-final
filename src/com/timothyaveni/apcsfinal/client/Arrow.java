@@ -4,9 +4,12 @@ import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class Arrow extends Projectile {
 
-	public Arrow(int id, Location loc) {
+	private int damage;
+	
+	public Arrow(int id, Location loc, int damage) {
 		super(-1, loc);
 		setId(id);
+		this.damage = damage;
 	}
 
 	@Override
@@ -16,7 +19,7 @@ public class Arrow extends Projectile {
 
 	@Override
 	public int getBaseDamage() {
-		return 25;
+		return this.damage;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
 
 public class Healer extends Player {
 
-	private long lastAbilityCall;
+	private long lastAbilityCall = -1;
 
 	public Healer(int id, Location loc) {
 		super(id, loc);
@@ -112,7 +112,7 @@ public class Healer extends Player {
 
 	@Override
 	public void useAbility(long frame, Client client) {
-		if (frame - lastAbilityCall > 300) {
+		if (lastAbilityCall == -1 || frame - lastAbilityCall > 300) {
 			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 			for (Entity entity : entities) {
 				if (entity instanceof Player

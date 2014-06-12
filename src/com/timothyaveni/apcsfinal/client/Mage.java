@@ -8,7 +8,7 @@ import com.timothyaveni.apcsfinal.networking.packet.NewProjectilePacket;
 
 public class Mage extends Player {
 
-	private long lastAbilityCall;
+	private long lastAbilityCall = -1;
 
 	long lastAttackFrame = 0;
 
@@ -85,7 +85,7 @@ public class Mage extends Player {
 
 	@Override
 	public void useAbility(long frame, Client client) {
-		if (frame - lastAbilityCall > 150) {
+		if (lastAbilityCall == -1 || frame - lastAbilityCall > 150) {
 			Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 			for (Entity entity : entities) {
 				if (!(entity instanceof Player)

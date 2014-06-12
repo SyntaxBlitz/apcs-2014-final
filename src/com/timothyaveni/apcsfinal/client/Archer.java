@@ -7,7 +7,7 @@ public class Archer extends Player {
 
 	private long lastAttackFrame = 0;
 	private boolean abilityActive = false;
-	private long lastAbilityCall;
+	private long lastAbilityCall = -1;
 
 	public Archer(int id, Location loc) {
 		super(id, loc);
@@ -76,7 +76,7 @@ public class Archer extends Player {
 	@Override
 	public void attack(Client client) {
 		if (client.getFrame() - lastAttackFrame > 15) { // 2 arrows/sec
-			Arrow projectile = new Arrow(-1, getLocation());
+			Arrow projectile = new Arrow(-1, getLocation(), getBaseDamage());
 			int packetId = Client.getNextPacketId();
 			client.getUnacknowledgedProjectiles().put(packetId, projectile);
 			client.getNetworkThread().sendPacket(new NewProjectilePacket(packetId, EntityType.ARROW, getLocation()));
@@ -86,7 +86,7 @@ public class Archer extends Player {
 
 	@Override
 	public void useAbility(long frame, Client client) {
-		if (frame - lastAbilityCall > 600) { // 600 frames = 20 seconds after last ability call (10 seconds after ability ended)
+		if (lastAbilityCall == -1 || frame - lastAbilityCall > 600) { // 600 frames = 20 seconds after last ability call (10 seconds after ability ended)
 			abilityActive = true;
 			lastAbilityCall = frame;
 		}
