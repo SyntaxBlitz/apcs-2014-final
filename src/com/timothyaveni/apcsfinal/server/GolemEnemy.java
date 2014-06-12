@@ -148,6 +148,7 @@ public class GolemEnemy extends Entity implements EnemyAI {
 		if (server.getCurrentTick() % 10 == 0
 				&& attackArea.intersects(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track
 						.getLocation().getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()))) {
+			setDirection(getDirectionTowards(track));
 			attack(track);
 		}
 		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
