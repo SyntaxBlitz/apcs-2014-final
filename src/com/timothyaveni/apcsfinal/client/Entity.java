@@ -127,13 +127,13 @@ public abstract class Entity {
 		Location loc = e.getLocation();
 		
 		if (loc.getX() == getLocation().getX() && loc.getY() > getLocation().getY())
-			newDirection = 1;
-		else if(loc.getX() == getLocation().getX() && loc.getY() > getLocation().getY())
-			newDirection = 2;
-		else if(loc.getY() == getLocation().getY() && loc.getX() > getLocation().getX())
 			newDirection = 0;
-		else if(loc.getY() == getLocation().getY() && loc.getX() < getLocation().getX())
+		else if(loc.getX() == getLocation().getX() && loc.getY() > getLocation().getY())
 			newDirection = 3;
+		else if(loc.getY() == getLocation().getY() && loc.getX() > getLocation().getX())
+			newDirection = 1;
+		else if(loc.getY() == getLocation().getY() && loc.getX() < getLocation().getX())
+			newDirection = 2;
 		else
 			newDirection = loc.getDirection();
 		return newDirection;
