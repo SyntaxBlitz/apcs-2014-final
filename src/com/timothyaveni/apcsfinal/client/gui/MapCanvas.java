@@ -70,6 +70,8 @@ public class MapCanvas extends Canvas implements UsesClient {
 						client.getEnvironmentAnimations().remove(thisAnimation);
 						continue;
 					}
+					if (thisAnimation.getLocation().getWorldSectionId() != client.getPlayer().getLocation().getWorldSectionId())
+						continue;
 					BufferedImage renderImage = thisAnimation.getImage(client.getFrame());
 					g.drawImage(thisAnimation.getImage(client.getFrame()), thisAnimation.getLocation().getX()
 							- playerLocation.getX() + Client.WIDTH / 2 - renderImage.getWidth() / 2, thisAnimation
