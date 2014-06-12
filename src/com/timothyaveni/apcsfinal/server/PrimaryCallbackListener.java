@@ -44,6 +44,7 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 	@Override
 	public void bindFail() {
 		System.out.println("Did NOT successfully bind to port");
+		System.exit(1);
 	}
 
 	@Override
