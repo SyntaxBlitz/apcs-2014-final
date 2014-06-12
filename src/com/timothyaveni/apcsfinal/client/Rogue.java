@@ -95,10 +95,10 @@ public class Rogue extends Player {
 						- getHeight() / 2, getWidth(), getHeight());
 				break;
 		}
+		
+		Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 
-		Iterator<Entity> i = client.getEntityList().values().iterator();
-		while (i.hasNext()) {
-			Entity entity = i.next();
+		for (Entity entity: entities) {
 			if (entity instanceof Player)
 				continue;
 			Location entityLoc = entity.getLocation();

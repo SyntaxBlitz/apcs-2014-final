@@ -93,9 +93,9 @@ public class Healer extends Player {
 				break;
 		}
 
-		Iterator<Entity> i = client.getEntityList().values().iterator();
-		while (i.hasNext()) {
-			Entity entity = i.next();
+		Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
+
+		for (Entity entity: entities) {
 			if (entity instanceof Player)
 				continue;
 			Location entityLoc = entity.getLocation();
