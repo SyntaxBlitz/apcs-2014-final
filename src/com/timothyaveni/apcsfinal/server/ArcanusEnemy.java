@@ -43,31 +43,21 @@ public class ArcanusEnemy extends Entity implements BossAI {
 
 	// This method determines if the boss fires projectiles or if the boss spawns enemies as his act every 5 seconds
 	public void act(Server server) {
-		ArrayList<Player> players = server.getPlayerList();
-		if (players.size() == 0)
-			return;
-		Player track = null;
-
-		double smallestDistance = getLocation().getDistanceTo(players.get(0).getLocation());
-		int smallestIndex = 0;
-
-		for (int i = 0; i < players.size(); i++) {
-			double thisDistance = getLocation().getDistanceTo(players.get(i).getLocation());
-
-			if (thisDistance < smallestDistance) {
-				smallestDistance = thisDistance;
-				smallestIndex = i;
+		Player[] players = server.getPlayerList().toArray(new Player[0]);
+		boolean anyoneHere = false;
+		for (Player player: players) {
+			if (player.getLocation().getWorldSectionId() == getLocation().getWorldSectionId()) {
+				anyoneHere = true;
+				break;
 			}
 		}
 
-		track = players.get(smallestIndex);
-
-		if (Math.abs(track.getLocation().getX() - getLocation().getX()) <= 300
-				|| Math.abs(track.getLocation().getY() - getLocation().getY()) <= 300) {
-			if (server.getCurrentTick() % 150 == 0) {
-				if (this.getHP() < 1000)
+		if (anyoneHere) {
+			if (getHP() < 1000) {
+				if (server.getCurrentTick() % 200 == 0)
 					summonMinions(server);
-				else
+			} else {
+				if (server.getCurrentTick() % 50 == 0)
 					projectileAttack(server);
 			}
 		}

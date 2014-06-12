@@ -94,14 +94,14 @@ public class Server {
 			sendOutPackets();
 			thread.checkUnacknowledgedPackets();
 
-			for (Player player : players) {
-				Iterator<Entity> i = invisibleEntities.iterator();
-				while (i.hasNext()) {
-					Entity entity = i.next();
+			Player[] playerArray = players.toArray(new Player[0]);
+			for (Player player : playerArray) {
+				Entity[] invisibleEntityArray = invisibleEntities.toArray(new Entity[0]); 
+				for (Entity entity: invisibleEntityArray) {
 					if (player.getLocation().getWorldSectionId() == entity.getLocation().getWorldSectionId()) {
 						if (player.getLocation().getDistanceTo(entity.getLocation()) < visibilityThreshold) {
 							addPacketToQueue(new NewEntityPacket(getNextPacketId(), entity));
-							i.remove();
+							invisibleEntities.remove(entity);
 							visibleEntities.put(entity.getId(), entity);
 						}
 					}

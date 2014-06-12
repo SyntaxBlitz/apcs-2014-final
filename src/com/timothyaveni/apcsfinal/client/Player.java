@@ -124,9 +124,8 @@ public abstract class Player extends Entity {
 
 	private boolean playerCollidesWithEntity(int centerX, int centerY, Map currentMap,
 			HashMap<Integer, Entity> entityList) {
-		Iterator<Entity> i = entityList.values().iterator();
-		while (i.hasNext()) {
-			Entity entity = i.next();
+		Entity[] entities = entityList.values().toArray(new Entity[0]);
+		for (Entity entity: entities) {
 			if (entity == this || entity instanceof Projectile)
 				continue;
 			Location myLocation = getLocation();

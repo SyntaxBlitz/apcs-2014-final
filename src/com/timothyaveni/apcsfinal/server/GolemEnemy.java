@@ -58,9 +58,8 @@ public class GolemEnemy extends Entity implements EnemyAI {
 	}
 
 	private boolean collidesWith(Location newLocation, HashMap<Integer, Entity> entities) {
-		Iterator<Entity> i = entities.values().iterator();
-		while (i.hasNext()) {
-			Entity entity = i.next();
+		Entity[] entityArray = entities.values().toArray(new Entity[0]);
+		for (Entity entity: entityArray) {
 			if (entity == this)
 				continue;
 			Location myLocation = newLocation;
@@ -77,9 +76,8 @@ public class GolemEnemy extends Entity implements EnemyAI {
 	}
 
 	private boolean collidesWith(Location newLocation, ArrayList<Player> players) {
-		Iterator<Player> i = players.iterator();
-		while (i.hasNext()) {
-			Player player = i.next();
+		Player[] playerArray = players.toArray(new Player[0]);
+		for (Player player: playerArray) {
 			Location myLocation = newLocation;
 			Location playerLocation = player.getLocation();
 			if (playerLocation.getWorldSectionId() == myLocation.getWorldSectionId()) {
