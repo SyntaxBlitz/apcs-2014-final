@@ -31,7 +31,7 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 	}
 
 	public void move(int distance, int direction, String plane, MapMetadata map, HashMap<Integer, Entity> entities,
-			ArrayList<Player> players) {
+			ArrayList<Player> players, Player track) {
 		Location newLocation = null;
 		if (plane.equals("X")) {
 			if (direction > 0) {
@@ -149,23 +149,16 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 		}
 
 		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
-			if (track.getLocation().getY() - this.getLocation().getY() == 0
-					&& track.getLocation().getX() - this.getLocation().getX() == 0) {
-				this.setDirection(getLocation().getDirectionTowards(track));
-				move(Math.min(this.getLocation().getDirectionTowards(track), getVelocity()), getLocation().getX(), "X",
-						server.getLoadedMaps().get(getLocation().getWorldSectionId()), server.getEntityList(),
-						server.getPlayerList());
-			}
 			if ((track.getLocation().getY() - this.getLocation().getY() == 0)) {
 				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
 						.getLocation().getX() - getLocation().getX(), "X",
 						server.getLoadedMaps().get(getLocation().getWorldSectionId()), server.getEntityList(),
-						server.getPlayerList());
+						server.getPlayerList(), track);
 			} else {
 				move(Math.min(Math.abs(track.getLocation().getY() - getLocation().getY()), getVelocity()), track
 						.getLocation().getY() - getLocation().getY(), "Y",
 						server.getLoadedMaps().get(getLocation().getWorldSectionId()), server.getEntityList(),
-						server.getPlayerList());
+						server.getPlayerList(), track);
 			}
 		}
 

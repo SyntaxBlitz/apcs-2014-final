@@ -55,21 +55,4 @@ public class Location {
 		return this.x == other.x && this.y == other.y && this.direction == other.direction
 				&& this.worldSectionId == other.worldSectionId;
 	}
-
-	
-	public int getDirectionTowards(Entity e){
-		
-		int newDirection;
-		Location loc = e.getLocation();
-		
-		if (loc.getX() == getX() && loc.getY() > getY())
-			newDirection = 1;
-		else if(loc.getX() == getX() && loc.getY() > getY())
-			newDirection = 2;
-		else if(loc.getY() == getY() && loc.getX() > getX())
-			newDirection = 0;
-		else
-			newDirection = 3;
-		return newDirection;
-	}
 }
