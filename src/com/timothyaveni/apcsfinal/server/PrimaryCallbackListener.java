@@ -150,12 +150,10 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 	@Override
 	public void projectileIdRequested(NewProjectilePacket packet, InetAddress address, int port) {
 		int entityId = Server.getNextEntityId();
-		System.out.println("projectile entity id is " + entityId);
 		Projectile projectile = (Projectile) EntityTypeID.constructEntity(packet.getType(), entityId,
 				packet.getLocation());
 		server.getVisibleEntityList().put(entityId, projectile);
 		server.getEntityList().put(entityId, projectile);
-		System.out.println("projectile entity id is truly " + projectile.getId());
 
 		server.getThread().sendIndividualPacket(
 				new NewProjectileAcknowledgePacket(Server.getNextPacketId(), packet.getRemoteId(), entityId), address,
