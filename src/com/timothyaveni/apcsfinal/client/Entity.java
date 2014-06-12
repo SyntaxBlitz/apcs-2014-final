@@ -64,6 +64,11 @@ public abstract class Entity {
 		this.loc = loc;
 	}
 
+	public void setDirection(int d) {
+		this.setLocation(new Location(getLocation().getX(), getLocation().getY(), d, this.getLocation()
+				.getWorldSectionId()));
+	}
+
 	public void setHP(int hp) {
 		this.hp = hp;
 	}
@@ -90,8 +95,10 @@ public abstract class Entity {
 			lastDirection = this.getLocation().getDirection();
 			currentFrameOffset = (currentFrameOffset + 1) % 4;
 		}/*
-		 * else if (!moving && isInCombat()) { currentSubImage = image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128), getLocation() .getDirection() *
-		 * 48, this.getWidth(), this.getHeight()); }
+		 * else if (!moving && isInCombat()) { currentSubImage =
+		 * image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128),
+		 * getLocation() .getDirection() * 48, this.getWidth(),
+		 * this.getHeight()); }
 		 */
 		return currentSubImage;
 	}

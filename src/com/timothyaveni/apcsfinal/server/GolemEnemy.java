@@ -103,10 +103,10 @@ public class GolemEnemy extends Entity implements EnemyAI {
 
 		for (int i = 0; i < players.length; i++) {
 			Player player = players[i];
-			
+
 			if (getLocation().getWorldSectionId() != player.getLocation().getWorldSectionId())
 				continue;
-			
+
 			double thisDistance = getLocation().getDistanceTo(players[i].getLocation());
 
 			if (thisDistance < smallestDistance || smallestDistance == -1) {
@@ -151,6 +151,14 @@ public class GolemEnemy extends Entity implements EnemyAI {
 			attack(track);
 		}
 		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
+			if (track.getLocation().getY() - this.getLocation().getY() == 0
+					&& track.getLocation().getX() - this.getLocation().getX() == 0) {
+				//this.setDirection(getLocation().getDirectionTowards(track));
+				move(Math.min(this.getLocation().getDirectionTowards(track), getVelocity()), track
+						.getLocation().getX() - getLocation().getX(), "X",
+						server.getLoadedMaps().get(getLocation().getWorldSectionId()), server.getEntityList(),
+						server.getPlayerList());
+			}
 			if ((track.getLocation().getY() - this.getLocation().getY() == 0)) {
 				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track
 						.getLocation().getX() - getLocation().getX(), "X",
