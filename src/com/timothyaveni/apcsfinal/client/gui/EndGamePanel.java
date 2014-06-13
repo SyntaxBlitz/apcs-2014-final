@@ -1,9 +1,7 @@
 package com.timothyaveni.apcsfinal.client.gui;
 
-import java.awt.AlphaComposite;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -22,8 +20,7 @@ public class EndGamePanel extends JPanel implements ActionListener {
 	private MenuButton exit;
 	private int counter;
 	private Timer timer;
-	BufferedImage image;
-	private float alpha = 1f;
+	BufferedImage image, tempImage;
 
 	public EndGamePanel(PanelTest frame) {
 		super();
@@ -43,7 +40,7 @@ public class EndGamePanel extends JPanel implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		tempImage = image;
 		this.add(exit);
 
 	}
@@ -56,7 +53,6 @@ public class EndGamePanel extends JPanel implements ActionListener {
 		}
 		counter --;
 		if (counter >= 0) {
-			//image = ImageModifier.fadeIn(image, 0, 0, 1024, 768, Colors.ALPHA_RGB, 0.009F);
 			this.repaint();
 		} else {
 			exit.setEnabled(true);
@@ -73,11 +69,7 @@ public class EndGamePanel extends JPanel implements ActionListener {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//g.drawImage(image, 0, 0, this);
-		Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setComposite(AlphaComposite.SrcOver.derive(1f - alpha));
-        g2d.drawImage(image, 0, 0, this);
-        alpha -= 0.009;
+		g.drawImage(ImageModifier.fadeIn(image, 0, 0, 1024, 768, Colors.ALPHA_RGB, 0.009F), 0, 0, this);
 	}
 
 	// makes sure the JPanel is the correct size
