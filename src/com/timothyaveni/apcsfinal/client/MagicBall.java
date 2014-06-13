@@ -4,8 +4,8 @@ import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class MagicBall extends Projectile {
 
-	public MagicBall(int entityId, Location loc, int damageAmount, int damageVariance) {
-		super(-1, loc, damageAmount, damageVariance);
+	public MagicBall(int entityId, Location loc, int damageAmount) {
+		super(-1, loc, damageAmount);
 		setId(entityId);
 	}
 

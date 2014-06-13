@@ -16,23 +16,14 @@ public abstract class Projectile extends Entity {
 	private int damageAmount;
 	private int damageVariance;
 
-	public Projectile(int id, Location loc, int damageAmount, int damageVariance) {
+	public Projectile(int id, Location loc, int damageAmount) {
 		super(id, loc);
 		this.damageAmount = damageAmount;
-		this.damageVariance = damageVariance;
 		this.setDistanceTravelled(0);
 	}
 	
 	public int getBaseDamage() {
 		return this.damageAmount;
-	}
-	
-	protected int getDamageVariance() {
-		return this.damageVariance;
-	}
-
-	public int getDamageNumber() {
-		return getBaseDamage() + ((int)(Math.random() * getDamageVariance() * 2 - getDamageVariance()));
 	}
 	
 	public abstract int getMaxDistance();
@@ -122,7 +113,7 @@ public abstract class Projectile extends Entity {
 								- getHeight() / 2, getWidth(), getHeight()))) {
 					newLocation = new Location(0, 0, 0, 0); // get rid of the projectile because it collided with someone
 					if (!(thisEntity instanceof Player)) {
-						int damageAmount = getDamageNumber();
+						int damageAmount = getBaseDamage();
 						client.getNetworkThread().sendPacket(
 								new EntityDamagePacket(Client.getNextPacketId(), thisEntity.getId(), damageAmount));
 						client.getNetworkThread().sendPacket(

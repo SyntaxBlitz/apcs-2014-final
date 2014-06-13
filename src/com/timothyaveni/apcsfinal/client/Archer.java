@@ -84,7 +84,7 @@ public class Archer extends Player {
 	@Override
 	public void attack(Client client) {
 		if (client.getFrame() - lastAttackFrame > 15) { // 2 arrows/sec
-			Arrow projectile = new Arrow(-1, getLocation(), getBaseDamage(), getDamageNumber());
+			Arrow projectile = new Arrow(-1, getLocation(), getDamageNumber());
 			int packetId = Client.getNextPacketId();
 			client.getUnacknowledgedProjectiles().put(packetId, projectile);
 			client.getNetworkThread().sendPacket(new NewProjectilePacket(packetId, EntityType.ARROW, getLocation()));

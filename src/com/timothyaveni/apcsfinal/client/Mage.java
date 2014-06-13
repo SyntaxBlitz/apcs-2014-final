@@ -79,7 +79,7 @@ public class Mage extends Player {
 	@Override
 	public void attack(Client client) {
 		if (client.getFrame() - lastAttackFrame > 30) { // 1 magic ball every second
-			MagicBall projectile = new MagicBall(-1, getLocation(), getDamageNumber(), getDamageVariance());
+			MagicBall projectile = new MagicBall(-1, getLocation(), getDamageNumber());
 			int packetId = Client.getNextPacketId();
 			client.getUnacknowledgedProjectiles().put(packetId, projectile);
 			client.getNetworkThread().sendPacket(
