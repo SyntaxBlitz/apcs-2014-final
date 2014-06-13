@@ -99,9 +99,9 @@ public class EntityTypeID {
 			case GOLEM_ENEMY:
 				return new GolemEnemy(entityId, location);
 			case MAGIC_BALL:
-				return new MagicBall(entityId, location);
+				return new MagicBall(entityId, location, 0);	// damage values don't matter if it's not clientside
 			case ARROW:
-				return new Arrow(entityId, location, 0);	// damage doesn't matter if it's not clientside
+				return new Arrow(entityId, location, 0);
 			case ARCANUS_BALL:
 				return new ArcanusBall(entityId, location);
 		}

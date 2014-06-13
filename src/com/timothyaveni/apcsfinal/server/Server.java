@@ -5,9 +5,10 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.EntityInfo;
@@ -28,21 +29,21 @@ public class Server {
 	private final int HEIGHT = 1024 / 4 * 3;
 	int visibilityThreshold = (int) Math.sqrt((WIDTH / 2) * (WIDTH / 2) + (HEIGHT / 2) * (HEIGHT / 2)) + 100;
 
-	private ArrayList<ConnectedClient> clientList = new ArrayList<ConnectedClient>();
-	private static ArrayList<Packet> packetQueue = new ArrayList<Packet>();
+	private List<ConnectedClient> clientList = Collections.synchronizedList(new ArrayList<ConnectedClient>());
+	private static List<Packet> packetQueue = Collections.synchronizedList(new ArrayList<Packet>());
 
-	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
+	private Map<Integer, Entity> entities = Collections.synchronizedMap(new HashMap<Integer, Entity>());
 	// entities that have been within the distance threshold of some player at
 	// some point
-	private HashMap<Integer, Entity> visibleEntities = new HashMap<Integer, Entity>();
+	private Map<Integer, Entity> visibleEntities = Collections.synchronizedMap(new HashMap<Integer, Entity>());
 	// entities that have not
-	private ArrayList<Entity> invisibleEntities = new ArrayList<Entity>();
+	private List<Entity> invisibleEntities = Collections.synchronizedList(new ArrayList<Entity>());
 
-	private ArrayList<Player> players = new ArrayList<Player>();
+	private List<Player> players = Collections.synchronizedList(new ArrayList<Player>());
 
-	private ArrayList<Projectile> myProjectiles = new ArrayList<Projectile>();
+	private List<Projectile> myProjectiles = Collections.synchronizedList(new ArrayList<Projectile>());
 
-	private HashMap<Integer, MapMetadata> loadedMaps = new HashMap<Integer, MapMetadata>();
+	private Map<Integer, MapMetadata> loadedMaps = Collections.synchronizedMap(new HashMap<Integer, MapMetadata>());
 	private static int lastEntityId = 0;
 
 	private ServerThread thread;
@@ -71,7 +72,7 @@ public class Server {
 		mainLoop();
 	}
 
-	public ArrayList<ConnectedClient> getClientList() {
+	public List<ConnectedClient> getClientList() {
 		return clientList;
 	}
 
@@ -197,27 +198,27 @@ public class Server {
 		return currentTick;
 	}
 
-	public HashMap<Integer, Entity> getEntityList() {
+	public Map<Integer, Entity> getEntityList() {
 		return this.entities;
 	}
 
-	public HashMap<Integer, Entity> getVisibleEntityList() {
+	public Map<Integer, Entity> getVisibleEntityList() {
 		return this.visibleEntities;
 	}
 
-	public ArrayList<Entity> getInvisibleEntityList() {
+	public List<Entity> getInvisibleEntityList() {
 		return this.invisibleEntities;
 	}
 
-	public HashMap<Integer, MapMetadata> getLoadedMaps() {
+	public Map<Integer, MapMetadata> getLoadedMaps() {
 		return this.loadedMaps;
 	}
 
-	public ArrayList<Player> getPlayerList() {
+	public List<Player> getPlayerList() {
 		return this.players;
 	}
 
-	public ArrayList<Projectile> getMyProjectiles() {
+	public List<Projectile> getMyProjectiles() {
 		return myProjectiles;
 	}
 }

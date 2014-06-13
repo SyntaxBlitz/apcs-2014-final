@@ -4,7 +4,9 @@ import java.awt.event.KeyListener;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import com.timothyaveni.apcsfinal.client.environmentanimation.EnvironmentAnimation;
 import com.timothyaveni.apcsfinal.client.gui.GameFrame;
@@ -19,10 +21,10 @@ public class Client {
 
 	private static int lastLocalPacketId = 0;
 	private boolean[] keyboard = new boolean[4];
-	private HashMap<Integer, Entity> entities = new HashMap<Integer, Entity>();
-	private ArrayList<Projectile> myProjectiles = new ArrayList<Projectile>();
-	private HashMap<Integer, Projectile> unacknowledgedProjectiles = new HashMap<Integer, Projectile>();
-	private ArrayList<EnvironmentAnimation> environmentAnimations = new ArrayList<EnvironmentAnimation>();
+	private java.util.Map<Integer, Entity> entities = Collections.synchronizedMap(new HashMap<Integer, Entity>());
+	private List<Projectile> myProjectiles = Collections.synchronizedList(new ArrayList<Projectile>());
+	private java.util.Map<Integer, Projectile> unacknowledgedProjectiles = Collections.synchronizedMap(new HashMap<Integer, Projectile>());
+	private List<EnvironmentAnimation> environmentAnimations = Collections.synchronizedList(new ArrayList<EnvironmentAnimation>());
 	private long frame = 0; // current frame number. Increments on each frame
 
 	private boolean inGame = false;
@@ -143,7 +145,7 @@ public class Client {
 		this.player = player;
 	}
 
-	public HashMap<Integer, Entity> getEntityList() {
+	public java.util.Map<Integer, Entity> getEntityList() {
 		return entities;
 	}
 
@@ -198,15 +200,15 @@ public class Client {
 		return this.gameFrame;
 	}
 
-	public ArrayList<Projectile> getMyProjectiles() {
+	public List<Projectile> getMyProjectiles() {
 		return this.myProjectiles;
 	}
 
-	public HashMap<Integer, Projectile> getUnacknowledgedProjectiles() {
+	public java.util.Map<Integer, Projectile> getUnacknowledgedProjectiles() {
 		return this.unacknowledgedProjectiles;
 	}
 
-	public ArrayList<EnvironmentAnimation> getEnvironmentAnimations() {
+	public List<EnvironmentAnimation> getEnvironmentAnimations() {
 		return environmentAnimations;
 	}
 

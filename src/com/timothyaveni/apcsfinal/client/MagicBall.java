@@ -4,8 +4,8 @@ import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class MagicBall extends Projectile {
 
-	public MagicBall(int entityId, Location loc) {
-		super(-1, loc);
+	public MagicBall(int entityId, Location loc, int damageAmount) {
+		super(-1, loc, damageAmount);
 		setId(entityId);
 	}
 
@@ -52,11 +52,6 @@ public class MagicBall extends Projectile {
 	@Override
 	public int getMaxHP() {
 		return -1;
-	}
-
-	@Override
-	public int getBaseDamage() {
-		return 35;
 	}
 
 	@Override

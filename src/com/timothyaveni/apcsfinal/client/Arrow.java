@@ -3,23 +3,15 @@ package com.timothyaveni.apcsfinal.client;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class Arrow extends Projectile {
-
-	private int damage;
 	
-	public Arrow(int id, Location loc, int damage) {
-		super(-1, loc);
+	public Arrow(int id, Location loc, int damageAmount) {
+		super(-1, loc, damageAmount);
 		setId(id);
-		this.damage = damage;
 	}
 
 	@Override
 	public int getMaxDistance() {
 		return 1000;
-	}
-
-	@Override
-	public int getBaseDamage() {
-		return this.damage;
 	}
 
 	@Override

@@ -3,8 +3,7 @@ package com.timothyaveni.apcsfinal.server;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
+import java.util.Map;
 
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
@@ -44,6 +43,7 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 	@Override
 	public void bindFail() {
 		System.out.println("Did NOT successfully bind to port");
+		System.exit(1);
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		}
 		System.out.println("New client connected. Assigning id " + newClientId);
 
-		HashMap<Integer, Entity> entities = server.getEntityList();
+		Map<Integer, Entity> entities = server.getEntityList();
 		int newEntityId = Server.getNextEntityId();
 		Entity newEntity = EntityTypeID.constructEntity(packet.getEntityType(), newEntityId, server.getLoadedMaps()
 				.get(1).getSpawnPoint());

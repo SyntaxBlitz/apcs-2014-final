@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
@@ -32,8 +34,8 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 		Server.addPacketToQueue(new EnvironmentAnimationPacket(Server.getNextPacketId(), AnimationType.DAMAGE_NUMBER, track.getLocation(), baseDmg));
 	}
 
-	public void move(int distance, int direction, String plane, MapMetadata map, HashMap<Integer, Entity> entities,
-			ArrayList<Player> players, Player track) {
+	public void move(int distance, int direction, String plane, MapMetadata map, Map<Integer, Entity> map2,
+			List<Player> list, Player track) {
 		Location newLocation = null;
 		if (plane.equals("X")) {
 			if (direction > 0) {
@@ -53,15 +55,15 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 			}
 		}
 
-		if (map.isPointValid(newLocation.getX(), newLocation.getY()) && !collidesWith(newLocation, entities)
-				&& !collidesWith(newLocation, players)) {
+		if (map.isPointValid(newLocation.getX(), newLocation.getY()) && !collidesWith(newLocation, map2)
+				&& !collidesWith(newLocation, list)) {
 			Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), newLocation));
 			setLocation(newLocation);
 		}
 	}
 
-	private boolean collidesWith(Location newLocation, HashMap<Integer, Entity> entities) {
-		Entity[] entityArray = entities.values().toArray(new Entity[0]);
+	private boolean collidesWith(Location newLocation, Map<Integer, Entity> map2) {
+		Entity[] entityArray = map2.values().toArray(new Entity[0]);
 		for (Entity entity: entityArray) {
 			if (entity == this)
 				continue;
@@ -78,7 +80,7 @@ public class GoblinEnemy extends Entity implements EnemyAI {
 		return false;
 	}
 
-	private boolean collidesWith(Location newLocation, ArrayList<Player> players) {
+	private boolean collidesWith(Location newLocation, List<Player> players) {
 		Player[] playerArray = players.toArray(new Player[0]);
 		for (Player player: playerArray) {
 			Location myLocation = newLocation;
