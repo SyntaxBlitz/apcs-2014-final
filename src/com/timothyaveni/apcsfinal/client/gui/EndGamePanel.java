@@ -20,7 +20,7 @@ public class EndGamePanel extends JPanel implements ActionListener {
 	private MenuButton exit;
 	private int counter;
 	private Timer timer;
-	BufferedImage image, tempImage;
+	BufferedImage image;
 
 	public EndGamePanel(PanelTest frame) {
 		super();
@@ -40,7 +40,7 @@ public class EndGamePanel extends JPanel implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		tempImage = image;
+		
 		this.add(exit);
 
 	}
