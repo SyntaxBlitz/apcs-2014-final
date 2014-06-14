@@ -11,20 +11,22 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import com.timothyaveni.apcsfinal.client.Client;
 import com.timothyaveni.apcsfinal.client.FileReader;
 
-public class EndGamePanel extends JPanel implements ActionListener {
+public class EndGamePanel extends JPanel implements ActionListener, UsesClient {
 
 	private static final long serialVersionUID = 1L;
-	private PanelTest frame;
+	private GameFrame frame;
 	private MenuButton exit;
 	private int counter;
 	private Timer timer;
 	BufferedImage image;
+	Client client;
 
-	public EndGamePanel(PanelTest frame) {
+	public EndGamePanel(GameFrame frame) {
 		super();
-		
+	
 		counter = 100;
 		this.frame = frame;
 
@@ -82,11 +84,16 @@ public class EndGamePanel extends JPanel implements ActionListener {
 		}
 	}
 
+	@Override
+	public void setClient(Client client) {
+		this.client = client;	
+	}
+
 	
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		PanelTest frame = new PanelTest("Saviors of Gundthor");
 		EndGamePanel endGame = new EndGamePanel(frame);
 		frame.changeFrame(endGame);
 		endGame.sceneLoop();
-	}
+	}*/
 }
