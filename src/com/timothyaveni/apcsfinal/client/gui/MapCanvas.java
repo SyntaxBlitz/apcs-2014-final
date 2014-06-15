@@ -47,14 +47,11 @@ public class MapCanvas extends Canvas implements UsesClient {
 				java.util.Map<Integer, Entity> entities = client.getEntityList();
 
 				Entity[] entityArray = entities.values().toArray(new Entity[0]);
-				boolean endGame = true;
 				
 				for (int i = 0; i < entityArray.length; i++) {					
 					Entity thisEntity = entityArray[i];
 					if (thisEntity.getLocation().getWorldSectionId() != client.getCurrentMap().getWorldSectionId())
 						continue;
-					if (thisEntity.isPlayer(thisEntity) == false && client.getCurrentMap().getWorldSectionId() == 3)
-						endGame = false;
 					g.drawImage(thisEntity.getImage(client.getFrame()), thisEntity.getLocation().getX()
 							- playerLocation.getX() + Client.WIDTH / 2 - thisEntity.getWidth() / 2, thisEntity
 							.getLocation().getY()
@@ -63,12 +60,6 @@ public class MapCanvas extends Canvas implements UsesClient {
 							/ 2
 							- thisEntity.getHeight()
 							/ 2, thisEntity.getWidth(), thisEntity.getHeight(), null);
-				}
-				
-				if (endGame){
-					client.getGameFrame().close();
-					client.getGameFrame().changeFrame(new EndGamePanel(client.getGameFrame()));
-					return;
 				}
 
 				EnvironmentAnimation[] environmentAnimations = client.getEnvironmentAnimations().toArray(
