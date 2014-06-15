@@ -138,10 +138,4 @@ public abstract class Entity {
 			newDirection = loc.getDirection();
 		return newDirection;
 	}
-	
-	public boolean isPlayer(Entity e){
-		if (id == 0 ||id == 3 ||id == 4 ||id == 5 ||id == 6)
-			return true;
-		return false;
-	}
 }
