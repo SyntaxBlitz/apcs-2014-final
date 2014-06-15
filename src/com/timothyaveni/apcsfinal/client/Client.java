@@ -78,6 +78,7 @@ public class Client {
 
 			if (!inGame)
 				continue;
+				
 			lastLoopTime = System.nanoTime();
 
 			if (keyboard[0] || keyboard[1] || keyboard[2] || keyboard[3]) {
@@ -90,6 +91,7 @@ public class Client {
 					.getLocation()));
 
 			int nextMap = currentMap.getMetadata().getNextMap(player.getLocation().getX(), player.getLocation().getY());
+			
 			if (nextMap != -1) {
 				this.currentMap = new Map(nextMap);
 				player.setLocation(currentMap.getMetadata().getSpawnPoint()); // I think this is awkward if the player has active projectiles but whatever
