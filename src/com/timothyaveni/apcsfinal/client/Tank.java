@@ -124,6 +124,9 @@ public class Tank extends Player {
 	public void useAbility(long frame, Client client) {
 		if (lastAbilityCall == -1 || frame - lastAbilityCall > 600) { // 600 frames = 20 seconds after last ability call (10 seconds after ability ended)
 			abilityActive = true;
+			client.getNetworkThread().sendPacket(
+					new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.RAGE,
+							getLocation(), 00));
 			lastAbilityCall = frame;
 			setHP(getHP() + 100);
 		}
