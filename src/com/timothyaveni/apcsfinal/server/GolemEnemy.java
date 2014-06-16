@@ -1,9 +1,6 @@
 package com.timothyaveni.apcsfinal.server;
 
 import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +14,12 @@ import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
 import com.timothyaveni.apcsfinal.networking.packet.EnvironmentAnimationPacket;
+import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 
 public class GolemEnemy extends Entity implements EnemyAI {
 	private int baseDmg = 50;
 	private int goldValue = 40;
+	private boolean attacked = false;
 
 	public GolemEnemy(int id, Location loc) {
 		super(id, loc);
@@ -28,7 +27,8 @@ public class GolemEnemy extends Entity implements EnemyAI {
 
 	public void attack(Player track) {
 		Server.addPacketToQueue(new EntityDamagePacket(Server.getNextPacketId(), track.getId(), baseDmg));
-		Server.addPacketToQueue(new EnvironmentAnimationPacket(Server.getNextPacketId(), AnimationType.DAMAGE_NUMBER, track.getLocation(), baseDmg));
+		Server.addPacketToQueue(new EnvironmentAnimationPacket(Server.getNextPacketId(), AnimationType.DAMAGE_NUMBER,
+				track.getLocation(), baseDmg));
 	}
 
 	public void move(int distance, int direction, String plane, MapMetadata map, Map<Integer, Entity> map2,
@@ -61,7 +61,7 @@ public class GolemEnemy extends Entity implements EnemyAI {
 
 	private boolean collidesWith(Location newLocation, Map<Integer, Entity> map2) {
 		Entity[] entityArray = map2.values().toArray(new Entity[0]);
-		for (Entity entity: entityArray) {
+		for (Entity entity : entityArray) {
 			if (entity == this)
 				continue;
 			Location myLocation = newLocation;
@@ -79,7 +79,7 @@ public class GolemEnemy extends Entity implements EnemyAI {
 
 	private boolean collidesWith(Location newLocation, List<Player> players) {
 		Player[] playerArray = players.toArray(new Player[0]);
-		for (Player player: playerArray) {
+		for (Player player : playerArray) {
 			Location myLocation = newLocation;
 			Location playerLocation = player.getLocation();
 			if (playerLocation.getWorldSectionId() == myLocation.getWorldSectionId()) {
@@ -151,9 +151,17 @@ public class GolemEnemy extends Entity implements EnemyAI {
 		if (server.getCurrentTick() % 10 == 0
 				&& attackArea.intersects(new Rectangle(track.getLocation().getX() - track.getWidth() / 2, track
 						.getLocation().getY() - track.getHeight() / 2, track.getWidth(), track.getHeight()))) {
-			setDirection(getDirectionTowards(track));
 			attack(track);
+			Server.addPacketToQueue(new EntityLocationPacket(Server.getNextPacketId(), this.getId(), getLocation()));
+			Server.addPacketToQueue(new SimpleAttackPacket(Server.getNextPacketId(), getId(), true));
+			attacked = true;
 		}
+
+		if (server.getCurrentTick() % 10 == 5 && attacked) {
+			Server.addPacketToQueue(new SimpleAttackPacket(Server.getNextPacketId(), getId(), false));
+			attacked = false;
+		}
+
 		if (this.getLocation().getDistanceTo(track.getLocation()) < 700) {
 			if ((track.getLocation().getY() - this.getLocation().getY() == 0)) {
 				move(Math.min(Math.abs(track.getLocation().getX() - getLocation().getX()), getVelocity()), track

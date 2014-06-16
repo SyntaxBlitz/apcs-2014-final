@@ -1,7 +1,5 @@
 package com.timothyaveni.apcsfinal.server;
 
-import java.util.ArrayList;
-
 import com.timothyaveni.apcsfinal.client.ArcanusBall;
 import com.timothyaveni.apcsfinal.client.Entity;
 import com.timothyaveni.apcsfinal.client.Location;
@@ -9,10 +7,13 @@ import com.timothyaveni.apcsfinal.client.Player;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
+import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
 
 public class ArcanusEnemy extends Entity implements BossAI {
 	private int baseDmg = 30;
 	private int goldValue = 40;
+
+	private boolean attacked = false;
 
 	public ArcanusEnemy(int id, Location loc) {
 		super(id, loc);
@@ -45,7 +46,7 @@ public class ArcanusEnemy extends Entity implements BossAI {
 	public void act(Server server) {
 		Player[] players = server.getPlayerList().toArray(new Player[0]);
 		boolean anyoneHere = false;
-		for (Player player: players) {
+		for (Player player : players) {
 			if (player.getLocation().getWorldSectionId() == getLocation().getWorldSectionId()) {
 				anyoneHere = true;
 				break;
@@ -60,6 +61,11 @@ public class ArcanusEnemy extends Entity implements BossAI {
 				if (server.getCurrentTick() % 50 == 0)
 					projectileAttack(server);
 			}
+		}
+
+		if (server.getCurrentTick() % 50 == 5 && attacked) {
+			Server.addPacketToQueue(new SimpleAttackPacket(Server.getNextPacketId(), getId(), false));
+			attacked = false;
 		}
 	}
 
@@ -144,6 +150,8 @@ public class ArcanusEnemy extends Entity implements BossAI {
 			Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), ball2));
 			Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), ball3));
 			Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), ball4));
+			Server.addPacketToQueue(new SimpleAttackPacket(Server.getNextPacketId(), getId(), true));
+			attacked = true;
 		}
 	}
 
