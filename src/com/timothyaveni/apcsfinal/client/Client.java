@@ -213,5 +213,5 @@ public class Client {
 	public List<EnvironmentAnimation> getEnvironmentAnimations() {
 		return environmentAnimations;
 	}
-
+	
 }

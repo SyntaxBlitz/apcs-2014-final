@@ -38,6 +38,8 @@ public class MapCanvas extends Canvas implements UsesClient {
 		Graphics g;
 		do {
 			do {
+				if (!client.isInGame())
+					return;
 				g = bs.getDrawGraphics();
 
 				Location playerLocation = client.getPlayer().getLocation();

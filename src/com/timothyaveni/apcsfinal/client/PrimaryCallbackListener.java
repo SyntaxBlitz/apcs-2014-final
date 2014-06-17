@@ -3,6 +3,7 @@ package com.timothyaveni.apcsfinal.client;
 import java.util.HashMap;
 
 import com.timothyaveni.apcsfinal.networking.AnimationTypeID;
+import com.timothyaveni.apcsfinal.networking.EntityType;
 import com.timothyaveni.apcsfinal.networking.EntityTypeID;
 import com.timothyaveni.apcsfinal.networking.packet.EntityDamagePacket;
 import com.timothyaveni.apcsfinal.networking.packet.EntityLocationPacket;
@@ -11,6 +12,7 @@ import com.timothyaveni.apcsfinal.networking.packet.NewClientAcknowledgementPack
 import com.timothyaveni.apcsfinal.networking.packet.NewEntityPacket;
 import com.timothyaveni.apcsfinal.networking.packet.NewProjectileAcknowledgePacket;
 import com.timothyaveni.apcsfinal.networking.packet.SimpleAttackPacket;
+import com.timothyaveni.apcsfinal.server.ArcanusEnemy;
 
 public class PrimaryCallbackListener extends ClientCallbackListener {
 
@@ -43,6 +45,11 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 
 		if (client.getEntityList().containsKey(entityId)) {
 			if (packet.getLocation().getWorldSectionId() == 0) {
+				if (client.getEntityList().get(entityId) instanceof ArcanusEnemy) {
+					client.setInGame(false);
+					client.getGameFrame().close();
+					client.getGameFrame().changeFrame(new EndgameFrame());
+				}
 				client.getEntityList().remove(entityId);
 			} else {
 				Entity entity = client.getEntityList().get(entityId);
