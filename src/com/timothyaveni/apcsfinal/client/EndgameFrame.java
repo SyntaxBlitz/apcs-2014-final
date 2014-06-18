@@ -21,30 +21,30 @@ public class EndgameFrame extends JPanel implements UsesClient, ActionListener {
 	private Client client;
 	private int counter;
 	private Timer timer;
-	
+
 	private BufferedImage image;
-	
+
 	public EndgameFrame() {
 		counter = 100;
-		
+
 		try {
 			this.image = ImageIO.read(FileReader.getFileFromResourceString("EndGame.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		this.setPreferredSize(new Dimension(Client.WIDTH, Client.HEIGHT));
-		
+
 		this.sceneLoop();
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//g.drawImage(image, 0, 0, null);
+		// g.drawImage(image, 0, 0, null);
 		g.drawImage(ImageModifier.fadeIn(image, 0, 0, 1024, 768, Colors.ALPHA_RGB, 0.009F), 0, 0, this);
 	}
-	
+
 	@Override
 	public void setClient(Client client) {
 		this.client = client;
@@ -52,7 +52,7 @@ public class EndgameFrame extends JPanel implements UsesClient, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		counter --;
+		counter--;
 		if (counter >= 0) {
 			this.repaint();
 		} else {

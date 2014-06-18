@@ -26,7 +26,7 @@ public class EndGamePanel extends JPanel implements ActionListener, UsesClient {
 
 	public EndGamePanel(GameFrame frame) {
 		super();
-	
+
 		counter = 100;
 		this.frame = frame;
 
@@ -36,13 +36,13 @@ public class EndGamePanel extends JPanel implements ActionListener, UsesClient {
 		exit.setBounds(388, 600, 256, 64);
 		exit.addActionListener(this);
 		exit.setEnabled(false);
-		
+
 		try {
 			image = ImageIO.read(FileReader.getFileFromResourceString("EndGame.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		this.add(exit);
 
 	}
@@ -53,7 +53,7 @@ public class EndGamePanel extends JPanel implements ActionListener, UsesClient {
 			frame.close();
 			return;
 		}
-		counter --;
+		counter--;
 		if (counter >= 0) {
 			this.repaint();
 		} else {
@@ -68,6 +68,7 @@ public class EndGamePanel extends JPanel implements ActionListener, UsesClient {
 		timer = new Timer(50, this);
 		timer.start();
 	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -86,14 +87,11 @@ public class EndGamePanel extends JPanel implements ActionListener, UsesClient {
 
 	@Override
 	public void setClient(Client client) {
-		this.client = client;	
+		this.client = client;
 	}
 
-	
-	/*public static void main(String[] args){
-		PanelTest frame = new PanelTest("Saviors of Gundthor");
-		EndGamePanel endGame = new EndGamePanel(frame);
-		frame.changeFrame(endGame);
-		endGame.sceneLoop();
-	}*/
+	/*
+	 * public static void main(String[] args){ PanelTest frame = new PanelTest("Saviors of Gundthor"); EndGamePanel endGame = new EndGamePanel(frame);
+	 * frame.changeFrame(endGame); endGame.sceneLoop(); }
+	 */
 }

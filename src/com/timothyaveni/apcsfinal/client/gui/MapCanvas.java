@@ -49,8 +49,8 @@ public class MapCanvas extends Canvas implements UsesClient {
 				java.util.Map<Integer, Entity> entities = client.getEntityList();
 
 				Entity[] entityArray = entities.values().toArray(new Entity[0]);
-				
-				for (int i = 0; i < entityArray.length; i++) {					
+
+				for (int i = 0; i < entityArray.length; i++) {
 					Entity thisEntity = entityArray[i];
 					if (thisEntity.getLocation().getWorldSectionId() != client.getCurrentMap().getWorldSectionId())
 						continue;
@@ -72,7 +72,8 @@ public class MapCanvas extends Canvas implements UsesClient {
 						client.getEnvironmentAnimations().remove(thisAnimation);
 						continue;
 					}
-					if (thisAnimation.getLocation().getWorldSectionId() != client.getPlayer().getLocation().getWorldSectionId())
+					if (thisAnimation.getLocation().getWorldSectionId() != client.getPlayer().getLocation()
+							.getWorldSectionId())
 						continue;
 					BufferedImage renderImage = thisAnimation.getImage(client.getFrame());
 					g.drawImage(thisAnimation.getImage(client.getFrame()), thisAnimation.getLocation().getX()

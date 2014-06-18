@@ -25,7 +25,7 @@ public class Mage extends Player {
 	public int getBaseDamage() {
 		return 35;
 	}
-	
+
 	@Override
 	public int getDamageVariance() {
 		return 0;

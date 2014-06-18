@@ -27,7 +27,7 @@ public class Archer extends Player {
 		}
 
 	}
-	
+
 	@Override
 	public int getDamageVariance() {
 		if (abilityActive)

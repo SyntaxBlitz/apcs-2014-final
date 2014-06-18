@@ -25,7 +25,7 @@ public class Rogue extends Player {
 	public int getDamageVariance() {
 		return 3;
 	}
-	
+
 	@Override
 	public int getHeight() {
 
@@ -100,10 +100,10 @@ public class Rogue extends Player {
 						- getHeight() / 2, getWidth(), getHeight());
 				break;
 		}
-		
+
 		Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 
-		for (Entity entity: entities) {
+		for (Entity entity : entities) {
 			if (entity instanceof Player)
 				continue;
 			Location entityLoc = entity.getLocation();

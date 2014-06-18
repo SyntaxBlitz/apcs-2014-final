@@ -51,7 +51,7 @@ public class Tank extends Player {
 	public int getBaseDamage() {
 		return 10;
 	}
-	
+
 	@Override
 	public int getDamageVariance() {
 		return 3;
@@ -104,7 +104,7 @@ public class Tank extends Player {
 
 		Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 
-		for (Entity entity: entities) {
+		for (Entity entity : entities) {
 			if (entity instanceof Player)
 				continue;
 			Location entityLoc = entity.getLocation();
@@ -125,8 +125,7 @@ public class Tank extends Player {
 		if (lastAbilityCall == -1 || frame - lastAbilityCall > 600) { // 600 frames = 20 seconds after last ability call (10 seconds after ability ended)
 			abilityActive = true;
 			client.getNetworkThread().sendPacket(
-					new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.RAGE,
-							getLocation(), 00));
+					new EnvironmentAnimationPacket(Client.getNextPacketId(), AnimationType.RAGE, getLocation(), 00));
 			lastAbilityCall = frame;
 			setHP(getHP() + 100);
 		}

@@ -131,9 +131,9 @@ public class PrimaryCallbackListener extends ServerCallbackListener {
 		Server.addPacketToQueue(new NewEntityPacket(Server.getNextPacketId(), newEntity));
 
 		Entity[] visibleEntities = server.getVisibleEntityList().values().toArray(new Entity[0]);
-		for (Entity entity: visibleEntities) {
-			server.getThread().sendIndividualPacket(new NewEntityPacket(Server.getNextPacketId(), entity),
-					address, port);
+		for (Entity entity : visibleEntities) {
+			server.getThread().sendIndividualPacket(new NewEntityPacket(Server.getNextPacketId(), entity), address,
+					port);
 		}
 	}
 

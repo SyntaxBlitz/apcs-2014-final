@@ -3,7 +3,7 @@ package com.timothyaveni.apcsfinal.client;
 import com.timothyaveni.apcsfinal.networking.EntityType;
 
 public class Arrow extends Projectile {
-	
+
 	public Arrow(int id, Location loc, int damageAmount) {
 		super(-1, loc, damageAmount);
 		setId(id);

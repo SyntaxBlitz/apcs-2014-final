@@ -67,8 +67,7 @@ public abstract class Player extends Entity {
 			int mid = (good + bad) / 2;
 			while (bad != mid) {
 				if (currentMap.getMetadata().isPointValid(getLocation().getX(), mid)
-						&& !playerCollidesWithEntity(getLocation().getX(), mid + getHeight() / 2, currentMap,
-								entities)) {
+						&& !playerCollidesWithEntity(getLocation().getX(), mid + getHeight() / 2, currentMap, entities)) {
 					good = mid;
 				} else {
 					bad = mid;
@@ -82,8 +81,7 @@ public abstract class Player extends Entity {
 			int mid = (good + bad) / 2;
 			while (good != mid) {
 				if (currentMap.getMetadata().isPointValid(getLocation().getX(), mid)
-						&& !playerCollidesWithEntity(getLocation().getX(), mid - getHeight() / 2, currentMap,
-								entities)) {
+						&& !playerCollidesWithEntity(getLocation().getX(), mid - getHeight() / 2, currentMap, entities)) {
 					good = mid;
 				} else {
 					bad = mid;
@@ -125,13 +123,13 @@ public abstract class Player extends Entity {
 	private boolean playerCollidesWithEntity(int centerX, int centerY, Map currentMap,
 			java.util.Map<Integer, Entity> entities2) {
 		Entity[] entities = entities2.values().toArray(new Entity[0]);
-		for (Entity entity: entities) {
+		for (Entity entity : entities) {
 			if (entity == this || entity instanceof Projectile)
 				continue;
 			Location myLocation = getLocation();
 			Location entityLocation = entity.getLocation();
 			if (entity instanceof Player && myLocation.getDistanceTo(currentMap.getMetadata().getSpawnPoint()) < 200)
-				continue;	// if we're close to spawn, phase through other players
+				continue; // if we're close to spawn, phase through other players
 			if (entityLocation.getWorldSectionId() == myLocation.getWorldSectionId()) {
 				// brace for rectangle overlap code *shudder*
 				if (centerX - getWidth() / 2 < entityLocation.getX() + entity.getWidth() / 2
@@ -154,15 +152,15 @@ public abstract class Player extends Entity {
 	}
 
 	public int getDamageNumber() {
-		return getBaseDamage() + ((int)(Math.random() * getDamageVariance() * 2 - getDamageVariance()));
+		return getBaseDamage() + ((int) (Math.random() * getDamageVariance() * 2 - getDamageVariance()));
 	}
-	
+
 	public abstract double getAttackRadius();
 
 	public abstract int getBaseDamage();
 
 	public abstract int getDamageVariance();
-	
+
 	public abstract void attack(Client client);
 
 	public abstract void useAbility(long frame, Client client);

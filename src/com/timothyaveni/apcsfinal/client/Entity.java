@@ -95,10 +95,8 @@ public abstract class Entity {
 			lastDirection = this.getLocation().getDirection();
 			currentFrameOffset = (currentFrameOffset + 1) % 4;
 		}/*
-		 * else if (!moving && isInCombat()) { currentSubImage =
-		 * image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128),
-		 * getLocation() .getDirection() * 48, this.getWidth(),
-		 * this.getHeight()); }
+		 * else if (!moving && isInCombat()) { currentSubImage = image.getSubimage((int) ((currentFrameOffset % 2) * 32 + 128), getLocation() .getDirection() *
+		 * 48, this.getWidth(), this.getHeight()); }
 		 */
 		return currentSubImage;
 	}
@@ -120,19 +118,19 @@ public abstract class Entity {
 	public void setStartedAttack(boolean startedAttack) {
 		this.startedAttack = startedAttack;
 	}
-	
-	public int getDirectionTowards(Entity e){
-		
+
+	public int getDirectionTowards(Entity e) {
+
 		int newDirection;
 		Location loc = e.getLocation();
-		
+
 		if (loc.getX() == getLocation().getX() && loc.getY() > getLocation().getY())
 			newDirection = 0;
-		else if(loc.getX() == getLocation().getX() && loc.getY() > getLocation().getY())
+		else if (loc.getX() == getLocation().getX() && loc.getY() > getLocation().getY())
 			newDirection = 3;
-		else if(loc.getY() == getLocation().getY() && loc.getX() > getLocation().getX())
+		else if (loc.getY() == getLocation().getY() && loc.getX() > getLocation().getX())
 			newDirection = 1;
-		else if(loc.getY() == getLocation().getY() && loc.getX() < getLocation().getX())
+		else if (loc.getY() == getLocation().getY() && loc.getX() < getLocation().getX())
 			newDirection = 2;
 		else
 			newDirection = loc.getDirection();

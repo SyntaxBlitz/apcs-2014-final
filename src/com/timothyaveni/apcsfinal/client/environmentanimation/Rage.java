@@ -11,7 +11,7 @@ import com.timothyaveni.apcsfinal.client.Location;
 public class Rage extends EnvironmentAnimation {
 
 	private BufferedImage image;
-	
+
 	public Rage(long startFrame, Location location) {
 		super(startFrame, location);
 		try {
@@ -26,7 +26,7 @@ public class Rage extends EnvironmentAnimation {
 		int renderFrame = (int) ((frame - getStartFrame()) / 3);
 		return image.getSubimage(renderFrame * getWidth(), 0, getWidth(), getHeight());
 	}
-	
+
 	private int getWidth() {
 		return 32;
 	}

@@ -25,7 +25,7 @@ public class Healer extends Player {
 	public int getBaseDamage() {
 		return 12;
 	}
-	
+
 	@Override
 	public int getDamageVariance() {
 		return 6;
@@ -100,7 +100,7 @@ public class Healer extends Player {
 
 		Entity[] entities = client.getEntityList().values().toArray(new Entity[0]);
 
-		for (Entity entity: entities) {
+		for (Entity entity : entities) {
 			if (entity instanceof Player)
 				continue;
 			Location entityLoc = entity.getLocation();

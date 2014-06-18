@@ -21,11 +21,11 @@ public abstract class Projectile extends Entity {
 		this.damageAmount = damageAmount;
 		this.setDistanceTravelled(0);
 	}
-	
+
 	public int getBaseDamage() {
 		return this.damageAmount;
 	}
-	
+
 	public abstract int getMaxDistance();
 
 	public int getId() {

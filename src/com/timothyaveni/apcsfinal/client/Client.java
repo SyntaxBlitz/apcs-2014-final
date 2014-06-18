@@ -23,8 +23,10 @@ public class Client {
 	private boolean[] keyboard = new boolean[4];
 	private java.util.Map<Integer, Entity> entities = Collections.synchronizedMap(new HashMap<Integer, Entity>());
 	private List<Projectile> myProjectiles = Collections.synchronizedList(new ArrayList<Projectile>());
-	private java.util.Map<Integer, Projectile> unacknowledgedProjectiles = Collections.synchronizedMap(new HashMap<Integer, Projectile>());
-	private List<EnvironmentAnimation> environmentAnimations = Collections.synchronizedList(new ArrayList<EnvironmentAnimation>());
+	private java.util.Map<Integer, Projectile> unacknowledgedProjectiles = Collections
+			.synchronizedMap(new HashMap<Integer, Projectile>());
+	private List<EnvironmentAnimation> environmentAnimations = Collections
+			.synchronizedList(new ArrayList<EnvironmentAnimation>());
 	private long frame = 0; // current frame number. Increments on each frame
 
 	private boolean inGame = false;
@@ -78,7 +80,7 @@ public class Client {
 
 			if (!inGame)
 				continue;
-				
+
 			lastLoopTime = System.nanoTime();
 
 			if (keyboard[0] || keyboard[1] || keyboard[2] || keyboard[3]) {
@@ -91,12 +93,12 @@ public class Client {
 					.getLocation()));
 
 			int nextMap = currentMap.getMetadata().getNextMap(player.getLocation().getX(), player.getLocation().getY());
-			
+
 			if (nextMap != -1) {
 				this.currentMap = new Map(nextMap);
 				player.setLocation(currentMap.getMetadata().getSpawnPoint()); // I think this is awkward if the player has active projectiles but whatever
 			}
-			
+
 			if (frame % 20 == 0 && player.getHP() < player.getMaxHP()) {
 				player.setHP(player.getHP() + 1);
 			}
@@ -213,5 +215,5 @@ public class Client {
 	public List<EnvironmentAnimation> getEnvironmentAnimations() {
 		return environmentAnimations;
 	}
-	
+
 }
