@@ -11,6 +11,8 @@ Usage
 Download the source files for both the server and the client. On running the server, it attempts to bind to port 21102. You can change this value by passing the new port as a commandline argument into the server application, but the client will not accomodate port changes: you'll need to change the port in the client's source code.  
 The game is written in Java, so you'll need the JRE 1.6+ to run it. If you're running a remote server, make sure there is not a firewall or router blocking traffic to the port.
 
+Be careful running this game on a publicly-exposed server. It doesn't do much verification on packets, so it's possible to crash the server with a malformed packet. It's also possible to spam the server with entity creation packets until it runs out of memory, so just... be careful. The server trusts the client very much. Keep that in mind.
+
 
 Features
 --------
