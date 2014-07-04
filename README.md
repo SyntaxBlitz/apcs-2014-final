@@ -18,6 +18,7 @@ Features
 --------
 Saviors of Gundthor features intense multiplayer action over UDP with enemies that track users and five different character classes. Each character has either a melee or ranged attack which can be used while the character is not moving, and characters also have different special abilities (activated with right-click) that relate to their class types. The game features three levels, the third of which contains the boss Arcanus who shoots powerful magic projectiles and, after lowered past a certain HP level, will begin to spawn minions of his own. Player death results in a respawn at the beginning of the section of the map, and it can also be triggered by pressing 'r'. The game is very playable and very fun. I recommend it.
 
+---
 
 What I learned writing this project (by Timothy):
 
