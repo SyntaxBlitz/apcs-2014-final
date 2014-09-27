@@ -85,7 +85,7 @@ public class PrimaryCallbackListener extends ClientCallbackListener {
 	}
 
 	@Override
-	public void clientConnectionAcknowldged(NewClientAcknowledgementPacket packet) {
+	public void clientConnectionAcknowledged(NewClientAcknowledgementPacket packet) {
 		// can't load in until the map is loaded.
 		System.out.println("client connection acknowledged");
 		while (client.getGameFrame().getMapCanvas() == null || !client.getGameFrame().getMapCanvas().isReadyToRender())

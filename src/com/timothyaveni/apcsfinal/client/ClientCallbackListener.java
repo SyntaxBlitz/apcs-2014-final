@@ -16,7 +16,7 @@ public abstract class ClientCallbackListener {
 
 	public abstract void entityDamaged(EntityDamagePacket packet);
 
-	public abstract void clientConnectionAcknowldged(NewClientAcknowledgementPacket packet);
+	public abstract void clientConnectionAcknowledged(NewClientAcknowledgementPacket packet);
 
 	public abstract void newEntity(NewEntityPacket packet);
 

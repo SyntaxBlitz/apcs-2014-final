@@ -97,7 +97,7 @@ public class ClientNetworkThread implements Runnable {
 				listener.newEntity((NewEntityPacket) packet);
 				break;
 			case NEW_CLIENT_ACKNOWLDEGEMENT:
-				listener.clientConnectionAcknowldged((NewClientAcknowledgementPacket) packet);
+				listener.clientConnectionAcknowledged((NewClientAcknowledgementPacket) packet);
 				break;
 			case SIMPLE_ATTACK:
 				listener.simpleAttackAnimationUpdated((SimpleAttackPacket) packet);
